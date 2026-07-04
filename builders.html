@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Builder Program — EJG-OS Smart Home</title>
+  <style>
+    :root {
+      --purple-900: #1a0533;
+      --purple-800: #2d0a52;
+      --purple-700: #4a0e82;
+      --purple-600: #6b21a8;
+      --purple-500: #9333ea;
+      --purple-400: #a855f7;
+      --purple-300: #c084fc;
+      --bg: #060010;
+      --surface: rgba(255,255,255,0.04);
+      --text: #f3e8ff;
+      --text-muted: rgba(196,150,255,0.7);
+      --border: rgba(168,85,247,0.2);
+      --green: #22c55e;
+      --gold: #fbbf24;
+      --gold-dark: #b45309;
+      --gold-muted: rgba(251,191,36,0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 64px;
+      background: rgba(6,0,16,0.95); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 24px;
+    }
+    .nav-logo {
+      font-size: 20px; font-weight: 700; color: var(--purple-300);
+      text-decoration: none; letter-spacing: 2px; transition: color 0.3s;
+    }
+    .nav-hamburger {
+      display: none; background: none; border: none;
+      color: var(--text); font-size: 24px; cursor: pointer; padding: 8px;
+    }
+    .nav-links { display: flex; list-style: none; gap: 32px; align-items: center; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 14px; font-weight: 500; transition: color 0.3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400)) !important;
+      color: white !important; padding: 8px 20px !important;
+      border-radius: 6px; transition: transform 0.2s;
+    }
+    @media (max-width: 768px) {
+      .nav-hamburger { display: block; }
+      .nav-links {
+        position: absolute; top: 64px; left: 0; right: 0;
+        background: rgba(6,0,16,0.98); border-bottom: 1px solid var(--border);
+        flex-direction: column; gap: 16px; padding: 20px 24px; display: none;
+      }
+      .nav-links.nav-open { display: flex; }
+    }
+
+    main { margin-top: 64px; }
+
+    /* ═══ HERO ══════════════════════════════════════════════════════════ */
+    .builder-hero {
+      min-height: 90vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 80px 24px;
+      position: relative; overflow: hidden;
+    }
+
+    /* Animated grid background */
+    .builder-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(168,85,247,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(168,85,247,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridMove 20s linear infinite;
+    }
+    @keyframes gridMove {
+      from { transform: translate(0, 0); }
+      to   { transform: translate(60px, 60px); }
+    }
+
+    /* Gold radial glow */
+    .builder-hero::after {
+      content: '';
+      position: absolute; top: -20%; left: 50%; transform: translateX(-50%);
+      width: 1000px; height: 700px;
+      background: radial-gradient(ellipse, rgba(251,191,36,0.08) 0%, rgba(168,85,247,0.06) 40%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-inner {
+      position: relative; z-index: 2; max-width: 800px; margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.4);
+      padding: 8px 20px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; color: var(--gold);
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 28px;
+    }
+    .hero-eyebrow::before { content: '🏗️'; font-size: 14px; }
+
+    .builder-hero h1 {
+      font-size: clamp(40px, 6vw, 70px);
+      font-weight: 800; line-height: 1.1; margin-bottom: 28px;
+      letter-spacing: -1px;
+    }
+
+    .h1-line1 {
+      display: block; color: white;
+    }
+    .h1-line2 {
+      display: block;
+      background: linear-gradient(135deg, var(--gold) 0%, #f59e0b 50%, var(--purple-300) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .builder-hero p {
+      font-size: 18px; color: var(--text-muted); max-width: 600px;
+      margin: 0 auto 48px; line-height: 1.75;
+    }
+
+    .hero-cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    .btn {
+      padding: 14px 32px; border-radius: 8px;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: all 0.3s; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px; border: none;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color: #1a0a00;
+    }
+    .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(251,191,36,0.35); }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 1px solid rgba(168,85,247,0.4);
+    }
+    .btn-outline:hover { background: var(--surface); border-color: var(--purple-400); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400));
+      color: white;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(168,85,247,0.3); }
+
+    /* Stats strip */
+    .stats-strip {
+      display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;
+      margin-top: 64px; padding-top: 48px;
+      border-top: 1px solid rgba(168,85,247,0.15);
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-size: 32px; font-weight: 800; color: var(--gold); display: block;
+    }
+    .stat-label { font-size: 12px; color: var(--text-muted); font-weight: 500; letter-spacing: 1px; }
+
+    /* ═══ VALUE PROPS ════════════════════════════════════════════════════ */
+    .value-section {
+      padding: 100px 24px;
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      text-align: center; font-size: 11px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .section-title {
+      text-align: center; font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700; color: var(--text); margin-bottom: 16px;
+    }
+    .section-sub {
+      text-align: center; font-size: 16px;
+      color: var(--text-muted); max-width: 580px; margin: 0 auto 64px;
+    }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .value-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 36px;
+      transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .value-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .value-card:hover {
+      border-color: rgba(251,191,36,0.3);
+      background: rgba(251,191,36,0.04);
+      transform: translateY(-4px);
+    }
+    .value-card:hover::before { opacity: 1; }
+
+    .vc-icon { font-size: 40px; margin-bottom: 20px; display: block; }
+    .value-card h3 { font-size: 19px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+    .value-card p { font-size: 14px; color: var(--text-muted); line-height: 1.75; }
+
+    /* ═══ HOW IT WORKS ════════════════════════════════════════════════════ */
+    .how-section {
+      padding: 100px 24px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .how-inner { max-width: 900px; margin: 0 auto; }
+
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+    }
+
+    .how-step { text-align: center; }
+    .how-num {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 800; color: #1a0a00;
+      margin: 0 auto 20px;
+      box-shadow: 0 8px 24px rgba(251,191,36,0.3);
+    }
+    .how-step h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .how-step p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    /* ═══ PACKAGE COMPARISON ════════════════════════════════════════════ */
+    .packages-section {
+      padding: 100px 24px; max-width: 1200px; margin: 0 auto;
+    }
+
+    .pkg-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .pkg-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 36px;
+      transition: all 0.3s; position: relative;
+    }
+    .pkg-card.featured {
+      border: 2px solid var(--gold);
+      background: rgba(251,191,36,0.05);
+      box-shadow: 0 20px 60px rgba(251,191,36,0.12);
+    }
+    .pkg-card:hover:not(.featured) {
+      border-color: rgba(251,191,36,0.3);
+      background: rgba(251,191,36,0.03);
+    }
+    .pkg-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color: #1a0a00; padding: 5px 16px; border-radius: 20px;
+      font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .pkg-card h3 { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 8px; margin-top: 8px; }
+    .pkg-tag { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+    .pkg-price {
+      font-size: 14px; font-weight: 700; color: var(--gold);
+      margin-bottom: 20px; padding: 10px 16px;
+      background: var(--gold-muted); border-radius: 8px;
+      border: 1px solid rgba(251,191,36,0.2);
+    }
+    .pkg-features { margin-bottom: 28px; }
+    .pkg-feature {
+      display: flex; gap: 10px; margin-bottom: 10px;
+      font-size: 13px; color: var(--text-muted);
+    }
+    .pkg-feature::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+
+    /* ═══ CONTACT FORM ═══════════════════════════════════════════════════ */
+    .contact-section {
+      padding: 100px 24px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-inner {
+      max-width: 700px; margin: 0 auto;
+    }
+
+    .contact-form {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(251,191,36,0.2);
+      border-radius: 20px; padding: 48px;
+    }
+    .form-field { margin-bottom: 20px; }
+    .form-field label {
+      display: block; font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 2px;
+      color: var(--text-muted); margin-bottom: 8px;
+    }
+    .form-field input, .form-field textarea, .form-field select {
+      width: 100%; background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border); color: var(--text);
+      padding: 13px 16px; border-radius: 8px; font-size: 14px;
+      font-family: inherit; outline: none; transition: border-color 0.3s;
+    }
+    .form-field input:focus, .form-field textarea:focus, .form-field select:focus {
+      border-color: var(--gold);
+    }
+    .form-field textarea { resize: vertical; min-height: 100px; }
+    .form-field select option { background: #1a0533; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+
+    /* Footer */
+    footer {
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 60px 24px 40px;
+    }
+    .footer-content {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px; margin-bottom: 40px;
+    }
+    .footer-column h3 {
+      font-size: 14px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; margin-bottom: 16px; color: var(--purple-400);
+    }
+    .footer-column a, .footer-column p {
+      font-size: 13px; color: var(--text-muted); text-decoration: none;
+      display: block; margin-bottom: 8px; transition: color 0.3s;
+    }
+    .footer-column a:hover { color: var(--text); }
+    .footer-bottom {
+      border-top: 1px solid var(--border); padding-top: 24px;
+      text-align: center; font-size: 12px; color: var(--text-muted);
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    /* ===== MOBILE PHONE OPTIMIZATIONS ===== */
+    @media (max-width: 480px) {
+      nav {
+        padding: 0 16px;
+        height: 56px;
+      }
+
+      .nav-logo {
+        font-size: 18px;
+      }
+
+      .nav-links {
+        top: 56px;
+      }
+
+      main {
+        margin-top: 56px;
+      }
+
+      .page-hero {
+        padding: 48px 16px;
+      }
+
+      .page-hero h1 {
+        font-size: 26px;
+      }
+
+      .page-hero p {
+        font-size: 14px;
+      }
+
+      .value-section,
+      .how-section,
+      .packages-section,
+      .contact-section,
+      .builder-section,
+      .benefits-section {
+        padding: 48px 16px;
+      }
+
+      .section-header h2 {
+        font-size: 24px;
+      }
+
+      .section-header p {
+        font-size: 14px;
+      }
+
+      .value-grid,
+      .benefits-grid,
+      .how-grid,
+      .steps-grid,
+      .package-grid,
+      .packages-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .value-card,
+      .benefit-card,
+      .step-card,
+      .package-card {
+        padding: 24px;
+      }
+
+      .value-card h3,
+      .benefit-card h3,
+      .package-card h3 {
+        font-size: 18px;
+      }
+
+      .value-card p,
+      .benefit-card p,
+      .package-card p,
+      .package-card li {
+        font-size: 13px;
+      }
+
+      .contact-form,
+      .builder-form {
+        padding: 24px 16px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      input, select, textarea {
+        font-size: 16px;
+        padding: 12px;
+      }
+
+      footer {
+        padding: 40px 16px 24px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .page-hero h1 {
+        font-size: 22px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">EJG-OS</a>
+    <button class="nav-hamburger" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- ═══ HERO ══════════════════════════════════════════════════════ -->
+    <section class="builder-hero">
+      <div class="hero-inner">
+        <div class="hero-eyebrow">Home Builder Program</div>
+        <h1>
+          <span class="h1-line1">Build Smarter Homes.</span>
+          <span class="h1-line2">Sell Faster. Stand Out.</span>
+        </h1>
+        <p>Every home you build is an opportunity to stand out from every other builder in the market. EJG-OS gives your buyers something they can't get anywhere else: a fully intelligent, privacy-first smart home with zero subscriptions — plus a dedicated wall-mounted control tablet that puts the entire home's intelligence right in their hands.</p>
+
+        <div class="hero-cta-group">
+          <a href="#contact" class="btn btn-gold">Get Builder Pricing →</a>
+          <a href="#how-it-works" class="btn btn-outline">See How It Works</a>
+        </div>
+
+        <div class="stats-strip">
+          <div class="stat">
+            <span class="stat-num">$0</span>
+            <span class="stat-label">Monthly Fees for Homeowners</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">3+</span>
+            <span class="stat-label">Open Protocols Built In</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">Local. No Cloud Required.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ WHY EJG-OS FOR BUILDERS ════════════════════════════════════ -->
+    <section class="value-section">
+      <div class="section-eyebrow">Why EJG-OS</div>
+      <h2 class="section-title">Your Buyers Deserve Better Than a Box on the Wall</h2>
+      <p class="section-sub">EJG-OS is designed to integrate at the construction stage — not as an afterthought. That means cleaner installs, happier buyers, and a home that commands premium attention.</p>
+
+      <div class="value-grid">
+        <div class="value-card">
+          <span class="vc-icon">📐</span>
+          <h3>Pre-Wire Ready</h3>
+          <p>We provide pre-wire specs at the framing stage. Your electrical sub knows exactly what to rough in. No retrofit surprises. No running wires through finished walls. Clean, professional, and spec-certified from day one.</p>
+        </div>
+        <div class="value-card">
+          <span class="vc-icon">🏘️</span>
+          <h3>Volume Pricing That Makes Sense</h3>
+          <p>The more homes you build, the better your per-unit cost. Whether you're finishing three spec homes or a 40-unit development, our builder pricing scales with you. We provide transparent tiered rates — no negotiations every time.</p>
+        </div>
+        <div class="value-card">
+          <span class="vc-icon">🏆</span>
+          <h3>A Differentiator That Sells</h3>
+          <p>Walk buyers through your show home, and they'll see a sleek wall-mounted tablet displaying the entire home's intelligent status — lighting, temperature, security, automation scenes, all at a glance. Nothing else on the market offers this experience. It's a wow moment that closes sales. Your buyers get something they can't find anywhere else: a fully owned, zero-subscription smart home under their complete control.</p>
+        </div>
+        <div class="value-card">
+          <span class="vc-icon">🔒</span>
+          <h3>Privacy Buyers Can Trust</h3>
+          <p>No cloud accounts required. No monthly data harvesting. Your buyers own their home's intelligence just like they own their home. In a market where privacy is increasingly valued, this is a genuine selling point.</p>
+        </div>
+        <div class="value-card">
+          <span class="vc-icon">🤝</span>
+          <h3>Dedicated Builder Liaison</h3>
+          <p>You get a single point of contact on our team — someone who understands construction timelines, trades coordination, and permit processes. Not a help desk. A partner who shows up on site and gets things done.</p>
+        </div>
+        <div class="value-card">
+          <span class="vc-icon">📋</span>
+          <h3>Buyer Handoff Package</h3>
+          <p>We handle the full technology handoff at occupancy — the wall-mounted control tablet is already installed and fully configured. We walk the new homeowner through app setup, scene configuration, and teach them how to control every aspect of their home. Your warranty card looks sharp. Your buyers feel taken care of. You look like a pro.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ HOW IT WORKS ════════════════════════════════════════════════ -->
+    <section class="how-section" id="how-it-works">
+      <div class="how-inner">
+        <div class="section-eyebrow">The Process</div>
+        <h2 class="section-title">From Framing to Front Door</h2>
+        <p class="section-sub">We fit seamlessly into your construction schedule. Here's how a typical builder project runs.</p>
+
+        <div class="how-steps">
+          <div class="how-step">
+            <div class="how-num">1</div>
+            <h3>Builder Consult</h3>
+            <p>We meet with your team to understand your floor plan, specs, and buyer expectations. We provide a pre-wire guide for your electrical sub.</p>
+          </div>
+          <div class="how-step">
+            <div class="how-num">2</div>
+            <h3>Pre-Wire Stage</h3>
+            <p>Your electrician follows our spec sheets during rough-in. No special expertise required — we provide detailed zone maps for every device.</p>
+          </div>
+          <div class="how-step">
+            <div class="how-num">3</div>
+            <h3>Device Installation</h3>
+            <p>Our certified team installs all smart devices after drywall and paint. Thermostats, switches, locks, cameras — all go in cleanly and professionally.</p>
+          </div>
+          <div class="how-step">
+            <div class="how-num">4</div>
+            <h3>System Commissioning</h3>
+            <p>We configure the EJG-OS hub for the home. Scenes, automations, and device names are set up based on the buyer's pre-selected preferences.</p>
+          </div>
+          <div class="how-step">
+            <div class="how-num">5</div>
+            <h3>Buyer Handoff</h3>
+            <p>We walk the new homeowner through their system at possession. App installed, scenes tested, questions answered. They move in confident.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PACKAGES ════════════════════════════════════════════════════ -->
+    <section class="packages-section">
+      <div class="section-eyebrow">Builder Packages</div>
+      <h2 class="section-title">Right-Sized for Every Build</h2>
+      <p class="section-sub">We offer extremely competitive builder rates to make EJG-OS a no-brainer addition to every new home. All prices are per-home at special discounted rates — significantly better than retail. Volume discounts applied at 5+ units.</p>
+
+      <div class="pkg-grid">
+        <div class="pkg-card">
+          <h3>Entry Smart</h3>
+          <div class="pkg-tag">First-time smart home buyers</div>
+          <div class="pkg-price">Starting from competitive builder rates</div>
+          <div class="pkg-features">
+            <div class="pkg-feature">Smart thermostat (Classic Round)</div>
+            <div class="pkg-feature">6 smart switches</div>
+            <div class="pkg-feature">2 exterior cameras</div>
+            <div class="pkg-feature">Keypad front door lock</div>
+            <div class="pkg-feature">Mobile app dashboard</div>
+            <div class="pkg-feature">Good Morning / Away scenes</div>
+          </div>
+          <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center">Get Pricing</a>
+        </div>
+
+        <div class="pkg-card featured">
+          <div class="pkg-badge">Most Popular Build</div>
+          <h3>Signature Smart</h3>
+          <div class="pkg-tag">The full smart home experience</div>
+          <div class="pkg-price">Significantly below retail pricing</div>
+          <div class="pkg-features">
+            <div class="pkg-feature">Premium thermostat (OLED or Dual-Zone)</div>
+            <div class="pkg-feature">Full home smart lighting</div>
+            <div class="pkg-feature">4 cameras (interior + exterior)</div>
+            <div class="pkg-feature">Biometric front door lock</div>
+            <div class="pkg-feature">Garage door controller</div>
+            <div class="pkg-feature">Voice control "Hey Skip"</div>
+            <div class="pkg-feature">Full scenes library + automations</div>
+          </div>
+          <a href="#contact" class="btn btn-gold" style="width:100%;justify-content:center">Get Pricing</a>
+        </div>
+
+        <div class="pkg-card">
+          <h3>Prestige Smart</h3>
+          <div class="pkg-tag">Luxury and executive builds</div>
+          <div class="pkg-price">Premium package at builder-exclusive pricing</div>
+          <div class="pkg-features">
+            <div class="pkg-feature">Multi-zone thermostat system</div>
+            <div class="pkg-feature">Complete smart lighting (all rooms)</div>
+            <div class="pkg-feature">6+ camera coverage</div>
+            <div class="pkg-feature">Biometric + garage + gate</div>
+            <div class="pkg-feature">Energy monitoring hub</div>
+            <div class="pkg-feature">UPS backup power</div>
+            <div class="pkg-feature">White-label branding options</div>
+          </div>
+          <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center">Get Pricing</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CONTACT ════════════════════════════════════════════════════ -->
+    <section class="contact-section" id="contact">
+      <div class="contact-inner">
+        <div class="section-eyebrow">Get In Touch</div>
+        <h2 class="section-title">Let's Build Together</h2>
+        <p class="section-sub" style="margin-bottom:48px;">Tell us about your project. We'll follow up within one business day with builder pricing and availability.</p>
+
+        <form class="contact-form" id="builderForm">
+          <div id="builderSuccess" style="display:none; background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.4); color: #4ade80; padding: 16px 20px; border-radius: 10px; margin-bottom: 20px; font-size: 14px; font-weight: 600; text-align: center;">
+            Thank you! We'll be in touch within one business day.
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Your Name</label>
+              <input type="text" name="name" required placeholder="Jordan Smith">
+            </div>
+            <div class="form-field">
+              <label>Company / Builder Name</label>
+              <input type="text" name="company" placeholder="Smith Homes Ltd.">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Email</label>
+              <input type="email" name="email" required placeholder="jordan@smithhomes.ca">
+            </div>
+            <div class="form-field">
+              <label>Phone</label>
+              <input type="tel" name="phone" placeholder="(403) 555-0100">
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Project Type</label>
+            <select name="project-type">
+              <option value="">Select your project type...</option>
+              <option>Single spec home</option>
+              <option>Small development (2–5 homes)</option>
+              <option>Mid development (6–20 homes)</option>
+              <option>Large development (20+ homes)</option>
+              <option>Infill / custom build</option>
+              <option>Multi-family residential (no commercial)</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Estimated start / possession date</label>
+            <input type="text" name="timeline" placeholder="e.g. Spring 2026, Q3 2026...">
+          </div>
+          <div class="form-field">
+            <label>Tell us about your project</label>
+            <textarea name="details" placeholder="Number of homes, location, any special requirements, package interest..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-gold" style="width:100%; justify-content:center; font-size:16px; padding:16px;">
+            🏗️ Send Builder Inquiry
+          </button>
+          <p style="font-size:12px; color:var(--text-muted); text-align:center; margin-top:14px;">
+            We typically respond within one business day. No commitment required.
+          </p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Product</h3>
+        <a href="features.html">Features</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="how-it-works.html">How It Works</a>
+      </div>
+      <div class="footer-column">
+        <h3>Programs</h3>
+        <a href="builders.html">Builder Program</a>
+        <a href="installers.html">Installer Program</a>
+        <a href="custom.html">Custom Build</a>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-column">
+        <h3>Location</h3>
+        <p>Calgary, AB</p>
+        <p>Growing Nationwide</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 EJG-OS. All rights reserved. The Smart Home Operating System.</p>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.querySelector('.nav-hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('nav-open'));
+    document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('nav-open')));
+
+    document.getElementById('builderForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      try {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        data._captcha = 'false';
+        data._subject = 'New Builder Inquiry — EJG-OS';
+        data._template = 'table';
+        const resp = await fetch('https://formsubmit.co/ajax/info@ejgos.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await resp.json();
+        if (result.success) {
+          document.getElementById('builderSuccess').style.display = 'block';
+          form.reset();
+          setTimeout(() => document.getElementById('builderSuccess').style.display = 'none', 6000);
+        } else {
+          alert('Something went wrong. Please try again or email info@ejgos.com directly.');
+        }
+      } catch(err) {
+        alert('Network error. Please try again or email info@ejgos.com directly.');
+      }
+      btn.disabled = false;
+      btn.innerHTML = '🏗️ Send Builder Inquiry';
+    });
+  </script>
+</body>
+</html>

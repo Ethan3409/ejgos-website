@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Installer Program — EJG-OS Smart Home</title>
+  <style>
+    :root {
+      --purple-900: #1a0533;
+      --purple-800: #2d0a52;
+      --purple-700: #4a0e82;
+      --purple-600: #6b21a8;
+      --purple-500: #9333ea;
+      --purple-400: #a855f7;
+      --purple-300: #c084fc;
+      --bg: #060010;
+      --surface: rgba(255,255,255,0.04);
+      --text: #f3e8ff;
+      --text-muted: rgba(196,150,255,0.7);
+      --border: rgba(168,85,247,0.2);
+      --green: #22c55e;
+      --blue: #38bdf8;
+      --blue-dark: #0369a1;
+      --blue-muted: rgba(56,189,248,0.12);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 64px;
+      background: rgba(6,0,16,0.95); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 24px;
+    }
+    .nav-logo {
+      font-size: 20px; font-weight: 700; color: var(--purple-300);
+      text-decoration: none; letter-spacing: 2px;
+    }
+    .nav-hamburger {
+      display: none; background: none; border: none;
+      color: var(--text); font-size: 24px; cursor: pointer; padding: 8px;
+    }
+    .nav-links { display: flex; list-style: none; gap: 32px; align-items: center; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 14px; font-weight: 500; transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400)) !important;
+      color: white !important; padding: 8px 20px !important; border-radius: 6px;
+    }
+    @media (max-width: 768px) {
+      .nav-hamburger { display: block; }
+      .nav-links {
+        position: absolute; top: 64px; left: 0; right: 0;
+        background: rgba(6,0,16,0.98); border-bottom: 1px solid var(--border);
+        flex-direction: column; gap: 16px; padding: 20px 24px; display: none;
+      }
+      .nav-links.nav-open { display: flex; }
+    }
+
+    main { margin-top: 64px; }
+
+    /* Buttons */
+    .btn {
+      padding: 14px 32px; border-radius: 8px;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: all 0.3s; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px; border: none;
+    }
+    .btn-blue {
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+      color: #00131e;
+    }
+    .btn-blue:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(56,189,248,0.3); }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 1px solid rgba(56,189,248,0.35);
+    }
+    .btn-outline:hover { background: rgba(56,189,248,0.06); border-color: var(--blue); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400));
+      color: white;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(168,85,247,0.3); }
+
+    /* ═══ HERO ══════════════════════════════════════════════════════════ */
+    .installer-hero {
+      min-height: 92vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 80px 24px;
+      position: relative; overflow: hidden;
+    }
+    .installer-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      animation: gridSlide 25s linear infinite;
+    }
+    @keyframes gridSlide {
+      from { background-position: 0 0; }
+      to   { background-position: 48px 48px; }
+    }
+    .installer-hero::after {
+      content: '';
+      position: absolute; top: -10%; left: 50%; transform: translateX(-50%);
+      width: 1000px; height: 700px;
+      background: radial-gradient(ellipse, rgba(56,189,248,0.09) 0%, rgba(168,85,247,0.06) 45%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-inner { position: relative; z-index: 2; max-width: 860px; margin: 0 auto; }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.35);
+      padding: 8px 20px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; color: var(--blue);
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 28px;
+    }
+    .hero-eyebrow::before { content: '⚡'; font-size: 14px; }
+
+    .installer-hero h1 {
+      font-size: clamp(38px, 6vw, 68px);
+      font-weight: 800; line-height: 1.1; margin-bottom: 28px; letter-spacing: -1px;
+    }
+    .h1-white { display: block; color: white; }
+    .h1-blue {
+      display: block;
+      background: linear-gradient(135deg, var(--blue) 0%, #0ea5e9 50%, var(--purple-300) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .installer-hero p {
+      font-size: 18px; color: var(--text-muted); max-width: 620px;
+      margin: 0 auto 48px; line-height: 1.75;
+    }
+
+    .hero-cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    .stats-strip {
+      display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;
+      margin-top: 64px; padding-top: 48px;
+      border-top: 1px solid rgba(56,189,248,0.12);
+    }
+    .stat { text-align: center; }
+    .stat-num { font-size: 32px; font-weight: 800; color: var(--blue); display: block; }
+    .stat-label { font-size: 12px; color: var(--text-muted); font-weight: 500; letter-spacing: 1px; }
+
+    /* ═══ DASHBOARD PREVIEW ════════════════════════════════════════════ */
+    .dashboard-section {
+      padding: 100px 24px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .dashboard-inner { max-width: 1200px; margin: 0 auto; }
+    .dash-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px; align-items: center;
+    }
+    @media (max-width: 900px) {
+      .dash-layout { grid-template-columns: 1fr; }
+      .dash-visual { order: -1; }
+    }
+
+    .section-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(26px, 3.5vw, 40px); font-weight: 700;
+      color: var(--text); margin-bottom: 16px; line-height: 1.2;
+    }
+    .section-sub { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 32px; }
+
+    .dash-features { display: flex; flex-direction: column; gap: 20px; }
+    .dash-feature {
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .df-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+    .df-info h4 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .df-info p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    /* Installer Dashboard Mockup */
+    .dash-visual {
+      background: #080818;
+      border: 1px solid rgba(56,189,248,0.25);
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(56,189,248,0.1);
+    }
+    .dash-topbar {
+      background: #0a0a20;
+      border-bottom: 1px solid rgba(56,189,248,0.15);
+      padding: 14px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .dash-topbar-left { display: flex; align-items: center; gap: 12px; }
+    .dash-logo-small { font-size: 13px; font-weight: 700; color: var(--purple-300); letter-spacing: 2px; }
+    .dash-version { font-size: 10px; color: var(--text-muted); }
+    .dash-status {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; color: var(--green); font-weight: 600;
+    }
+    .dash-status::before {
+      content: ''; width: 6px; height: 6px;
+      background: var(--green); border-radius: 50%;
+      animation: blink 2s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    .dash-body { padding: 16px 20px; }
+    .dash-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+    .dash-mini-card {
+      background: #0d0d25;
+      border: 1px solid rgba(56,189,248,0.15);
+      border-radius: 8px; padding: 12px 10px; text-align: center;
+    }
+    .dmc-num { font-size: 22px; font-weight: 800; color: var(--blue); }
+    .dmc-label { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; }
+
+    .dash-row-full { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 12px; }
+    .progress-bar {
+      width: 100%; height: 4px; background: rgba(56,189,248,0.2); border-radius: 2px; overflow: hidden; margin: 6px 0;
+    }
+    .progress-fill {
+      height: 100%; background: var(--blue); border-radius: 2px;
+    }
+    .progress-fill.green { background: var(--green); }
+    .progress-fill.amber { background: #fbbf24; }
+
+    .device-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 8px; margin: 8px 0; }
+    .device-signal {
+      font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 4px;
+    }
+    .signal-bars {
+      display: flex; gap: 1px;
+    }
+    .signal-bar {
+      width: 3px; height: 8px; background: rgba(56,189,248,0.3); border-radius: 1px;
+    }
+    .signal-bar.active { background: var(--green); }
+
+    .inventory-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 8px; margin: 10px 0; }
+    .inv-item {
+      background: #0a0a1a; border: 1px solid rgba(56,189,248,0.1); border-radius: 6px;
+      padding: 6px 8px; text-align: center; font-size: 9px;
+    }
+    .inv-count { font-size: 14px; font-weight: 800; color: var(--blue); display: block; }
+    .inv-label { color: var(--text-muted); margin-top: 2px; }
+
+    .review-strip { display: flex; gap: 6px; margin: 8px 0; align-items: center; }
+    .star { font-size: 12px; color: #fbbf24; }
+
+    .schedule-list { font-size: 9px; }
+    .schedule-day { padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .schedule-day:last-child { border: none; }
+    .schedule-day-label { color: var(--text-muted); font-weight: 600; }
+    .schedule-day-job { color: var(--blue); font-weight: 600; margin-top: 2px; }
+    .schedule-day-detail { color: var(--text-muted); font-size: 8px; margin-top: 1px; }
+
+    .dash-panel-row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 10px; margin-bottom: 12px; }
+    .dash-panel {
+      background: #0d0d25; border: 1px solid rgba(56,189,248,0.12);
+      border-radius: 8px; padding: 14px;
+    }
+    .dp-title { font-size: 10px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+    .dp-job-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 10px;
+    }
+    .dp-job-item:last-child { border: none; }
+    .dp-job-name { color: var(--text-muted); }
+    .dp-job-status { font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+    .status-green { background: rgba(34,197,94,0.15); color: var(--green); }
+    .status-blue  { background: rgba(56,189,248,0.15); color: var(--blue); }
+    .status-amber { background: rgba(251,191,36,0.15); color: #fbbf24; }
+
+    .dp-device-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 5px 0; font-size: 10px; color: var(--text-muted);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .dp-device-item:last-child { border: none; }
+    .dp-device-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      flex-shrink: 0; margin-right: 6px; display: inline-block;
+    }
+    .dot-green { background: var(--green); }
+    .dot-blue  { background: var(--blue); }
+    .dot-amber { background: #fbbf24; }
+    .dp-device-val { font-weight: 700; color: var(--text); }
+
+    .dp-earn-row {
+      display: flex; justify-content: space-between;
+      padding: 5px 0; font-size: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .dp-earn-row:last-child { border: none; }
+    .dp-earn-row span:last-child { font-weight: 700; color: var(--blue); }
+
+    .dash-bottom {
+      background: #080818; border-top: 1px solid rgba(56,189,248,0.1);
+      padding: 10px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .db-label { font-size: 9px; color: var(--text-muted); }
+    .db-val { font-size: 14px; font-weight: 800; color: var(--green); }
+
+    /* ═══ WHAT YOU GET ════════════════════════════════════════════════ */
+    .perks-section {
+      padding: 100px 24px; max-width: 1100px; margin: 0 auto;
+    }
+    .perks-section .section-eyebrow, .perks-section .section-title, .perks-section .section-sub {
+      text-align: center;
+    }
+    .perks-section .section-sub { max-width: 580px; margin-left: auto; margin-right: auto; margin-bottom: 64px; }
+
+    .perks-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;
+    }
+    .perk-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 32px; transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .perk-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--blue), transparent); opacity: 0; transition: opacity 0.3s;
+    }
+    .perk-card:hover {
+      border-color: rgba(56,189,248,0.3); background: rgba(56,189,248,0.04); transform: translateY(-4px);
+    }
+    .perk-card:hover::before { opacity: 1; }
+    .perk-icon { font-size: 38px; margin-bottom: 18px; display: block; }
+    .perk-card h3 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .perk-card p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+    /* ═══ REQUIREMENTS ════════════════════════════════════════════════ */
+    .requirements-section {
+      padding: 100px 24px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .req-inner { max-width: 900px; margin: 0 auto; }
+    .req-inner .section-eyebrow, .req-inner .section-title, .req-inner .section-sub {
+      text-align: center;
+    }
+    .req-inner .section-sub { max-width: 580px; margin: 0 auto 60px; }
+
+    .req-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .req-item {
+      background: rgba(0,0,0,0.3); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px;
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .req-check {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--blue); font-size: 14px; font-weight: 700; flex-shrink: 0;
+    }
+    .req-info h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .req-info p { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+
+    /* ═══ CONTACT ════════════════════════════════════════════════════ */
+    .contact-section { padding: 100px 24px; }
+    .contact-inner { max-width: 700px; margin: 0 auto; }
+    .contact-inner .section-eyebrow, .contact-inner .section-title, .contact-inner .section-sub {
+      text-align: center;
+    }
+    .contact-inner .section-sub { max-width: 580px; margin: 0 auto 48px; }
+
+    .contact-form {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(56,189,248,0.2);
+      border-radius: 20px; padding: 48px;
+    }
+    .form-field { margin-bottom: 20px; }
+    .form-field label {
+      display: block; font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 2px;
+      color: var(--text-muted); margin-bottom: 8px;
+    }
+    .form-field input, .form-field textarea, .form-field select {
+      width: 100%; background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border); color: var(--text);
+      padding: 13px 16px; border-radius: 8px; font-size: 14px;
+      font-family: inherit; outline: none; transition: border-color 0.3s;
+    }
+    .form-field input:focus, .form-field textarea:focus, .form-field select:focus {
+      border-color: var(--blue);
+    }
+    .form-field textarea { resize: vertical; min-height: 90px; }
+    .form-field select option { background: #1a0533; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+
+    /* Footer */
+    footer {
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 60px 24px 40px;
+    }
+    .footer-content {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px; margin-bottom: 40px;
+    }
+    .footer-column h3 {
+      font-size: 14px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; margin-bottom: 16px; color: var(--purple-400);
+    }
+    .footer-column a, .footer-column p {
+      font-size: 13px; color: var(--text-muted); text-decoration: none;
+      display: block; margin-bottom: 8px; transition: color 0.3s;
+    }
+    .footer-column a:hover { color: var(--text); }
+    .footer-bottom {
+      border-top: 1px solid var(--border); padding-top: 24px;
+      text-align: center; font-size: 12px; color: var(--text-muted);
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    /* ===== MOBILE PHONE OPTIMIZATIONS ===== */
+    @media (max-width: 480px) {
+      nav {
+        padding: 0 16px;
+        height: 56px;
+      }
+
+      .nav-logo {
+        font-size: 18px;
+      }
+
+      .nav-links {
+        top: 56px;
+      }
+
+      main {
+        margin-top: 56px;
+      }
+
+      .page-hero {
+        padding: 48px 16px;
+      }
+
+      .page-hero h1 {
+        font-size: 26px;
+      }
+
+      .page-hero p {
+        font-size: 14px;
+      }
+
+      section {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+      }
+
+      .section-header h2,
+      .deep-dive h2,
+      .platform-section h2 {
+        font-size: 22px;
+      }
+
+      .section-header p {
+        font-size: 14px;
+      }
+
+      .value-grid,
+      .benefits-grid,
+      .revenue-grid,
+      .feature-grid,
+      .features-grid,
+      .tier-grid,
+      .tiers-grid,
+      .package-grid,
+      .packages-grid,
+      .steps-grid,
+      .how-grid,
+      .tools-grid,
+      .library-grid,
+      .automation-grid,
+      .layer-grid,
+      .layers-grid,
+      .workflow-grid,
+      .capability-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .value-card,
+      .benefit-card,
+      .revenue-card,
+      .feature-card,
+      .tier-card,
+      .package-card,
+      .tool-card,
+      .library-card,
+      .layer-card,
+      .workflow-card,
+      .capability-card {
+        padding: 20px;
+      }
+
+      .value-card h3,
+      .benefit-card h3,
+      .feature-card h3,
+      .tier-card h3,
+      .package-card h3 {
+        font-size: 16px;
+      }
+
+      .value-card p,
+      .benefit-card p,
+      .feature-card p,
+      .tier-card p,
+      .package-card p,
+      .tier-card li,
+      .package-card li {
+        font-size: 13px;
+      }
+
+      .deep-dive-section,
+      .platform-deep-dive {
+        padding: 32px 16px;
+      }
+
+      .deep-dive h3,
+      .platform-section h3 {
+        font-size: 18px;
+      }
+
+      .deep-dive p,
+      .platform-section p,
+      .deep-dive li,
+      .platform-section li {
+        font-size: 13px;
+      }
+
+      .contact-form,
+      .installer-form,
+      .application-form {
+        padding: 24px 16px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      input, select, textarea {
+        font-size: 16px;
+        padding: 12px;
+      }
+
+      .stat-number,
+      .big-number {
+        font-size: 32px;
+      }
+
+      footer {
+        padding: 40px 16px 24px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .page-hero h1 {
+        font-size: 22px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-number,
+      .big-number {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">EJG-OS</a>
+    <button class="nav-hamburger" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- ═══ HERO ══════════════════════════════════════════════════════ -->
+    <section class="installer-hero">
+      <div class="hero-inner">
+        <div class="hero-eyebrow">Certified Installer Program</div>
+        <h1>
+          <span class="h1-white">Get Certified. Get Leads.</span>
+          <span class="h1-blue">Get Paid to Do Great Work.</span>
+        </h1>
+        <p>Join the EJG-OS installer network and grow your business installing the smart home platform that homeowners actually want — private, local-first, and fee-free. Your dashboard. Your clients. Your reputation.</p>
+        <div class="hero-cta-group">
+          <a href="#contact" class="btn btn-blue">Apply to the Program →</a>
+          <a href="#dashboard" class="btn btn-outline">See the Installer Dashboard</a>
+        </div>
+        <div class="stats-strip">
+          <div class="stat">
+            <span class="stat-num">$0</span>
+            <span class="stat-label">Join Fee</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">Lead</span>
+            <span class="stat-label">Referrals in Your Area</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">Full</span>
+            <span class="stat-label">Dashboard + Support Access</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ DASHBOARD PREVIEW ════════════════════════════════════════ -->
+    <section class="dashboard-section" id="dashboard">
+      <div class="dashboard-inner">
+        <div class="dash-layout">
+          <div>
+            <div class="section-eyebrow">The Installer Dashboard</div>
+            <h2 class="section-title">Everything You Need In One Place</h2>
+            <p class="section-sub">
+              Your EJG-OS Installer Portal gives you full visibility over every job — from pre-install planning to post-handoff support. No spreadsheets. No back-and-forth. Just a clean, professional interface built for the field.
+            </p>
+            <div class="dash-features">
+              <div class="dash-feature">
+                <div class="df-icon">📋</div>
+                <div class="df-info">
+                  <h4>Job Queue & Scheduling</h4>
+                  <p>View all upcoming installs, client details, and pre-wire specs in one organized queue. Sync with your calendar.</p>
+                </div>
+              </div>
+              <div class="dash-feature">
+                <div class="df-icon">⚙️</div>
+                <div class="df-info">
+                  <h4>Remote System Configuration</h4>
+                  <p>Pre-configure EJG-OS hubs before you arrive on site. Device names, scenes, and automations ready to go on first boot.</p>
+                </div>
+              </div>
+              <div class="dash-feature">
+                <div class="df-icon">📊</div>
+                <div class="df-info">
+                  <h4>Live Device Diagnostics</h4>
+                  <p>Real-time Z-Wave/Zigbee mesh view. See every device, signal strength, and pairing status as you work.</p>
+                </div>
+              </div>
+              <div class="dash-feature">
+                <div class="df-icon">💰</div>
+                <div class="df-info">
+                  <h4>Earnings & Referral Tracker</h4>
+                  <p>Track your monthly install revenue, referral bonuses, and pending payouts — all clearly laid out and exportable.</p>
+                </div>
+              </div>
+              <div class="dash-feature">
+                <div class="df-icon">📡</div>
+                <div class="df-info">
+                  <h4>Z-Wave/Zigbee Mesh Visualizer</h4>
+                  <p>See your entire wireless mesh in real time. Signal strength per device, route mapping, dead spots identified instantly.</p>
+                </div>
+              </div>
+              <div class="dash-feature">
+                <div class="df-icon">📦</div>
+                <div class="df-info">
+                  <h4>Inventory Management</h4>
+                  <p>Track your device stock across all job sites. Auto-alerts when you're running low. Order directly through the portal.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dashboard Mockup -->
+          <div class="dash-visual">
+            <div class="dash-topbar">
+              <div class="dash-topbar-left">
+                <span class="dash-logo-small">EJG-OS</span>
+                <span class="dash-version">Installer Portal v2.4</span>
+              </div>
+              <div class="dash-status">All Systems Live</div>
+            </div>
+
+            <div class="dash-body">
+              <!-- KPI Row -->
+              <div class="dash-row">
+                <div class="dash-mini-card">
+                  <div class="dmc-num">12</div>
+                  <div class="dmc-label">Active Jobs</div>
+                </div>
+                <div class="dash-mini-card">
+                  <div class="dmc-num">47</div>
+                  <div class="dmc-label">Installs Done</div>
+                </div>
+                <div class="dash-mini-card">
+                  <div class="dmc-num">4.9★</div>
+                  <div class="dmc-label">Client Rating</div>
+                </div>
+              </div>
+
+              <!-- Active Install View -->
+              <div class="dash-panel dash-row-full">
+                <div class="dp-title">🔴 Active Install</div>
+                <div style="font-size: 11px; color: var(--text);">
+                  <div style="font-weight: 700; margin-bottom: 6px;">Morrison Residence</div>
+                  <div style="color: var(--text-muted); font-size: 10px; margin-bottom: 8px;">247 Morrison Rd NW, Calgary</div>
+                  <div style="color: var(--blue); font-weight: 600; font-size: 10px; margin-bottom: 4px;">Phase 2 — Device Pairing</div>
+                  <div class="progress-bar"><div class="progress-fill" style="width: 65%;"></div></div>
+                  <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.04);">
+                    <div style="color: var(--text-muted); font-size: 9px; margin-bottom: 6px;">Connected Devices (4/5)</div>
+                    <div class="device-list">
+                      <div class="device-signal">Hub <div class="signal-bars"><div class="signal-bar active"></div><div class="signal-bar active"></div><div class="signal-bar active"></div><div class="signal-bar active"></div></div></div>
+                      <div class="device-signal">Master <div class="signal-bars"><div class="signal-bar active"></div><div class="signal-bar active"></div><div class="signal-bar active"></div><div class="signal-bar"></div></div></div>
+                      <div class="device-signal">Garage <div class="signal-bars"><div class="signal-bar active"></div><div class="signal-bar active"></div><div class="signal-bar active"></div><div class="signal-bar"></div></div></div>
+                      <div class="device-signal">Front <div class="signal-bars"><div class="signal-bar active"></div><div class="signal-bar active"></div><div class="signal-bar"></div><div class="signal-bar"></div></div></div>
+                    </div>
+                  </div>
+                  <div style="margin-top: 6px; color: var(--text-muted); font-size: 9px;">Time on site: 2h 14m</div>
+                </div>
+              </div>
+
+              <!-- Jobs + Devices + Mesh Health -->
+              <div class="dash-panel-row">
+                <div class="dash-panel">
+                  <div class="dp-title">Upcoming Jobs</div>
+                  <div class="dp-job-item">
+                    <span class="dp-job-name">Morrison Rd NW</span>
+                    <span class="dp-job-status status-green">In Progress</span>
+                  </div>
+                  <div class="dp-job-item">
+                    <span class="dp-job-name">Tuscany Blvd SW</span>
+                    <span class="dp-job-status status-blue">Tomorrow</span>
+                  </div>
+                  <div class="dp-job-item">
+                    <span class="dp-job-name">Elbow Dr SE</span>
+                    <span class="dp-job-status status-blue">Wed</span>
+                  </div>
+                  <div class="dp-job-item">
+                    <span class="dp-job-name">Kincora Rise NW</span>
+                    <span class="dp-job-status status-amber">Thu</span>
+                  </div>
+                </div>
+
+                <div class="dash-panel">
+                  <div class="dp-title">Z-Wave Mesh Health</div>
+                  <div style="font-size: 10px; margin: 8px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                      <span style="color: var(--text-muted);">Status</span>
+                      <span style="color: var(--green); font-weight: 700;">Strong</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                      <span style="color: var(--text-muted);">Nodes</span>
+                      <span style="color: var(--text); font-weight: 700;">24/24</span>
+                    </div>
+                    <div style="border-top: 1px solid rgba(255,255,255,0.04); padding-top: 6px; color: var(--text-muted); font-size: 9px;">
+                      Last heal: 2h ago
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Inventory Tracker -->
+              <div class="dash-panel dash-row-full">
+                <div class="dp-title">📦 Inventory Stock</div>
+                <div class="inventory-grid">
+                  <div class="inv-item">
+                    <span class="inv-count">42</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
+                    <div class="inv-label">Bulbs</div>
+                  </div>
+                  <div class="inv-item">
+                    <span class="inv-count">8</span>
+                    <div class="progress-bar"><div class="progress-fill amber" style="width: 35%;"></div></div>
+                    <div class="inv-label">Thermo</div>
+                  </div>
+                  <div class="inv-item">
+                    <span class="inv-count">12</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 60%;"></div></div>
+                    <div class="inv-label">Locks</div>
+                  </div>
+                  <div class="inv-item">
+                    <span class="inv-count">15</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 75%;"></div></div>
+                    <div class="inv-label">Cameras</div>
+                  </div>
+                  <div class="inv-item">
+                    <span class="inv-count">6</span>
+                    <div class="progress-bar"><div class="progress-fill green" style="width: 40%;"></div></div>
+                    <div class="inv-label">Tablets</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Client Satisfaction + Earnings -->
+              <div class="dash-panel-row">
+                <div class="dash-panel">
+                  <div class="dp-title">😊 Client Satisfaction</div>
+                  <div style="font-size: 10px; margin: 8px 0;">
+                    <div class="review-strip">
+                      <span class="star">★★★★★</span>
+                    </div>
+                    <div class="review-strip">
+                      <span class="star">★★★★★</span>
+                    </div>
+                    <div class="review-strip">
+                      <span class="star">★★★★★</span>
+                    </div>
+                    <div class="review-strip">
+                      <span class="star">★★★★★</span>
+                    </div>
+                    <div class="review-strip">
+                      <span class="star">★★★★☆</span>
+                    </div>
+                    <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.04); color: var(--text); font-weight: 700;">
+                      Avg: 4.9/5.0
+                    </div>
+                    <div style="margin-top: 4px; color: var(--blue); font-size: 9px; font-weight: 600;">
+                      16 five-star reviews this quarter
+                    </div>
+                  </div>
+                </div>
+
+                <div class="dash-panel">
+                  <div class="dp-title">This Month · Earnings</div>
+                  <div class="dp-earn-row">
+                    <span>Installs (6)</span>
+                    <span>$4,200</span>
+                  </div>
+                  <div class="dp-earn-row">
+                    <span>Referral Bonus</span>
+                    <span>$600</span>
+                  </div>
+                  <div class="dp-earn-row">
+                    <span>Builder Project</span>
+                    <span>$2,100</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Schedule -->
+              <div class="dash-panel dash-row-full">
+                <div class="dp-title">📅 This Week</div>
+                <div class="schedule-list">
+                  <div class="schedule-day">
+                    <div class="schedule-day-label">Today</div>
+                    <div class="schedule-day-job">Morrison Rd NW</div>
+                    <div class="schedule-day-detail">In Progress • Phase 2</div>
+                  </div>
+                  <div class="schedule-day">
+                    <div class="schedule-day-label">Tomorrow</div>
+                    <div class="schedule-day-job">Tuscany Blvd SW</div>
+                    <div class="schedule-day-detail">Pro Package • Full install</div>
+                  </div>
+                  <div class="schedule-day">
+                    <div class="schedule-day-label">Wed</div>
+                    <div class="schedule-day-job">Elbow Dr SE</div>
+                    <div class="schedule-day-detail">Elite Package • Mesh setup</div>
+                  </div>
+                  <div class="schedule-day">
+                    <div class="schedule-day-label">Thu</div>
+                    <div class="schedule-day-job">New Build • Kincora Rise NW</div>
+                    <div class="schedule-day-detail">Pre-wire + full config</div>
+                  </div>
+                  <div class="schedule-day">
+                    <div class="schedule-day-label">Fri</div>
+                    <div class="schedule-day-job">Builder Mtl • Cornerstone</div>
+                    <div class="schedule-day-detail">Multi-unit developer project</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="dash-bottom">
+              <span class="db-label">Month-to-Date Total</span>
+              <span class="db-val">$6,900</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PLATFORM DEEP DIVE ═══════════════════════════════════════ -->
+    <section style="padding: 100px 24px; max-width: 1200px; margin: 0 auto;">
+      <div class="section-eyebrow" style="text-align:center;">The Software That Sets You Apart</div>
+      <h2 class="section-title" style="text-align:center;">A Platform Built for Professional Installers</h2>
+      <p class="section-sub" style="text-align:center; max-width: 680px; margin: 0 auto 80px;">
+        EJG-OS isn't just a smart home OS — it's a professional-grade installer toolkit. Every feature was designed to save you time on site, eliminate repeat work, and make your installs look flawless every single time.
+      </p>
+
+      <!-- Device & Scene Libraries -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 32px; margin-bottom: 80px;">
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px;">
+          <div style="font-size: 42px; margin-bottom: 16px;">📚</div>
+          <h3 style="font-size: 22px; color: var(--blue); margin-bottom: 12px;">Device Libraries</h3>
+          <p style="font-size: 14px; color: var(--text-muted); line-height: 1.8; margin-bottom: 16px;">
+            Every device you've ever paired is catalogued in your personal device library. Thermostats, locks, cameras, bulbs, sensors — each one saved with its manufacturer, model number, protocol type, and optimal configuration settings. When you pull a device out of the box on a new job, it already knows what it is and how to set it up.
+          </p>
+          <div style="background: rgba(56,189,248,0.06); border-left: 3px solid var(--blue); padding: 14px 18px; border-radius: 0 8px 8px 0; font-size: 12px; color: var(--text-muted); line-height: 1.7;">
+            <strong style="color: var(--text);">What this means on site:</strong> No more looking up pairing instructions. No more configuring the same Schlage lock settings for the 30th time. The library remembers everything so you don't have to.
+          </div>
+        </div>
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px;">
+          <div style="font-size: 42px; margin-bottom: 16px;">🎬</div>
+          <h3 style="font-size: 22px; color: var(--blue); margin-bottom: 12px;">Scene Libraries</h3>
+          <p style="font-size: 14px; color: var(--text-muted); line-height: 1.8; margin-bottom: 16px;">
+            Scenes are what make a smart home feel magical — and your scene library is where that magic is stored. Good Morning, Good Night, Movie Mode, Away, Welcome Home — build them once, save them to your library, and deploy them across every client home with one click. Clients see a polished product from the first power-on.
+          </p>
+          <div style="background: rgba(56,189,248,0.06); border-left: 3px solid var(--blue); padding: 14px 18px; border-radius: 0 8px 8px 0; font-size: 12px; color: var(--text-muted); line-height: 1.7;">
+            <strong style="color: var(--text);">Pro tip:</strong> Create client-specific scenes on site and they get saved to the library automatically. Over time, your scene library becomes your competitive advantage — no other installer has your collection.
+          </div>
+        </div>
+      </div>
+
+      <!-- Memorized Templates -->
+      <div style="margin-bottom: 80px;">
+        <div style="display: flex; align-items: flex-start; gap: 40px; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 300px;">
+            <div style="font-size: 42px; margin-bottom: 16px;">💾</div>
+            <h3 style="font-size: 22px; color: var(--blue); margin-bottom: 12px;">Memorized Templates</h3>
+            <p style="font-size: 14px; color: var(--text-muted); line-height: 1.8; margin-bottom: 20px;">
+              This is where the real time savings happen. Memorized templates let you save an entire home configuration — every device, every room assignment, every scene, every automation rule — as a single reusable template. Building the same model of home for a developer? Apply the template. Client wants the exact setup their neighbor got? Apply the template. Done.
+            </p>
+            <p style="font-size: 14px; color: var(--text-muted); line-height: 1.8;">
+              Templates include device placement, room names, automation triggers, scene configurations, and even the dashboard layout. What used to take 3 hours of on-site configuration now takes minutes.
+            </p>
+          </div>
+          <div style="flex: 1; min-width: 300px; background: rgba(0,0,0,0.4); border: 1px solid rgba(56,189,248,0.2); border-radius: 16px; padding: 28px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px;">Your Saved Templates</div>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15); border-radius: 10px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-size: 13px; font-weight: 700; color: var(--text);">Cornerstone 2-Storey</div>
+                  <div style="font-size: 10px; color: var(--text-muted);">38 devices · 6 rooms · 12 scenes · 8 automations</div>
+                </div>
+                <div style="font-size: 9px; color: var(--blue); font-weight: 600;">Used 14x</div>
+              </div>
+              <div style="background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15); border-radius: 10px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-size: 13px; font-weight: 700; color: var(--text);">Starter Package — Standard</div>
+                  <div style="font-size: 10px; color: var(--text-muted);">8 devices · 1 room · 4 scenes · 3 automations</div>
+                </div>
+                <div style="font-size: 9px; color: var(--blue); font-weight: 600;">Used 31x</div>
+              </div>
+              <div style="background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15); border-radius: 10px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-size: 13px; font-weight: 700; color: var(--text);">Pro — Full Home + Cameras</div>
+                  <div style="font-size: 10px; color: var(--text-muted);">52 devices · 8 rooms · 18 scenes · 14 automations</div>
+                </div>
+                <div style="font-size: 9px; color: var(--blue); font-weight: 600;">Used 9x</div>
+              </div>
+              <div style="background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15); border-radius: 10px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-size: 13px; font-weight: 700; color: var(--text);">Builder — Spec Home Basic</div>
+                  <div style="font-size: 10px; color: var(--text-muted);">22 devices · 4 rooms · 8 scenes · 6 automations</div>
+                </div>
+                <div style="font-size: 9px; color: var(--blue); font-weight: 600;">Used 22x</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Automation Templates -->
+      <div style="margin-bottom: 80px;">
+        <div style="display: flex; align-items: flex-start; gap: 40px; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 300px; order: 2;">
+            <div style="font-size: 42px; margin-bottom: 16px;">⚡</div>
+            <h3 style="font-size: 22px; color: var(--blue); margin-bottom: 12px;">Automation Templates</h3>
+            <p style="font-size: 14px; color: var(--text-muted); line-height: 1.8; margin-bottom: 20px;">
+              Automations are the backbone of a great smart home experience — but building them from scratch every time is tedious. EJG-OS gives you a library of pre-built automation templates that cover the most common scenarios, and you can create and save your own.
+            </p>
+            <p style="font-size: 14px; color: var(--text-muted); line-height: 1.8;">
+              Time-based, motion-based, temperature-based, sunrise/sunset, geofence — every trigger type is supported. Combine triggers with conditions and actions in a visual builder that takes seconds, not minutes. And every automation runs 100% locally, so there's zero cloud latency.
+            </p>
+          </div>
+          <div style="flex: 1; min-width: 300px; order: 1; background: rgba(0,0,0,0.4); border: 1px solid rgba(56,189,248,0.2); border-radius: 16px; padding: 28px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px;">Pre-Built Automation Templates</div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 12px 16px;">
+                <div style="font-size: 12px; font-weight: 700; color: var(--text);">🌅 Good Morning Sequence</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Gradually raise lights · Adjust thermostat · Disarm security · Unlock front door</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 12px 16px;">
+                <div style="font-size: 12px; font-weight: 700; color: var(--text);">🌙 Bedtime Lockdown</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Lock all doors · Arm perimeter · Dim lights to 5% · Set overnight temp</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 12px 16px;">
+                <div style="font-size: 12px; font-weight: 700; color: var(--text);">🚪 Welcome Home</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Triggered by geofence · Unlock front door · Lights on · Thermostat to comfort</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 12px 16px;">
+                <div style="font-size: 12px; font-weight: 700; color: var(--text);">✈️ Vacation Mode</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Random light patterns · Lower thermostat · Camera alerts max · Daily summary email</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 12px 16px;">
+                <div style="font-size: 12px; font-weight: 700; color: var(--text);">🎬 Movie Night</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Dim all lights · Close blinds · Set color temp warm · Mute doorbell notifications</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 12px 16px;">
+                <div style="font-size: 12px; font-weight: 700; color: var(--text);">❄️ Calgary Winter Mode</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Preheat at 6am · Garage sensor alerts · Pipe freeze warning · Humidity control</div>
+              </div>
+            </div>
+            <div style="font-size: 10px; color: var(--text-muted); text-align: center; margin-top: 12px;">+ Save your own custom automations as templates</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- The 3-Layer Architecture -->
+      <div style="margin-bottom: 80px;">
+        <div style="text-align: center; margin-bottom: 48px;">
+          <div style="font-size: 42px; margin-bottom: 16px;">🧱</div>
+          <h3 style="font-size: 22px; color: var(--blue); margin-bottom: 12px;">The 3-Layer Interface</h3>
+          <p style="font-size: 14px; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.8;">
+            The installer dashboard is organized into three distinct layers, each built for a different level of work. You can zoom in and out between them seamlessly.
+          </p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+          <div style="background: linear-gradient(180deg, rgba(56,189,248,0.08) 0%, rgba(56,189,248,0.02) 100%); border: 1px solid rgba(56,189,248,0.2); border-radius: 16px; padding: 36px; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 12px; right: 16px; font-size: 10px; font-weight: 700; color: var(--blue); background: rgba(56,189,248,0.1); padding: 4px 10px; border-radius: 12px;">LAYER 1</div>
+            <div style="font-size: 32px; margin-bottom: 12px;">📊</div>
+            <h4 style="font-size: 18px; color: var(--text); margin-bottom: 10px;">Portfolio View</h4>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7; margin-bottom: 14px;">
+              See every home you've ever installed or are currently managing. Health status indicators, device counts, last service date, client info — all in one scrollable list. This is your bird's-eye view.
+            </p>
+            <div style="font-size: 11px; color: var(--text-muted); line-height: 1.6;">
+              <div style="margin-bottom: 4px;">• All client homes at a glance</div>
+              <div style="margin-bottom: 4px;">• Green/amber/red health indicators</div>
+              <div style="margin-bottom: 4px;">• Quick-access to any home</div>
+              <div>• Sort by status, date, or client name</div>
+            </div>
+          </div>
+          <div style="background: linear-gradient(180deg, rgba(56,189,248,0.12) 0%, rgba(56,189,248,0.03) 100%); border: 2px solid rgba(56,189,248,0.3); border-radius: 16px; padding: 36px; position: relative; overflow: hidden; transform: scale(1.02);">
+            <div style="position: absolute; top: 12px; right: 16px; font-size: 10px; font-weight: 700; color: var(--blue); background: rgba(56,189,248,0.15); padding: 4px 10px; border-radius: 12px;">LAYER 2</div>
+            <div style="font-size: 32px; margin-bottom: 12px;">🏠</div>
+            <h4 style="font-size: 18px; color: var(--text); margin-bottom: 10px;">Per-Home Workspace</h4>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7; margin-bottom: 14px;">
+              Click into any home and you get a full workspace for that installation. Room layout, device inventory, scene builder, automation rules, the client's dashboard preview — everything specific to that one property.
+            </p>
+            <div style="font-size: 11px; color: var(--text-muted); line-height: 1.6;">
+              <div style="margin-bottom: 4px;">• Room-by-room device assignment</div>
+              <div style="margin-bottom: 4px;">• Visual scene builder</div>
+              <div style="margin-bottom: 4px;">• Automation rule editor</div>
+              <div style="margin-bottom: 4px;">• Client dashboard preview</div>
+              <div>• Apply templates from your library</div>
+            </div>
+          </div>
+          <div style="background: linear-gradient(180deg, rgba(56,189,248,0.08) 0%, rgba(56,189,248,0.02) 100%); border: 1px solid rgba(56,189,248,0.2); border-radius: 16px; padding: 36px; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 12px; right: 16px; font-size: 10px; font-weight: 700; color: var(--blue); background: rgba(56,189,248,0.1); padding: 4px 10px; border-radius: 12px;">LAYER 3</div>
+            <div style="font-size: 32px; margin-bottom: 12px;">⚙️</div>
+            <h4 style="font-size: 18px; color: var(--text); margin-bottom: 10px;">Deep Configuration</h4>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7; margin-bottom: 14px;">
+              The technical layer. Z-Wave/Zigbee device pairing, protocol settings, mesh network diagnostics, Home Assistant integrations, and advanced troubleshooting. This is where the real work happens — and it's designed to be fast.
+            </p>
+            <div style="font-size: 11px; color: var(--text-muted); line-height: 1.6;">
+              <div style="margin-bottom: 4px;">• Direct Z-Wave/Zigbee pairing controls</div>
+              <div style="margin-bottom: 4px;">• Mesh network visualizer</div>
+              <div style="margin-bottom: 4px;">• Signal strength diagnostics</div>
+              <div style="margin-bottom: 4px;">• Home Assistant integration panel</div>
+              <div>• Advanced automation logic editor</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Simplicity Showcase -->
+      <div style="margin-bottom: 40px;">
+        <div style="background: linear-gradient(135deg, rgba(56,189,248,0.06), rgba(168,85,247,0.06)); border: 1px solid rgba(56,189,248,0.15); border-radius: 20px; padding: 48px; text-align: center;">
+          <div style="font-size: 42px; margin-bottom: 16px;">✨</div>
+          <h3 style="font-size: 24px; color: var(--text); margin-bottom: 16px;">Built for Speed and Simplicity</h3>
+          <p style="font-size: 15px; color: var(--text-muted); max-width: 700px; margin: 0 auto 36px; line-height: 1.8;">
+            The entire interface was designed around one principle: get in, get the job done, and get out. No clutter, no nested menus six levels deep, no confusing UI. Every tool you need is a click or two away. We tested this interface with real installers in the field and rebuilt it until it felt effortless.
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; max-width: 900px; margin: 0 auto;">
+            <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px;">
+              <div style="font-size: 28px; font-weight: 800; color: var(--blue); margin-bottom: 4px;">2 clicks</div>
+              <div style="font-size: 11px; color: var(--text-muted);">to apply a full home template</div>
+            </div>
+            <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px;">
+              <div style="font-size: 28px; font-weight: 800; color: var(--blue); margin-bottom: 4px;">30 sec</div>
+              <div style="font-size: 11px; color: var(--text-muted);">to pair a new Z-Wave device</div>
+            </div>
+            <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px;">
+              <div style="font-size: 28px; font-weight: 800; color: var(--blue); margin-bottom: 4px;">1 screen</div>
+              <div style="font-size: 11px; color: var(--text-muted);">to see every device in a home</div>
+            </div>
+            <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 24px;">
+              <div style="font-size: 28px; font-weight: 800; color: var(--blue); margin-bottom: 4px;">0 menus</div>
+              <div style="font-size: 11px; color: var(--text-muted);">hidden behind confusing navigation</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- More Feature Highlights -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px;">
+          <div style="font-size: 28px; margin-bottom: 10px;">📱</div>
+          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">Mobile-Ready Dashboard</h4>
+          <p style="font-size: 12px; color: var(--text-muted); line-height: 1.7;">Full dashboard access from your phone or tablet. Check on any client's system from anywhere. Perfect for post-install monitoring and quick troubleshooting calls.</p>
+        </div>
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px;">
+          <div style="font-size: 28px; margin-bottom: 10px;">🔄</div>
+          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">Remote Pre-Configuration</h4>
+          <p style="font-size: 12px; color: var(--text-muted); line-height: 1.7;">Set up the entire EJG-OS hub from your office before the install day. Device names, room assignments, scenes, automations — all ready before you walk through the door.</p>
+        </div>
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px;">
+          <div style="font-size: 28px; margin-bottom: 10px;">📊</div>
+          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">Real-Time Mesh Diagnostics</h4>
+          <p style="font-size: 12px; color: var(--text-muted); line-height: 1.7;">Visualize Z-Wave and Zigbee mesh networks in real time. See signal strength per device, identify dead spots, and optimize placement — all from one screen during the install.</p>
+        </div>
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px;">
+          <div style="font-size: 28px; margin-bottom: 10px;">🏷️</div>
+          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">Smart Device Naming</h4>
+          <p style="font-size: 12px; color: var(--text-muted); line-height: 1.7;">Auto-suggest device names based on room and type. "Living Room Dimmer", "Front Door Lock" — consistent naming across every install. Clients get a clean, readable dashboard from day one.</p>
+        </div>
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px;">
+          <div style="font-size: 28px; margin-bottom: 10px;">📋</div>
+          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">Install Checklists</h4>
+          <p style="font-size: 12px; color: var(--text-muted); line-height: 1.7;">Built-in step-by-step checklists for every install phase: pre-wire, device mounting, pairing, configuration, testing, and client handoff. Never miss a step.</p>
+        </div>
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px;">
+          <div style="font-size: 28px; margin-bottom: 10px;">👁️</div>
+          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">Client Dashboard Preview</h4>
+          <p style="font-size: 12px; color: var(--text-muted); line-height: 1.7;">See exactly what the homeowner will see before you hand off the system. Preview their dashboard, test their scenes, verify their automations — all from the installer view.</p>
+        </div>
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px;">
+          <div style="font-size: 28px; margin-bottom: 10px;">🧪</div>
+          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">Device Testing Mode</h4>
+          <p style="font-size: 12px; color: var(--text-muted); line-height: 1.7;">Quickly test every device on the system with a single button. Cycles through each device confirming it responds correctly. Generates a pass/fail report you can show the client.</p>
+        </div>
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px;">
+          <div style="font-size: 28px; margin-bottom: 10px;">📈</div>
+          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">Business Analytics</h4>
+          <p style="font-size: 12px; color: var(--text-muted); line-height: 1.7;">Track your installs over time, average job duration, revenue per month, client satisfaction scores, and referral sources. Understand your business at a glance.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ WHAT YOU GET ════════════════════════════════════════════ -->
+    <section class="perks-section">
+      <div class="section-eyebrow">Installer Benefits</div>
+      <h2 class="section-title">Built to Help You Run a Better Business</h2>
+      <p class="section-sub">We give you the tools, training, and territory support to grow your smart home installation business the right way.</p>
+
+      <div class="perks-grid">
+        <div class="perk-card">
+          <span class="perk-icon">🎓</span>
+          <h3>Full Certification Training</h3>
+          <p>Our on-site and online certification program covers Z-Wave/Zigbee networking, EJG-OS configuration, scene building, and client handoff. You graduate knowing the product inside and out.</p>
+        </div>
+        <div class="perk-card">
+          <span class="perk-icon">📍</span>
+          <h3>Territory Lead Referrals</h3>
+          <p>When a homeowner in your service area fills out a quote request, we send it your way. You're not competing with a national call centre — you're the local expert, first in line.</p>
+        </div>
+        <div class="perk-card">
+          <span class="perk-icon">💰</span>
+          <h3>Competitive Installer Rates</h3>
+          <p>EJG-OS installer pricing is built to let you make real money per install. Add your own labour rates on top. The platform doesn't clip your margins — your pricing is yours.</p>
+        </div>
+        <div class="perk-card">
+          <span class="perk-icon">🔧</span>
+          <h3>Installer Support Line</h3>
+          <p>Stuck on a tricky Z-Wave mesh during an install? Our tech support line is available during business hours specifically for certified installers. Real humans. Fast answers.</p>
+        </div>
+        <div class="perk-card">
+          <span class="perk-icon">🏗️</span>
+          <h3>Builder Project Access</h3>
+          <p>Certified installers get access to builder project opportunities in their region. Larger jobs, multi-unit installs, and new developments — all coordinated through your installer dashboard.</p>
+        </div>
+        <div class="perk-card">
+          <span class="perk-icon">🛠️</span>
+          <h3>Pre-Configuration Tools</h3>
+          <p>Our remote config tools let you set up the EJG-OS hub before you walk through the door. Arrive on site, connect the hardware, and everything is already waiting. Faster installs. Happier clients.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ REQUIREMENTS ══════════════════════════════════════════════ -->
+    <section class="requirements-section">
+      <div class="req-inner">
+        <div class="section-eyebrow">What We Look For</div>
+        <h2 class="section-title">Who Makes a Great EJG-OS Installer?</h2>
+        <p class="section-sub">You don't need to be a software engineer. You need to be a skilled trades professional who takes pride in doing things right.</p>
+
+        <div class="req-grid">
+          <div class="req-item">
+            <div class="req-check">✓</div>
+            <div class="req-info">
+              <h4>Electrical or Low-Voltage Background</h4>
+              <p>Electricians, low-voltage techs, A/V installers, and security system professionals are all great fits for EJG-OS installation.</p>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check">✓</div>
+            <div class="req-info">
+              <h4>Tech-Comfortable</h4>
+              <p>You should be comfortable setting up a home network, pairing wireless devices, and troubleshooting basic connectivity issues. We handle the rest.</p>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check">✓</div>
+            <div class="req-info">
+              <h4>Client-Focused Attitude</h4>
+              <p>EJG-OS installs end with a homeowner walkthrough. You need to communicate clearly and leave clients confident. Professionalism matters.</p>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check">✓</div>
+            <div class="req-info">
+              <h4>Insured & Licensed</h4>
+              <p>You need to carry valid liability insurance and be licensed to perform electrical or low-voltage work in your province (where applicable).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CONTACT ════════════════════════════════════════════════ -->
+    <section class="contact-section" id="contact">
+      <div class="contact-inner">
+        <div class="section-eyebrow">Apply Now</div>
+        <h2 class="section-title">Ready to Join the Network?</h2>
+        <p class="section-sub">Fill out the form and we'll reach out within one business day with next steps and certification details.</p>
+
+        <form class="contact-form" id="installerForm">
+          <div id="installerSuccess" style="display:none; background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.4); color: var(--blue); padding: 16px 20px; border-radius: 10px; margin-bottom: 20px; font-size: 14px; font-weight: 600; text-align: center;">
+            Application received! We'll be in touch within one business day.
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Your Name</label>
+              <input type="text" name="name" required placeholder="Chris Taylor">
+            </div>
+            <div class="form-field">
+              <label>Business Name (if any)</label>
+              <input type="text" name="company" placeholder="CT Smart Home Services">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Email</label>
+              <input type="email" name="email" required placeholder="chris@ctsmarthome.ca">
+            </div>
+            <div class="form-field">
+              <label>Phone</label>
+              <input type="tel" name="phone" placeholder="(403) 555-0100">
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Your City / Service Area</label>
+            <input type="text" name="city" placeholder="e.g. Calgary, Red Deer, Edmonton...">
+          </div>
+          <div class="form-field">
+            <label>Your Background / Trade</label>
+            <select name="trade">
+              <option value="">Select your background...</option>
+              <option>Licensed Electrician</option>
+              <option>Low-Voltage / Data Cabling</option>
+              <option>Audio / Video Installer</option>
+              <option>Security System Technician</option>
+              <option>HVAC Technician</option>
+              <option>IT / Network Professional</option>
+              <option>General Contractor</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Years of experience</label>
+            <select name="experience">
+              <option value="">Select...</option>
+              <option>Less than 1 year</option>
+              <option>1–3 years</option>
+              <option>3–5 years</option>
+              <option>5–10 years</option>
+              <option>10+ years</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Tell us about yourself</label>
+            <textarea name="background" placeholder="What kind of installs do you do now? What draws you to EJG-OS? Any certifications or specific experience worth mentioning?"></textarea>
+          </div>
+          <button type="submit" class="btn btn-blue" style="width:100%; justify-content:center; font-size:16px; padding:16px;">
+            ⚡ Apply to the Installer Program
+          </button>
+          <p style="font-size:12px; color:var(--text-muted); text-align:center; margin-top:14px;">
+            We review every application personally. You'll hear back within one business day.
+          </p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Product</h3>
+        <a href="features.html">Features</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="how-it-works.html">How It Works</a>
+      </div>
+      <div class="footer-column">
+        <h3>Programs</h3>
+        <a href="builders.html">Builder Program</a>
+        <a href="installers.html">Installer Program</a>
+        <a href="custom.html">Custom Build</a>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-column">
+        <h3>Location</h3>
+        <p>Calgary, AB</p>
+        <p>Growing Nationwide</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 EJG-OS. All rights reserved. The Smart Home Operating System.</p>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.querySelector('.nav-hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('nav-open'));
+    document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('nav-open')));
+
+    document.getElementById('installerForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      try {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        data._captcha = 'false';
+        data._subject = 'New Installer Application — EJG-OS';
+        data._template = 'table';
+        const resp = await fetch('https://formsubmit.co/ajax/info@ejgos.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await resp.json();
+        if (result.success) {
+          document.getElementById('installerSuccess').style.display = 'block';
+          form.reset();
+          setTimeout(() => document.getElementById('installerSuccess').style.display = 'none', 6000);
+        } else {
+          alert('Something went wrong. Please try again or email info@ejgos.com directly.');
+        }
+      } catch(err) {
+        alert('Network error. Please try again or email info@ejgos.com directly.');
+      }
+      btn.disabled = false;
+      btn.innerHTML = '⚡ Apply to the Installer Program';
+    });
+  </script>
+</body>
+</html>

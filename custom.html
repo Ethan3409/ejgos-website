@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build Your Custom System — EJG-OS</title>
+  <style>
+    :root {
+      --purple-900: #1a0533;
+      --purple-800: #2d0a52;
+      --purple-700: #4a0e82;
+      --purple-600: #6b21a8;
+      --purple-500: #9333ea;
+      --purple-400: #a855f7;
+      --purple-300: #c084fc;
+      --bg: #060010;
+      --surface: rgba(255,255,255,0.04);
+      --text: #f3e8ff;
+      --text-muted: rgba(196,150,255,0.7);
+      --border: rgba(168,85,247,0.2);
+      --green: #22c55e;
+      --blue: #60a5fa;
+      --gold: #fbbf24;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 64px;
+      background: rgba(6,0,16,0.95); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 24px;
+    }
+    .nav-logo {
+      font-size: 20px; font-weight: 700; color: var(--purple-300);
+      text-decoration: none; letter-spacing: 2px; transition: color 0.3s;
+    }
+    .nav-logo:hover { color: var(--purple-400); }
+    .nav-hamburger {
+      display: none; background: none; border: none;
+      color: var(--text); font-size: 24px; cursor: pointer; padding: 8px;
+    }
+    .nav-links { display: flex; list-style: none; gap: 32px; align-items: center; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 14px; font-weight: 500; transition: color 0.3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400)) !important;
+      color: white !important; padding: 8px 20px !important;
+      border-radius: 6px; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(168,85,247,0.3); }
+    @media (max-width: 768px) {
+      .nav-hamburger { display: block; }
+      .nav-links {
+        position: absolute; top: 64px; left: 0; right: 0;
+        background: rgba(6,0,16,0.98); border-bottom: 1px solid var(--border);
+        flex-direction: column; gap: 16px; padding: 20px 24px; display: none;
+      }
+      .nav-links.nav-open { display: flex; }
+    }
+
+    main { margin-top: 64px; }
+
+    /* Hero */
+    .custom-hero {
+      padding: 80px 24px 60px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(107,33,168,0.18) 0%, transparent 100%);
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .custom-hero::before {
+      content: '';
+      position: absolute; top: -60%; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 600px;
+      background: radial-gradient(ellipse, rgba(168,85,247,0.13) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-inner { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(168,85,247,0.12); border: 1px solid var(--purple-400);
+      padding: 8px 20px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; color: var(--purple-300);
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px;
+    }
+    .hero-badge::before {
+      content: '✦'; color: var(--gold); font-size: 10px;
+    }
+    .custom-hero h1 {
+      font-size: clamp(34px, 5vw, 56px);
+      font-weight: 700; line-height: 1.15; margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff 0%, var(--purple-300) 60%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .custom-hero p {
+      font-size: 17px; color: var(--text-muted); max-width: 560px; margin: 0 auto 32px;
+    }
+    .progress-bar-wrap {
+      max-width: 500px; margin: 0 auto;
+    }
+    .progress-steps {
+      display: flex; align-items: center; justify-content: center; gap: 0;
+    }
+    .prog-step {
+      display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .prog-dot {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 2px solid var(--border);
+      background: rgba(0,0,0,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: var(--text-muted);
+      transition: all 0.3s; position: relative; z-index: 2;
+    }
+    .prog-step.active .prog-dot {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400));
+      border-color: var(--purple-400); color: white;
+      box-shadow: 0 0 20px rgba(168,85,247,0.4);
+    }
+    .prog-step.done .prog-dot {
+      background: var(--green); border-color: var(--green); color: white;
+    }
+    .prog-label {
+      font-size: 10px; font-weight: 600; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 1px; text-align: center;
+      white-space: nowrap;
+    }
+    .prog-step.active .prog-label { color: var(--purple-300); }
+    .prog-step.done .prog-label { color: var(--green); }
+    .prog-line {
+      flex: 1; height: 2px; background: var(--border);
+      margin-bottom: 18px; max-width: 40px;
+      transition: background 0.3s;
+    }
+    .prog-line.done { background: var(--green); }
+
+    /* Layout */
+    .configurator {
+      max-width: 1200px; margin: 0 auto;
+      padding: 60px 24px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 40px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .configurator { grid-template-columns: 1fr; }
+      .summary-panel { order: -1; }
+    }
+
+    /* Steps */
+    .config-steps { }
+    .config-step { display: none; }
+    .config-step.active { display: block; }
+
+    .step-header { margin-bottom: 36px; }
+    .step-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--purple-400); margin-bottom: 8px;
+    }
+    .step-header h2 {
+      font-size: clamp(24px, 3vw, 34px); font-weight: 700; color: var(--text); margin-bottom: 10px;
+    }
+    .step-header p { font-size: 15px; color: var(--text-muted); }
+
+    /* Thermostat Cards */
+    .device-picker {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .device-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .device-card:hover {
+      border-color: var(--purple-500);
+      background: rgba(168,85,247,0.07);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(168,85,247,0.15);
+    }
+    .device-card.selected {
+      border-color: var(--purple-400);
+      background: rgba(168,85,247,0.12);
+      box-shadow: 0 0 0 4px rgba(168,85,247,0.15), 0 16px 40px rgba(168,85,247,0.2);
+    }
+    .device-card.selected::after {
+      content: '✓';
+      position: absolute; top: 12px; right: 14px;
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--purple-400);
+      color: white; font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .card-visual {
+      margin: 0 auto 20px;
+      width: 100px; height: 100px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* SVG Thermostat Illustrations */
+    .thermo-round {
+      width: 100px; height: 100px;
+    }
+    .thermo-rect {
+      width: 72px; height: 100px;
+    }
+    .thermo-panel {
+      width: 100px; height: 80px;
+    }
+    .thermo-premium {
+      width: 88px; height: 100px;
+    }
+
+    .device-card h3 {
+      font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 6px;
+    }
+    .device-card .card-tag {
+      font-size: 11px; font-weight: 600; color: var(--purple-400);
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
+      display: block;
+    }
+    .device-card p {
+      font-size: 12px; color: var(--text-muted); line-height: 1.5;
+    }
+    .card-price {
+      display: inline-block;
+      margin-top: 14px;
+      background: rgba(168,85,247,0.1);
+      border: 1px solid var(--border);
+      padding: 4px 12px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; color: var(--purple-300);
+    }
+    .device-card.selected .card-price {
+      background: rgba(168,85,247,0.25);
+      border-color: var(--purple-400);
+    }
+
+    /* Quantity Row */
+    .qty-row {
+      display: flex; align-items: center; gap: 16px;
+      margin-top: 14px; justify-content: center;
+    }
+    .qty-btn {
+      width: 28px; height: 28px; border-radius: 6px;
+      border: 1px solid var(--border);
+      background: rgba(168,85,247,0.1);
+      color: var(--text); font-size: 16px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .qty-btn:hover { background: var(--purple-400); border-color: var(--purple-400); color: white; }
+    .qty-val {
+      font-size: 18px; font-weight: 700; color: var(--purple-400); min-width: 24px; text-align: center;
+    }
+
+    /* Lock Picker */
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px; margin-bottom: 40px;
+    }
+    .option-item {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 12px; padding: 20px;
+      cursor: pointer; transition: all 0.3s;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .option-item:hover {
+      border-color: var(--purple-500);
+      background: rgba(168,85,247,0.06);
+      transform: translateY(-2px);
+    }
+    .option-item.selected {
+      border-color: var(--purple-400);
+      background: rgba(168,85,247,0.1);
+    }
+    .option-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+    .option-info h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .option-info p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+    .option-info .opt-price {
+      font-size: 11px; font-weight: 700; color: var(--purple-400); margin-top: 6px; display: block;
+    }
+
+    /* Toggle Add-ons */
+    .addons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px; margin-bottom: 40px;
+    }
+    .addon-item {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 12px; padding: 20px 20px;
+      cursor: pointer; transition: all 0.3s;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .addon-item:hover { border-color: var(--purple-500); background: rgba(168,85,247,0.06); }
+    .addon-item.selected { border-color: var(--purple-400); background: rgba(168,85,247,0.1); }
+    .addon-left { display: flex; gap: 14px; align-items: center; }
+    .addon-icon { font-size: 26px; }
+    .addon-info h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .addon-info p { font-size: 12px; color: var(--text-muted); }
+    .addon-toggle {
+      width: 42px; height: 24px; border-radius: 12px;
+      background: rgba(168,85,247,0.15); border: 1px solid var(--border);
+      position: relative; flex-shrink: 0; transition: all 0.3s;
+    }
+    .addon-toggle::after {
+      content: '';
+      position: absolute; top: 3px; left: 3px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--text-muted); transition: all 0.3s;
+    }
+    .addon-item.selected .addon-toggle {
+      background: var(--purple-400); border-color: var(--purple-400);
+    }
+    .addon-item.selected .addon-toggle::after {
+      left: 21px; background: white;
+    }
+
+    /* Cameras */
+    .camera-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px; margin-bottom: 40px;
+    }
+    .cam-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 14px; padding: 24px 18px;
+      cursor: pointer; transition: all 0.3s;
+      text-align: center; position: relative;
+    }
+    .cam-card:hover {
+      border-color: var(--purple-500);
+      background: rgba(168,85,247,0.07);
+      transform: translateY(-3px);
+    }
+    .cam-card.selected {
+      border-color: var(--purple-400);
+      background: rgba(168,85,247,0.12);
+    }
+    .cam-card.selected::after {
+      content: '✓';
+      position: absolute; top: 10px; right: 12px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--purple-400); color: white;
+      font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cam-icon { font-size: 44px; margin-bottom: 12px; display: block; }
+    .cam-card h3 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .cam-card p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+    .cam-qty { display: flex; align-items: center; gap: 12px; justify-content: center; margin-top: 12px; }
+
+    /* Step Nav */
+    .step-nav {
+      display: flex; gap: 16px; align-items: center; margin-top: 8px;
+    }
+    .btn {
+      padding: 13px 28px; border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      transition: all 0.3s; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--text);
+    }
+    .btn:hover { background: var(--surface); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400));
+      color: white; border: none;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(168,85,247,0.3);
+    }
+    .btn-ghost { background: transparent; color: var(--text-muted); border: none; }
+    .btn-ghost:hover { color: var(--text); background: none; }
+
+    /* Summary Panel */
+    .summary-panel {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 24px;
+      position: sticky; top: 84px;
+    }
+    .summary-panel h3 {
+      font-size: 16px; font-weight: 700; color: var(--text);
+      margin-bottom: 24px; letter-spacing: 0.5px;
+      padding-bottom: 16px; border-bottom: 1px solid var(--border);
+    }
+    .summary-line {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 14px; gap: 12px;
+    }
+    .summary-label { font-size: 13px; color: var(--text-muted); flex: 1; }
+    .summary-value { font-size: 13px; font-weight: 600; color: var(--text); text-align: right; flex-shrink: 0; }
+    .summary-value.empty { color: var(--text-muted); font-weight: 400; font-style: italic; }
+    .summary-divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+    .summary-total-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+    .summary-total {
+      font-size: 36px; font-weight: 700; color: var(--purple-400);
+      margin-bottom: 6px;
+    }
+    .summary-note { font-size: 11px; color: var(--text-muted); margin-bottom: 24px; }
+    .summary-cta {
+      width: 100%; justify-content: center;
+    }
+
+    /* Confirmation Step */
+    .confirm-section { text-align: center; padding: 20px 0; }
+    .confirm-icon { font-size: 72px; margin-bottom: 24px; display: block; }
+    .confirm-section h2 { font-size: 32px; font-weight: 700; color: var(--text); margin-bottom: 16px; }
+    .confirm-section p { font-size: 16px; color: var(--text-muted); max-width: 520px; margin: 0 auto 32px; line-height: 1.7; }
+    .confirm-summary {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 28px; text-align: left; max-width: 560px; margin: 0 auto 40px;
+    }
+    .confirm-summary h4 { font-size: 14px; font-weight: 700; color: var(--purple-400); margin-bottom: 16px; }
+    .confirm-row {
+      display: flex; justify-content: space-between;
+      font-size: 14px; padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .confirm-row:last-child { border: none; padding-bottom: 0; }
+    .confirm-row span:first-child { color: var(--text-muted); }
+    .confirm-row span:last-child { color: var(--text); font-weight: 600; }
+
+    /* Contact form overlay */
+    .quote-form {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 36px;
+      max-width: 560px; margin: 0 auto;
+      text-align: left;
+    }
+    .quote-form h3 { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .quote-form p { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; }
+    .form-field { margin-bottom: 20px; }
+    .form-field label {
+      display: block; font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px;
+      color: var(--text-muted); margin-bottom: 8px;
+    }
+    .form-field input, .form-field textarea, .form-field select {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.3s;
+      outline: none;
+    }
+    .form-field input:focus, .form-field textarea:focus, .form-field select:focus {
+      border-color: var(--purple-400);
+    }
+    .form-field textarea { resize: vertical; min-height: 80px; }
+    .form-field select option { background: #1a0533; color: var(--text); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+
+    /* Spec highlight chips */
+    .spec-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .spec-chip {
+      font-size: 11px; font-weight: 600; color: var(--purple-300);
+      background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.25);
+      padding: 4px 10px; border-radius: 20px;
+    }
+
+    /* Essentials Banner */
+    .essentials-banner {
+      background: linear-gradient(135deg, rgba(34,197,94,0.12), rgba(96,165,250,0.08));
+      border: 2px solid var(--green);
+      border-radius: 16px;
+      padding: 32px 28px;
+      margin-bottom: 48px;
+      position: relative;
+    }
+    .essentials-banner::before {
+      content: '✨';
+      position: absolute;
+      top: -12px; left: 28px;
+      font-size: 24px;
+    }
+    .essentials-content { }
+    .essentials-header {
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(34,197,94,0.3);
+    }
+    .essentials-header h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .essentials-header p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+    .essentials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .essential-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .essential-check {
+      color: var(--green);
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .essential-text {
+      flex: 1;
+    }
+    .essentials-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(34,197,94,0.2);
+    }
+    .essentials-price {
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 600;
+    }
+    .essentials-price strong {
+      color: var(--green);
+      font-size: 16px;
+    }
+    .essentials-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 60px 24px 40px;
+    }
+    .footer-content {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px; margin-bottom: 40px;
+    }
+    .footer-column h3 {
+      font-size: 14px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; margin-bottom: 16px; color: var(--purple-400);
+    }
+    .footer-column a, .footer-column p {
+      font-size: 13px; color: var(--text-muted); text-decoration: none;
+      display: block; margin-bottom: 8px; transition: color 0.3s;
+    }
+    .footer-column a:hover { color: var(--text); }
+    .footer-bottom {
+      border-top: 1px solid var(--border); padding-top: 24px;
+      text-align: center; font-size: 12px; color: var(--text-muted);
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    /* ===== MOBILE PHONE OPTIMIZATIONS ===== */
+    @media (max-width: 480px) {
+      nav {
+        padding: 0 16px;
+        height: 56px;
+      }
+
+      .nav-logo {
+        font-size: 18px;
+      }
+
+      .nav-links {
+        top: 56px;
+      }
+
+      main {
+        margin-top: 56px;
+      }
+
+      /* Hero */
+      .custom-hero {
+        padding: 48px 16px 40px;
+      }
+
+      .custom-hero h1 {
+        font-size: 26px;
+      }
+
+      .custom-hero p {
+        font-size: 14px;
+      }
+
+      .hero-badge {
+        font-size: 10px;
+        padding: 6px 14px;
+      }
+
+      /* Progress steps */
+      .prog-label {
+        font-size: 8px;
+        letter-spacing: 0.5px;
+      }
+
+      .prog-dot {
+        width: 26px;
+        height: 26px;
+        font-size: 11px;
+      }
+
+      /* Configurator layout — CRITICAL: stack and unstick on mobile */
+      .configurator {
+        grid-template-columns: 1fr;
+        padding: 32px 16px;
+        gap: 24px;
+      }
+
+      .summary-panel {
+        position: static;
+        order: -1;
+      }
+
+      .summary-panel h3 {
+        font-size: 15px;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+      }
+
+      .summary-total {
+        font-size: 28px;
+      }
+
+      /* Essentials banner */
+      .essentials-banner {
+        padding: 24px 16px;
+        margin-bottom: 32px;
+      }
+
+      .essentials-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .essentials-header h3 {
+        font-size: 16px;
+      }
+
+      .essentials-footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      /* Device/option cards */
+      .device-picker {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .device-card {
+        padding: 20px 16px;
+      }
+
+      .card-visual {
+        width: 80px;
+        height: 80px;
+      }
+
+      .thermo-round { width: 80px; height: 80px; }
+      .thermo-rect { width: 56px; height: 80px; }
+      .thermo-panel { width: 80px; height: 64px; }
+      .thermo-premium { width: 70px; height: 80px; }
+
+      .device-card h3 {
+        font-size: 15px;
+      }
+
+      .device-card p {
+        font-size: 11px;
+      }
+
+      .option-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .option-item {
+        padding: 16px;
+      }
+
+      /* Step headers */
+      .step-header h2 {
+        font-size: 22px;
+      }
+
+      .step-header p {
+        font-size: 13px;
+      }
+
+      .step-eyebrow {
+        font-size: 10px;
+        letter-spacing: 2px;
+      }
+
+      /* Quote form */
+      .quote-form {
+        padding: 24px 16px;
+      }
+
+      .quote-form h3 {
+        font-size: 18px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .form-field input,
+      .form-field textarea,
+      .form-field select {
+        font-size: 16px;
+        padding: 12px;
+      }
+
+      /* Confirm section */
+      .confirm-section h2 {
+        font-size: 24px;
+      }
+
+      .confirm-icon {
+        font-size: 56px;
+      }
+
+      .confirm-summary {
+        padding: 20px 16px;
+      }
+
+      /* Quantity controls */
+      .qty-row {
+        gap: 12px;
+      }
+
+      /* Buttons */
+      .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .step-nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .step-nav .btn {
+        width: 100%;
+      }
+
+      /* Footer */
+      footer {
+        padding: 40px 16px 24px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .custom-hero h1 {
+        font-size: 22px;
+      }
+
+      .summary-total {
+        font-size: 24px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+
+      .prog-label {
+        font-size: 7px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="nav-logo">EJG-OS</a>
+    <button class="nav-hamburger" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Hero -->
+    <section class="custom-hero">
+      <div class="hero-inner">
+        <div class="hero-badge">Custom Configuration</div>
+        <h1>Your System. Built Exactly for You.</h1>
+        <p>Pick your hardware, pick your features, and get a precise quote — all in minutes. Every detail, tailored to your home.</p>
+        <div class="progress-bar-wrap" style="margin-top: 40px;">
+          <div class="progress-steps" id="progressSteps">
+            <div class="prog-step active" data-step="1" onclick="goToStep(1)">
+              <div class="prog-dot">1</div>
+              <div class="prog-label">Thermostat</div>
+            </div>
+            <div class="prog-line" id="line1"></div>
+            <div class="prog-step" data-step="2" onclick="goToStep(2)">
+              <div class="prog-dot">2</div>
+              <div class="prog-label">Cameras</div>
+            </div>
+            <div class="prog-line" id="line2"></div>
+            <div class="prog-step" data-step="3" onclick="goToStep(3)">
+              <div class="prog-dot">3</div>
+              <div class="prog-label">Locks</div>
+            </div>
+            <div class="prog-line" id="line3"></div>
+            <div class="prog-step" data-step="4" onclick="goToStep(4)">
+              <div class="prog-dot">4</div>
+              <div class="prog-label">Lighting</div>
+            </div>
+            <div class="prog-line" id="line4"></div>
+            <div class="prog-step" data-step="5" onclick="goToStep(5)">
+              <div class="prog-dot">5</div>
+              <div class="prog-label">Add-ons</div>
+            </div>
+            <div class="prog-line" id="line5"></div>
+            <div class="prog-step" data-step="6" onclick="goToStep(6)">
+              <div class="prog-dot">6</div>
+              <div class="prog-label">Quote</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Configurator -->
+    <div class="configurator">
+      <div class="config-steps">
+
+        <!-- ESSENTIALS BUNDLE BANNER -->
+        <div class="essentials-banner">
+          <div class="essentials-content">
+            <div class="essentials-header">
+              <h3>✓ Included with Every EJG-OS Install</h3>
+              <p>Every home gets these essentials as standard</p>
+            </div>
+            <div class="essentials-grid">
+              <div class="essential-item">
+                <span class="essential-check">✓</span>
+                <span class="essential-text">EJG-OS Hub (local processing server)</span>
+              </div>
+              <div class="essential-item">
+                <span class="essential-check">✓</span>
+                <span class="essential-text">Dedicated 10" Control Tablet (wall-mounted)</span>
+              </div>
+              <div class="essential-item">
+                <span class="essential-check">✓</span>
+                <span class="essential-text">1× Smart Thermostat (Classic Round — upgradeable)</span>
+              </div>
+              <div class="essential-item">
+                <span class="essential-check">✓</span>
+                <span class="essential-text">Basic sensor pack (2× door/window, 1× motion)</span>
+              </div>
+              <div class="essential-item">
+                <span class="essential-check">✓</span>
+                <span class="essential-text">Full installation and training</span>
+              </div>
+            </div>
+            <div class="essentials-footer">
+              <span class="essentials-price">Base Cost: <strong>$1,499</strong></span>
+              <span class="essentials-note">Customize below to add optional upgrades</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 1: Thermostat -->
+        <div class="config-step active" id="step-1">
+          <div class="step-header">
+            <div class="step-eyebrow">Step 1 of 5</div>
+            <h2>Choose Your Thermostat</h2>
+            <p>Every EJG-OS system includes a smart thermostat. Pick the style that fits your home and lifestyle.</p>
+          </div>
+
+          <div class="device-picker" id="thermostatPicker">
+
+            <!-- Thermostat 1: Classic Round -->
+            <div class="device-card" data-id="thermo-classic" onclick="selectDevice('thermostat', 'thermo-classic', 189, this)">
+              <div class="card-visual">
+                <svg class="thermo-round" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Outer ring -->
+                  <circle cx="50" cy="50" r="46" fill="#1a1a2e" stroke="#6b21a8" stroke-width="2.5"/>
+                  <!-- Inner ring -->
+                  <circle cx="50" cy="50" r="36" fill="#0d0d1a" stroke="#a855f7" stroke-width="1.5"/>
+                  <!-- Tick marks -->
+                  <g stroke="#6b21a8" stroke-width="1.5">
+                    <line x1="50" y1="8" x2="50" y2="15" transform="rotate(0 50 50)"/>
+                    <line x1="50" y1="8" x2="50" y2="14" transform="rotate(30 50 50)"/>
+                    <line x1="50" y1="8" x2="50" y2="14" transform="rotate(60 50 50)"/>
+                    <line x1="50" y1="8" x2="50" y2="15" transform="rotate(90 50 50)"/>
+                    <line x1="50" y1="8" x2="50" y2="14" transform="rotate(120 50 50)"/>
+                    <line x1="50" y1="8" x2="50" y2="14" transform="rotate(150 50 50)"/>
+                    <line x1="50" y1="8" x2="50" y2="15" transform="rotate(180 50 50)"/>
+                    <line x1="50" y1="8" x2="50" y2="14" transform="rotate(210 50 50)"/>
+                    <line x1="50" y1="8" x2="50" y2="14" transform="rotate(240 50 50)"/>
+                    <line x1="50" y1="8" x2="50" y2="15" transform="rotate(270 50 50)"/>
+                    <line x1="50" y1="8" x2="50" y2="14" transform="rotate(300 50 50)"/>
+                    <line x1="50" y1="8" x2="50" y2="14" transform="rotate(330 50 50)"/>
+                  </g>
+                  <!-- Arc indicator -->
+                  <path d="M 20 72 A 36 36 0 1 1 80 72" fill="none" stroke="#a855f7" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+                  <!-- Active arc -->
+                  <path d="M 20 72 A 36 36 0 0 1 68 22" fill="none" stroke="#c084fc" stroke-width="3" stroke-linecap="round"/>
+                  <!-- Temp display -->
+                  <text x="50" y="47" text-anchor="middle" fill="#f3e8ff" font-size="16" font-weight="700" font-family="sans-serif">21°</text>
+                  <text x="50" y="60" text-anchor="middle" fill="#a855f7" font-size="7" font-family="sans-serif">HEATING</text>
+                  <!-- Dot indicator -->
+                  <circle cx="67" cy="23" r="3" fill="#c084fc"/>
+                </svg>
+              </div>
+              <h3>Classic Round</h3>
+              <span class="card-tag">Z-Wave</span>
+              <p>Elegant circular display with touch dial. Minimalist design fits any décor.</p>
+              <div class="spec-chips">
+                <span class="spec-chip">7" dial</span>
+                <span class="spec-chip">Touch ring</span>
+                <span class="spec-chip">E-ink</span>
+              </div>
+              <div class="card-price">Included</div>
+              <div class="qty-row">
+                <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-classic', -1)">−</button>
+                <div class="qty-val" id="qty-thermo-classic">1</div>
+                <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-classic', 1)">+</button>
+              </div>
+            </div>
+
+            <!-- Thermostat 2: Modern Rectangular -->
+            <div class="device-card" data-id="thermo-modern" onclick="selectDevice('thermostat', 'thermo-modern', 249, this)">
+              <div class="card-visual">
+                <svg class="thermo-rect" viewBox="0 0 72 100" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Body -->
+                  <rect x="4" y="4" width="64" height="92" rx="10" fill="#1a1a2e" stroke="#6b21a8" stroke-width="2"/>
+                  <!-- Screen -->
+                  <rect x="10" y="14" width="52" height="52" rx="6" fill="#0a0a1e"/>
+                  <!-- Screen glow -->
+                  <rect x="10" y="14" width="52" height="52" rx="6" fill="none" stroke="#a855f7" stroke-width="1" opacity="0.6"/>
+                  <!-- Temp big -->
+                  <text x="36" y="46" text-anchor="middle" fill="#f3e8ff" font-size="20" font-weight="700" font-family="sans-serif">21°C</text>
+                  <!-- Status -->
+                  <text x="36" y="58" text-anchor="middle" fill="#a855f7" font-size="7" font-family="sans-serif">HEAT ON · 23° TARGET</text>
+                  <!-- Mini graph line -->
+                  <polyline points="14,62 22,58 30,60 38,55 46,57 54,52 58,54" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.7"/>
+                  <!-- Bottom bar -->
+                  <rect x="10" y="80" width="52" height="6" rx="3" fill="#1a1a2e" stroke="#4a0e82" stroke-width="1"/>
+                  <!-- Indicator dot -->
+                  <circle cx="36" cy="83" r="2" fill="#a855f7"/>
+                  <!-- Side buttons -->
+                  <rect x="0" y="36" width="4" height="12" rx="2" fill="#4a0e82"/>
+                  <rect x="68" y="36" width="4" height="12" rx="2" fill="#4a0e82"/>
+                </svg>
+              </div>
+              <h3>Modern Touchscreen</h3>
+              <span class="card-tag">Z-Wave Pro</span>
+              <p>Sleek rectangular touchscreen with live energy graphs and schedule display.</p>
+              <div class="spec-chips">
+                <span class="spec-chip">Color LCD</span>
+                <span class="spec-chip">Schedules</span>
+                <span class="spec-chip">Energy graph</span>
+              </div>
+              <div class="card-price">+$60/unit</div>
+              <div class="qty-row">
+                <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-modern', -1)">−</button>
+                <div class="qty-val" id="qty-thermo-modern">1</div>
+                <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-modern', 1)">+</button>
+              </div>
+            </div>
+
+            <!-- Thermostat 3: Wall Panel -->
+            <div class="device-card" data-id="thermo-panel" onclick="selectDevice('thermostat', 'thermo-panel', 349, this)">
+              <div class="card-visual">
+                <svg class="thermo-panel" viewBox="0 0 140 96" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Main panel body -->
+                  <rect x="4" y="4" width="132" height="88" rx="8" fill="#1a1a2e" stroke="#6b21a8" stroke-width="2"/>
+                  <!-- Large screen area -->
+                  <rect x="10" y="10" width="120" height="76" rx="6" fill="#080818"/>
+                  <rect x="10" y="10" width="120" height="76" rx="6" fill="none" stroke="#a855f7" stroke-width="1" opacity="0.5"/>
+                  <!-- Left zone -->
+                  <rect x="14" y="14" width="54" height="68" rx="4" fill="#0d0d20"/>
+                  <text x="41" y="38" text-anchor="middle" fill="#c084fc" font-size="7" font-family="sans-serif" font-weight="700">MAIN FLOOR</text>
+                  <text x="41" y="54" text-anchor="middle" fill="#f3e8ff" font-size="16" font-weight="700" font-family="sans-serif">21°</text>
+                  <text x="41" y="66" text-anchor="middle" fill="#a855f7" font-size="6" font-family="sans-serif">HEAT · 23° SET</text>
+                  <!-- Right zone -->
+                  <rect x="72" y="14" width="54" height="68" rx="4" fill="#0d0d20"/>
+                  <text x="99" y="38" text-anchor="middle" fill="#c084fc" font-size="7" font-family="sans-serif" font-weight="700">UPSTAIRS</text>
+                  <text x="99" y="54" text-anchor="middle" fill="#f3e8ff" font-size="16" font-weight="700" font-family="sans-serif">19°</text>
+                  <text x="99" y="66" text-anchor="middle" fill="#6b21a8" font-size="6" font-family="sans-serif">IDLE · 20° SET</text>
+                  <!-- Divider -->
+                  <line x1="70" y1="18" x2="70" y2="78" stroke="#a855f7" stroke-width="0.5" opacity="0.4"/>
+                  <!-- Status dots -->
+                  <circle cx="41" cy="75" r="3" fill="#22c55e" opacity="0.8"/>
+                  <circle cx="99" cy="75" r="3" fill="#a855f7" opacity="0.5"/>
+                </svg>
+              </div>
+              <h3>Dual-Zone Wall Panel</h3>
+              <span class="card-tag">Z-Wave Elite</span>
+              <p>Large wall-mounted panel controlling two zones simultaneously. Premium look.</p>
+              <div class="spec-chips">
+                <span class="spec-chip">2 zones</span>
+                <span class="spec-chip">5" display</span>
+                <span class="spec-chip">Humidity</span>
+              </div>
+              <div class="card-price">+$160/unit</div>
+              <div class="qty-row">
+                <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-panel', -1)">−</button>
+                <div class="qty-val" id="qty-thermo-panel">1</div>
+                <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-panel', 1)">+</button>
+              </div>
+            </div>
+
+            <!-- Thermostat 4: Premium OLED -->
+            <div class="device-card" data-id="thermo-premium" onclick="selectDevice('thermostat', 'thermo-premium', 449, this)">
+              <div class="card-visual">
+                <svg class="thermo-premium" viewBox="0 0 88 100" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Premium housing -->
+                  <rect x="4" y="4" width="80" height="92" rx="12" fill="#110824" stroke="#a855f7" stroke-width="2.5"/>
+                  <!-- OLED glow effect -->
+                  <rect x="4" y="4" width="80" height="92" rx="12" fill="none" stroke="#c084fc" stroke-width="0.5" opacity="0.4"/>
+                  <!-- Screen -->
+                  <rect x="12" y="12" width="64" height="64" rx="8" fill="#050010"/>
+                  <!-- Gradient overlay -->
+                  <defs>
+                    <radialGradient id="oledGlow" cx="50%" cy="40%" r="60%">
+                      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3"/>
+                      <stop offset="100%" stop-color="#050010" stop-opacity="0"/>
+                    </radialGradient>
+                  </defs>
+                  <rect x="12" y="12" width="64" height="64" rx="8" fill="url(#oledGlow)"/>
+                  <!-- Time -->
+                  <text x="44" y="28" text-anchor="middle" fill="#c084fc" font-size="7" font-family="sans-serif">MONDAY  ·  9:41 AM</text>
+                  <!-- Big temp -->
+                  <text x="44" y="52" text-anchor="middle" fill="white" font-size="24" font-weight="700" font-family="sans-serif">21°C</text>
+                  <!-- Set line -->
+                  <text x="44" y="64" text-anchor="middle" fill="#a855f7" font-size="7" font-family="sans-serif">TARGET 23° · HEATING</text>
+                  <!-- Screen border glow -->
+                  <rect x="12" y="12" width="64" height="64" rx="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.7"/>
+                  <!-- Bottom controls -->
+                  <rect x="20" y="84" width="20" height="6" rx="3" fill="#2d0a52"/>
+                  <rect x="48" y="84" width="20" height="6" rx="3" fill="#2d0a52"/>
+                  <!-- Premium gold accent line at top -->
+                  <rect x="30" y="7" width="28" height="2" rx="1" fill="#fbbf24" opacity="0.6"/>
+                </svg>
+              </div>
+              <h3>Premium OLED</h3>
+              <span class="card-tag">Flagship</span>
+              <p>OLED display with ambient light sensor, ultra-thin profile, and AI-assisted scheduling.</p>
+              <div class="spec-chips">
+                <span class="spec-chip">OLED</span>
+                <span class="spec-chip">AI schedule</span>
+                <span class="spec-chip">Presence</span>
+              </div>
+              <div class="card-price">+$260/unit</div>
+              <div class="qty-row">
+                <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-premium', -1)">−</button>
+                <div class="qty-val" id="qty-thermo-premium">1</div>
+                <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-premium', 1)">+</button>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="step-nav">
+            <button class="btn btn-primary" onclick="goToStep(2)">Next: Cameras →</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Cameras -->
+        <div class="config-step" id="step-2">
+          <div class="step-header">
+            <div class="step-eyebrow">Step 2 of 5</div>
+            <h2>Choose Your Cameras</h2>
+            <p>All cameras record locally. No cloud subscription needed. Choose what suits each part of your home.</p>
+          </div>
+
+          <div class="camera-grid">
+            <div class="cam-card" data-id="cam-indoor" onclick="selectCam('cam-indoor', 99, this)">
+              <span class="cam-icon">📷</span>
+              <h3>Indoor HD</h3>
+              <p>1080p wide-angle. Great for living rooms, hallways, and nurseries.</p>
+              <div class="spec-chips" style="justify-content:center">
+                <span class="spec-chip">1080p</span>
+                <span class="spec-chip">Night vision</span>
+              </div>
+              <div class="card-price" style="display:inline-block;margin-top:10px">$99/each</div>
+              <div class="cam-qty">
+                <button class="qty-btn" onclick="event.stopPropagation(); adjustCamQty('cam-indoor', -1)">−</button>
+                <div class="qty-val" id="qty-cam-indoor">0</div>
+                <button class="qty-btn" onclick="event.stopPropagation(); adjustCamQty('cam-indoor', 1)">+</button>
+              </div>
+            </div>
+
+            <div class="cam-card" data-id="cam-outdoor" onclick="selectCam('cam-outdoor', 179, this)">
+              <span class="cam-icon">🎥</span>
+              <h3>Outdoor 2K</h3>
+              <p>Weatherproof 2K. Motion zones, colour night vision, and two-way audio.</p>
+              <div class="spec-chips" style="justify-content:center">
+                <span class="spec-chip">2K</span>
+                <span class="spec-chip">Weatherproof</span>
+                <span class="spec-chip">2-way audio</span>
+              </div>
+              <div class="card-price" style="display:inline-block;margin-top:10px">$179/each</div>
+              <div class="cam-qty">
+                <button class="qty-btn" onclick="event.stopPropagation(); adjustCamQty('cam-outdoor', -1)">−</button>
+                <div class="qty-val" id="qty-cam-outdoor">0</div>
+                <button class="qty-btn" onclick="event.stopPropagation(); adjustCamQty('cam-outdoor', 1)">+</button>
+              </div>
+            </div>
+
+            <div class="cam-card" data-id="cam-doorbell" onclick="selectCam('cam-doorbell', 229, this)">
+              <span class="cam-icon">🔔</span>
+              <h3>Video Doorbell</h3>
+              <p>4K doorbell cam with face detection, package alerts, and instant EJG-OS notifications.</p>
+              <div class="spec-chips" style="justify-content:center">
+                <span class="spec-chip">4K</span>
+                <span class="spec-chip">Face detect</span>
+                <span class="spec-chip">Package alert</span>
+              </div>
+              <div class="card-price" style="display:inline-block;margin-top:10px">$229/each</div>
+              <div class="cam-qty">
+                <button class="qty-btn" onclick="event.stopPropagation(); adjustCamQty('cam-doorbell', -1)">−</button>
+                <div class="qty-val" id="qty-cam-doorbell">0</div>
+                <button class="qty-btn" onclick="event.stopPropagation(); adjustCamQty('cam-doorbell', 1)">+</button>
+              </div>
+            </div>
+
+            <div class="cam-card" data-id="cam-ptz" onclick="selectCam('cam-ptz', 299, this)">
+              <span class="cam-icon">🔍</span>
+              <h3>PTZ Pan/Tilt</h3>
+              <p>360° pan, 90° tilt, 4K. Remotely controllable. Ideal for garages and large open areas.</p>
+              <div class="spec-chips" style="justify-content:center">
+                <span class="spec-chip">360° pan</span>
+                <span class="spec-chip">4K</span>
+                <span class="spec-chip">Remote ctrl</span>
+              </div>
+              <div class="card-price" style="display:inline-block;margin-top:10px">$299/each</div>
+              <div class="cam-qty">
+                <button class="qty-btn" onclick="event.stopPropagation(); adjustCamQty('cam-ptz', -1)">−</button>
+                <div class="qty-val" id="qty-cam-ptz">0</div>
+                <button class="qty-btn" onclick="event.stopPropagation(); adjustCamQty('cam-ptz', 1)">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-nav">
+            <button class="btn btn-ghost" onclick="goToStep(1)">← Back</button>
+            <button class="btn btn-primary" onclick="goToStep(3)">Next: Locks →</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Locks -->
+        <div class="config-step" id="step-3">
+          <div class="step-header">
+            <div class="step-eyebrow">Step 3 of 5</div>
+            <h2>Choose Your Smart Locks</h2>
+            <p>All locks integrate directly into EJG-OS. Unlock with your phone, a code, a fob, or automatically via presence detection.</p>
+          </div>
+
+          <div class="option-grid">
+            <div class="option-item" data-id="lock-keypad" onclick="toggleOption('lock', 'lock-keypad', 199, this)">
+              <div class="option-icon">🔢</div>
+              <div class="option-info">
+                <h4>Keypad Deadbolt</h4>
+                <p>Backlit keypad, 100 user codes, auto-lock timer. Works with EJG-OS schedules.</p>
+                <span class="opt-price">$199/lock</span>
+              </div>
+            </div>
+            <div class="option-item" data-id="lock-touch" onclick="toggleOption('lock', 'lock-touch', 279, this)">
+              <div class="option-icon">👆</div>
+              <div class="option-info">
+                <h4>Touchscreen Lock</h4>
+                <p>No physical keys. Illuminated touchscreen with virtual keypad and tamper alarm.</p>
+                <span class="opt-price">$279/lock</span>
+              </div>
+            </div>
+            <div class="option-item" data-id="lock-biometric" onclick="toggleOption('lock', 'lock-biometric', 379, this)">
+              <div class="option-icon">🖐️</div>
+              <div class="option-info">
+                <h4>Fingerprint Biometric</h4>
+                <p>Fingerprint scanner + keypad + RFID fob support. Up to 50 fingerprints stored locally.</p>
+                <span class="opt-price">$379/lock</span>
+              </div>
+            </div>
+            <div class="option-item" data-id="lock-garage" onclick="toggleOption('lock', 'lock-garage', 249, this)">
+              <div class="option-icon">🚗</div>
+              <div class="option-info">
+                <h4>Garage Door Controller</h4>
+                <p>Retrofit your existing garage door opener. Open/close from EJG-OS app or automatically.</p>
+                <span class="opt-price">$249/door</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-nav">
+            <button class="btn btn-ghost" onclick="goToStep(2)">← Back</button>
+            <button class="btn btn-primary" onclick="goToStep(4)">Next: Lighting →</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: Lighting -->
+        <div class="config-step" id="step-4">
+          <div class="step-header">
+            <div class="step-eyebrow">Step 4 of 5</div>
+            <h2>Configure Your Lighting</h2>
+            <p>Smart lighting that reacts to your scenes, your schedule, and your presence — all processed locally.</p>
+          </div>
+
+          <div class="option-grid">
+            <div class="option-item" data-id="light-bulbs" onclick="toggleOption('lighting', 'light-bulbs', 299, this)">
+              <div class="option-icon">💡</div>
+              <div class="option-info">
+                <h4>Smart Bulb Pack (8 bulbs)</h4>
+                <p>Colour + warm white Zigbee bulbs. Full dimming, scene automation, and group control.</p>
+                <span class="opt-price">$299/pack</span>
+              </div>
+            </div>
+            <div class="option-item" data-id="light-switches" onclick="toggleOption('lighting', 'light-switches', 349, this)">
+              <div class="option-icon">🔌</div>
+              <div class="option-info">
+                <h4>In-Wall Dimmer Pack (6 switches)</h4>
+                <p>Replace standard switches. Works with any dimmable bulb. No neutral wire required.</p>
+                <span class="opt-price">$349/pack</span>
+              </div>
+            </div>
+            <div class="option-item" data-id="light-strips" onclick="toggleOption('lighting', 'light-strips', 179, this)">
+              <div class="option-icon">🌈</div>
+              <div class="option-info">
+                <h4>Ambient LED Strips (5m)</h4>
+                <p>RGBW strips for under-cabinet, stair, and accent lighting. Fully scene-synced.</p>
+                <span class="opt-price">$179/5m</span>
+              </div>
+            </div>
+            <div class="option-item" data-id="light-outdoor" onclick="toggleOption('lighting', 'light-outdoor', 249, this)">
+              <div class="option-icon">🏡</div>
+              <div class="option-info">
+                <h4>Outdoor Smart Lights (4 fixtures)</h4>
+                <p>Weatherproof path and exterior lights. Sunrise/sunset automations built in.</p>
+                <span class="opt-price">$249/set</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-nav">
+            <button class="btn btn-ghost" onclick="goToStep(3)">← Back</button>
+            <button class="btn btn-primary" onclick="goToStep(5)">Next: Add-ons →</button>
+          </div>
+        </div>
+
+        <!-- STEP 5: Add-ons -->
+        <div class="config-step" id="step-5">
+          <div class="step-header">
+            <div class="step-eyebrow">Step 5 of 5</div>
+            <h2>Power Up Your System</h2>
+            <p>Optional features that make EJG-OS even smarter. Add what matters most to you.</p>
+          </div>
+
+          <div class="addons-grid">
+            <div class="addon-item" onclick="toggleAddon(this, 'voice', 500)">
+              <div class="addon-left">
+                <div class="addon-icon">🎙️</div>
+                <div class="addon-info">
+                  <h4>Voice Control "Hey Skip"</h4>
+                  <p>On-device voice assistant. No cloud. Fully private.</p>
+                </div>
+              </div>
+              <div class="addon-toggle"></div>
+            </div>
+
+            <div class="addon-item" onclick="toggleAddon(this, 'monitoring', 0)">
+              <div class="addon-left">
+                <div class="addon-icon">🛡️</div>
+                <div class="addon-info">
+                  <h4>24/7 Professional Monitoring</h4>
+                  <p>+$29/month optional. Cancel anytime. No contract.</p>
+                </div>
+              </div>
+              <div class="addon-toggle"></div>
+            </div>
+
+            <div class="addon-item" onclick="toggleAddon(this, 'energy', 299)">
+              <div class="addon-left">
+                <div class="addon-icon">⚡</div>
+                <div class="addon-info">
+                  <h4>Energy Monitoring Hub</h4>
+                  <p>Track real-time electricity use by room and device.</p>
+                </div>
+              </div>
+              <div class="addon-toggle"></div>
+            </div>
+
+            <div class="addon-item" onclick="toggleAddon(this, 'sensors', 199)">
+              <div class="addon-left">
+                <div class="addon-icon">📡</div>
+                <div class="addon-info">
+                  <h4>Sensor Pack (6 sensors)</h4>
+                  <p>Motion, door/window, water leak, smoke. Complete awareness.</p>
+                </div>
+              </div>
+              <div class="addon-toggle"></div>
+            </div>
+
+            <div class="addon-item" onclick="toggleAddon(this, 'multilang', 300)">
+              <div class="addon-left">
+                <div class="addon-icon">🌐</div>
+                <div class="addon-info">
+                  <h4>Multi-Language Interface</h4>
+                  <p>French, Spanish, Tagalog, Punjabi + more on request.</p>
+                </div>
+              </div>
+              <div class="addon-toggle"></div>
+            </div>
+
+            <div class="addon-item" onclick="toggleAddon(this, 'backup', 399)">
+              <div class="addon-left">
+                <div class="addon-icon">🔋</div>
+                <div class="addon-info">
+                  <h4>UPS Backup Power</h4>
+                  <p>Keep your system running during power outages. 4-hour runtime.</p>
+                </div>
+              </div>
+              <div class="addon-toggle"></div>
+            </div>
+          </div>
+
+          <div class="step-nav">
+            <button class="btn btn-ghost" onclick="goToStep(4)">← Back</button>
+            <button class="btn btn-primary" onclick="goToStep(6)">Review My Quote →</button>
+          </div>
+        </div>
+
+        <!-- STEP 6: Quote -->
+        <div class="config-step" id="step-6">
+          <div class="step-header">
+            <div class="step-eyebrow">Your Custom Build</div>
+            <h2>Here's Your System</h2>
+            <p>Built exactly to your specs. Send it to our team and we'll follow up within one business day.</p>
+          </div>
+
+          <div class="confirm-section">
+            <span class="confirm-icon">✨</span>
+            <div class="confirm-summary" id="confirmSummary">
+              <!-- Populated by JS -->
+            </div>
+
+            <form class="quote-form" id="quoteForm">
+              <input type="hidden" name="configuration" id="qConfig" value="">
+              <div id="quoteSuccess" style="display:none; background: rgba(168,85,247,0.15); border: 1px solid rgba(168,85,247,0.4); color: var(--purple-400); padding: 16px 20px; border-radius: 10px; margin-bottom: 20px; font-size: 14px; font-weight: 600; text-align: center;">
+                Quote sent! We'll be in touch within one business day.
+              </div>
+              <h3>Send Me This Quote</h3>
+              <p>We'll review your configuration and get back to you with a final quote and install date.</p>
+              <div class="form-row">
+                <div class="form-field">
+                  <label>First Name</label>
+                  <input type="text" name="first-name" id="qFirstName" required placeholder="Alex">
+                </div>
+                <div class="form-field">
+                  <label>Last Name</label>
+                  <input type="text" name="last-name" id="qLastName" required placeholder="Smith">
+                </div>
+              </div>
+              <div class="form-field">
+                <label>Email</label>
+                <input type="email" name="email" id="qEmail" required placeholder="alex@example.com">
+              </div>
+              <div class="form-field">
+                <label>Phone (optional)</label>
+                <input type="tel" name="phone" id="qPhone" placeholder="(403) 555-0100">
+              </div>
+              <div class="form-field">
+                <label>Home Type</label>
+                <select name="home-type" id="qHomeType">
+                  <option value="">Select...</option>
+                  <option>Single Family Home</option>
+                  <option>Townhouse</option>
+                  <option>Condo / Apartment</option>
+                  <option>Multi-Family / Rental</option>
+                  <option>Commercial</option>
+                  <option>New Construction</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>Anything else you'd like to add?</label>
+                <textarea name="notes" id="qNotes" placeholder="e.g. I have a detached garage, or I need everything installed within the next two weeks..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; font-size:16px; padding:16px;">
+                🚀 Send My Custom Quote
+              </button>
+              <p style="font-size:12px; color:var(--text-muted); text-align:center; margin-top:14px;">
+                No commitment required. We'll reach out within 1 business day.
+              </p>
+            </form>
+          </div>
+
+          <div class="step-nav" style="justify-content:center; margin-top:24px;">
+            <button class="btn btn-ghost" onclick="goToStep(5)">← Edit Selections</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Summary Panel -->
+      <div class="summary-panel">
+        <h3>⚙️ Your Build So Far</h3>
+
+        <div class="summary-line">
+          <span class="summary-label">📱 Control Tablet</span>
+          <span class="summary-value">Included</span>
+        </div>
+        <div class="summary-line">
+          <span class="summary-label">🖥️ EJG-OS Hub</span>
+          <span class="summary-value">Included</span>
+        </div>
+        <div class="summary-line">
+          <span class="summary-label">🌡️ Thermostat</span>
+          <span class="summary-value empty" id="sum-thermostat">Not chosen</span>
+        </div>
+        <div class="summary-line">
+          <span class="summary-label">📷 Cameras</span>
+          <span class="summary-value empty" id="sum-cameras">None</span>
+        </div>
+        <div class="summary-line">
+          <span class="summary-label">🔒 Locks</span>
+          <span class="summary-value empty" id="sum-locks">None</span>
+        </div>
+        <div class="summary-line">
+          <span class="summary-label">💡 Lighting</span>
+          <span class="summary-value empty" id="sum-lighting">None</span>
+        </div>
+        <div class="summary-line">
+          <span class="summary-label">✨ Add-ons</span>
+          <span class="summary-value empty" id="sum-addons">None</span>
+        </div>
+
+        <hr class="summary-divider">
+
+        <div class="summary-line">
+          <span class="summary-label">Base Install</span>
+          <span class="summary-value">$1,499</span>
+        </div>
+        <div class="summary-line">
+          <span class="summary-label">Hardware</span>
+          <span class="summary-value" id="sum-hardware">$189</span>
+        </div>
+        <div class="summary-line">
+          <span class="summary-label">Labour</span>
+          <span class="summary-value">Included</span>
+        </div>
+
+        <hr class="summary-divider">
+
+        <div class="summary-total-label">Estimated Total</div>
+        <div class="summary-total" id="sum-total">$1,688</div>
+        <div class="summary-note">Final quote confirmed after consultation</div>
+
+        <button class="btn btn-primary summary-cta" onclick="goToStep(6)">Get My Quote →</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Product</h3>
+        <a href="features.html">Features</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="how-it-works.html">How It Works</a>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-column">
+        <h3>Legal</h3>
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
+      </div>
+      <div class="footer-column">
+        <h3>Location</h3>
+        <p>Calgary, AB</p>
+        <p>Growing Nationwide</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 EJG-OS. All rights reserved. The Smart Home Operating System.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Nav ───────────────────────────────────────────────────────────
+    const hamburger = document.querySelector('.nav-hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('nav-open'));
+    document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('nav-open')));
+
+    // ─── State ─────────────────────────────────────────────────────────
+    const state = {
+      currentStep: 1,
+      totalSteps: 6,
+      thermostat: { id: 'thermo-classic', name: 'Classic Round', qty: 1, unitPrice: 189 },
+      cameras: {},   // id → { name, qty, unitPrice }
+      locks: {},     // id → { name, qty, unitPrice }
+      lighting: {},  // id → { name, price }
+      addons: {},    // id → { name, price }
+    };
+
+    const THERMO_INFO = {
+      'thermo-classic': { name: 'Classic Round', unitPrice: 189 },
+      'thermo-modern':  { name: 'Modern Touchscreen', unitPrice: 249 },
+      'thermo-panel':   { name: 'Dual-Zone Panel', unitPrice: 349 },
+      'thermo-premium': { name: 'Premium OLED', unitPrice: 449 },
+    };
+    const CAM_INFO = {
+      'cam-indoor':   { name: 'Indoor HD', unitPrice: 99 },
+      'cam-outdoor':  { name: 'Outdoor 2K', unitPrice: 179 },
+      'cam-doorbell': { name: 'Video Doorbell', unitPrice: 229 },
+      'cam-ptz':      { name: 'PTZ Pan/Tilt', unitPrice: 299 },
+    };
+    const LOCK_INFO = {
+      'lock-keypad':     { name: 'Keypad Deadbolt', price: 199 },
+      'lock-touch':      { name: 'Touchscreen Lock', price: 279 },
+      'lock-biometric':  { name: 'Biometric Lock', price: 379 },
+      'lock-garage':     { name: 'Garage Controller', price: 249 },
+    };
+    const LIGHTING_INFO = {
+      'light-bulbs':    { name: 'Smart Bulb Pack', price: 299 },
+      'light-switches': { name: 'In-Wall Dimmers', price: 349 },
+      'light-strips':   { name: 'LED Strips', price: 179 },
+      'light-outdoor':  { name: 'Outdoor Lights', price: 249 },
+    };
+    const ADDON_INFO = {
+      'voice':      { name: 'Voice "Hey Skip"', price: 500 },
+      'monitoring': { name: '24/7 Monitoring', price: 0, note: '+$29/mo' },
+      'energy':     { name: 'Energy Monitor', price: 299 },
+      'sensors':    { name: 'Sensor Pack', price: 199 },
+      'multilang':  { name: 'Multi-Language', price: 300 },
+      'backup':     { name: 'UPS Backup Power', price: 399 },
+    };
+
+    // ─── Step Navigation ───────────────────────────────────────────────
+    function goToStep(n) {
+      if (n < 1 || n > state.totalSteps) return;
+      document.getElementById('step-' + state.currentStep).classList.remove('active');
+      state.currentStep = n;
+      document.getElementById('step-' + n).classList.add('active');
+      updateProgressBar();
+      if (n === 6) buildConfirmSummary();
+      window.scrollTo({ top: document.querySelector('.custom-hero').offsetHeight + 64, behavior: 'smooth' });
+    }
+
+    function updateProgressBar() {
+      for (let i = 1; i <= 6; i++) {
+        const step = document.querySelector('.prog-step[data-step="' + i + '"]');
+        step.classList.remove('active', 'done');
+        if (i < state.currentStep) step.classList.add('done');
+        else if (i === state.currentStep) step.classList.add('active');
+
+        if (i < 6) {
+          const line = document.getElementById('line' + i);
+          if (line) {
+            line.classList.toggle('done', i < state.currentStep);
+          }
+        }
+      }
+    }
+
+    // ─── Thermostat Selection ──────────────────────────────────────────
+    function selectDevice(category, id, price, el) {
+      document.querySelectorAll('#thermostatPicker .device-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      const info = THERMO_INFO[id];
+      state.thermostat = { id, name: info.name, qty: parseInt(document.getElementById('qty-' + id).textContent), unitPrice: info.unitPrice };
+      updateSummary();
+    }
+
+    function adjustQty(id, delta) {
+      const el = document.getElementById('qty-' + id);
+      let val = parseInt(el.textContent) + delta;
+      if (val < 1) val = 1;
+      el.textContent = val;
+      if (state.thermostat.id === id) {
+        state.thermostat.qty = val;
+        updateSummary();
+      }
+    }
+
+    // ─── Camera Selection ──────────────────────────────────────────────
+    function selectCam(id, price, el) {
+      if (state.cameras[id]) {
+        // deselect if qty is 0 after click (handled by +/- only); just mark selected
+      }
+      el.classList.add('selected');
+    }
+
+    function adjustCamQty(id, delta) {
+      const el = document.getElementById('qty-' + id);
+      let val = Math.max(0, parseInt(el.textContent) + delta);
+      el.textContent = val;
+      const card = document.querySelector('[data-id="' + id + '"]');
+      if (val > 0) {
+        card.classList.add('selected');
+        const info = CAM_INFO[id];
+        state.cameras[id] = { name: info.name, qty: val, unitPrice: info.unitPrice };
+      } else {
+        card.classList.remove('selected');
+        delete state.cameras[id];
+      }
+      updateSummary();
+    }
+
+    // ─── Lock / Lighting Toggle ────────────────────────────────────────
+    function toggleOption(category, id, price, el) {
+      const stateMap = category === 'lock' ? state.locks : state.lighting;
+      const infoMap = category === 'lock' ? LOCK_INFO : LIGHTING_INFO;
+      if (stateMap[id]) {
+        el.classList.remove('selected');
+        delete stateMap[id];
+      } else {
+        el.classList.add('selected');
+        stateMap[id] = { name: infoMap[id].name, price: infoMap[id].price };
+      }
+      updateSummary();
+    }
+
+    // ─── Add-ons Toggle ────────────────────────────────────────────────
+    function toggleAddon(el, id, price) {
+      if (state.addons[id]) {
+        el.classList.remove('selected');
+        delete state.addons[id];
+      } else {
+        el.classList.add('selected');
+        const info = ADDON_INFO[id];
+        state.addons[id] = { name: info.name, price: info.price, note: info.note };
+      }
+      updateSummary();
+    }
+
+    // ─── Summary Update ────────────────────────────────────────────────
+    function updateSummary() {
+      // Thermostat
+      const t = state.thermostat;
+      const sumT = document.getElementById('sum-thermostat');
+      sumT.textContent = t.qty + '× ' + t.name;
+      sumT.classList.remove('empty');
+
+      // Cameras
+      const camKeys = Object.keys(state.cameras);
+      const sumC = document.getElementById('sum-cameras');
+      if (camKeys.length === 0) {
+        sumC.textContent = 'None'; sumC.classList.add('empty');
+      } else {
+        sumC.textContent = camKeys.map(k => state.cameras[k].qty + '× ' + state.cameras[k].name).join(', ');
+        sumC.classList.remove('empty');
+      }
+
+      // Locks
+      const lockKeys = Object.keys(state.locks);
+      const sumL = document.getElementById('sum-locks');
+      if (lockKeys.length === 0) {
+        sumL.textContent = 'None'; sumL.classList.add('empty');
+      } else {
+        sumL.textContent = lockKeys.map(k => state.locks[k].name).join(', ');
+        sumL.classList.remove('empty');
+      }
+
+      // Lighting
+      const lightKeys = Object.keys(state.lighting);
+      const sumLi = document.getElementById('sum-lighting');
+      if (lightKeys.length === 0) {
+        sumLi.textContent = 'None'; sumLi.classList.add('empty');
+      } else {
+        sumLi.textContent = lightKeys.map(k => state.lighting[k].name).join(', ');
+        sumLi.classList.remove('empty');
+      }
+
+      // Add-ons
+      const addonKeys = Object.keys(state.addons);
+      const sumA = document.getElementById('sum-addons');
+      if (addonKeys.length === 0) {
+        sumA.textContent = 'None'; sumA.classList.add('empty');
+      } else {
+        sumA.textContent = addonKeys.map(k => state.addons[k].name).join(', ');
+        sumA.classList.remove('empty');
+      }
+
+      // Total
+      let hardware = t.qty * t.unitPrice;
+      Object.values(state.cameras).forEach(c => hardware += c.qty * c.unitPrice);
+      Object.values(state.locks).forEach(l => hardware += l.price);
+      Object.values(state.lighting).forEach(l => hardware += l.price);
+      Object.values(state.addons).forEach(a => hardware += a.price);
+
+      document.getElementById('sum-hardware').textContent = '$' + hardware.toLocaleString();
+      document.getElementById('sum-total').textContent = '$' + (1499 + hardware).toLocaleString();
+    }
+
+    function buildConfirmSummary() {
+      const t = state.thermostat;
+      let rows = '';
+
+      rows += `<div class="confirm-row"><span>Thermostat</span><span>${t.qty}× ${t.name}</span></div>`;
+
+      const camKeys = Object.keys(state.cameras);
+      if (camKeys.length) camKeys.forEach(k => {
+        const c = state.cameras[k];
+        rows += `<div class="confirm-row"><span>Camera</span><span>${c.qty}× ${c.name}</span></div>`;
+      });
+
+      Object.values(state.locks).forEach(l => {
+        rows += `<div class="confirm-row"><span>Lock</span><span>${l.name}</span></div>`;
+      });
+
+      Object.values(state.lighting).forEach(l => {
+        rows += `<div class="confirm-row"><span>Lighting</span><span>${l.name}</span></div>`;
+      });
+
+      Object.values(state.addons).forEach(a => {
+        rows += `<div class="confirm-row"><span>Add-on</span><span>${a.name}${a.note ? ' (' + a.note + ')' : ''}</span></div>`;
+      });
+
+      let hardware = t.qty * t.unitPrice;
+      Object.values(state.cameras).forEach(c => hardware += c.qty * c.unitPrice);
+      Object.values(state.locks).forEach(l => hardware += l.price);
+      Object.values(state.lighting).forEach(l => hardware += l.price);
+      Object.values(state.addons).forEach(a => hardware += a.price);
+      const total = 1499 + hardware;
+
+      rows += `<div class="confirm-row" style="margin-top:12px; font-size:16px;"><span style="color:var(--text);font-weight:700;">Estimated Total</span><span style="color:var(--purple-400);font-size:18px;">$${total.toLocaleString()}</span></div>`;
+
+      document.getElementById('confirmSummary').innerHTML = '<h4>Your Custom Configuration</h4>' + rows;
+    }
+
+    // Build configuration summary for hidden field before submit
+    function buildConfigText() {
+      const t = state.thermostat;
+      let txt = `Thermostat: ${t.qty}× ${t.name}\n`;
+      Object.values(state.cameras).forEach(c => txt += `Camera: ${c.qty}× ${c.name}\n`);
+      Object.values(state.locks).forEach(l => txt += `Lock: ${l.name}\n`);
+      Object.values(state.lighting).forEach(l => txt += `Lighting: ${l.name}\n`);
+      Object.values(state.addons).forEach(a => txt += `Add-on: ${a.name}\n`);
+      let hardware = t.qty * t.unitPrice;
+      Object.values(state.cameras).forEach(c => hardware += c.qty * c.unitPrice);
+      Object.values(state.locks).forEach(l => hardware += l.price);
+      Object.values(state.lighting).forEach(l => hardware += l.price);
+      Object.values(state.addons).forEach(a => hardware += a.price);
+      txt += `\nEstimated Total: $${(1499+hardware).toLocaleString()}`;
+      return txt;
+    }
+
+    document.getElementById('quoteForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      // Populate hidden config field
+      document.getElementById('qConfig').value = buildConfigText();
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      try {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        data._captcha = 'false';
+        data._subject = 'New Custom Quote Request — EJG-OS';
+        data._template = 'table';
+        const resp = await fetch('https://formsubmit.co/ajax/info@ejgos.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await resp.json();
+        if (result.success) {
+          document.getElementById('quoteSuccess').style.display = 'block';
+          form.reset();
+          setTimeout(() => document.getElementById('quoteSuccess').style.display = 'none', 6000);
+        } else {
+          alert('Something went wrong. Please try again or email info@ejgos.com directly.');
+        }
+      } catch(err) {
+        alert('Network error. Please try again or email info@ejgos.com directly.');
+      }
+      btn.disabled = false;
+      btn.innerHTML = '🚀 Send My Custom Quote';
+    });
+
+    // Init
+    updateSummary();
+    // Pre-select classic thermostat card
+    document.querySelector('[data-id="thermo-classic"]').classList.add('selected');
+  </script>
+</body>
+</html>

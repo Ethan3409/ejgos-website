@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EJG-OS — The Smart Home Operating System</title>
+  <style>
+    /* ── RESET & BASE ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple-900: #1a0533;
+      --purple-800: #2d0a52;
+      --purple-700: #4a0e82;
+      --purple-600: #6b21a8;
+      --purple-500: #9333ea;
+      --purple-400: #a855f7;
+      --purple-300: #c084fc;
+      --purple-200: #e9d5ff;
+      --purple-100: #f3e8ff;
+      --accent:     #a855f7;
+      --accent-glow: rgba(168,85,247,0.35);
+      --bg:         #060010;
+      --surface:    rgba(255,255,255,0.04);
+      --surface2:   rgba(255,255,255,0.07);
+      --text:       #f3e8ff;
+      --text-muted: rgba(196,150,255,0.7);
+      --border:     rgba(168,85,247,0.2);
+      --green:      #22c55e;
+      --blue:       #60a5fa;
+      --gold:       #fbbf24;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    img { max-width: 100%; }
+
+    /* ── SCROLLBAR ─────────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--purple-700); border-radius: 3px; }
+
+    /* ── NAV ───────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 64px;
+      background: rgba(6,0,16,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #fff 0%, var(--purple-300) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted); font-size: 0.9rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--purple-600); color: #fff !important;
+      padding: 0.4rem 1.1rem; border-radius: 8px; font-weight: 600;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--purple-500) !important; }
+
+    /* ── HERO ──────────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 8rem 1.5rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 10%, rgba(120,40,200,0.35) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(80,20,160,0.2) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(100,30,180,0.15) 0%, transparent 60%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 0; opacity: 0.07;
+      background-image:
+        linear-gradient(var(--purple-600) 1px, transparent 1px),
+        linear-gradient(90deg, var(--purple-600) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 820px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(168,85,247,0.15); border: 1px solid rgba(168,85,247,0.4);
+      color: var(--purple-300); padding: 0.35rem 1rem; border-radius: 100px;
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px; background: var(--green);
+      border-radius: 50%; animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.8); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      font-weight: 900; line-height: 1.05; letter-spacing: -1px;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--purple-300) 0%, #fff 50%, var(--purple-400) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-muted); margin: 1.5rem auto 2.5rem; max-width: 600px;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-500));
+      color: #fff; padding: 0.85rem 2rem; border-radius: 12px;
+      font-size: 1rem; font-weight: 700; border: none; cursor: pointer;
+      box-shadow: 0 4px 24px rgba(168,85,247,0.4);
+      transition: all 0.2s; display: inline-block;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(168,85,247,0.6);
+    }
+    .btn-ghost {
+      background: rgba(255,255,255,0.06); color: var(--text);
+      border: 1px solid var(--border); padding: 0.85rem 2rem;
+      border-radius: 12px; font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s; display: inline-block;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+    /* ── MOCKUP PHONE ──────────────────────────────────────────────── */
+    .hero-visual {
+      margin-top: 4rem; position: relative; z-index: 1;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+    .phone-shell {
+      width: 280px; margin: 0 auto;
+      background: linear-gradient(160deg, #1a0b30, #0f0018);
+      border: 2px solid rgba(168,85,247,0.5);
+      border-radius: 40px; padding: 12px;
+      box-shadow:
+        0 0 60px rgba(168,85,247,0.25),
+        0 0 120px rgba(168,85,247,0.1),
+        inset 0 0 20px rgba(168,85,247,0.05);
+    }
+    .phone-screen {
+      background: #0a0018; border-radius: 30px; overflow: hidden;
+      height: 560px; position: relative;
+    }
+    .phone-status {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 16px 6px; font-size: 0.65rem; color: var(--text-muted);
+    }
+    .phone-greeting {
+      padding: 8px 16px; font-size: 1.1rem; font-weight: 700; color: #fff;
+    }
+    .phone-greeting span { color: var(--purple-300); font-size: 0.75rem; display: block; }
+    .phone-weather {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 16px; font-size: 0.75rem; color: var(--text-muted);
+    }
+    .quick-scenes {
+      display: flex; gap: 8px; padding: 8px 16px; overflow-x: auto;
+    }
+    .scene-chip {
+      flex-shrink: 0;
+      background: rgba(168,85,247,0.15); border: 1px solid rgba(168,85,247,0.3);
+      border-radius: 10px; padding: 6px 12px; font-size: 0.7rem; color: var(--purple-300);
+    }
+    .scene-chip.active {
+      background: rgba(168,85,247,0.35); border-color: var(--purple-400);
+      color: #fff;
+    }
+    .pinned-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 8px 16px;
+    }
+    .pinned-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(168,85,247,0.2);
+      border-radius: 14px; padding: 12px; font-size: 0.7rem;
+    }
+    .pinned-card .icon { font-size: 1.4rem; margin-bottom: 4px; }
+    .pinned-card .label { color: var(--text-muted); }
+    .pinned-card .val { font-weight: 700; color: #fff; font-size: 0.85rem; }
+    .pinned-card.on { border-color: rgba(168,85,247,0.5); background: rgba(168,85,247,0.1); }
+    .phone-nav {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      display: flex; border-top: 1px solid rgba(168,85,247,0.2);
+      background: rgba(6,0,16,0.9); padding: 8px 0 12px;
+    }
+    .phone-nav-item {
+      flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;
+      font-size: 0.55rem; color: var(--text-muted);
+    }
+    .phone-nav-item.active { color: #fff; }
+    .phone-nav-item .ni { font-size: 1.1rem; }
+
+    /* ── SECTION FRAMEWORK ─────────────────────────────────────────── */
+    section { padding: 6rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+      color: var(--purple-400); text-transform: uppercase; margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-size: clamp(1.9rem, 4vw, 3rem); font-weight: 900;
+      line-height: 1.1; letter-spacing: -0.5px; margin-bottom: 1rem;
+    }
+    .section-sub {
+      font-size: 1.1rem; color: var(--text-muted); max-width: 560px;
+      margin-bottom: 3rem; line-height: 1.7;
+    }
+    .divider {
+      height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 auto; max-width: 1200px;
+    }
+
+    /* ── STAT BAR ──────────────────────────────────────────────────── */
+    .stat-bar {
+      background: rgba(255,255,255,0.03);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+    }
+    .stat-bar-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 3rem;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-size: 2.2rem; font-weight: 900;
+      background: linear-gradient(135deg, #fff, var(--purple-300));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      display: block;
+    }
+    .stat-label { font-size: 0.82rem; color: var(--text-muted); font-weight: 500; }
+
+    /* ── FEATURE GRID ──────────────────────────────────────────────── */
+    .feature-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem; margin-top: 1rem;
+    }
+    .feature-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 1.75rem;
+      transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .feature-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 0% 0%, rgba(168,85,247,0.12), transparent 60%);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .feature-card:hover { border-color: rgba(168,85,247,0.5); transform: translateY(-3px); }
+    .feature-card:hover::before { opacity: 1; }
+    .feature-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: rgba(168,85,247,0.15); border: 1px solid rgba(168,85,247,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 1rem;
+    }
+    .feature-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .feature-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── LAYERS ────────────────────────────────────────────────────── */
+    .layers-wrap { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+    .layer-card {
+      display: grid; grid-template-columns: auto 1fr; gap: 1.5rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2rem;
+      transition: border-color 0.3s;
+    }
+    .layer-card:hover { border-color: rgba(168,85,247,0.5); }
+    .layer-num {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--purple-700), var(--purple-600));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; font-weight: 900; color: #fff; flex-shrink: 0;
+    }
+    .layer-card h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem; }
+    .layer-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+    .layer-tags {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem;
+    }
+    .tag {
+      background: rgba(168,85,247,0.12); border: 1px solid rgba(168,85,247,0.25);
+      color: var(--purple-300); font-size: 0.72rem; font-weight: 600;
+      padding: 0.2rem 0.65rem; border-radius: 6px;
+    }
+
+    /* ── COMPARISON TABLE ──────────────────────────────────────────── */
+    .compare-table {
+      width: 100%; border-collapse: separate; border-spacing: 0;
+      background: var(--surface); border-radius: 20px;
+      border: 1px solid var(--border); overflow: hidden;
+      margin-top: 2rem;
+    }
+    .compare-table th {
+      padding: 1rem 1.25rem; background: rgba(168,85,247,0.12);
+      font-size: 0.85rem; font-weight: 700; text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-table th.ejg { color: var(--purple-300); }
+    .compare-table td {
+      padding: 0.85rem 1.25rem; font-size: 0.85rem;
+      border-bottom: 1px solid rgba(168,85,247,0.1);
+      color: var(--text-muted); vertical-align: middle;
+    }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table td.feature-name { color: var(--text); font-weight: 600; }
+    .check { color: var(--green); font-size: 1.1rem; }
+    .cross { color: #ef4444; font-size: 1.1rem; }
+    .partial { color: var(--gold); font-size: 0.8rem; font-weight: 600; }
+
+    /* ── PRICING ───────────────────────────────────────────────────── */
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem; margin-top: 2rem;
+    }
+    .pricing-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 24px; padding: 2rem;
+      position: relative; transition: all 0.3s;
+    }
+    .pricing-card.featured {
+      border-color: rgba(168,85,247,0.7);
+      background: linear-gradient(160deg, rgba(168,85,247,0.12), rgba(6,0,16,0.8));
+      box-shadow: 0 0 40px rgba(168,85,247,0.2);
+    }
+    .pricing-card:hover { transform: translateY(-4px); }
+    .featured-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-500));
+      color: #fff; font-size: 0.72rem; font-weight: 700; padding: 0.3rem 1rem;
+      border-radius: 100px; white-space: nowrap;
+    }
+    .pricing-tier { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--purple-400); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .pricing-price {
+      font-size: 2.5rem; font-weight: 900; margin: 0.5rem 0;
+    }
+    .pricing-price sup { font-size: 1.2rem; font-weight: 600; }
+    .pricing-price sub { font-size: 0.8rem; font-weight: 400; color: var(--text-muted); }
+    .pricing-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .pricing-features li {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      font-size: 0.85rem; color: var(--text-muted);
+    }
+    .pricing-features li .pf-check { color: var(--green); flex-shrink: 0; }
+
+    /* ── INSTALLER SECTION ─────────────────────────────────────────── */
+    .installer-hero {
+      background: linear-gradient(135deg, rgba(74,14,130,0.3), rgba(107,33,168,0.2));
+      border: 1px solid var(--border); border-radius: 28px;
+      padding: 3rem; text-align: center; margin-bottom: 3rem;
+      position: relative; overflow: hidden;
+    }
+    .installer-hero::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(168,85,247,0.25), transparent 70%);
+    }
+    .installer-hero h3 {
+      font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 900; margin-bottom: 1rem;
+    }
+    .installer-hero p { font-size: 1rem; color: var(--text-muted); max-width: 540px; margin: 0 auto 2rem; }
+    .installer-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+    }
+    .installer-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 18px; padding: 1.5rem; text-align: center;
+    }
+    .installer-card .ic-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .installer-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .installer-card p { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* ── MONITORING SECTION ────────────────────────────────────────── */
+    .monitoring-split {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;
+    }
+    @media (max-width: 768px) { .monitoring-split { grid-template-columns: 1fr; } }
+    .monitoring-visual {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 24px; padding: 2rem;
+    }
+    .monitor-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.75rem 0; border-bottom: 1px solid rgba(168,85,247,0.1);
+    }
+    .monitor-row:last-child { border-bottom: none; }
+    .monitor-label { font-size: 0.85rem; color: var(--text-muted); }
+    .monitor-val { font-size: 0.9rem; font-weight: 700; }
+    .monitor-val.green { color: var(--green); }
+    .monitor-val.gold { color: var(--gold); }
+    .monitor-val.blue { color: var(--blue); }
+
+    /* ── TECH SECTION ──────────────────────────────────────────────── */
+    .tech-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem; margin-top: 2rem;
+    }
+    .tech-badge {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.25rem; text-align: center;
+      transition: border-color 0.2s;
+    }
+    .tech-badge:hover { border-color: rgba(168,85,247,0.5); }
+    .tech-badge .tb-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .tech-badge h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .tech-badge p { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* ── HOW IT WORKS ──────────────────────────────────────────────── */
+    .steps { display: flex; flex-direction: column; gap: 0; margin-top: 2rem; position: relative; }
+    .steps::before {
+      content: ''; position: absolute; left: 24px; top: 28px; bottom: 28px;
+      width: 2px; background: linear-gradient(to bottom, var(--purple-700), transparent);
+    }
+    .step {
+      display: grid; grid-template-columns: 50px 1fr; gap: 1.5rem;
+      padding: 1.5rem 0; position: relative;
+    }
+    .step-num {
+      width: 50px; height: 50px; flex-shrink: 0; border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple-700), var(--purple-600));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 1rem; color: #fff; z-index: 1;
+    }
+    .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .step p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── TESTIMONIAL / QUOTE ───────────────────────────────────────── */
+    .callout {
+      background: linear-gradient(135deg, rgba(74,14,130,0.25), rgba(26,5,51,0.5));
+      border: 1px solid rgba(168,85,247,0.4); border-radius: 24px;
+      padding: 3rem; text-align: center; margin: 4rem 0;
+    }
+    .callout-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .callout p {
+      font-size: clamp(1rem, 2vw, 1.3rem); font-style: italic;
+      color: var(--text); max-width: 700px; margin: 0 auto;
+      line-height: 1.7;
+    }
+    .callout-sig { font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; }
+
+    /* ── FAQ ───────────────────────────────────────────────────────── */
+    .faq { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+    .faq-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+    }
+    .faq-q {
+      padding: 1.1rem 1.5rem; font-weight: 700; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      user-select: none;
+    }
+    .faq-q:hover { color: var(--purple-300); }
+    .faq-a {
+      padding: 0 1.5rem 1.1rem;
+      font-size: 0.88rem; color: var(--text-muted); line-height: 1.7;
+    }
+    .faq-arrow { transition: transform 0.3s; color: var(--text-muted); }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-item .faq-a { display: none; }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ── CTA FOOTER ────────────────────────────────────────────────── */
+    .cta-section {
+      text-align: center; padding: 8rem 1.5rem;
+      position: relative; overflow: hidden;
+    }
+    .cta-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(107,33,168,0.3), transparent 70%);
+    }
+    .cta-section h2 { position: relative; z-index: 1; }
+    .cta-section p { position: relative; z-index: 1; }
+    .cta-section .hero-actions { position: relative; z-index: 1; }
+
+    /* ── FOOTER ────────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-logo {
+      font-size: 1.6rem; font-weight: 900; letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #fff 0%, var(--purple-300) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    .footer-tagline { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 2rem; }
+    .footer-links {
+      display: flex; justify-content: center; gap: 2rem;
+      flex-wrap: wrap; margin-bottom: 2rem;
+    }
+    .footer-links a { font-size: 0.85rem; color: var(--text-muted); }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 0.78rem; color: rgba(196,150,255,0.4); }
+
+    /* ── RESPONSIVE ────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .layers-wrap .layer-card { grid-template-columns: 1fr; }
+      .layer-num { width: 42px; height: 42px; font-size: 1.1rem; }
+    }
+
+    /* ── GLOW ORBS ─────────────────────────────────────────────────── */
+    .orb {
+      position: fixed; border-radius: 50%; filter: blur(100px);
+      pointer-events: none; z-index: -1; opacity: 0.4;
+    }
+    .orb-1 {
+      width: 500px; height: 500px; top: -100px; left: -100px;
+      background: radial-gradient(circle, rgba(107,33,168,0.5), transparent 70%);
+    }
+    .orb-2 {
+      width: 400px; height: 400px; bottom: 20%; right: -100px;
+      background: radial-gradient(circle, rgba(74,14,130,0.4), transparent 70%);
+    }
+
+    /* ── SECTION FULL WIDTH WRAPPERS ──────────────────────────────── */
+    .section-wrap { padding: 6rem 1.5rem; }
+    .section-wrap-alt {
+      padding: 6rem 1.5rem;
+      background: rgba(255,255,255,0.02);
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+
+<!-- Background Orbs -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<!-- ════════════════════════════════════════════════════════
+     NAV
+════════════════════════════════════════════════════════ -->
+<nav>
+  <div class="nav-logo">EJG-OS</div>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#layers">How It Works</a></li>
+    <li><a href="#tech">Technology</a></li>
+    <li><a href="#pricing">Packages</a></li>
+    <li><a href="#installers">Installers</a></li>
+    <li><a href="#contact" class="nav-cta">Get Started</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Now Available — Calgary, AB &amp; Growing Nationwide
+    </div>
+    <h1>
+      Your Home.<br />
+      <span class="highlight">Fully Intelligent.</span><br />
+      Completely Yours.
+    </h1>
+    <p class="hero-sub">
+      EJG-OS is a premium smart home operating system built for people who want total control —
+      without monthly contracts, without locked hardware, and without handing your data to a corporation.
+    </p>
+    <div class="hero-actions">
+      <a href="#pricing" class="btn-primary">See Packages →</a>
+      <a href="#features" class="btn-ghost">Explore Features</a>
+    </div>
+  </div>
+
+  <!-- Phone Mockup -->
+  <div class="hero-visual">
+    <div class="phone-shell">
+      <div class="phone-screen">
+        <div class="phone-status">
+          <span>9:41 AM</span>
+          <span>📶 🔋</span>
+        </div>
+        <div class="phone-greeting">
+          Good morning, Ethan
+          <span>☀️ Calgary · 12°C · Clear</span>
+        </div>
+        <div class="quick-scenes">
+          <div class="scene-chip active">🌞 Good Morning</div>
+          <div class="scene-chip">📦 Away</div>
+          <div class="scene-chip">🎬 Movie</div>
+          <div class="scene-chip">🌙 Sleep</div>
+        </div>
+        <div class="pinned-grid">
+          <div class="pinned-card on">
+            <div class="icon">💡</div>
+            <div class="label">Living Room</div>
+            <div class="val">ON · 80%</div>
+          </div>
+          <div class="pinned-card">
+            <div class="icon">🌡️</div>
+            <div class="label">Thermostat</div>
+            <div class="val">21°C</div>
+          </div>
+          <div class="pinned-card">
+            <div class="icon">🔒</div>
+            <div class="label">Front Door</div>
+            <div class="val" style="color: var(--green)">Locked</div>
+          </div>
+          <div class="pinned-card on">
+            <div class="icon">📷</div>
+            <div class="label">Driveway Cam</div>
+            <div class="val">Live</div>
+          </div>
+        </div>
+        <div class="phone-nav">
+          <div class="phone-nav-item active"><span class="ni">🏠</span>Home</div>
+          <div class="phone-nav-item"><span class="ni">🧩</span>Rooms</div>
+          <div class="phone-nav-item"><span class="ni">🎛️</span>Scenes</div>
+          <div class="phone-nav-item"><span class="ni">💡</span>Devices</div>
+          <div class="phone-nav-item"><span class="ni">⚙️</span>Settings</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     STAT BAR
+════════════════════════════════════════════════════════ -->
+<div class="stat-bar">
+  <div class="stat-bar-inner">
+    <div class="stat-item">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Local Processing — Your Data Stays Home</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">$0</span>
+      <span class="stat-label">Monthly Platform Fees (optional monitoring only)</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">Z-Wave</span>
+      <span class="stat-label">+ Zigbee + Wi-Fi Device Support</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">3-Layer</span>
+      <span class="stat-label">Professional Installer Architecture</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     FEATURES
+════════════════════════════════════════════════════════ -->
+<div class="section-wrap" id="features">
+  <div class="container">
+    <div class="section-label">Core Features</div>
+    <h2>Everything a smart home<br />should be able to do.</h2>
+    <p class="section-sub">
+      EJG-OS brings together lighting, climate, security, cameras, automations, and voice
+      control into one clean, fast, locally-hosted interface. No cloud required.
+    </p>
+    <div class="feature-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon">🏠</div>
+        <h3>Personalized Home Dashboard</h3>
+        <p>Pin your most-used devices — lights, locks, thermostats, cameras — directly to your home screen for instant one-tap control. Greets you by name with live weather and time.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🧩</div>
+        <h3>Room-by-Room Control</h3>
+        <p>Organize every device by room. Navigate into any space and control everything in it — lights, plugs, sensors, climate — with a clean, intuitive room interface.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎛️</div>
+        <h3>Smart Scenes</h3>
+        <p>One tap activates a full experience. Good Morning can brighten your lights, set the thermostat, unlock the front door, and start your coffee plug — all at once. Fully customizable.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Automations Engine</h3>
+        <p>Build time-based, motion-triggered, or condition-based automations. Lights on at sunset. Locks engaged when everyone leaves. Thermostat adjusts before you wake up. Runs entirely locally.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📷</div>
+        <h3>Live Camera Access</h3>
+        <p>View your security cameras live from any screen in your home or on your phone. Motion alerts, recording, and live streaming all tied into the same interface as your devices.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎙️</div>
+        <h3>Voice Control — "Hey Skip"</h3>
+        <p>EJG-OS includes its own built-in voice assistant. Say "Hey Skip" to control lights, run scenes, check devices, or ask about your home — no third-party cloud dependencies required.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🌡️</div>
+        <h3>Climate Control</h3>
+        <p>Full thermostat integration with temperature scheduling, room-by-room sensors, and automatic conversions between Celsius and Fahrenheit. Smart heating without waste.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Smart Locks &amp; Security</h3>
+        <p>Control your door locks from anywhere in the house or remotely. Set lock schedules, monitor lock/unlock events, and receive alerts when doors are left open or unlocked unexpectedly.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <h3>Multi-Language Support</h3>
+        <p>EJG-OS is built with full internationalization (i18n) support. Deploy in English, French, or add additional languages. Ideal for Canadian bilingual households and diverse communities.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <h3>Device Health Monitoring</h3>
+        <p>EJG-OS tracks the status of every connected device and surfaces alerts when something goes offline, runs unexpectedly, or falls below performance thresholds.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🌙</div>
+        <h3>Sleep Screen Mode</h3>
+        <p>Dedicated sleep/standby mode for wall-mounted tablets. Turns your panel into a minimal ambient display when not in active use — and snaps back instantly on touch.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <h3>Local-First Privacy</h3>
+        <p>All data lives on your home server — never on a corporate cloud. No vendor can shut off your system, sell your usage data, or hike your prices. Your home, your rules.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════════════════
+     3-LAYER INSTALLER ARCHITECTURE
+════════════════════════════════════════════════════════ -->
+<div class="section-wrap-alt" id="layers">
+  <div class="container">
+    <div class="section-label">Installer Architecture</div>
+    <h2>Built in three layers.<br />Each one purpose-built.</h2>
+    <p class="section-sub">
+      EJG-OS uses a three-layer interface architecture — one for portfolio management, one for per-home workspaces,
+      and one for deep device configuration. Installers see all three. Homeowners see a seamless consumer experience.
+    </p>
+
+    <div class="layers-wrap">
+
+      <div class="layer-card">
+        <div class="layer-num">1</div>
+        <div>
+          <h3>Installer Portfolio Dashboard — Layer 1</h3>
+          <p>
+            The first screen a certified EJG-OS installer sees when they log in. A top-navigation dashboard
+            that acts as their personal library — all client homes they manage, listed with status, health indicators,
+            and quick-access tiles. Think of it as the command center for a professional installer running multiple
+            properties. Clean, fast, and designed to scale from 1 home to 100.
+          </p>
+          <div class="layer-tags">
+            <span class="tag">Top Navigation</span>
+            <span class="tag">Client Portfolio View</span>
+            <span class="tag">Home Health Status</span>
+            <span class="tag">Quick Access</span>
+            <span class="tag">License Management</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="layer-card">
+        <div class="layer-num">2</div>
+        <div>
+          <h3>Per-Home Workspace — Layer 2</h3>
+          <p>
+            Clicking into any home in Layer 1 drops the installer into that home's dedicated workspace.
+            Unique top-navigation style with per-home context — device inventory, automation overrides,
+            room configuration, system health, and client account management. Each home is fully isolated
+            from the installer's other clients. Changes here reflect immediately on the homeowner's interface.
+          </p>
+          <div class="layer-tags">
+            <span class="tag">Unique Top Nav Style</span>
+            <span class="tag">Per-Home Context</span>
+            <span class="tag">Device Inventory</span>
+            <span class="tag">Room Config</span>
+            <span class="tag">Client Account</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="layer-card">
+        <div class="layer-num">3</div>
+        <div>
+          <h3>Deep Configuration Panel — Layer 3</h3>
+          <p>
+            The technical layer. A collapsible left-sidebar navigation for accessing device-level configuration,
+            Z-Wave/Zigbee pairing, automation builder, scene editor, system logs, and Home Assistant integration.
+            Built for expert use — powerful and comprehensive, but never shown to homeowners. Collapsible sidebar
+            keeps the interface clean even when every setting is available.
+          </p>
+          <div class="layer-tags">
+            <span class="tag">Collapsible Left Sidebar</span>
+            <span class="tag">Device Pairing</span>
+            <span class="tag">Automation Builder</span>
+            <span class="tag">Scene Editor</span>
+            <span class="tag">System Logs</span>
+            <span class="tag">HA Integration</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════════════════
+     HOW IT WORKS (HOMEOWNER)
+════════════════════════════════════════════════════════ -->
+<div class="section-wrap">
+  <div class="container">
+    <div class="section-label">Getting Started</div>
+    <h2>From zero to smart home<br />in a single visit.</h2>
+    <p class="section-sub">
+      An EJG-OS certified installer handles everything. You walk in one day,
+      and wake up the next with a fully working intelligent home.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>Consultation &amp; Home Assessment</h3>
+          <p>Your installer walks through your home, maps out every room, identifies the devices you want, and builds a custom plan. No pressure, no upsell — just a clean scope of what you'll get.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>Hardware Installation</h3>
+          <p>Z-Wave switches, Zigbee smart plugs, thermostats, cameras, smart locks — physically installed and wired in your home. The Raspberry Pi-based local server is also set up and hidden from view.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>EJG-OS Setup &amp; Configuration</h3>
+          <p>Your installer configures your EJG-OS interface — naming rooms, setting up scenes like Good Morning and Away Mode, building any automations you want, and pairing every device to the system.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3>Handoff &amp; Training</h3>
+          <p>You get a walkthrough of the app, your login credentials, and instructions. Everything is running locally on your own hardware — no monthly fees unless you choose optional monitoring.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div>
+          <h3>Optional: 24/7 Monitoring</h3>
+          <p>For homeowners who want professional eyes on their home, EJG-OS offers optional live monitoring. Alerts, event response, and peace of mind — for a flat monthly fee, with no lock-in contract.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════════════════
+     TECHNOLOGY
+════════════════════════════════════════════════════════ -->
+<div class="section-wrap-alt" id="tech">
+  <div class="container">
+    <div class="section-label">Under the Hood</div>
+    <h2>Enterprise-grade technology.<br />Residential price point.</h2>
+    <p class="section-sub">
+      EJG-OS is built on a rock-solid foundation of proven open standards —
+      wrapped in a consumer interface so clean your parents can use it.
+    </p>
+
+    <div class="tech-grid">
+      <div class="tech-badge">
+        <div class="tb-icon">🏡</div>
+        <h4>Home Assistant</h4>
+        <p>Industry-leading local smart home engine runs silently in the background</p>
+      </div>
+      <div class="tech-badge">
+        <div class="tb-icon">📡</div>
+        <h4>Z-Wave</h4>
+        <p>Military-grade mesh protocol — dedicated frequency, no Wi-Fi interference</p>
+      </div>
+      <div class="tech-badge">
+        <div class="tb-icon">🔵</div>
+        <h4>Zigbee</h4>
+        <p>Low-power mesh networking for plugs, sensors, and battery devices</p>
+      </div>
+      <div class="tech-badge">
+        <div class="tb-icon">🥧</div>
+        <h4>Raspberry Pi</h4>
+        <p>Silent, low-power local server that lives in your home — not a data center</p>
+      </div>
+      <div class="tech-badge">
+        <div class="tb-icon">⚛️</div>
+        <h4>React + Vite</h4>
+        <p>Blazing-fast, modern frontend — snappier than any cloud-based smart home app</p>
+      </div>
+      <div class="tech-badge">
+        <div class="tb-icon">📶</div>
+        <h4>Wi-Fi Devices</h4>
+        <p>TP-Link Kasa and other popular Wi-Fi smart devices fully supported</p>
+      </div>
+      <div class="tech-badge">
+        <div class="tb-icon">🔐</div>
+        <h4>Local Auth</h4>
+        <p>Role-based authentication — homeowner, installer, and admin access levels</p>
+      </div>
+      <div class="tech-badge">
+        <div class="tb-icon">🌍</div>
+        <h4>i18n Ready</h4>
+        <p>Multi-language support built in. English + French. More languages on request</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════════════════
+     VS COMPARISON
+════════════════════════════════════════════════════════ -->
+<div class="section-wrap">
+  <div class="container">
+    <div class="section-label">Why EJG-OS</div>
+    <h2>EJG-OS vs. the alternatives.</h2>
+    <p class="section-sub">
+      Traditional providers like Telus and ADT give you a system they control.
+      EJG-OS gives you a system you own.
+    </p>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="ejg">EJG-OS</th>
+          <th>Telus SmartHome</th>
+          <th>ADT</th>
+          <th>Google/Amazon</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="feature-name">Local Processing (no cloud dependency)</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">No mandatory monthly fee</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="partial">Partial</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">Hardware you own outright</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">Works if internet goes down</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">Professional installer interface</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="partial">ADT only</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">Custom scenes &amp; automations</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="partial">Limited</span></td>
+          <td><span class="partial">Limited</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">Multi-protocol support (Z-Wave + Zigbee + Wi-Fi)</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="partial">Limited</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">No data sold to third parties</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">Voice control (built-in)</td>
+          <td><span class="check">✓ Hey Skip</span></td>
+          <td><span class="partial">3rd party</span></td>
+          <td><span class="partial">3rd party</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">Optional 24/7 monitoring (no contract)</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="partial">Contract req.</span></td>
+          <td><span class="partial">Contract req.</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════════════════
+     PACKAGES / PRICING
+════════════════════════════════════════════════════════ -->
+<style>
+  /* ── EXTRA PRICING STYLES ─── */
+  .pricing-grid-5 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem; margin-top: 2rem;
+  }
+  .pricing-card-sm {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 22px; padding: 1.6rem;
+    position: relative; transition: all 0.3s; display: flex; flex-direction: column;
+  }
+  .pricing-card-sm.featured {
+    border-color: rgba(168,85,247,0.7);
+    background: linear-gradient(160deg, rgba(168,85,247,0.12), rgba(6,0,16,0.8));
+    box-shadow: 0 0 40px rgba(168,85,247,0.2);
+  }
+  .pricing-card-sm:hover { transform: translateY(-3px); }
+  .pricing-card-sm .pricing-tier { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; color: var(--purple-400); text-transform: uppercase; margin-bottom: 0.4rem; }
+  .pricing-card-sm .pricing-price { font-size: 2rem; font-weight: 900; margin: 0.3rem 0 0.4rem; }
+  .pricing-card-sm .pricing-price sup { font-size: 1rem; }
+  .pricing-card-sm .pricing-price sub { font-size: 0.72rem; font-weight: 400; color: var(--text-muted); }
+  .pricing-card-sm .pricing-desc { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.5; }
+  .pricing-card-sm .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; flex: 1; }
+  .pricing-card-sm .pricing-features li { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8rem; color: var(--text-muted); }
+  .pricing-card-sm .pricing-features li .pf-check { color: var(--green); flex-shrink: 0; }
+  .pricing-card-sm .plan-btn { margin-top: 1.25rem; display: block; text-align: center; padding: 0.65rem 1rem; border-radius: 10px; font-size: 0.82rem; font-weight: 700; transition: all 0.2s; cursor: pointer; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: var(--text); }
+  .pricing-card-sm .plan-btn:hover { background: rgba(255,255,255,0.1); }
+  .pricing-card-sm.featured .plan-btn { background: linear-gradient(135deg, var(--purple-600), var(--purple-500)); border-color: transparent; color: #fff; box-shadow: 0 4px 16px rgba(168,85,247,0.3); }
+  .pricing-card-sm.featured .plan-btn:hover { box-shadow: 0 6px 24px rgba(168,85,247,0.5); }
+
+  /* ── CUSTOM BUILDER ─── */
+  .builder-wrap {
+    background: linear-gradient(160deg, rgba(74,14,130,0.18), rgba(6,0,16,0.6));
+    border: 1px solid rgba(168,85,247,0.4);
+    border-radius: 28px; padding: 2.5rem;
+    margin-top: 3rem;
+  }
+  .builder-header { text-align: center; margin-bottom: 2rem; }
+  .builder-header h3 { font-size: 1.6rem; font-weight: 900; margin-bottom: 0.5rem; }
+  .builder-header p { font-size: 0.9rem; color: var(--text-muted); }
+  .builder-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  @media(max-width: 700px) { .builder-grid { grid-template-columns: 1fr; } }
+  .builder-col h4 {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; color: var(--purple-400);
+    text-transform: uppercase; margin-bottom: 1rem; padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .builder-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 0; border-bottom: 1px solid rgba(168,85,247,0.08);
+  }
+  .builder-row:last-child { border-bottom: none; }
+  .builder-label { font-size: 0.85rem; color: var(--text); }
+  .builder-sub { font-size: 0.72rem; color: var(--text-muted); }
+  .builder-controls { display: flex; align-items: center; gap: 0.5rem; }
+  .qty-btn {
+    width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--border);
+    background: rgba(255,255,255,0.06); color: var(--text); font-size: 1rem;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .qty-btn:hover { background: rgba(168,85,247,0.2); border-color: var(--purple-400); }
+  .qty-display {
+    min-width: 28px; text-align: center; font-size: 0.9rem; font-weight: 700;
+  }
+  .toggle-btn {
+    padding: 0.3rem 0.8rem; border-radius: 8px; border: 1px solid var(--border);
+    background: rgba(255,255,255,0.04); color: var(--text-muted); font-size: 0.8rem;
+    font-weight: 600; cursor: pointer; transition: all 0.2s;
+  }
+  .toggle-btn.active {
+    background: rgba(168,85,247,0.25); border-color: var(--purple-400); color: #fff;
+  }
+  .select-btn {
+    padding: 0.3rem 0.7rem; border-radius: 8px; border: 1px solid var(--border);
+    background: rgba(255,255,255,0.04); color: var(--text-muted); font-size: 0.78rem;
+    font-weight: 600; cursor: pointer; transition: all 0.2s; margin-left: 4px;
+  }
+  .select-btn.selected {
+    background: rgba(168,85,247,0.25); border-color: var(--purple-400); color: #fff;
+  }
+  .builder-summary {
+    margin-top: 2rem; background: rgba(0,0,0,0.3); border: 1px solid var(--border);
+    border-radius: 18px; padding: 1.5rem;
+  }
+  .summary-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.5rem 0; border-bottom: 1px solid rgba(168,85,247,0.08);
+    font-size: 0.85rem;
+  }
+  .summary-row:last-child { border-bottom: none; }
+  .summary-row .s-label { color: var(--text-muted); }
+  .summary-row .s-val { font-weight: 700; color: var(--text); }
+  .summary-total {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 1rem; padding-top: 1rem;
+    border-top: 2px solid rgba(168,85,247,0.3);
+  }
+  .summary-total .t-label { font-size: 0.9rem; font-weight: 700; }
+  .summary-total .t-price { font-size: 2rem; font-weight: 900; color: var(--purple-300); }
+  .payment-opts { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+  .payment-opt {
+    flex: 1; min-width: 100px; padding: 0.6rem 0.75rem; border-radius: 10px;
+    border: 1px solid var(--border); background: rgba(255,255,255,0.04);
+    cursor: pointer; text-align: center; transition: all 0.2s;
+  }
+  .payment-opt.active { background: rgba(168,85,247,0.2); border-color: var(--purple-400); }
+  .payment-opt .po-label { font-size: 0.75rem; font-weight: 700; color: var(--text); }
+  .payment-opt .po-sub { font-size: 0.68rem; color: var(--text-muted); margin-top: 2px; }
+  .builder-cta {
+    margin-top: 1.5rem; width: 100%; padding: 0.9rem;
+    background: linear-gradient(135deg, var(--purple-600), var(--purple-500));
+    border: none; border-radius: 12px; color: #fff; font-size: 1rem; font-weight: 700;
+    cursor: pointer; box-shadow: 0 4px 20px rgba(168,85,247,0.35);
+    transition: all 0.2s;
+  }
+  .builder-cta:hover { box-shadow: 0 6px 30px rgba(168,85,247,0.55); transform: translateY(-1px); }
+  .monitoring-select { display: flex; gap: 0.5rem; }
+</style>
+
+<div class="section-wrap-alt" id="pricing">
+  <div class="container">
+    <div class="section-label">Packages</div>
+    <h2>One-time install.<br />No monthly surprises.</h2>
+    <p class="section-sub">
+      EJG-OS is a one-time hardware investment. Every plan includes a configured wall tablet,
+      full scenes and automations, and optional 24/7 monitoring — no mandatory fees, no lock-in.
+    </p>
+
+    <div class="pricing-grid-5">
+
+      <!-- STARTER -->
+      <div class="pricing-card-sm">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-price"><sup>$</sup>899<sub> install</sub></div>
+        <div class="pricing-desc">A clean, working smart home in a day. No fluff — just what matters.</div>
+        <ul class="pricing-features">
+          <li><span class="pf-check">✓</span> Pi server + Z-Wave &amp; Zigbee</li>
+          <li><span class="pf-check">✓</span> 3–5 smart switches</li>
+          <li><span class="pf-check">✓</span> 1 smart lock</li>
+          <li><span class="pf-check">✓</span> Wall tablet (configured)</li>
+          <li><span class="pf-check">✓</span> Scenes &amp; automations</li>
+          <li><span class="pf-check">✓</span> EJG-OS app + interface</li>
+          <li><span class="pf-check">✓</span> 1-year installer support</li>
+        </ul>
+        <a href="#contact" class="plan-btn">Get a Quote →</a>
+      </div>
+
+      <!-- CONNECTED -->
+      <div class="pricing-card-sm">
+        <div class="pricing-tier">Connected</div>
+        <div class="pricing-price"><sup>$</sup>1,500<sub> install</sub></div>
+        <div class="pricing-desc">More coverage, your first camera, and the full room-by-room experience.</div>
+        <ul class="pricing-features">
+          <li><span class="pf-check">✓</span> Everything in Starter</li>
+          <li><span class="pf-check">✓</span> 6–8 smart switches &amp; plugs</li>
+          <li><span class="pf-check">✓</span> 1 smart lock</li>
+          <li><span class="pf-check">✓</span> 1 security camera</li>
+          <li><span class="pf-check">✓</span> Wall tablet (configured)</li>
+          <li><span class="pf-check">✓</span> Scenes &amp; automations</li>
+          <li><span class="pf-check">✓</span> 1-year installer support</li>
+        </ul>
+        <a href="#contact" class="plan-btn">Get a Quote →</a>
+      </div>
+
+      <!-- COMPLETE HOME (FEATURED) -->
+      <div class="pricing-card-sm featured">
+        <div class="featured-badge">⭐ Most Popular</div>
+        <div class="pricing-tier">Complete Home</div>
+        <div class="pricing-price"><sup>$</sup>2,800<sub> install</sub></div>
+        <div class="pricing-desc">The full EJG-OS experience — every room covered, every device connected.</div>
+        <ul class="pricing-features">
+          <li><span class="pf-check">✓</span> Everything in Connected</li>
+          <li><span class="pf-check">✓</span> Up to 15 switches &amp; plugs</li>
+          <li><span class="pf-check">✓</span> 2 smart locks</li>
+          <li><span class="pf-check">✓</span> 2 security cameras</li>
+          <li><span class="pf-check">✓</span> Thermostat integration</li>
+          <li><span class="pf-check">✓</span> Wall tablet (configured)</li>
+          <li><span class="pf-check">✓</span> Scenes &amp; automations</li>
+          <li><span class="pf-check">✓</span> Hey Skip voice control</li>
+          <li><span class="pf-check">✓</span> 1-year installer support</li>
+        </ul>
+        <a href="#contact" class="plan-btn">Get a Quote →</a>
+      </div>
+
+      <!-- PREMIUM -->
+      <div class="pricing-card-sm">
+        <div class="pricing-tier">Premium</div>
+        <div class="pricing-price"><sup>$</sup>4,200<sub> install</sub></div>
+        <div class="pricing-desc">More cameras, more locks, more coverage — for larger or more demanding homes.</div>
+        <ul class="pricing-features">
+          <li><span class="pf-check">✓</span> Everything in Complete Home</li>
+          <li><span class="pf-check">✓</span> Up to 25 devices</li>
+          <li><span class="pf-check">✓</span> 3 smart locks</li>
+          <li><span class="pf-check">✓</span> 4 cameras</li>
+          <li><span class="pf-check">✓</span> Video doorbell</li>
+          <li><span class="pf-check">✓</span> Garage door integration</li>
+          <li><span class="pf-check">✓</span> 2 wall tablets</li>
+          <li><span class="pf-check">✓</span> Full automation suite</li>
+          <li><span class="pf-check">✓</span> Priority support</li>
+        </ul>
+        <a href="#contact" class="plan-btn">Get a Quote →</a>
+      </div>
+
+      <!-- FULL ESTATE -->
+      <div class="pricing-card-sm">
+        <div class="pricing-tier">Full Estate</div>
+        <div class="pricing-price"><sup>$</sup>5,500+<sub> install</sub></div>
+        <div class="pricing-desc">Whole-property automation — no limits on devices, zones, or complexity.</div>
+        <ul class="pricing-features">
+          <li><span class="pf-check">✓</span> Everything in Premium</li>
+          <li><span class="pf-check">✓</span> Unlimited devices &amp; zones</li>
+          <li><span class="pf-check">✓</span> 6+ cameras</li>
+          <li><span class="pf-check">✓</span> Multiple tablets</li>
+          <li><span class="pf-check">✓</span> Gate &amp; full exterior integration</li>
+          <li><span class="pf-check">✓</span> Custom branding option</li>
+          <li><span class="pf-check">✓</span> Annual system check-in</li>
+          <li><span class="pf-check">✓</span> Dedicated installer support</li>
+        </ul>
+        <a href="#contact" class="plan-btn">Get a Quote →</a>
+      </div>
+
+    </div>
+
+    <!-- Monitoring Add-On -->
+    <div style="margin-top: 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 1.5rem 2rem; display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; justify-content: space-between;">
+      <div>
+        <div class="pricing-tier" style="margin-bottom: 0.4rem;">Optional Add-On — All Plans</div>
+        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.3rem;">24/7 Professional Monitoring</h3>
+        <p style="font-size: 0.83rem; color: var(--text-muted); max-width: 480px;">
+          Live human monitoring, event response, and alerts — no lock-in contract. Start, pause, or cancel any time.
+        </p>
+      </div>
+      <div style="display:flex; gap: 1rem; flex-wrap: wrap;">
+        <div style="text-align:center; background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.3); border-radius: 14px; padding: 0.8rem 1.25rem;">
+          <div style="font-size: 1.5rem; font-weight: 900; color: var(--purple-300);">$25<span style="font-size:0.8rem;font-weight:400;color:var(--text-muted)">/mo</span></div>
+          <div style="font-size: 0.7rem; color: var(--text-muted);">Standard</div>
+        </div>
+        <div style="text-align:center; background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.3); border-radius: 14px; padding: 0.8rem 1.25rem;">
+          <div style="font-size: 1.5rem; font-weight: 900; color: var(--purple-300);">$40<span style="font-size:0.8rem;font-weight:400;color:var(--text-muted)">/mo</span></div>
+          <div style="font-size: 0.7rem; color: var(--text-muted);">Premium (large home)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         CUSTOM PACKAGE BUILDER
+    ══════════════════════════════════════════════ -->
+    <div class="builder-wrap" id="builder">
+      <div class="builder-header">
+        <div class="section-label" style="margin-bottom:0.5rem">Custom Package Builder</div>
+        <h3>Build your own plan.</h3>
+        <p>Pick exactly what you want, choose how you want to pay, and we'll put together your custom quote on the spot.</p>
+      </div>
+
+      <div class="builder-grid">
+
+        <!-- LEFT: DEVICES -->
+        <div class="builder-col">
+          <h4>Choose Your Devices</h4>
+
+          <div class="builder-row">
+            <div>
+              <div class="builder-label">Smart Switches</div>
+              <div class="builder-sub">$55/each installed · Z-Wave</div>
+            </div>
+            <div class="builder-controls">
+              <button class="qty-btn" onclick="adj('switches',-1)">−</button>
+              <div class="qty-display" id="switches-qty">0</div>
+              <button class="qty-btn" onclick="adj('switches',1)">+</button>
+            </div>
+          </div>
+
+          <div class="builder-row">
+            <div>
+              <div class="builder-label">Smart Plugs</div>
+              <div class="builder-sub">$35/each installed · Zigbee</div>
+            </div>
+            <div class="builder-controls">
+              <button class="qty-btn" onclick="adj('plugs',-1)">−</button>
+              <div class="qty-display" id="plugs-qty">0</div>
+              <button class="qty-btn" onclick="adj('plugs',1)">+</button>
+            </div>
+          </div>
+
+          <div class="builder-row">
+            <div>
+              <div class="builder-label">Smart Locks</div>
+              <div class="builder-sub">$280/each installed · Z-Wave</div>
+            </div>
+            <div class="builder-controls">
+              <button class="qty-btn" onclick="adj('locks',-1)">−</button>
+              <div class="qty-display" id="locks-qty">0</div>
+              <button class="qty-btn" onclick="adj('locks',1)">+</button>
+            </div>
+          </div>
+
+          <div class="builder-row">
+            <div>
+              <div class="builder-label">Security Cameras</div>
+              <div class="builder-sub">$220/each installed</div>
+            </div>
+            <div class="builder-controls">
+              <button class="qty-btn" onclick="adj('cameras',-1)">−</button>
+              <div class="qty-display" id="cameras-qty">0</div>
+              <button class="qty-btn" onclick="adj('cameras',1)">+</button>
+            </div>
+          </div>
+
+          <div class="builder-row">
+            <div>
+              <div class="builder-label">Motion Sensors</div>
+              <div class="builder-sub">$65/each installed · Zigbee</div>
+            </div>
+            <div class="builder-controls">
+              <button class="qty-btn" onclick="adj('motion',-1)">−</button>
+              <div class="qty-display" id="motion-qty">0</div>
+              <button class="qty-btn" onclick="adj('motion',1)">+</button>
+            </div>
+          </div>
+
+          <div class="builder-row">
+            <div>
+              <div class="builder-label">Door / Window Sensors</div>
+              <div class="builder-sub">$45/each installed · Zigbee</div>
+            </div>
+            <div class="builder-controls">
+              <button class="qty-btn" onclick="adj('sensors',-1)">−</button>
+              <div class="qty-display" id="sensors-qty">0</div>
+              <button class="qty-btn" onclick="adj('sensors',1)">+</button>
+            </div>
+          </div>
+
+          <div class="builder-row">
+            <div>
+              <div class="builder-label">Smart Thermostat</div>
+              <div class="builder-sub">$320 installed</div>
+            </div>
+            <div class="builder-controls">
+              <button class="toggle-btn" id="therm-btn" onclick="toggle('therm')">Add</button>
+            </div>
+          </div>
+
+          <div class="builder-row">
+            <div>
+              <div class="builder-label">Video Doorbell</div>
+              <div class="builder-sub">$280 installed</div>
+            </div>
+            <div class="builder-controls">
+              <button class="toggle-btn" id="bell-btn" onclick="toggle('bell')">Add</button>
+            </div>
+          </div>
+
+          <div class="builder-row">
+            <div>
+              <div class="builder-label">Garage Door Controller</div>
+              <div class="builder-sub">$220 installed</div>
+            </div>
+            <div class="builder-controls">
+              <button class="toggle-btn" id="garage-btn" onclick="toggle('garage')">Add</button>
+            </div>
+          </div>
+
+          <div class="builder-row">
+            <div>
+              <div class="builder-label">Extra Wall Tablet</div>
+              <div class="builder-sub">$250 each (configured)</div>
+            </div>
+            <div class="builder-controls">
+              <button class="qty-btn" onclick="adj('tablets',-1)">−</button>
+              <div class="qty-display" id="tablets-qty">0</div>
+              <button class="qty-btn" onclick="adj('tablets',1)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: OPTIONS + SUMMARY -->
+        <div class="builder-col">
+          <h4>Options &amp; Payment</h4>
+
+          <!-- Monitoring -->
+          <div class="builder-row" style="align-items:flex-start; padding-bottom:1rem;">
+            <div>
+              <div class="builder-label">24/7 Monitoring</div>
+              <div class="builder-sub">Added to your monthly total</div>
+            </div>
+            <div class="monitoring-select">
+              <button class="select-btn" id="mon-none" onclick="setMonitor('none')">None</button>
+              <button class="select-btn selected" id="mon-std" onclick="setMonitor('std')">$25/mo</button>
+              <button class="select-btn" id="mon-prem" onclick="setMonitor('prem')">$40/mo</button>
+            </div>
+          </div>
+
+          <!-- Payment -->
+          <div style="padding: 0.8rem 0 1rem;">
+            <div class="builder-label" style="margin-bottom: 0.6rem;">Payment Plan</div>
+            <div class="payment-opts">
+              <div class="payment-opt active" id="pay-full" onclick="setPayment('full')">
+                <div class="po-label">Pay in Full</div>
+                <div class="po-sub">One payment</div>
+              </div>
+              <div class="payment-opt" id="pay-12" onclick="setPayment('12')">
+                <div class="po-label">12 Months</div>
+                <div class="po-sub">0% interest</div>
+              </div>
+              <div class="payment-opt" id="pay-24" onclick="setPayment('24')">
+                <div class="po-label">24 Months</div>
+                <div class="po-sub">0% interest</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Summary -->
+          <div class="builder-summary">
+            <div style="font-size:0.72rem; font-weight:700; letter-spacing:0.08em; color:var(--purple-400); text-transform:uppercase; margin-bottom:0.75rem;">Your Estimate</div>
+
+            <div class="summary-row">
+              <span class="s-label">Base system (Pi + hardware)</span>
+              <span class="s-val">$600</span>
+            </div>
+            <div class="summary-row">
+              <span class="s-label">Wall tablet (included)</span>
+              <span class="s-val">$200</span>
+            </div>
+            <div class="summary-row" id="s-devices-row">
+              <span class="s-label">Devices &amp; installation</span>
+              <span class="s-val" id="s-devices">$0</span>
+            </div>
+            <div class="summary-row" id="s-extras-row" style="display:none">
+              <span class="s-label">Extras (thermostat, doorbell, garage)</span>
+              <span class="s-val" id="s-extras">$0</span>
+            </div>
+            <div class="summary-row" id="s-finance-row" style="display:none">
+              <span class="s-label" id="s-finance-label">Financing fee</span>
+              <span class="s-val" id="s-finance">$0</span>
+            </div>
+            <div class="summary-row" id="s-monitor-row" style="display:none">
+              <span class="s-label">Monitoring (monthly)</span>
+              <span class="s-val green" id="s-monitor">$0/mo</span>
+            </div>
+
+            <div class="summary-total">
+              <div>
+                <div class="t-label" id="t-label">Total (upfront)</div>
+                <div style="font-size:0.72rem; color:var(--text-muted); margin-top:2px;" id="t-sub">All-in, one payment</div>
+              </div>
+              <div class="t-price" id="t-total">$800</div>
+            </div>
+
+            <button class="builder-cta" onclick="window.location='#contact'">
+              Get My Custom Quote →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ── BUILDER STATE ──────────────────────────────
+  var state = {
+    switches: 0, plugs: 0, locks: 0, cameras: 0,
+    motion: 0, sensors: 0, tablets: 0,
+    therm: false, bell: false, garage: false,
+    monitor: 'std', payment: 'full'
+  };
+
+  var PRICES = {
+    switches: 55, plugs: 35, locks: 280, cameras: 220,
+    motion: 65, sensors: 45, tablets: 250,
+    therm: 320, bell: 280, garage: 220
+  };
+
+  var BASE = 600, TABLET_INCL = 200;
+
+  function adj(key, delta) {
+    state[key] = Math.max(0, state[key] + delta);
+    document.getElementById(key + '-qty').textContent = state[key];
+    recalc();
+  }
+
+  function toggle(key) {
+    state[key] = !state[key];
+    var btn = document.getElementById(key + '-btn');
+    btn.classList.toggle('active', state[key]);
+    btn.textContent = state[key] ? 'Added ✓' : 'Add';
+    recalc();
+  }
+
+  function setMonitor(val) {
+    state.monitor = val;
+    ['none','std','prem'].forEach(function(v) {
+      document.getElementById('mon-' + v).classList.toggle('selected', v === val);
+    });
+    recalc();
+  }
+
+  function setPayment(val) {
+    state.payment = val;
+    ['full','12','24'].forEach(function(v) {
+      document.getElementById('pay-' + v).classList.toggle('active', v === val);
+    });
+    recalc();
+  }
+
+  function fmt(n) { return '$' + n.toLocaleString('en-CA'); }
+
+  function recalc() {
+    var deviceCost = 0;
+    ['switches','plugs','locks','cameras','motion','sensors','tablets'].forEach(function(k) {
+      deviceCost += state[k] * PRICES[k];
+    });
+
+    var extraCost = 0;
+    ['therm','bell','garage'].forEach(function(k) {
+      if (state[k]) extraCost += PRICES[k];
+    });
+
+    var subtotal = BASE + TABLET_INCL + deviceCost + extraCost;
+    var total = subtotal;
+    var monAmt = state.monitor === 'std' ? 25 : state.monitor === 'prem' ? 40 : 0;
+
+    // update display
+    document.getElementById('s-devices').textContent = fmt(deviceCost);
+    var extRow = document.getElementById('s-extras-row');
+    extRow.style.display = extraCost > 0 ? '' : 'none';
+    document.getElementById('s-extras').textContent = fmt(extraCost);
+
+    document.getElementById('s-finance-row').style.display = 'none';
+
+    var monRow = document.getElementById('s-monitor-row');
+    monRow.style.display = monAmt > 0 ? '' : 'none';
+    document.getElementById('s-monitor').textContent = '$' + monAmt + '/mo';
+
+    var tLabel = document.getElementById('t-label');
+    var tSub = document.getElementById('t-sub');
+    var tTotal = document.getElementById('t-total');
+
+    if (state.payment === 'full') {
+      tLabel.textContent = 'Total (upfront)';
+      tSub.textContent = 'All-in, one payment';
+      tTotal.textContent = fmt(total);
+    } else if (state.payment === '12') {
+      var monthly = Math.ceil(total / 12);
+      tLabel.textContent = 'Monthly Payment (12 mo)';
+      tSub.textContent = 'Total: ' + fmt(total) + ' · 0% interest';
+      tTotal.textContent = '$' + monthly + '/mo';
+    } else {
+      var monthly24 = Math.ceil(total / 24);
+      tLabel.textContent = 'Monthly Payment (24 mo)';
+      tSub.textContent = 'Total: ' + fmt(total) + ' · 0% interest';
+      tTotal.textContent = '$' + monthly24 + '/mo';
+    }
+  }
+
+  recalc();
+</script>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════════════════
+     MONITORING DETAILS
+════════════════════════════════════════════════════════ -->
+<div class="section-wrap">
+  <div class="container">
+    <div class="section-label">24/7 Monitoring</div>
+    <h2>Professional eyes on your home,<br />around the clock.</h2>
+    <p class="section-sub">
+      Optional monitoring powered by a real team — not bots, not automated calls.
+      Live alert response, event escalation, and full peace of mind for a flat monthly rate.
+    </p>
+
+    <div class="monitoring-split">
+      <div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num" style="width:42px;height:42px;font-size:0.9rem">🚨</div>
+            <div>
+              <h3>Event Detection</h3>
+              <p>EJG-OS detects unusual activity — motion at odd hours, doors unlocked, temperature spikes, device anomalies — and flags it immediately.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num" style="width:42px;height:42px;font-size:0.9rem">📞</div>
+            <div>
+              <h3>Human Response</h3>
+              <p>A live monitoring agent reviews the alert and contacts you directly. If you can't be reached, they escalate to your designated emergency contacts.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num" style="width:42px;height:42px;font-size:0.9rem">🛡️</div>
+            <div>
+              <h3>Resolution &amp; Log</h3>
+              <p>Every event is logged, timestamped, and stored locally in your home server. You always have a full history of what happened and when.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="monitoring-visual">
+        <div style="font-size: 0.85rem; font-weight: 700; color: var(--purple-300); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.06em;">Monitoring Breakdown</div>
+        <div class="monitor-row">
+          <span class="monitor-label">Homeowner monthly cost</span>
+          <span class="monitor-val gold">$25–$40/mo</span>
+        </div>
+        <div class="monitor-row">
+          <span class="monitor-label">Monitoring operator share</span>
+          <span class="monitor-val blue">$15/home/mo</span>
+        </div>
+        <div class="monitor-row">
+          <span class="monitor-label">EJG-OS network share</span>
+          <span class="monitor-val green">$5–$10/home/mo</span>
+        </div>
+        <div class="monitor-row">
+          <span class="monitor-label">Response time (human)</span>
+          <span class="monitor-val" style="color: var(--text);">&lt; 5 minutes</span>
+        </div>
+        <div class="monitor-row">
+          <span class="monitor-label">Contract requirement</span>
+          <span class="monitor-val green">None</span>
+        </div>
+        <div class="monitor-row">
+          <span class="monitor-label">Monitoring location</span>
+          <span class="monitor-val" style="color: var(--text);">24/7 Remote Team</span>
+        </div>
+        <div class="monitor-row">
+          <span class="monitor-label">Data stored locally</span>
+          <span class="monitor-val green">100% Yes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════════════════
+     INSTALLER PROGRAM
+════════════════════════════════════════════════════════ -->
+<div class="section-wrap-alt" id="installers">
+  <div class="container">
+    <div class="section-label">For Professionals</div>
+    <h2>The EJG-OS<br />Installer Network.</h2>
+    <p class="section-sub">
+      Smart home installers, electricians, and security professionals — join the
+      EJG-OS installer network and offer your clients the best smart home product on the market.
+    </p>
+
+    <div class="installer-hero">
+      <h3>Turn Your Installations Into a Recurring Business</h3>
+      <p>
+        License EJG-OS, deploy it for your clients, and build a portfolio of monitored homes
+        generating ongoing monthly revenue. We give you the tools — you build the business.
+      </p>
+      <a href="#contact" class="btn-primary">Apply as an Installer</a>
+    </div>
+
+    <div class="installer-grid">
+      <div class="installer-card">
+        <div class="ic-icon">🏆</div>
+        <h4>Starter License</h4>
+        <p>$5,000/year · Up to 10 active installs · Full Layer 1–3 access · Installer dashboard · Support included</p>
+      </div>
+      <div class="installer-card">
+        <div class="ic-icon">🚀</div>
+        <h4>Growth License</h4>
+        <p>$10,000/year · Up to 20 active installs · Everything in Starter · Priority support · Co-marketing opportunities</p>
+      </div>
+      <div class="installer-card">
+        <div class="ic-icon">🏢</div>
+        <h4>Enterprise License</h4>
+        <p>Custom pricing · Unlimited installs · White-label options · Dedicated account manager · Custom integrations</p>
+      </div>
+      <div class="installer-card">
+        <div class="ic-icon">💰</div>
+        <h4>Monitoring Revenue Share</h4>
+        <p>Earn recurring monthly revenue from every monitored home in your portfolio — no extra work required after setup</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 1.5rem 2rem;">
+      <div style="font-size: 0.82rem; font-weight: 700; color: var(--purple-400); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem;">Installer Income Projection (Starter License — 10 Homes)</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem;">
+        <div style="text-align: center;">
+          <div style="font-size: 1.6rem; font-weight: 900; color: #fff;">$18,000</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted);">Year 1 Install Revenue (10 homes × $1,800 avg)</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 1.6rem; font-weight: 900; color: var(--green);">$3,000</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted);">Year 1 Monitoring Revenue (10 homes × $25 × 12)</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 1.6rem; font-weight: 900; color: var(--purple-300);">$21,000</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted);">Year 1 Total (before license cost)</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 1.6rem; font-weight: 900; color: var(--gold);">$16,000</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted);">Year 1 Net (after $5K license)</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════════════════
+     CALLOUT QUOTE
+════════════════════════════════════════════════════════ -->
+<div style="max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;">
+  <div class="callout">
+    <div class="callout-icon">🏠</div>
+    <p>
+      "Most smart home systems are built to make you dependent on someone else's cloud, someone else's subscription,
+      and someone else's terms of service. EJG-OS was built from the ground up to reverse that — your home,
+      your hardware, your data. The intelligence lives inside your walls, not in a server farm you'll never see."
+    </p>
+    <div class="callout-sig">— EJG-OS, Built in Calgary, Alberta, Canada</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     FAQ
+════════════════════════════════════════════════════════ -->
+<div class="section-wrap" id="faq">
+  <div class="container">
+    <div class="section-label">FAQ</div>
+    <h2>Questions people actually ask.</h2>
+
+    <div class="faq">
+
+      <div class="faq-item open">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Does EJG-OS work if my internet goes down?
+          <span class="faq-arrow">▾</span>
+        </div>
+        <div class="faq-a">
+          Yes. EJG-OS runs entirely on a Raspberry Pi server inside your home. Your lights, locks, thermostats, scenes,
+          and automations all continue working without any internet connection. The only features that require internet
+          are optional — like remote access from your phone when you're away, and the monitoring service.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Do I need to pay a monthly fee?
+          <span class="faq-arrow">▾</span>
+        </div>
+        <div class="faq-a">
+          No. The base EJG-OS platform is a one-time installation cost. There are no mandatory platform fees, no
+          subscription required to use your smart home, and no features locked behind a paywall. The only optional
+          recurring cost is the 24/7 monitoring service ($25–$40/month) — which you can start, pause, or cancel anytime.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          What devices are compatible?
+          <span class="faq-arrow">▾</span>
+        </div>
+        <div class="faq-a">
+          EJG-OS supports Z-Wave devices (switches, dimmers, locks, sensors), Zigbee devices (plugs, sensors, bulbs),
+          and Wi-Fi devices (TP-Link Kasa, and others). Because it runs on Home Assistant under the hood, it's
+          compatible with thousands of devices from hundreds of brands. Your installer will recommend specific
+          hardware during the consultation.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          What happens if my installer leaves the business?
+          <span class="faq-arrow">▾</span>
+        </div>
+        <div class="faq-a">
+          You own all your hardware outright, and your EJG-OS system runs locally on your own server. If your
+          installer moves on, your smart home keeps working exactly as configured. You can continue using it
+          independently, bring in a new EJG-OS certified installer, or — if you're technically inclined — manage
+          the system yourself. You are never locked out or left helpless.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Is EJG-OS good for renters?
+          <span class="faq-arrow">▾</span>
+        </div>
+        <div class="faq-a">
+          EJG-OS is primarily designed for homeowners. That said, many Z-Wave and Zigbee devices can be installed
+          without permanent modification (especially smart plugs and some light switches). If you're renting,
+          speak to your installer — there may be options that work for your situation. Homeowners with rental
+          properties can also deploy EJG-OS in units they manage.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Is my data private?
+          <span class="faq-arrow">▾</span>
+        </div>
+        <div class="faq-a">
+          Completely. Your EJG-OS data lives on the Raspberry Pi server inside your home. No usage data, device
+          patterns, or automation history is ever sent to us or any third party. The platform is local-first
+          by design — not just as a feature, but as an architectural principle. Nobody is watching how many times
+          you turn your lights on.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          How is EJG-OS different from just using Home Assistant directly?
+          <span class="faq-arrow">▾</span>
+        </div>
+        <div class="faq-a">
+          Home Assistant is the engine powering EJG-OS behind the scenes — but it's hidden. Home Assistant is
+          a powerful but complex tool that requires significant technical knowledge to set up and maintain.
+          EJG-OS wraps it in a clean, consumer-grade interface that your family can actually use. A professional
+          installer handles all the configuration, and you interact with a polished app — not raw YAML files
+          and integrations.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════════════════
+     CTA
+════════════════════════════════════════════════════════ -->
+<div class="cta-section" id="contact">
+  <div class="cta-bg"></div>
+  <div class="section-label">Get Started</div>
+  <h2 style="margin-bottom: 1rem;">Ready to own your smart home?</h2>
+  <p class="section-sub" style="margin: 0 auto 2.5rem;">
+    Whether you're a homeowner looking to upgrade your space or a professional installer
+    looking for a platform worth selling — EJG-OS is ready for you.
+  </p>
+  <div class="hero-actions">
+    <a href="mailto:contact@ejgos.com" class="btn-primary">Get a Quote</a>
+    <a href="mailto:installers@ejgos.com" class="btn-ghost">Installer Inquiry</a>
+  </div>
+
+  <div style="margin-top: 4rem; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;">
+    <div style="text-align: center;">
+      <div style="font-size: 2rem; margin-bottom: 0.25rem;">📍</div>
+      <div style="font-size: 0.82rem; color: var(--text-muted);">Based in Calgary, AB<br/>Serving all of Canada</div>
+    </div>
+    <div style="text-align: center;">
+      <div style="font-size: 2rem; margin-bottom: 0.25rem;">📬</div>
+      <div style="font-size: 0.82rem; color: var(--text-muted);">contact@ejgos.com<br/>Responses within 24hrs</div>
+    </div>
+    <div style="text-align: center;">
+      <div style="font-size: 2rem; margin-bottom: 0.25rem;">🔒</div>
+      <div style="font-size: 0.82rem; color: var(--text-muted);">Your data stays<br/>in your home. Always.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">EJG-OS</div>
+    <div class="footer-tagline">The Smart Home Operating System — Built in Calgary, Canada</div>
+    <div class="footer-links">
+      <a href="#features">Features</a>
+      <a href="#layers">How It Works</a>
+      <a href="#tech">Technology</a>
+      <a href="#pricing">Packages</a>
+      <a href="#installers">Installers</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-copy">© 2026 EJG-OS. All rights reserved. Built local. Stays local.</div>
+  </div>
+</footer>
+
+</body>
+</html>

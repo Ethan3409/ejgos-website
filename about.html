@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — EJG-OS Smart Home Operating System</title>
+  <style>
+    :root {
+      --purple-900: #1a0533;
+      --purple-800: #2d0a52;
+      --purple-700: #4a0e82;
+      --purple-600: #6b21a8;
+      --purple-500: #9333ea;
+      --purple-400: #a855f7;
+      --purple-300: #c084fc;
+      --bg: #060010;
+      --surface: rgba(255,255,255,0.04);
+      --text: #f3e8ff;
+      --text-muted: rgba(196,150,255,0.7);
+      --border: rgba(168,85,247,0.2);
+      --green: #22c55e;
+      --blue: #60a5fa;
+      --gold: #fbbf24;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 64px;
+      background: rgba(6,0,16,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .nav-logo {
+      font-size: 20px; font-weight: 700;
+      color: var(--purple-300);
+      text-decoration: none;
+      letter-spacing: 2px;
+      transition: color 0.3s;
+    }
+    .nav-logo:hover { color: var(--purple-400); }
+
+    .nav-hamburger {
+      display: none; background: none; border: none;
+      color: var(--text); font-size: 24px; cursor: pointer; padding: 8px;
+    }
+
+    .nav-links {
+      display: flex; list-style: none; gap: 32px; align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 14px; font-weight: 500; transition: color 0.3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400)) !important;
+      color: white !important; padding: 8px 20px !important;
+      border-radius: 6px; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(168,85,247,0.3); }
+
+    @media (max-width: 768px) {
+      .nav-hamburger { display: block; }
+      .nav-links {
+        position: absolute; top: 64px; left: 0; right: 0;
+        background: rgba(6,0,16,0.98);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column; gap: 16px; padding: 20px 24px; display: none;
+      }
+      .nav-links.nav-open { display: flex; }
+    }
+
+    main { margin-top: 64px; }
+
+    /* Page Hero */
+    .page-hero {
+      min-height: 480px;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 100px 24px;
+      background: linear-gradient(135deg, rgba(107,33,168,0.2), rgba(168,85,247,0.08));
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; top: -40%; left: -10%;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute; bottom: -40%; right: -10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(168,85,247,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .page-hero-content { position: relative; z-index: 2; max-width: 760px; }
+    .page-hero-eyebrow {
+      display: inline-block;
+      font-size: 12px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--purple-400);
+      margin-bottom: 20px;
+    }
+    .page-hero h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 700; line-height: 1.15; margin-bottom: 24px;
+      background: linear-gradient(135deg, var(--purple-300), var(--purple-400));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .page-hero p {
+      font-size: 18px; color: var(--text-muted); line-height: 1.7; max-width: 600px; margin: 0 auto;
+    }
+
+    /* Origin Story */
+    .origin-section {
+      padding: 100px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .origin-eyebrow {
+      font-size: 12px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--purple-400);
+      margin-bottom: 16px;
+    }
+
+    .origin-section h2 {
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 700; margin-bottom: 40px; line-height: 1.2;
+      color: var(--text);
+    }
+
+    .origin-section h2 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--purple-300), var(--purple-400));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .origin-body {
+      font-size: 17px; color: var(--text-muted); line-height: 1.85;
+    }
+
+    .origin-body p { margin-bottom: 28px; }
+
+    .origin-body strong {
+      color: var(--text); font-weight: 600;
+    }
+
+    .origin-pullquote {
+      border-left: 4px solid var(--purple-400);
+      padding: 20px 32px;
+      margin: 48px 0;
+      background: rgba(168,85,247,0.06);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .origin-pullquote p {
+      font-size: 20px; font-style: italic;
+      color: var(--purple-300); margin: 0; line-height: 1.6;
+    }
+
+    /* Values Grid */
+    .values-section {
+      padding: 80px 24px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .values-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-header h2 {
+      font-size: clamp(28px, 4vw, 40px); margin-bottom: 16px; color: var(--text);
+    }
+    .section-header p {
+      font-size: 16px; color: var(--text-muted); max-width: 560px; margin: 0 auto;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+    }
+
+    .value-card {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      padding: 36px;
+      border-radius: 12px;
+      transition: all 0.3s;
+    }
+    .value-card:hover {
+      border-color: var(--purple-400);
+      background: rgba(168,85,247,0.06);
+      transform: translateY(-4px);
+    }
+
+    .value-icon {
+      font-size: 40px; margin-bottom: 20px; display: block;
+    }
+
+    .value-card h3 {
+      font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--text);
+    }
+
+    .value-card p {
+      font-size: 14px; color: var(--text-muted); line-height: 1.7;
+    }
+
+    /* Timeline / Journey */
+    .journey-section {
+      padding: 100px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .journey-section .section-header { margin-bottom: 64px; }
+
+    .timeline {
+      position: relative;
+      padding-left: 40px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute; left: 8px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--purple-400), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 52px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -38px; top: 4px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--purple-400);
+      border: 3px solid var(--bg);
+      box-shadow: 0 0 0 2px var(--purple-400);
+    }
+
+    .timeline-label {
+      font-size: 12px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--purple-500);
+      margin-bottom: 8px;
+    }
+
+    .timeline-item h3 {
+      font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--text);
+    }
+
+    .timeline-item p {
+      font-size: 14px; color: var(--text-muted); line-height: 1.7;
+    }
+
+    /* Mission Banner */
+    .mission-banner {
+      padding: 100px 24px;
+      background: linear-gradient(135deg, var(--purple-800), var(--purple-700));
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mission-banner::before {
+      content: '';
+      position: absolute; top: -50%; left: -20%;
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .mission-banner-content {
+      position: relative; z-index: 2; max-width: 760px; margin: 0 auto;
+    }
+
+    .mission-banner h2 {
+      font-size: clamp(32px, 4.5vw, 52px);
+      font-weight: 700; line-height: 1.2; color: white; margin-bottom: 28px;
+    }
+
+    .mission-banner p {
+      font-size: 18px; color: rgba(255,255,255,0.85); margin-bottom: 48px; line-height: 1.7;
+    }
+
+    .mission-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+
+    .mission-stat { text-align: center; }
+    .mission-stat-number {
+      font-size: 36px; font-weight: 700; color: white; margin-bottom: 8px;
+    }
+    .mission-stat-label {
+      font-size: 13px; color: rgba(255,255,255,0.7);
+    }
+
+    /* CTA Banner */
+    .cta-section {
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      margin-bottom: 20px; color: var(--text);
+    }
+
+    .cta-section p {
+      font-size: 16px; color: var(--text-muted);
+      margin-bottom: 36px; max-width: 560px; margin-left: auto; margin-right: auto;
+    }
+
+    .btn {
+      padding: 14px 32px; border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      transition: all 0.3s; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400));
+      color: white; border: none;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(168,85,247,0.3); }
+    .btn-secondary { background: transparent; color: var(--text); margin-left: 16px; }
+    .btn-secondary:hover { background: var(--surface); }
+
+    /* Footer */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 60px 24px 40px;
+    }
+    .footer-content {
+      max-width: 1200px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px; margin-bottom: 40px;
+    }
+    .footer-column h3 {
+      font-size: 14px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; margin-bottom: 16px; color: var(--purple-400);
+    }
+    .footer-column a, .footer-column p {
+      font-size: 13px; color: var(--text-muted); text-decoration: none;
+      display: block; margin-bottom: 8px; transition: color 0.3s;
+    }
+    .footer-column a:hover { color: var(--text); }
+    .footer-bottom {
+      border-top: 1px solid var(--border); padding-top: 24px;
+      text-align: center; font-size: 12px; color: var(--text-muted);
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.7s ease-out forwards; }
+
+    /* ===== MOBILE PHONE OPTIMIZATIONS ===== */
+    @media (max-width: 480px) {
+      nav {
+        padding: 0 16px;
+        height: 56px;
+      }
+
+      .nav-logo {
+        font-size: 18px;
+      }
+
+      .nav-links {
+        top: 56px;
+      }
+
+      main {
+        margin-top: 56px;
+      }
+
+      .page-hero {
+        padding: 48px 16px;
+      }
+
+      .page-hero h1 {
+        font-size: 28px;
+      }
+
+      .page-hero p {
+        font-size: 14px;
+      }
+
+      .origin-section,
+      .values-section,
+      .timeline-section,
+      .mission-section,
+      .cta-section {
+        padding: 48px 16px;
+      }
+
+      section {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+      }
+
+      .section-header h2 {
+        font-size: 24px;
+      }
+
+      .section-header p {
+        font-size: 14px;
+      }
+
+      .origin-section h2,
+      .origin-content h2 {
+        font-size: 24px;
+      }
+
+      .origin-section p,
+      .origin-content p {
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .values-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .value-card {
+        padding: 24px;
+      }
+
+      .value-card h3 {
+        font-size: 18px;
+      }
+
+      .value-card p {
+        font-size: 13px;
+      }
+
+      .timeline {
+        padding-left: 28px;
+      }
+
+      .timeline::before {
+        left: 0;
+      }
+
+      .timeline-item {
+        padding-left: 28px;
+        margin-bottom: 32px;
+      }
+
+      .timeline-dot {
+        left: -28px;
+        width: 14px;
+        height: 14px;
+      }
+
+      .timeline-item h3 {
+        font-size: 16px;
+      }
+
+      .timeline-item p {
+        font-size: 13px;
+      }
+
+      .timeline-year {
+        font-size: 12px;
+      }
+
+      .mission-banner,
+      .mission-content {
+        padding: 32px 20px;
+      }
+
+      .mission-banner h2,
+      .mission-content h2 {
+        font-size: 22px;
+      }
+
+      .mission-banner p,
+      .mission-content p {
+        font-size: 14px;
+      }
+
+      .cta-section h2 {
+        font-size: 24px;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+      }
+
+      .cta-buttons .btn,
+      .cta-section .btn {
+        width: 100%;
+        justify-content: center;
+        margin-left: 0;
+      }
+
+      footer {
+        padding: 40px 16px 24px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .page-hero h1 {
+        font-size: 24px;
+      }
+
+      .origin-section h2,
+      .origin-content h2 {
+        font-size: 22px;
+      }
+
+      .mission-banner h2,
+      .mission-content h2 {
+        font-size: 20px;
+      }
+
+      .values-grid {
+        gap: 12px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="nav-logo">EJG-OS</a>
+    <button class="nav-hamburger" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Page Hero -->
+    <section class="page-hero">
+      <div class="page-hero-content">
+        <div class="page-hero-eyebrow">Our Story</div>
+        <h1>Built Out of Frustration. Designed for Freedom.</h1>
+        <p>One person got tired of paying rent on their own home. Monthly for the thermostat. Subscriptions for cameras. Apps that died when companies got acquired. So they built something different.</p>
+      </div>
+    </section>
+
+    <!-- Origin Story -->
+    <section class="origin-section">
+      <div class="origin-eyebrow">The Why</div>
+      <h2>Smart home became a rental agreement in disguise.</h2>
+
+      <div class="origin-body">
+        <p>
+          When you buy a car, you own it. You pay once, drive it, maintain it, sell it when you're done. But somehow "smart home" became different. Monthly fees for a thermostat you bought. A subscription to see your own security cameras. Apps that evaporated when the company got acquired, taking your automations with them. You didn't own your home — you rented access to it.
+        </p>
+
+        <p>
+          The worst part? It didn't have to be this way. The technology is simple. Local hardware can do everything you need. But the business model demanded subscriptions. Data harvesting. Lock-in. Cloud dependency. Because that's where the money is for venture-backed startups.
+        </p>
+
+        <div class="origin-pullquote">
+          <p>"You shouldn't need a password and a subscription to turn on your own lights."</p>
+        </div>
+
+        <p>
+          That's where EJG-OS came from. <strong>What if you could own your smart home the way you own your car?</strong> You buy it. You own it. It works. No monthly bill. No company deciding what features you get access to. No data being harvested. Just your house, doing what you told it to do, forever.
+        </p>
+
+        <p>
+          We built it in Calgary because that's home — and because Calgary winters force you to build things right. When your furnace integration matters, when keeping your home comfortable in -30°C is real, you don't cut corners. You build something that genuinely works, every single time.
+        </p>
+
+        <p>
+          Here's the core idea: a smart home OS that runs entirely on hardware inside your house. Your automations work even when the internet's down. Your camera footage never leaves your walls. Your data is yours alone. Every install includes a dedicated EJG-OS tablet mounted in the home as the control hub — this isn't some optional feature, it's standard. You get a professional installer from our network who comes to your house, gets everything running perfectly, and walks you through how to use it. Then it's yours. Forever.
+        </p>
+
+        <p>
+          We built on open protocols — Z-Wave, Zigbee, Wi-Fi — because we wanted your system to work with thousands of different devices. Not a locked ecosystem. Not a proprietary garden. Real choice about what hardware you use.
+        </p>
+
+        <p>
+          This isn't a startup pitch. It's the opposite of that. We're not trying to build the next unicorn or get acquired. We're building something that actually works for people who live in homes. EJG-OS solves a real problem: the feeling that you should be able to control your own house without paying rent to a company forever.
+        </p>
+      </div>
+    </section>
+
+    <!-- Values -->
+    <section class="values-section">
+      <div class="values-inner">
+        <div class="section-header">
+          <h2>What We Actually Believe</h2>
+          <p>Not marketing values. Real principles that show up in every decision.</p>
+        </div>
+        <div class="values-grid">
+          <div class="value-card fade-up">
+            <span class="value-icon">🏠</span>
+            <h3>You Actually Own It</h3>
+            <p>One price. Professional install. Then it's yours. Like buying a house instead of renting. No monthly fees hiding in your account. No subscriptions expiring. No company deciding which features you get to keep. It's paid for. It's running. It's done.</p>
+          </div>
+          <div class="value-card fade-up">
+            <span class="value-icon">🔒</span>
+            <h3>Your Data Stays in Your House</h3>
+            <p>Not in the cloud. Not on our servers. Not harvested. Your home's patterns, your cameras, your habits — all processed locally on hardware you control. We literally cannot see it. That's not a marketing claim, it's the architecture. Your privacy isn't negotiable because there's nothing to negotiate.</p>
+          </div>
+          <div class="value-card fade-up">
+            <span class="value-icon">⚡</span>
+            <h3>Everything Runs Locally</h3>
+            <p>Your commands don't travel to a server farm and back. The tablet running your home processes everything right there. Instant response. Works even when the internet's out. No dependency on cloud companies staying in business or keeping their prices reasonable. Your home operates independently.</p>
+          </div>
+          <div class="value-card fade-up">
+            <span class="value-icon">🤝</span>
+            <h3>Straight Talk, No Upsell</h3>
+            <p>We tell you what you actually need, not what makes us more money. No hidden fees in fine print. No convincing you to buy features you won't use. If a simpler system works for your home, that's what we'll recommend. Trust is earned by being honest, especially when honesty costs us.</p>
+          </div>
+          <div class="value-card fade-up">
+            <span class="value-icon">🇨🇦</span>
+            <h3>Built for This Country</h3>
+            <p>We built this in Alberta. We know what Canadian winters demand. We understand privacy expectations in Canada. We respect Canadian standards and regulations. This isn't a California system retrofitted for our market — it was built here, for here, by people who actually live here.</p>
+          </div>
+          <div class="value-card fade-up">
+            <span class="value-icon">📱</span>
+            <h3>Your Tablet, Your Hub</h3>
+            <p>Every home gets a dedicated EJG-OS tablet mounted where you need it — the control center for everything. It's not optional. It's standard. A real, physical interface in your home that you own, that doesn't depend on a smartphone app, that's always there and always yours.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Journey Timeline -->
+    <section class="journey-section">
+      <div class="section-header">
+        <h2>How This Actually Happened</h2>
+        <p>Not a typical startup story. Just what actually occurred.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-label">The Real Problem</div>
+          <h3>Tired of paying rent on home tech</h3>
+          <p>Monthly bill for the thermostat. Cloud subscription for the cameras. An app that stopped working when the company got acquired. Realizing: I own this house, but I rent the ability to control it. That's broken.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-label">The Search</div>
+          <h3>Nothing existed that actually solved this</h3>
+          <p>Every existing option either needed a computer science degree to set up, locked you into one brand, or still depended on cloud servers (defeating the purpose). There genuinely wasn't an alternative — a local-first smart home OS you could own outright and have installed by a professional.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-label">The Build</div>
+          <h3>Built it. In Calgary. During winter.</h3>
+          <p>Open protocols. Local processing. Real hardware tablet for control. Professional installation standard from day one. Calgary winters meant no cutting corners — your heating needs to work when it's -30°C. That forces you to build things right.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-label">First Installs</div>
+          <h3>Real homes, real people, real feedback</h3>
+          <p>Started installing in Calgary with families willing to try something different. Each install taught us what actually matters. Not what investors want to hear — what homeowners actually need.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-label">Now</div>
+          <h3>Building an installer network</h3>
+          <p>Growing across Canada with certified professionals who believe in the same thing: giving people genuine ownership of their homes. Not a tech company pretending to care about privacy. Actually building it.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission Banner -->
+    <section class="mission-banner">
+      <div class="mission-banner-content">
+        <h2>Our mission is simple: your home, fully intelligent, completely yours.</h2>
+        <p>No subscriptions. No clouds. No compromises. Just a home that works exactly the way you want it to — and stays that way forever.</p>
+
+        <div class="mission-stats">
+          <div class="mission-stat">
+            <div class="mission-stat-number">100%</div>
+            <div class="mission-stat-label">Local</div>
+          </div>
+          <div class="mission-stat">
+            <div class="mission-stat-number">$0</div>
+            <div class="mission-stat-label">Monthly. Forever.</div>
+          </div>
+          <div class="mission-stat">
+            <div class="mission-stat-number">📱</div>
+            <div class="mission-stat-label">Your Tablet Included</div>
+          </div>
+          <div class="mission-stat">
+            <div class="mission-stat-number">🔓</div>
+            <div class="mission-stat-label">Open Protocols</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <h2>Ready to own your home?</h2>
+      <p>Get a free consultation with our Calgary team. No pressure, no pitch — just an honest conversation about what your home needs.</p>
+      <a href="contact.html" class="btn btn-primary">Get Your Free Consultation</a>
+      <a href="pricing.html" class="btn btn-secondary">See Pricing →</a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Product</h3>
+        <a href="features.html">Features</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="how-it-works.html">How It Works</a>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-column">
+        <h3>Legal</h3>
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
+        <a href="#security">Security</a>
+      </div>
+      <div class="footer-column">
+        <h3>Location</h3>
+        <p>Calgary, AB</p>
+        <p>Growing Nationwide</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 EJG-OS. All rights reserved. The Smart Home Operating System.</p>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.querySelector('.nav-hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('nav-open'));
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('nav-open'));
+    });
+  </script>
+</body>
+</html>

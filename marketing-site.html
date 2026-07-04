@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EJG-OS — The Smart Home Operating System</title>
+  <style>
+    :root {
+      --purple-900: #1a0533;
+      --purple-800: #2d0a52;
+      --purple-700: #4a0e82;
+      --purple-600: #6b21a8;
+      --purple-500: #9333ea;
+      --purple-400: #a855f7;
+      --purple-300: #c084fc;
+      --bg: #060010;
+      --surface: rgba(255,255,255,0.04);
+      --text: #f3e8ff;
+      --text-muted: rgba(196,150,255,0.7);
+      --border: rgba(168,85,247,0.2);
+      --green: #22c55e;
+      --blue: #60a5fa;
+      --gold: #fbbf24;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: rgba(6,0,16,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--purple-300);
+      text-decoration: none;
+      letter-spacing: 2px;
+      transition: color 0.3s;
+    }
+
+    .nav-logo:hover {
+      color: var(--purple-400);
+    }
+
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400)) !important;
+      color: white !important;
+      padding: 8px 20px !important;
+      border-radius: 6px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(168,85,247,0.3);
+    }
+
+    @media (max-width: 768px) {
+      .nav-hamburger {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: rgba(6,0,16,0.98);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px 24px;
+        display: none;
+      }
+
+      .nav-links.nav-open {
+        display: flex;
+      }
+    }
+
+    /* Main Content */
+    main {
+      margin-top: 64px;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: calc(100vh - 64px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 40px 24px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--purple-300), var(--purple-400));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(168,85,247,0.1);
+      border: 1px solid var(--purple-400);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--purple-300);
+      margin-bottom: 20px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(168,85,247,0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(168,85,247,0.1); }
+    }
+
+    .hero-text p {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400));
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(168,85,247,0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface);
+    }
+
+    /* Phone Mockup */
+    .phone-mockup {
+      position: relative;
+      width: 280px;
+      height: 580px;
+      background: #000;
+      border-radius: 40px;
+      border: 8px solid #1a1a1a;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phone-notch {
+      height: 28px;
+      background: #000;
+      border-bottom: 1px solid #333;
+    }
+
+    .phone-screen {
+      flex: 1;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .phone-time {
+      text-align: center;
+      color: white;
+      font-size: 11px;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .phone-greeting {
+      color: var(--purple-300);
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .phone-location {
+      color: rgba(255,255,255,0.6);
+      font-size: 10px;
+      margin-bottom: 12px;
+    }
+
+    .phone-scenes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .scene-chip {
+      background: rgba(168,85,247,0.2);
+      border: 1px solid var(--purple-400);
+      padding: 8px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 9px;
+      color: var(--purple-300);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .scene-chip:hover,
+    .scene-chip.active {
+      background: var(--purple-600);
+      color: white;
+    }
+
+    .phone-devices {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .device-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(168,85,247,0.2);
+      padding: 8px;
+      border-radius: 8px;
+      font-size: 9px;
+      color: rgba(255,255,255,0.8);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .device-icon {
+      font-size: 16px;
+    }
+
+    .device-name {
+      font-weight: 500;
+    }
+
+    .device-status {
+      font-size: 8px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .phone-nav {
+      display: flex;
+      justify-content: space-around;
+      padding: 8px;
+      border-top: 1px solid rgba(168,85,247,0.2);
+      font-size: 18px;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .phone-mockup {
+        width: 240px;
+        height: 490px;
+        margin: 0 auto;
+      }
+    }
+
+    /* Stats Bar */
+    .stats-bar {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .stat-item h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--purple-400);
+      margin-bottom: 8px;
+    }
+
+    .stat-item p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Features Preview */
+    .features-preview {
+      padding: 80px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .section-header p {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 32px;
+      border-radius: 12px;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .feature-card:hover {
+      background: rgba(168,85,247,0.08);
+      border-color: var(--purple-400);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .see-all-link {
+      color: var(--purple-400);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: gap 0.2s;
+    }
+
+    .see-all-link:hover {
+      gap: 12px;
+    }
+
+    /* How It Works Teaser */
+    .how-it-works {
+      padding: 80px 24px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .how-it-works .section-header {
+      margin-bottom: 60px;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto 40px;
+    }
+
+    .step {
+      text-align: center;
+    }
+
+    .step-number {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      color: white;
+      margin: 0 auto 16px;
+    }
+
+    .step h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .step p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Comparison Callout */
+    .comparison {
+      padding: 80px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .comparison-content {
+      background: linear-gradient(135deg, rgba(107,33,168,0.1), rgba(168,85,247,0.05));
+      border: 1px solid var(--border);
+      padding: 48px;
+      border-radius: 12px;
+    }
+
+    .comparison h2 {
+      font-size: 32px;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+
+    .comparison-points {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .comparison-point {
+      display: flex;
+      gap: 12px;
+    }
+
+    .comparison-point::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .comparison-point p {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* CTA Banner */
+    .cta-banner {
+      padding: 80px 24px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(168,85,247,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .cta-banner-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cta-banner h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+
+    .cta-banner p {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 60px 24px 40px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-column h3 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      color: var(--purple-400);
+    }
+
+    .footer-column a,
+    .footer-column p {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 8px;
+      transition: color 0.3s;
+    }
+
+    .footer-column a:hover {
+      color: var(--text);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      animation: fadeUp 0.6s ease-out forwards;
+    }
+
+    .fade-up-delay-1 { animation-delay: 0.1s; }
+    .fade-up-delay-2 { animation-delay: 0.2s; }
+    .fade-up-delay-3 { animation-delay: 0.3s; }
+
+    /* ===== MOBILE PHONE OPTIMIZATIONS ===== */
+    @media (max-width: 480px) {
+      nav {
+        padding: 0 16px;
+        height: 56px;
+      }
+
+      .nav-logo {
+        font-size: 18px;
+      }
+
+      .nav-links {
+        top: 56px;
+      }
+
+      main {
+        margin-top: 56px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 32px 16px;
+      }
+
+      .hero-content {
+        gap: 32px;
+      }
+
+      .hero-badge {
+        font-size: 11px;
+        padding: 6px 12px;
+      }
+
+      .hero-text p {
+        font-size: 15px;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .hero-cta .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 24px;
+      }
+
+      .phone-mockup {
+        width: 200px;
+        height: 410px;
+        border-radius: 28px;
+        border-width: 6px;
+      }
+
+      .phone-notch {
+        height: 20px;
+      }
+
+      .phone-screen {
+        padding: 10px;
+      }
+
+      .phone-greeting {
+        font-size: 12px;
+      }
+
+      .scene-chip {
+        font-size: 8px;
+        padding: 6px;
+      }
+
+      .device-card {
+        padding: 6px;
+      }
+
+      .device-icon {
+        font-size: 14px;
+      }
+
+      .device-name {
+        font-size: 8px;
+      }
+
+      .device-status {
+        font-size: 7px;
+      }
+
+      .stats-bar {
+        padding: 24px 16px;
+        gap: 24px;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .stat-item h3 {
+        font-size: 20px;
+      }
+
+      .stat-item p {
+        font-size: 12px;
+      }
+
+      .features-preview {
+        padding: 48px 16px;
+      }
+
+      .section-header {
+        margin-bottom: 32px;
+      }
+
+      .section-header p {
+        font-size: 14px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .feature-card {
+        padding: 24px;
+      }
+
+      .feature-card h3 {
+        font-size: 16px;
+      }
+
+      .feature-card p {
+        font-size: 13px;
+      }
+
+      .how-it-works {
+        padding: 48px 16px;
+      }
+
+      .how-it-works .section-header {
+        margin-bottom: 32px;
+      }
+
+      .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .comparison {
+        padding: 48px 16px;
+      }
+
+      .comparison-content {
+        padding: 24px;
+      }
+
+      .comparison h2 {
+        font-size: 24px;
+      }
+
+      .comparison-points {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .comparison-point p {
+        font-size: 13px;
+      }
+
+      .cta-banner {
+        padding: 48px 16px;
+      }
+
+      .cta-banner p {
+        font-size: 14px;
+      }
+
+      footer {
+        padding: 40px 16px 24px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+    }
+
+    /* Extra small phones (320px) */
+    @media (max-width: 360px) {
+      .hero-text h1 {
+        font-size: 26px;
+      }
+
+      .stats-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .phone-mockup {
+        width: 180px;
+        height: 370px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="nav-logo">EJG-OS</a>
+    <button class="nav-hamburger" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-text">
+          <div class="hero-badge">Now Available — Calgary, AB & Growing Nationwide</div>
+          <h1>Your Home. Fully Intelligent. Completely Yours.</h1>
+          <p>The first smart home operating system built for Canada. 100% local processing, zero monthly fees, professional installation. Take back control of your home.</p>
+          <div class="hero-cta">
+            <a href="contact.html" class="btn btn-primary">Get Started Today</a>
+            <a href="features.html" class="btn btn-secondary">Learn More →</a>
+          </div>
+        </div>
+        <div class="phone-mockup">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="phone-time">9:41</div>
+            <div class="phone-greeting">Good morning, Ethan</div>
+            <div class="phone-location">Calgary · 12°C</div>
+            <div class="phone-scenes">
+              <div class="scene-chip active">Good Morning</div>
+              <div class="scene-chip">Away</div>
+              <div class="scene-chip">Movie</div>
+              <div class="scene-chip">Sleep</div>
+            </div>
+            <div class="phone-devices">
+              <div class="device-card">
+                <div class="device-icon">💡</div>
+                <div class="device-name">Living Room</div>
+                <div class="device-status">On</div>
+              </div>
+              <div class="device-card">
+                <div class="device-icon">🌡️</div>
+                <div class="device-name">Thermostat</div>
+                <div class="device-status">21°C</div>
+              </div>
+              <div class="device-card">
+                <div class="device-icon">🔒</div>
+                <div class="device-name">Front Door</div>
+                <div class="device-status">Locked</div>
+              </div>
+              <div class="device-card">
+                <div class="device-icon">📷</div>
+                <div class="device-name">Front Cam</div>
+                <div class="device-status">Active</div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-nav">🏠 ⚙️ 📱</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+      <div class="stat-item">
+        <h3>100%</h3>
+        <p>Local Processing</p>
+      </div>
+      <div class="stat-item">
+        <h3>$0</h3>
+        <p>Monthly Fees</p>
+      </div>
+      <div class="stat-item">
+        <h3>3 Protocols</h3>
+        <p>Z-Wave + Zigbee + Wi-Fi</p>
+      </div>
+      <div class="stat-item">
+        <h3>Professional</h3>
+        <p>Installer Network</p>
+      </div>
+    </section>
+
+    <!-- Features Preview -->
+    <section class="features-preview">
+      <div class="section-header">
+        <h2>Powerful Features. Simple Interface.</h2>
+        <p>Everything you need to create the perfect smart home, without the complexity or cloud dependency.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-up fade-up-delay-1">
+          <div class="feature-icon">📊</div>
+          <h3>Dashboard</h3>
+          <p>Personalized home dashboard with pin-and-drag device organization and personalized greetings.</p>
+        </div>
+        <div class="feature-card fade-up fade-up-delay-2">
+          <div class="feature-icon">🧩</div>
+          <h3>Scenes</h3>
+          <p>One-tap scenes activate your entire home experience in seconds. Good Morning, Away, Movie, Sleep.</p>
+        </div>
+        <div class="feature-card fade-up fade-up-delay-3">
+          <div class="feature-icon">⚡</div>
+          <h3>Automations</h3>
+          <p>Create powerful automations based on time, motion, conditions. Everything runs locally on your hardware.</p>
+        </div>
+        <div class="feature-card fade-up fade-up-delay-1">
+          <div class="feature-icon">🎙️</div>
+          <h3>Voice Control</h3>
+          <p>Voice assistant "Hey Skip" built right in. No corporate servers. No recurring fees. Just your home.</p>
+        </div>
+        <div class="feature-card fade-up fade-up-delay-2">
+          <div class="feature-icon">🛡️</div>
+          <h3>Privacy First</h3>
+          <p>All data stays on your hardware. No cloud tracking. No data harvesting. You own your home and your data.</p>
+        </div>
+        <div class="feature-card fade-up fade-up-delay-3">
+          <div class="feature-icon">📷</div>
+          <h3>Cameras</h3>
+          <p>Live camera access, motion alerts, and recording. All processed locally on your system.</p>
+        </div>
+      </div>
+      <div style="text-align: center;">
+        <a href="features.html" class="see-all-link">See All Features →</a>
+      </div>
+    </section>
+
+    <!-- How It Works Teaser -->
+    <section class="how-it-works">
+      <div class="section-header">
+        <h2>From Zero to Smart Home</h2>
+        <p>Our professional installers handle everything. You enjoy the results.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step fade-up fade-up-delay-1">
+          <div class="step-number">1</div>
+          <h3>Consultation</h3>
+          <p>We assess your home and discuss your smart home vision with our local team.</p>
+        </div>
+        <div class="step fade-up fade-up-delay-2">
+          <div class="step-number">2</div>
+          <h3>Installation</h3>
+          <p>Professional setup of Z-Wave, Zigbee, cameras, locks, and your local server.</p>
+        </div>
+        <div class="step fade-up fade-up-delay-3">
+          <div class="step-number">3</div>
+          <h3>Training</h3>
+          <p>Full handoff and training so you're confident and in control of your system.</p>
+        </div>
+      </div>
+      <div style="text-align: center;">
+        <a href="how-it-works.html" class="see-all-link">See Full Process →</a>
+      </div>
+    </section>
+
+    <!-- Comparison Callout -->
+    <section class="comparison">
+      <div class="comparison-content">
+        <h2>Why EJG-OS Wins</h2>
+        <div class="comparison-points">
+          <div class="comparison-point">
+            <p><strong>No monthly fees</strong> — Unlike Telus, ADT, and most competitors, pay once and you're done.</p>
+          </div>
+          <div class="comparison-point">
+            <p><strong>100% local</strong> — No cloud dependency means faster automation, bulletproof privacy, no internet required.</p>
+          </div>
+          <div class="comparison-point">
+            <p><strong>You own it</strong> — Your hardware, your data, your system. Forever.</p>
+          </div>
+          <div class="comparison-point">
+            <p><strong>Professional support</strong> — Local installers in your community, not a call center.</p>
+          </div>
+          <div class="comparison-point">
+            <p><strong>Open protocol</strong> — Z-Wave + Zigbee + Wi-Fi means true device freedom.</p>
+          </div>
+          <div class="comparison-point">
+            <p><strong>Built for Canada</strong> — Made in Calgary, scaling across the country.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="cta-banner">
+      <div class="cta-banner-content">
+        <h2>Ready to take control?</h2>
+        <p>Join the smart home revolution. 100% local, zero monthly surprises. Get your free consultation today.</p>
+        <a href="contact.html" class="btn btn-primary">Get Started</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Product</h3>
+        <a href="features.html">Features</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="how-it-works.html">How It Works</a>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-column">
+        <h3>Legal</h3>
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
+        <a href="#security">Security</a>
+      </div>
+      <div class="footer-column">
+        <h3>Location</h3>
+        <p>Calgary, AB</p>
+        <p>Growing Nationwide</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 EJG-OS. All rights reserved. The Smart Home Operating System.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Hamburger menu toggle
+    const hamburger = document.querySelector('.nav-hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('nav-open');
+    });
+
+    // Close menu on link click
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('nav-open');
+      });
+    });
+
+    // Set active nav link
+    const currentPage = 'index.html';
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('active');
+      }
+    });
+
+    // Fade-up animation on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-up');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-up').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

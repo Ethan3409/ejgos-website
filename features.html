@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Features — EJG-OS Smart Home Operating System</title>
+  <style>
+    :root {
+      --purple-900: #1a0533;
+      --purple-800: #2d0a52;
+      --purple-700: #4a0e82;
+      --purple-600: #6b21a8;
+      --purple-500: #9333ea;
+      --purple-400: #a855f7;
+      --purple-300: #c084fc;
+      --bg: #060010;
+      --surface: rgba(255,255,255,0.04);
+      --text: #f3e8ff;
+      --text-muted: rgba(196,150,255,0.7);
+      --border: rgba(168,85,247,0.2);
+      --green: #22c55e;
+      --blue: #60a5fa;
+      --gold: #fbbf24;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: rgba(6,0,16,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--purple-300);
+      text-decoration: none;
+      letter-spacing: 2px;
+      transition: color 0.3s;
+    }
+
+    .nav-logo:hover {
+      color: var(--purple-400);
+    }
+
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400)) !important;
+      color: white !important;
+      padding: 8px 20px !important;
+      border-radius: 6px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(168,85,247,0.3);
+    }
+
+    @media (max-width: 768px) {
+      .nav-hamburger {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: rgba(6,0,16,0.98);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px 24px;
+        display: none;
+      }
+
+      .nav-links.nav-open {
+        display: flex;
+      }
+    }
+
+    main {
+      margin-top: 64px;
+    }
+
+    /* Page Hero */
+    .page-hero {
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+      background: linear-gradient(135deg, rgba(107,33,168,0.2), rgba(168,85,247,0.1));
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .page-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--purple-300), var(--purple-400));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-hero p {
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    /* Features Grid */
+    .features-grid {
+      padding: 80px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .features-grid h2 {
+      font-size: 28px;
+      margin-bottom: 60px;
+      text-align: center;
+      color: var(--text);
+    }
+
+    .grid-12 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+
+    .feature-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 40px;
+      border-radius: 12px;
+      transition: all 0.3s;
+    }
+
+    .feature-item:hover {
+      background: rgba(168,85,247,0.08);
+      border-color: var(--purple-400);
+      transform: translateY(-4px);
+    }
+
+    .feature-item-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+
+    .feature-item h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .feature-item p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Comparison Table */
+    .comparison-section {
+      padding: 80px 24px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .comparison-section h2 {
+      font-size: 32px;
+      margin-bottom: 40px;
+      text-align: center;
+      color: var(--text);
+    }
+
+    .comparison-table {
+      max-width: 1200px;
+      margin: 0 auto;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    thead {
+      background: rgba(107,33,168,0.2);
+    }
+
+    th {
+      padding: 16px;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      color: var(--purple-300);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    tbody tr:hover {
+      background: rgba(168,85,247,0.05);
+    }
+
+    td:first-child {
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .check {
+      color: var(--green);
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .cross {
+      color: #ef4444;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    /* Tech Stack Grid */
+    .tech-section {
+      padding: 80px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tech-section h2 {
+      font-size: 32px;
+      margin-bottom: 60px;
+      text-align: center;
+      color: var(--text);
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 24px;
+    }
+
+    .tech-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px;
+      border-radius: 12px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .tech-card:hover {
+      background: rgba(168,85,247,0.08);
+      border-color: var(--purple-400);
+    }
+
+    .tech-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .tech-card h3 {
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 80px 24px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(168,85,247,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .cta-section-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--purple-300), var(--purple-400));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cta-section p {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(168,85,247,0.3);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 60px 24px 40px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-column h3 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      color: var(--purple-400);
+    }
+
+    .footer-column a,
+    .footer-column p {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 8px;
+      transition: color 0.3s;
+    }
+
+    .footer-column a:hover {
+      color: var(--text);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      table {
+        font-size: 12px;
+      }
+
+      th, td {
+        padding: 12px;
+      }
+    }
+
+    /* ===== MOBILE PHONE OPTIMIZATIONS ===== */
+    @media (max-width: 480px) {
+      nav {
+        padding: 0 16px;
+        height: 56px;
+      }
+
+      .nav-logo {
+        font-size: 18px;
+      }
+
+      .nav-links {
+        top: 56px;
+      }
+
+      main {
+        margin-top: 56px;
+      }
+
+      .page-hero {
+        padding: 48px 16px;
+      }
+
+      .page-hero h1 {
+        font-size: 28px;
+      }
+
+      .page-hero p {
+        font-size: 14px;
+      }
+
+      .features-grid {
+        padding: 0 16px;
+      }
+
+      .grid-12 {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .feature-card {
+        padding: 24px;
+      }
+
+      .feature-card h3 {
+        font-size: 16px;
+      }
+
+      .feature-card p {
+        font-size: 13px;
+      }
+
+      .section-label {
+        font-size: 12px;
+      }
+
+      .section-header h2 {
+        font-size: 24px;
+      }
+
+      .comparison-section {
+        padding: 48px 16px;
+      }
+
+      .comparison-table {
+        font-size: 12px;
+      }
+
+      .comparison-table th,
+      .comparison-table td {
+        padding: 8px 6px;
+        font-size: 11px;
+      }
+
+      .tech-section {
+        padding: 48px 16px;
+      }
+
+      .tech-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .tech-card {
+        padding: 16px;
+      }
+
+      .tech-card h3 {
+        font-size: 13px;
+      }
+
+      .tech-card p {
+        font-size: 11px;
+      }
+
+      footer {
+        padding: 40px 16px 24px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .page-hero h1 {
+        font-size: 24px;
+      }
+
+      .tech-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+
+      .comparison-table th,
+      .comparison-table td {
+        padding: 6px 4px;
+        font-size: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="nav-logo">EJG-OS</a>
+    <button class="nav-hamburger" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="features.html" class="active">Features</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Page Hero -->
+    <section class="page-hero">
+      <div class="page-hero-content">
+        <h1>Everything a smart home should be able to do.</h1>
+        <p>Powerful features built for your privacy and local control. No cloud required.</p>
+      </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="features-grid">
+      <h2>12 Powerful Features</h2>
+      <div class="grid-12">
+        <div class="feature-item">
+          <div class="feature-item-icon">🏠</div>
+          <h3>Personalized Dashboard</h3>
+          <p>Pin and organize devices with drag-and-drop. Personalized greetings by name. Your home, your way.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">🧩</div>
+          <h3>Room-by-Room Control</h3>
+          <p>Organize all devices by room for intuitive control. See status at a glance. Tap to interact.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">🎛️</div>
+          <h3>Smart Scenes</h3>
+          <p>One-tap scenes for Good Morning, Away, Movie, Sleep. Execute multiple automations instantly.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">⚡</div>
+          <h3>Automations Engine</h3>
+          <p>Time-based, motion-based, and condition-based automations. All run locally on your hardware.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">📷</div>
+          <h3>Live Camera Access</h3>
+          <p>Stream cameras, motion alerts, recording setup. All processed locally. Watch from anywhere.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">🎙️</div>
+          <h3>Voice Control "Hey Skip"</h3>
+          <p>Built-in voice assistant. No corporate servers. No subscriptions. Control your home with your voice.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">🌡️</div>
+          <h3>Climate Control</h3>
+          <p>Smart thermostat scheduling. Room sensors. Intelligent heating and cooling. Energy efficient.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">🔒</div>
+          <h3>Smart Locks & Security</h3>
+          <p>Remote door control. Schedule access. Security alerts. Integration with your installer for updates.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">🌍</div>
+          <h3>Multi-Language Support</h3>
+          <p>English and French built-in. i18n-ready platform. Your language, your home.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">📋</div>
+          <h3>Device Health Monitoring</h3>
+          <p>Offline alerts for disconnected devices. Performance tracking. Keep your system healthy.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">🌙</div>
+          <h3>Sleep Screen Mode</h3>
+          <p>Minimal ambient display for wall-mounted tablets. Dimmed at night. Always available.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">🛡️</div>
+          <h3>Local-First Privacy</h3>
+          <p>All data stays on your hardware. No cloud. No corporate tracking. You own your home and your data.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="comparison-section">
+      <h2>EJG-OS vs The Competition</h2>
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>EJG-OS</th>
+              <th>Telus SmartHome</th>
+              <th>ADT</th>
+              <th>Google Home</th>
+              <th>Amazon Alexa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>100% Local Processing</td>
+              <td class="check">✓</td>
+              <td class="cross">✗</td>
+              <td class="cross">✗</td>
+              <td class="cross">✗</td>
+              <td class="cross">✗</td>
+            </tr>
+            <tr>
+              <td>Zero Monthly Fees</td>
+              <td class="check">✓</td>
+              <td class="cross">✗</td>
+              <td class="cross">✗</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
+            </tr>
+            <tr>
+              <td>Professional Installation</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
+              <td class="cross">✗</td>
+              <td class="cross">✗</td>
+            </tr>
+            <tr>
+              <td>Z-Wave Support</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
+              <td class="cross">✗</td>
+              <td class="cross">✗</td>
+            </tr>
+            <tr>
+              <td>Zigbee Support</td>
+              <td class="check">✓</td>
+              <td class="cross">✗</td>
+              <td class="cross">✗</td>
+              <td class="check">✓</td>
+              <td class="cross">✗</td>
+            </tr>
+            <tr>
+              <td>Wi-Fi Device Support</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
+            </tr>
+            <tr>
+              <td>Built-in Voice Assistant</td>
+              <td class="check">✓</td>
+              <td class="cross">✗</td>
+              <td class="cross">✗</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
+            </tr>
+            <tr>
+              <td>Data Privacy (No Cloud)</td>
+              <td class="check">✓</td>
+              <td class="cross">✗</td>
+              <td class="cross">✗</td>
+              <td class="cross">✗</td>
+              <td class="cross">✗</td>
+            </tr>
+            <tr>
+              <td>Installer Network Support</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
+              <td class="cross">✗</td>
+              <td class="cross">✗</td>
+            </tr>
+            <tr>
+              <td>You Own Your System</td>
+              <td class="check">✓</td>
+              <td class="cross">✗</td>
+              <td class="cross">✗</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section class="tech-section">
+      <h2>Built on Modern Technology</h2>
+      <div class="tech-grid">
+        <div class="tech-card">
+          <div class="tech-icon">🏠</div>
+          <h3>Home Assistant</h3>
+        </div>
+        <div class="tech-card">
+          <div class="tech-icon">📡</div>
+          <h3>Z-Wave Protocol</h3>
+        </div>
+        <div class="tech-card">
+          <div class="tech-icon">⚙️</div>
+          <h3>Zigbee Protocol</h3>
+        </div>
+        <div class="tech-card">
+          <div class="tech-icon">🍓</div>
+          <h3>Raspberry Pi</h3>
+        </div>
+        <div class="tech-card">
+          <div class="tech-icon">⚛️</div>
+          <h3>React + Vite</h3>
+        </div>
+        <div class="tech-card">
+          <div class="tech-icon">📶</div>
+          <h3>Wi-Fi Devices</h3>
+        </div>
+        <div class="tech-card">
+          <div class="tech-icon">🔐</div>
+          <h3>Local Authentication</h3>
+        </div>
+        <div class="tech-card">
+          <div class="tech-icon">🌐</div>
+          <h3>i18n Ready</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="cta-section-content">
+        <h2>Ready to upgrade your smart home?</h2>
+        <p>See our flexible pricing options and find the perfect plan for your home.</p>
+        <a href="pricing.html" class="btn btn-primary">View Pricing</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Product</h3>
+        <a href="features.html">Features</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="how-it-works.html">How It Works</a>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <a href="#about">About</a>
+        <a href="#blog">Blog</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-column">
+        <h3>Legal</h3>
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
+        <a href="#security">Security</a>
+      </div>
+      <div class="footer-column">
+        <h3>Location</h3>
+        <p>Calgary, AB</p>
+        <p>Growing Nationwide</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 EJG-OS. All rights reserved. The Smart Home Operating System.</p>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.querySelector('.nav-hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('nav-open');
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('nav-open');
+      });
+    });
+
+    const currentPage = 'features.html';
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('active');
+      }
+    });
+  </script>
+</body>
+</html>
