@@ -453,22 +453,47 @@
 
     /* Confirmation Step */
     .confirm-section { text-align: center; padding: 20px 0; }
-    .confirm-icon { font-size: 72px; margin-bottom: 24px; display: block; }
+    .confirm-icon { display: none; }
     .confirm-section h2 { font-size: 32px; font-weight: 700; color: var(--text); margin-bottom: 16px; }
     .confirm-section p { font-size: 16px; color: var(--text-muted); max-width: 520px; margin: 0 auto 32px; line-height: 1.7; }
+
+    /* Grouped quote summary — Josh.ai / Linear register:
+       category label + row + right-aligned amount. */
     .confirm-summary {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; padding: 28px; text-align: left; max-width: 560px; margin: 0 auto 40px;
+      background: linear-gradient(180deg, rgba(139, 92, 246, 0.04), rgba(6, 1, 15, 0.4));
+      border: 1px solid rgba(139, 92, 246, 0.24);
+      border-radius: 16px; padding: 32px; text-align: left;
+      max-width: 640px; margin: 0 auto 40px;
     }
-    .confirm-summary h4 { font-size: 14px; font-weight: 700; color: var(--purple-400); margin-bottom: 16px; }
-    .confirm-row {
-      display: flex; justify-content: space-between;
-      font-size: 14px; padding: 8px 0;
-      border-bottom: 1px solid var(--border);
+    .cs-title {
+      font-size: 11px; font-weight: 700;
+      color: var(--purple-400); letter-spacing: 0.14em;
+      text-transform: uppercase; margin-bottom: 20px;
     }
-    .confirm-row:last-child { border: none; padding-bottom: 0; }
-    .confirm-row span:first-child { color: var(--text-muted); }
-    .confirm-row span:last-child { color: var(--text); font-weight: 600; }
+    .cs-group { padding: 14px 0; border-bottom: 1px solid rgba(139, 92, 246, 0.14); }
+    .cs-group:last-of-type { border-bottom: none; }
+    .cs-group-label {
+      font-size: 10px; font-weight: 700;
+      color: var(--purple-400); letter-spacing: 0.16em;
+      text-transform: uppercase; margin-bottom: 10px;
+    }
+    .cs-row {
+      display: flex; align-items: baseline;
+      justify-content: space-between; gap: 12px;
+      padding: 4px 0; font-size: 14px;
+    }
+    .cs-row-label { color: #cbd5e1; }
+    .cs-row-amount { color: #f8fafc; font-weight: 600; tabular-nums: ; font-variant-numeric: tabular-nums; }
+    .cs-row.muted .cs-row-label,
+    .cs-row.muted .cs-row-amount { color: var(--text-muted); font-style: italic; }
+    .cs-divider { height: 1px; background: rgba(139, 92, 246, 0.3); margin: 18px 0 12px; }
+    .cs-total {
+      display: flex; align-items: baseline; justify-content: space-between;
+      padding-top: 6px;
+    }
+    .cs-total-label { font-size: 13px; color: #cbd5e1; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+    .cs-total-amount { font-size: 26px; font-weight: 800; color: var(--purple-300); font-variant-numeric: tabular-nums; }
+    .cs-note { font-size: 11px; color: var(--text-muted); margin-top: 6px; text-align: right; }
 
     /* Contact form overlay */
     .quote-form {
@@ -1698,30 +1723,40 @@
       'thermo-t6pro': { name: 'Honeywell T6 Pro Z-Wave (TH6320ZW)', unitPrice: 265 },
     };
     const CAM_INFO = {
-      'cam-indoor':   { name: 'Indoor HD', unitPrice: 99 },
-      'cam-outdoor':  { name: 'Outdoor 2K', unitPrice: 179 },
-      'cam-doorbell': { name: 'Video Doorbell', unitPrice: 229 },
-      'cam-ptz':      { name: 'PTZ Pan/Tilt', unitPrice: 299 },
+      'cam-indoor':   { name: 'Indoor HD Camera', unitPrice: 195 },
+      'cam-outdoor':  { name: 'Outdoor Camera',   unitPrice: 195 },
+      'cam-doorbell': { name: 'Video Doorbell',   unitPrice: 275 },
     };
     const LOCK_INFO = {
-      'lock-keypad':     { name: 'Keypad Deadbolt', price: 199 },
-      'lock-touch':      { name: 'Touchscreen Lock', price: 279 },
-      'lock-biometric':  { name: 'Biometric Lock', price: 379 },
-      'lock-garage':     { name: 'Garage Controller', price: 249 },
+      'weiser-lock':  { name: 'Weiser Z-Wave Smart Lock', price: 295 },
+      'garage-tilt':  { name: 'Garage Door Tilt Sensor',  price: 60 },
     };
     const LIGHTING_INFO = {
-      'light-bulbs':    { name: 'Smart Bulb Pack', price: 299 },
-      'light-switches': { name: 'In-Wall Dimmers', price: 349 },
-      'light-strips':   { name: 'LED Strips', price: 179 },
-      'light-outdoor':  { name: 'Outdoor Lights', price: 249 },
+      'zooz-switch':      { name: 'Zooz Regular Switch',  price: 75 },
+      'zooz-dimmer':      { name: 'Zooz Dimmer Switch',   price: 87 },
+      'zooz-plug':        { name: 'Zooz Smart Plug',      price: 76 },
+      'zooz-4btn-switch': { name: 'Zooz 4-Button Switch', price: 90 },
+      'zooz-4btn-remote': { name: 'Zooz 4-Button Remote', price: 90 },
+      'zooz-remote':      { name: 'Zooz Regular Remote',  price: 78 },
     };
     const ADDON_INFO = {
-      'voice':      { name: 'Voice "Hey Skip"', price: 500 },
-      'monitoring': { name: '24/7 Monitoring', price: 0, note: '+$29/mo' },
-      'energy':     { name: 'Energy Monitor', price: 299 },
-      'sensors':    { name: 'Sensor Pack', price: 199 },
-      'multilang':  { name: 'Multi-Language', price: 300 },
-      'backup':     { name: 'UPS Backup Power', price: 399 },
+      'voice':          { name: 'Voice "Hey Skip"',            price: 500 },
+      'monitoring':     { name: '24/7 Monitoring',             price: 0, note: '+$29/mo' },
+      'energy':         { name: 'Energy Monitor',              price: 299 },
+      'multilang':      { name: 'Multi-Language Interface',    price: 300 },
+      'backup':         { name: 'UPS Backup Power',            price: 399 },
+      'motion-sensor':  { name: 'Zooz Motion Sensor',          price: 91 },
+      'door-contact':   { name: 'Zooz Door/Window Contact',    price: 75 },
+      'water-leak':     { name: 'Zooz Water Leak Sensor',      price: 55 },
+      'smoke-co':       { name: 'First Alert Smoke + CO',      price: 70 },
+      'siren':          { name: 'Aeotec 110dB Siren',          price: 90 },
+      'water-shutoff':  { name: 'Whole-Home Water Shutoff',    price: 225 },
+      'glass-break':    { name: 'Glass Break Detector',        price: 75 },
+      'doorbell':       { name: 'Aeotec Doorbell',             price: 105 },
+      'temp-humidity':  { name: 'Temp + Humidity Sensor',      price: 75 },
+      'fan-controller': { name: 'Ceiling Fan Controller',      price: 80 },
+      'shade-relay':    { name: 'Motorized Shade Relay',       price: 65 },
+      'range-extender': { name: 'Z-Wave Range Extender',       price: 65 },
     };
 
     // ─── Step Navigation ───────────────────────────────────────────────
@@ -1883,38 +1918,88 @@
 
     function buildConfirmSummary() {
       const t = state.thermostat;
-      let rows = '';
+      const fmt = n => '$' + n.toLocaleString();
+      let html = '<div class="cs-title">Your Configuration</div>';
 
-      rows += `<div class="confirm-row"><span>Thermostat</span><span>${t.qty}× ${t.name}</span></div>`;
+      // Base install (always present)
+      html += `<div class="cs-group">
+        <div class="cs-group-label">Base Install</div>
+        <div class="cs-row"><span class="cs-row-label">EJG-OS Hub, wall tablet, PoE switch, 2 hr labor</span><span class="cs-row-amount">$1,000</span></div>
+      </div>`;
 
-      const camKeys = Object.keys(state.cameras);
-      if (camKeys.length) camKeys.forEach(k => {
-        const c = state.cameras[k];
-        rows += `<div class="confirm-row"><span>Camera</span><span>${c.qty}× ${c.name}</span></div>`;
-      });
+      // Thermostat
+      const tPrice = t.qty * t.unitPrice;
+      html += `<div class="cs-group">
+        <div class="cs-group-label">Thermostat</div>
+        <div class="cs-row"><span class="cs-row-label">${t.qty}× ${t.name}</span><span class="cs-row-amount">${fmt(tPrice)}</span></div>
+      </div>`;
 
-      Object.values(state.locks).forEach(l => {
-        rows += `<div class="confirm-row"><span>Lock</span><span>${l.name}</span></div>`;
-      });
+      // Cameras
+      const camList = Object.values(state.cameras);
+      html += '<div class="cs-group"><div class="cs-group-label">Cameras</div>';
+      if (camList.length) {
+        camList.forEach(c => {
+          const p = c.qty * c.unitPrice;
+          html += `<div class="cs-row"><span class="cs-row-label">${c.qty}× ${c.name}</span><span class="cs-row-amount">${fmt(p)}</span></div>`;
+        });
+      } else {
+        html += '<div class="cs-row muted"><span class="cs-row-label">None selected</span><span class="cs-row-amount">—</span></div>';
+      }
+      html += '</div>';
 
-      Object.values(state.lighting).forEach(l => {
-        rows += `<div class="confirm-row"><span>Lighting</span><span>${l.name}</span></div>`;
-      });
+      // Locks
+      const lockList = Object.values(state.locks);
+      html += '<div class="cs-group"><div class="cs-group-label">Locks &amp; Access</div>';
+      if (lockList.length) {
+        lockList.forEach(l => {
+          html += `<div class="cs-row"><span class="cs-row-label">${l.name}</span><span class="cs-row-amount">${fmt(l.price)}</span></div>`;
+        });
+      } else {
+        html += '<div class="cs-row muted"><span class="cs-row-label">None selected</span><span class="cs-row-amount">—</span></div>';
+      }
+      html += '</div>';
 
-      Object.values(state.addons).forEach(a => {
-        rows += `<div class="confirm-row"><span>Add-on</span><span>${a.name}${a.note ? ' (' + a.note + ')' : ''}</span></div>`;
-      });
+      // Lighting
+      const lightList = Object.values(state.lighting);
+      html += '<div class="cs-group"><div class="cs-group-label">Lighting &amp; Switches</div>';
+      if (lightList.length) {
+        lightList.forEach(l => {
+          html += `<div class="cs-row"><span class="cs-row-label">${l.name}</span><span class="cs-row-amount">${fmt(l.price)}</span></div>`;
+        });
+      } else {
+        html += '<div class="cs-row muted"><span class="cs-row-label">None selected</span><span class="cs-row-amount">—</span></div>';
+      }
+      html += '</div>';
 
-      let hardware = t.qty * t.unitPrice;
-      Object.values(state.cameras).forEach(c => hardware += c.qty * c.unitPrice);
-      Object.values(state.locks).forEach(l => hardware += l.price);
-      Object.values(state.lighting).forEach(l => hardware += l.price);
-      Object.values(state.addons).forEach(a => hardware += a.price);
+      // Add-ons
+      const addonList = Object.values(state.addons);
+      html += '<div class="cs-group"><div class="cs-group-label">Add-ons</div>';
+      if (addonList.length) {
+        addonList.forEach(a => {
+          const priceText = a.note ? a.note : (a.price ? fmt(a.price) : 'Included');
+          html += `<div class="cs-row"><span class="cs-row-label">${a.name}</span><span class="cs-row-amount">${priceText}</span></div>`;
+        });
+      } else {
+        html += '<div class="cs-row muted"><span class="cs-row-label">None selected</span><span class="cs-row-amount">—</span></div>';
+      }
+      html += '</div>';
+
+      // Total
+      let hardware = tPrice;
+      camList.forEach(c => hardware += c.qty * c.unitPrice);
+      lockList.forEach(l => hardware += l.price);
+      lightList.forEach(l => hardware += l.price);
+      addonList.forEach(a => hardware += (a.price || 0));
       const total = 1000 + hardware;
 
-      rows += `<div class="confirm-row" style="margin-top:12px; font-size:16px;"><span style="color:var(--text);font-weight:700;">Estimated Total</span><span style="color:var(--purple-400);font-size:18px;">$${total.toLocaleString()}</span></div>`;
+      html += `<div class="cs-divider"></div>
+        <div class="cs-total">
+          <span class="cs-total-label">Estimated Total</span>
+          <span class="cs-total-amount">${fmt(total)}</span>
+        </div>
+        <div class="cs-note">Final quote confirmed after in-home consultation</div>`;
 
-      document.getElementById('confirmSummary').innerHTML = '<h4>Your Custom Configuration</h4>' + rows;
+      document.getElementById('confirmSummary').innerHTML = html;
     }
 
     // Build configuration summary for hidden field before submit
