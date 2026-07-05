@@ -338,13 +338,27 @@
     .addon-item {
       background: var(--surface);
       border: 2px solid var(--border);
-      border-radius: 12px; padding: 20px 20px;
+      border-radius: 12px; padding: 20px;
       cursor: pointer; transition: all 0.3s;
-      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      display: flex; flex-direction: column; gap: 12px;
     }
     .addon-item:hover { border-color: var(--purple-500); background: rgba(168,85,247,0.06); }
     .addon-item.selected { border-color: var(--purple-400); background: rgba(168,85,247,0.1); }
-    .addon-left { display: flex; gap: 14px; align-items: center; }
+    .addon-left { display: flex; gap: 14px; align-items: flex-start; flex: 1; }
+    .addon-info { flex: 1; min-width: 0; }
+
+    /* Singleton "Add / Added" pill for one-per-home add-ons */
+    .addon-singleton {
+      background: transparent; border: 1px solid rgba(139, 92, 246, 0.35);
+      color: #f8fafc; padding: 8px 14px; border-radius: 999px;
+      font-size: 12px; font-weight: 600; cursor: pointer;
+      transition: all 0.2s; align-self: flex-start;
+    }
+    .addon-singleton:hover { background: rgba(139, 92, 246, 0.15); }
+    .addon-item.selected .addon-singleton {
+      background: var(--purple-400); border-color: var(--purple-400); color: #fff;
+    }
+    .addon-item.selected .addon-singleton::after { content: ' ✓'; }
     .addon-icon {
       width: 40px; height: 40px; flex-shrink: 0;
       background: rgba(139, 92, 246, 0.08);
@@ -1364,7 +1378,7 @@
                   <p>+$29/month optional. Cancel anytime. No contract.</p>
                 </div>
               </div>
-              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('monitoring', '24/7 Professional Monitoring', 0, -1)">−</button><div class="qty-val" id="qty-monitoring">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('monitoring', '24/7 Professional Monitoring', 0, 1)">+</button></div>
+              <button class="addon-singleton" onclick="event.stopPropagation(); toggleSingletonAddon('monitoring', '24/7 Professional Monitoring', 0)">Add</button>
               </div>
 
             <div class="addon-item" data-id="energy">
@@ -1375,7 +1389,7 @@
                   <p>Track real-time electricity use by room and device.</p>
                 </div>
               </div>
-              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('energy', 'Energy Monitoring Hub', 299, -1)">−</button><div class="qty-val" id="qty-energy">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('energy', 'Energy Monitoring Hub', 299, 1)">+</button></div>
+              <button class="addon-singleton" onclick="event.stopPropagation(); toggleSingletonAddon('energy', 'Energy Monitoring Hub', 299)">Add</button>
               </div>
 
             <div class="addon-item" data-id="motion-sensor">
@@ -1441,7 +1455,7 @@
                   <p>Dome motorized valve. Auto-close on leak detection.</p>
                 </div>
               </div>
-              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('water-shutoff', 'Whole-Home Water Shutoff', 225, -1)">−</button><div class="qty-val" id="qty-water-shutoff">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('water-shutoff', 'Whole-Home Water Shutoff', 225, 1)">+</button></div>
+              <button class="addon-singleton" onclick="event.stopPropagation(); toggleSingletonAddon('water-shutoff', 'Whole-Home Water Shutoff', 225)">Add</button>
               </div>
 
             <div class="addon-item" data-id="glass-break">
@@ -1518,7 +1532,7 @@
                   <p>French, Spanish, Tagalog, Punjabi + more on request.</p>
                 </div>
               </div>
-              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('multilang', 'Multi-Language Interface', 300, -1)">−</button><div class="qty-val" id="qty-multilang">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('multilang', 'Multi-Language Interface', 300, 1)">+</button></div>
+              <button class="addon-singleton" onclick="event.stopPropagation(); toggleSingletonAddon('multilang', 'Multi-Language Interface', 300)">Add</button>
               </div>
 
             <div class="addon-item" data-id="backup">
@@ -1529,8 +1543,8 @@
                   <p>Keep your system running during power outages. 4-hour runtime.</p>
                 </div>
               </div>
-              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('backup', 'UPS Backup Power', 399, -1)">−</button><div class="qty-val" id="qty-backup">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('backup', 'UPS Backup Power', 399, 1)">+</button></div>
-              <div class="addon-toggle"><div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('voice', 'Voice Control &quot;Hey Skip&quot;', 500, -1)">−</button><div class="qty-val" id="qty-voice">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('voice', 'Voice Control &quot;Hey Skip&quot;', 500, 1)">+</button></div></div></div></div>
+              <button class="addon-singleton" onclick="event.stopPropagation(); toggleSingletonAddon('backup', 'UPS Backup Power', 399)">Add</button>
+              <div class="addon-toggle"><button class="addon-singleton" onclick="event.stopPropagation(); toggleSingletonAddon('voice', 'Voice Control &quot;Hey Skip&quot;', 500)">Add</button></div></div></div>
 
           <div style="margin-top: 40px; padding: 28px 32px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(6, 1, 15, 0.4)); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 16px;">
             <h3 style="color:#f8fafc; font-size: 20px; margin: 0 0 8px 0;">Don't see the device you need?</h3>
@@ -1855,6 +1869,24 @@
       } else {
         stateMap[id] = { name: name, qty: qty, unitPrice: unitPrice, price: qty * unitPrice };
         if (card) card.classList.add('selected');
+      }
+      updateSummary();
+    }
+
+    // Singleton add-ons (one-per-home like Voice, Monitoring, UPS).
+    // Click adds; click again removes. Button text flips Add / Added.
+    function toggleSingletonAddon(id, name, unitPrice) {
+      const card = document.querySelector('[data-id="' + id + '"]');
+      const btn = card && card.querySelector('.addon-singleton');
+      const note = (ADDON_INFO[id] && ADDON_INFO[id].note) || '';
+      if (state.addons[id]) {
+        delete state.addons[id];
+        if (card) card.classList.remove('selected');
+        if (btn) btn.textContent = 'Add';
+      } else {
+        state.addons[id] = { name: name, qty: 1, unitPrice: unitPrice, price: unitPrice, note: note };
+        if (card) card.classList.add('selected');
+        if (btn) btn.textContent = 'Added';
       }
       updateSummary();
     }
