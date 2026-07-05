@@ -1016,7 +1016,7 @@
 
           <div class="device-picker" id="thermostatPicker">
 
-            <div class="device-card selected" data-id="thermo-t6pro" onclick="selectDevice('thermostat', 'thermo-t6pro', 265, this)">
+            <div class="device-card" data-id="thermo-t6pro" onclick="selectDevice('thermostat', 'thermo-t6pro', 265, this)">
               <div class="card-visual">
                 <svg viewBox="0 0 96 128" xmlns="http://www.w3.org/2000/svg">
                   <rect x="6" y="6" width="84" height="116" rx="8" fill="#1a1a2e" stroke="#6b21a8" stroke-width="2"/>
@@ -1046,7 +1046,7 @@
               <div class="card-price">$265/each</div>
               <div class="qty-row">
                 <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-t6pro', -1)">−</button>
-                <div class="qty-val" id="qty-thermo-t6pro">1</div>
+                <div class="qty-val" id="qty-thermo-t6pro">0</div>
                 <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-t6pro', 1)">+</button>
               </div>
             </div>
@@ -1736,7 +1736,7 @@
     const state = {
       currentStep: 1,
       totalSteps: 6,
-      thermostat: { id: 'thermo-t6pro', name: 'Honeywell T6 Pro Z-Wave', qty: 1, unitPrice: 265 },
+      thermostat: { id: 'thermo-t6pro', name: 'Honeywell T6 Pro Z-Wave', qty: 0, unitPrice: 265 },
       cameras: {},   // id → { name, qty, unitPrice }
       locks: {},     // id → { name, qty, unitPrice }
       lighting: {},  // id → { name, price }
@@ -1917,8 +1917,13 @@
       // Thermostat
       const t = state.thermostat;
       const sumT = document.getElementById('sum-thermostat');
-      sumT.textContent = t.qty + '× ' + t.name;
-      sumT.classList.remove('empty');
+      if (t.qty > 0) {
+        sumT.textContent = t.qty + '× ' + t.name;
+        sumT.classList.remove('empty');
+      } else {
+        sumT.textContent = 'None';
+        sumT.classList.add('empty');
+      }
 
       // Cameras
       const camKeys = Object.keys(state.cameras);
@@ -1982,9 +1987,9 @@
         <div class="cs-row"><span class="cs-row-label">EJG-OS Hub, wall tablet, PoE switch, 2 hr labor</span><span class="cs-row-amount">$1,000</span></div>
       </div>`;
 
-      // Thermostat
+      // Thermostat — skip the whole group when none selected
       const tPrice = t.qty * t.unitPrice;
-      html += `<div class="cs-group">
+      if (t.qty > 0) html += `<div class="cs-group">
         <div class="cs-group-label">Thermostat</div>
         <div class="cs-row"><span class="cs-row-label">${t.qty}× ${t.name}</span><span class="cs-row-amount">${fmt(tPrice)}</span></div>
       </div>`;
@@ -2111,7 +2116,7 @@
     // Init
     updateSummary();
     // Pre-select classic thermostat card
-    document.querySelector('[data-id="thermo-t6pro"]').classList.add('selected');
+    // Thermostat is NOT preselected — customers who want none can leave it at 0
   </script>
 </body>
 </html>
