@@ -252,6 +252,21 @@
       background: rgba(168,85,247,0.1);
     }
 
+    /* Style the native <option> dropdown so options aren't the OS default
+       light blue on white — matches the dark theme when the dropdown is
+       expanded. Note: Chrome+Safari respect these on native <option>,
+       Firefox uses OS style regardless. */
+    .form-group select option {
+      background: #1a0533;
+      color: #f3e8ff;
+      padding: 10px;
+    }
+    .form-group select option:checked,
+    .form-group select option:hover {
+      background: #4a0e82;
+      color: #ffffff;
+    }
+
     .form-group textarea {
       resize: vertical;
       min-height: 120px;
@@ -685,7 +700,7 @@
 
           <div class="info-box">
             <h3>Location</h3>
-            <p><strong>Headquarters</strong><br>Calgary, AB<br><br><strong>Service Area</strong><br>Calgary, Alberta<br>Expanding Nationwide</p>
+            <p><strong>Headquarters</strong><br>Calgary, AB<br><br><strong>Service Area</strong><br>Calgary · Airdrie · Cochrane · Okotoks · Chestermere · Springbank</p>
           </div>
 
           <div class="info-box">
