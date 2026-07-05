@@ -311,6 +311,24 @@
       font-size: 11px; font-weight: 700; color: var(--purple-400); margin-top: 6px; display: block;
     }
 
+    /* Qty stepper for option/addon cards — matches cameras step */
+    .opt-qty {
+      display: flex; align-items: center; gap: 10px;
+      margin-top: 12px; justify-content: flex-start;
+    }
+    .opt-qty .qty-btn {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3);
+      color: #f8fafc; font-size: 15px; font-weight: 600; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .opt-qty .qty-btn:hover { background: rgba(139, 92, 246, 0.24); }
+    .opt-qty .qty-val {
+      min-width: 22px; text-align: center; font-size: 14px; font-weight: 700;
+      color: #f8fafc; font-variant-numeric: tabular-nums;
+    }
+
     /* Toggle Add-ons */
     .addons-grid {
       display: grid;
@@ -1180,7 +1198,7 @@
           </div>
 
           <div class="option-grid">
-            <div class="option-item" data-id="weiser-lock" onclick="toggleOption('lock', 'weiser-lock', 295, this)">
+            <div class="option-item" data-id="weiser-lock">
               <div class="option-icon"><svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" fill="none">
   <rect x="6" y="6" width="32" height="32" rx="7" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
   <circle cx="22" cy="16" r="4" fill="#0a0a1e" stroke="#c084fc" stroke-width="1.5"/>
@@ -1195,9 +1213,8 @@
                 <h4>Weiser Z-Wave Smart Lock</h4>
                 <p>Weiser SmartCode with Z-Wave. Backlit keypad, 30 user codes, auto-lock, one-touch locking. Fully integrated with EJG-OS scenes and away modes.</p>
                 <span class="opt-price">$295/lock</span>
-              </div>
-            </div>
-            <div class="option-item" data-id="garage-tilt" onclick="toggleOption('lock', 'garage-tilt', 60, this)">
+              <div class="opt-qty" onclick="event.stopPropagation()"><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lock', 'weiser-lock', 'Weiser Z-Wave Smart Lock', 295, -1)">−</button><div class="qty-val" id="qty-weiser-lock">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lock', 'weiser-lock', 'Weiser Z-Wave Smart Lock', 295, 1)">+</button></div></div></div>
+            <div class="option-item" data-id="garage-tilt">
               <div class="option-icon"><svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" fill="none">
   <rect x="6" y="10" width="32" height="8" rx="1" fill="#1a1a2e" stroke="#a855f7" stroke-width="1.5"/>
   <line x1="14" y1="10" x2="14" y2="18" stroke="#a855f7" stroke-width="1" opacity="0.6"/>
@@ -1211,8 +1228,7 @@
                 <h4>Garage Door Tilt Sensor</h4>
                 <p>Ecolink Z-Wave tilt sensor. Know when the garage door opens/closes; trigger scenes on state change. (Add relay to physically open — quote below.)</p>
                 <span class="opt-price">$60/each</span>
-              </div>
-            </div>
+              <div class="opt-qty" onclick="event.stopPropagation()"><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lock', 'garage-tilt', 'Garage Door Tilt Sensor', 60, -1)">−</button><div class="qty-val" id="qty-garage-tilt">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lock', 'garage-tilt', 'Garage Door Tilt Sensor', 60, 1)">+</button></div></div></div>
           </div>
 
           <div class="step-nav">
@@ -1233,7 +1249,7 @@
             Every device price below includes the device + $25 install labor. Bring your own or let us supply.
           </p>
           <div class="option-grid">
-            <div class="option-item" data-id="zooz-switch" onclick="toggleOption('lighting', 'zooz-switch', 75, this)">
+            <div class="option-item" data-id="zooz-switch">
               <div class="option-icon"><svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" fill="none">
   <rect x="10" y="4" width="24" height="36" rx="3" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
   <rect x="14" y="9" width="16" height="26" rx="4" fill="#0a0a1e" stroke="#c084fc" stroke-width="1.5"/>
@@ -1244,9 +1260,8 @@
                 <h4>Zooz Regular Switch</h4>
                 <p>Standard on/off in-wall switch. Instant status, double-tap scenes, no neutral required on most.</p>
                 <span class="opt-price">$75/each</span>
-              </div>
-            </div>
-            <div class="option-item" data-id="zooz-dimmer" onclick="toggleOption('lighting', 'zooz-dimmer', 87, this)">
+              <div class="opt-qty" onclick="event.stopPropagation()"><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lighting', 'zooz-switch', 'Zooz Regular Switch', 75, -1)">−</button><div class="qty-val" id="qty-zooz-switch">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lighting', 'zooz-switch', 'Zooz Regular Switch', 75, 1)">+</button></div></div></div>
+            <div class="option-item" data-id="zooz-dimmer">
               <div class="option-icon"><svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" fill="none">
   <rect x="10" y="4" width="24" height="36" rx="3" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
   <rect x="14" y="9" width="16" height="26" rx="4" fill="#0a0a1e" stroke="#c084fc" stroke-width="1.5"/>
@@ -1259,9 +1274,8 @@
                 <h4>Zooz Dimmer Switch</h4>
                 <p>In-wall dimmer with ramp control, scene triggers on double/triple tap. Works with LED, CFL, incandescent.</p>
                 <span class="opt-price">$87/each</span>
-              </div>
-            </div>
-            <div class="option-item" data-id="zooz-plug" onclick="toggleOption('lighting', 'zooz-plug', 76, this)">
+              <div class="opt-qty" onclick="event.stopPropagation()"><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lighting', 'zooz-dimmer', 'Zooz Dimmer Switch', 87, -1)">−</button><div class="qty-val" id="qty-zooz-dimmer">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lighting', 'zooz-dimmer', 'Zooz Dimmer Switch', 87, 1)">+</button></div></div></div>
+            <div class="option-item" data-id="zooz-plug">
               <div class="option-icon"><svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" fill="none">
   <rect x="10" y="6" width="24" height="32" rx="4" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
   <rect x="18" y="12" width="2" height="6" rx="0.5" fill="#c084fc"/>
@@ -1274,9 +1288,8 @@
                 <h4>Zooz Smart Plug</h4>
                 <p>Plug-in outlet for lamps, fans, seasonal lighting. Energy monitoring built in.</p>
                 <span class="opt-price">$76/each</span>
-              </div>
-            </div>
-            <div class="option-item" data-id="zooz-4btn-switch" onclick="toggleOption('lighting', 'zooz-4btn-switch', 90, this)">
+              <div class="opt-qty" onclick="event.stopPropagation()"><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lighting', 'zooz-plug', 'Zooz Smart Plug', 76, -1)">−</button><div class="qty-val" id="qty-zooz-plug">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lighting', 'zooz-plug', 'Zooz Smart Plug', 76, 1)">+</button></div></div></div>
+            <div class="option-item" data-id="zooz-4btn-switch">
               <div class="option-icon"><svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" fill="none">
   <rect x="10" y="4" width="24" height="36" rx="3" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
   <rect x="14" y="8" width="16" height="6" rx="1.5" fill="#0a0a1e" stroke="#c084fc" stroke-width="1"/>
@@ -1288,9 +1301,8 @@
                 <h4>Zooz 4-Button Switch</h4>
                 <p>Four programmable scene buttons in a single wallplate. Ideal for entryway, master bedroom, kitchen.</p>
                 <span class="opt-price">$90/each</span>
-              </div>
-            </div>
-            <div class="option-item" data-id="zooz-4btn-remote" onclick="toggleOption('lighting', 'zooz-4btn-remote', 90, this)">
+              <div class="opt-qty" onclick="event.stopPropagation()"><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lighting', 'zooz-4btn-switch', 'Zooz 4-Button Switch', 90, -1)">−</button><div class="qty-val" id="qty-zooz-4btn-switch">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lighting', 'zooz-4btn-switch', 'Zooz 4-Button Switch', 90, 1)">+</button></div></div></div>
+            <div class="option-item" data-id="zooz-4btn-remote">
               <div class="option-icon"><svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" fill="none">
   <rect x="12" y="6" width="20" height="32" rx="4" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
   <circle cx="18" cy="16" r="3" fill="#0a0a1e" stroke="#c084fc" stroke-width="1.3"/>
@@ -1303,9 +1315,8 @@
                 <h4>Zooz 4-Button Remote</h4>
                 <p>Portable 4-button scene remote. Nightstand or coffee table. Battery powered.</p>
                 <span class="opt-price">$90/each</span>
-              </div>
-            </div>
-            <div class="option-item" data-id="zooz-remote" onclick="toggleOption('lighting', 'zooz-remote', 78, this)">
+              <div class="opt-qty" onclick="event.stopPropagation()"><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lighting', 'zooz-4btn-remote', 'Zooz 4-Button Remote', 90, -1)">−</button><div class="qty-val" id="qty-zooz-4btn-remote">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lighting', 'zooz-4btn-remote', 'Zooz 4-Button Remote', 90, 1)">+</button></div></div></div>
+            <div class="option-item" data-id="zooz-remote">
               <div class="option-icon"><svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" fill="none">
   <rect x="14" y="8" width="16" height="28" rx="4" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
   <circle cx="22" cy="16" r="4" fill="#0a0a1e" stroke="#c084fc" stroke-width="1.5"/>
@@ -1317,8 +1328,7 @@
                 <h4>Zooz Regular Remote</h4>
                 <p>Simple single-action remote for lights or scenes. Great for guest rooms and grandparents.</p>
                 <span class="opt-price">$78/each</span>
-              </div>
-            </div>
+              <div class="opt-qty" onclick="event.stopPropagation()"><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lighting', 'zooz-remote', 'Zooz Regular Remote', 78, -1)">−</button><div class="qty-val" id="qty-zooz-remote">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lighting', 'zooz-remote', 'Zooz Regular Remote', 78, 1)">+</button></div></div></div>
           </div>
 
           <div class="step-nav">
@@ -1336,7 +1346,7 @@
           </div>
 
           <div class="addons-grid">
-            <div class="addon-item" onclick="toggleAddon(this, 'voice', 500)">
+            <div class="addon-item" data-id="voice">
               <div class="addon-left">
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></div>
                 <div class="addon-info">
@@ -1344,10 +1354,9 @@
                   <p>On-device voice assistant. No cloud. Fully private.</p>
                 </div>
               </div>
-              <div class="addon-toggle"></div>
-            </div>
+              </div>
 
-            <div class="addon-item" onclick="toggleAddon(this, 'monitoring', 0)">
+            <div class="addon-item" data-id="monitoring">
               <div class="addon-left">
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3z"/></svg></div>
                 <div class="addon-info">
@@ -1355,10 +1364,10 @@
                   <p>+$29/month optional. Cancel anytime. No contract.</p>
                 </div>
               </div>
-              <div class="addon-toggle"></div>
-            </div>
+              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('monitoring', '24/7 Professional Monitoring', 0, -1)">−</button><div class="qty-val" id="qty-monitoring">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('monitoring', '24/7 Professional Monitoring', 0, 1)">+</button></div>
+              </div>
 
-            <div class="addon-item" onclick="toggleAddon(this, 'energy', 299)">
+            <div class="addon-item" data-id="energy">
               <div class="addon-left">
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 4 14 11 14 10 22 20 10 13 10 13 2" stroke-linejoin="round"/></svg></div>
                 <div class="addon-info">
@@ -1366,10 +1375,10 @@
                   <p>Track real-time electricity use by room and device.</p>
                 </div>
               </div>
-              <div class="addon-toggle"></div>
-            </div>
+              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('energy', 'Energy Monitoring Hub', 299, -1)">−</button><div class="qty-val" id="qty-energy">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('energy', 'Energy Monitoring Hub', 299, 1)">+</button></div>
+              </div>
 
-            <div class="addon-item" onclick="toggleAddon(this, 'motion-sensor', 91)">
+            <div class="addon-item" data-id="motion-sensor">
               <div class="addon-left">
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="M14 8l-3 5 3 3v6"/><path d="M6 10l4-1 3 4"/><path d="M18 14l-3-4"/></svg></div>
                 <div class="addon-info">
@@ -1377,10 +1386,10 @@
                   <p>Battery-powered. Trigger scenes, alarms, or occupancy timers.</p>
                 </div>
               </div>
-              <div class="addon-toggle"></div>
-            </div>
+              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('motion-sensor', 'Zooz Motion Sensor', 91, -1)">−</button><div class="qty-val" id="qty-motion-sensor">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('motion-sensor', 'Zooz Motion Sensor', 91, 1)">+</button></div>
+              </div>
 
-            <div class="addon-item" onclick="toggleAddon(this, 'door-contact', 75)">
+            <div class="addon-item" data-id="door-contact">
               <div class="addon-left">
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="1"/><circle cx="14" cy="12" r="1" fill="#c084fc"/></svg></div>
                 <div class="addon-info">
@@ -1388,10 +1397,10 @@
                   <p>Slim recessed magnetic sensor. Alarm and automation trigger.</p>
                 </div>
               </div>
-              <div class="addon-toggle"></div>
-            </div>
+              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('door-contact', 'Zooz Door/Window Contact', 75, -1)">−</button><div class="qty-val" id="qty-door-contact">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('door-contact', 'Zooz Door/Window Contact', 75, 1)">+</button></div>
+              </div>
 
-            <div class="addon-item" onclick="toggleAddon(this, 'water-leak', 55)">
+            <div class="addon-item" data-id="water-leak">
               <div class="addon-left">
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s-6 8-6 12a6 6 0 0 0 12 0c0-4-6-12-6-12z"/></svg></div>
                 <div class="addon-info">
@@ -1399,10 +1408,10 @@
                   <p>Compact sensor for under sinks, water heater pan, laundry.</p>
                 </div>
               </div>
-              <div class="addon-toggle"></div>
-            </div>
+              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('water-leak', 'Zooz Water Leak Sensor', 55, -1)">−</button><div class="qty-val" id="qty-water-leak">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('water-leak', 'Zooz Water Leak Sensor', 55, 1)">+</button></div>
+              </div>
 
-            <div class="addon-item" onclick="toggleAddon(this, 'smoke-co', 70)">
+            <div class="addon-item" data-id="smoke-co">
               <div class="addon-left">
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 4 5 6 5 11a5 5 0 0 1-10 0c0-3 2-5 3-7 0 2 1 3 2 3s0-4 0-7z"/></svg></div>
                 <div class="addon-info">
@@ -1410,10 +1419,10 @@
                   <p>Z-Wave combo alarm. Alerts your phone + triggers scenes on activation.</p>
                 </div>
               </div>
-              <div class="addon-toggle"></div>
-            </div>
+              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('smoke-co', 'First Alert Smoke + CO Alarm', 70, -1)">−</button><div class="qty-val" id="qty-smoke-co">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('smoke-co', 'First Alert Smoke + CO Alarm', 70, 1)">+</button></div>
+              </div>
 
-            <div class="addon-item" onclick="toggleAddon(this, 'siren', 90)">
+            <div class="addon-item" data-id="siren">
               <div class="addon-left">
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0v7l2 2H4l2-2z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></div>
                 <div class="addon-info">
@@ -1421,10 +1430,10 @@
                   <p>Loud indoor siren for alarm mode. Battery + AC options.</p>
                 </div>
               </div>
-              <div class="addon-toggle"></div>
-            </div>
+              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('siren', 'Aeotec 105dB Siren', 90, -1)">−</button><div class="qty-val" id="qty-siren">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('siren', 'Aeotec 105dB Siren', 90, 1)">+</button></div>
+              </div>
 
-            <div class="addon-item" onclick="toggleAddon(this, 'water-shutoff', 225)">
+            <div class="addon-item" data-id="water-shutoff">
               <div class="addon-left">
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="6" x2="12" y2="4"/><line x1="10" y1="4" x2="14" y2="4"/></svg></div>
                 <div class="addon-info">
@@ -1432,10 +1441,10 @@
                   <p>Dome motorized valve. Auto-close on leak detection.</p>
                 </div>
               </div>
-              <div class="addon-toggle"></div>
-            </div>
+              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('water-shutoff', 'Whole-Home Water Shutoff', 225, -1)">−</button><div class="qty-val" id="qty-water-shutoff">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('water-shutoff', 'Whole-Home Water Shutoff', 225, 1)">+</button></div>
+              </div>
 
-            <div class="addon-item" onclick="toggleAddon(this, 'glass-break', 75)">
+            <div class="addon-item" data-id="glass-break">
               <div class="addon-left">
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1"/><line x1="4" y1="8" x2="20" y2="8"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="16" x2="20" y2="16"/></svg></div>
                 <div class="addon-info">
@@ -1443,10 +1452,10 @@
                   <p>Acoustic sensor covers a 20-ft radius. Perimeter alarm essential.</p>
                 </div>
               </div>
-              <div class="addon-toggle"></div>
-            </div>
+              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('glass-break', 'Glass Break Detector', 75, -1)">−</button><div class="qty-val" id="qty-glass-break">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('glass-break', 'Glass Break Detector', 75, 1)">+</button></div>
+              </div>
 
-            <div class="addon-item" onclick="toggleAddon(this, 'doorbell', 105)">
+            <div class="addon-item" data-id="doorbell">
               <div class="addon-left">
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0v7l2 2H4l2-2z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></div>
                 <div class="addon-info">
@@ -1454,10 +1463,10 @@
                   <p>Battery button + plug-in chime. Trigger scenes and phone alerts.</p>
                 </div>
               </div>
-              <div class="addon-toggle"></div>
-            </div>
+              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('doorbell', 'Aeotec Doorbell', 105, -1)">−</button><div class="qty-val" id="qty-doorbell">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('doorbell', 'Aeotec Doorbell', 105, 1)">+</button></div>
+              </div>
 
-            <div class="addon-item" onclick="toggleAddon(this, 'temp-humidity', 75)">
+            <div class="addon-item" data-id="temp-humidity">
               <div class="addon-left">
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4a2 2 0 0 1 4 0v10a4 4 0 1 1-4 0z"/><circle cx="12" cy="17" r="2" fill="#c084fc"/></svg></div>
                 <div class="addon-info">
@@ -1465,10 +1474,10 @@
                   <p>Aeotec 700-series. Room-by-room climate awareness for HVAC automations.</p>
                 </div>
               </div>
-              <div class="addon-toggle"></div>
-            </div>
+              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('temp-humidity', 'Temp + Humidity Sensor', 75, -1)">−</button><div class="qty-val" id="qty-temp-humidity">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('temp-humidity', 'Temp + Humidity Sensor', 75, 1)">+</button></div>
+              </div>
 
-            <div class="addon-item" onclick="toggleAddon(this, 'fan-controller', 80)">
+            <div class="addon-item" data-id="fan-controller">
               <div class="addon-left">
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M12 10c-2-3 0-8 4-6s0 6-4 6z"/><path d="M14 12c3-2 8 0 6 4s-6 0-6-4z"/><path d="M12 14c2 3 0 8-4 6s0-6 4-6z"/><path d="M10 12c-3 2-8 0-6-4s6 0 6 4z"/></svg></div>
                 <div class="addon-info">
@@ -1476,10 +1485,10 @@
                   <p>In-wall Z-Wave 4-speed fan switch. Replaces standard pull chain wiring.</p>
                 </div>
               </div>
-              <div class="addon-toggle"></div>
-            </div>
+              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('fan-controller', 'Ceiling Fan Controller', 80, -1)">−</button><div class="qty-val" id="qty-fan-controller">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('fan-controller', 'Ceiling Fan Controller', 80, 1)">+</button></div>
+              </div>
 
-            <div class="addon-item" onclick="toggleAddon(this, 'shade-relay', 65)">
+            <div class="addon-item" data-id="shade-relay">
               <div class="addon-left">
                 <div class="addon-icon">🪟</div>
                 <div class="addon-info">
@@ -1487,10 +1496,10 @@
                   <p>Zooz double relay for motorized blinds and shades. Two-channel open/close.</p>
                 </div>
               </div>
-              <div class="addon-toggle"></div>
-            </div>
+              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('shade-relay', 'Motorized Shade Relay', 65, -1)">−</button><div class="qty-val" id="qty-shade-relay">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('shade-relay', 'Motorized Shade Relay', 65, 1)">+</button></div>
+              </div>
 
-            <div class="addon-item" onclick="toggleAddon(this, 'range-extender', 65)">
+            <div class="addon-item" data-id="range-extender">
               <div class="addon-left">
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a15 15 0 0 1 20 0"/><path d="M5 15a10 10 0 0 1 14 0"/><path d="M8 18a5 5 0 0 1 8 0"/><circle cx="12" cy="21" r="1" fill="#c084fc"/></svg></div>
                 <div class="addon-info">
@@ -1498,10 +1507,10 @@
                   <p>Aeotec repeater for large homes or dead spots. Add one per floor if needed.</p>
                 </div>
               </div>
-              <div class="addon-toggle"></div>
-            </div>
+              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('range-extender', 'Z-Wave Range Extender', 65, -1)">−</button><div class="qty-val" id="qty-range-extender">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('range-extender', 'Z-Wave Range Extender', 65, 1)">+</button></div>
+              </div>
 
-            <div class="addon-item" onclick="toggleAddon(this, 'multilang', 300)">
+            <div class="addon-item" data-id="multilang">
               <div class="addon-left">
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a13 13 0 0 1 0 18M12 3a13 13 0 0 0 0 18"/></svg></div>
                 <div class="addon-info">
@@ -1509,10 +1518,10 @@
                   <p>French, Spanish, Tagalog, Punjabi + more on request.</p>
                 </div>
               </div>
-              <div class="addon-toggle"></div>
-            </div>
+              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('multilang', 'Multi-Language Interface', 300, -1)">−</button><div class="qty-val" id="qty-multilang">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('multilang', 'Multi-Language Interface', 300, 1)">+</button></div>
+              </div>
 
-            <div class="addon-item" onclick="toggleAddon(this, 'backup', 399)">
+            <div class="addon-item" data-id="backup">
               <div class="addon-left">
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="16" height="8" rx="1"/><line x1="20" y1="11" x2="20" y2="13"/><rect x="5" y="10" width="10" height="4" rx="0.5" fill="#c084fc" stroke="none"/></svg></div>
                 <div class="addon-info">
@@ -1520,9 +1529,8 @@
                   <p>Keep your system running during power outages. 4-hour runtime.</p>
                 </div>
               </div>
-              <div class="addon-toggle"></div>
-            </div>
-          </div>
+              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('backup', 'UPS Backup Power', 399, -1)">−</button><div class="qty-val" id="qty-backup">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('backup', 'UPS Backup Power', 399, 1)">+</button></div>
+              <div class="addon-toggle"><div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('voice', 'Voice Control &quot;Hey Skip&quot;', 500, -1)">−</button><div class="qty-val" id="qty-voice">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('voice', 'Voice Control &quot;Hey Skip&quot;', 500, 1)">+</button></div></div></div></div>
 
           <div style="margin-top: 40px; padding: 28px 32px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(6, 1, 15, 0.4)); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 16px;">
             <h3 style="color:#f8fafc; font-size: 20px; margin: 0 0 8px 0;">Don't see the device you need?</h3>
@@ -1831,28 +1839,41 @@
     }
 
     // ─── Lock / Lighting Toggle ────────────────────────────────────────
-    function toggleOption(category, id, price, el) {
+    // Qty stepper for option-item (lighting + locks). Cards can accumulate
+    // multiple units — e.g. 12 switches, 3 locks.
+    function adjustOptionQty(category, id, name, unitPrice, delta) {
       const stateMap = category === 'lock' ? state.locks : state.lighting;
-      const infoMap = category === 'lock' ? LOCK_INFO : LIGHTING_INFO;
-      if (stateMap[id]) {
-        el.classList.remove('selected');
+      const current = stateMap[id];
+      let qty = ((current && current.qty) || 0) + delta;
+      qty = Math.max(0, qty);
+      const qtyEl = document.getElementById('qty-' + id);
+      if (qtyEl) qtyEl.textContent = qty;
+      const card = document.querySelector('[data-id="' + id + '"]');
+      if (qty === 0) {
         delete stateMap[id];
+        if (card) card.classList.remove('selected');
       } else {
-        el.classList.add('selected');
-        stateMap[id] = { name: infoMap[id].name, price: infoMap[id].price };
+        stateMap[id] = { name: name, qty: qty, unitPrice: unitPrice, price: qty * unitPrice };
+        if (card) card.classList.add('selected');
       }
       updateSummary();
     }
 
-    // ─── Add-ons Toggle ────────────────────────────────────────────────
-    function toggleAddon(el, id, price) {
-      if (state.addons[id]) {
-        el.classList.remove('selected');
+    // Qty stepper for add-on cards
+    function adjustAddonQty(id, name, unitPrice, delta) {
+      const current = state.addons[id];
+      let qty = ((current && current.qty) || 0) + delta;
+      qty = Math.max(0, qty);
+      const qtyEl = document.getElementById('qty-' + id);
+      if (qtyEl) qtyEl.textContent = qty;
+      const card = document.querySelector('[data-id="' + id + '"]');
+      const note = (ADDON_INFO[id] && ADDON_INFO[id].note) || '';
+      if (qty === 0) {
         delete state.addons[id];
+        if (card) card.classList.remove('selected');
       } else {
-        el.classList.add('selected');
-        const info = ADDON_INFO[id];
-        state.addons[id] = { name: info.name, price: info.price, note: info.note };
+        state.addons[id] = { name: name, qty: qty, unitPrice: unitPrice, price: qty * unitPrice, note: note };
+        if (card) card.classList.add('selected');
       }
       updateSummary();
     }
@@ -1875,33 +1896,33 @@
         sumC.classList.remove('empty');
       }
 
-      // Locks
+      // Locks — now qty-aware
       const lockKeys = Object.keys(state.locks);
       const sumL = document.getElementById('sum-locks');
       if (lockKeys.length === 0) {
         sumL.textContent = 'None'; sumL.classList.add('empty');
       } else {
-        sumL.textContent = lockKeys.map(k => state.locks[k].name).join(', ');
+        sumL.textContent = lockKeys.map(k => state.locks[k].qty + '× ' + state.locks[k].name).join(', ');
         sumL.classList.remove('empty');
       }
 
-      // Lighting
+      // Lighting — qty-aware
       const lightKeys = Object.keys(state.lighting);
       const sumLi = document.getElementById('sum-lighting');
       if (lightKeys.length === 0) {
         sumLi.textContent = 'None'; sumLi.classList.add('empty');
       } else {
-        sumLi.textContent = lightKeys.map(k => state.lighting[k].name).join(', ');
+        sumLi.textContent = lightKeys.map(k => state.lighting[k].qty + '× ' + state.lighting[k].name).join(', ');
         sumLi.classList.remove('empty');
       }
 
-      // Add-ons
+      // Add-ons — qty-aware
       const addonKeys = Object.keys(state.addons);
       const sumA = document.getElementById('sum-addons');
       if (addonKeys.length === 0) {
         sumA.textContent = 'None'; sumA.classList.add('empty');
       } else {
-        sumA.textContent = addonKeys.map(k => state.addons[k].name).join(', ');
+        sumA.textContent = addonKeys.map(k => state.addons[k].qty + '× ' + state.addons[k].name).join(', ');
         sumA.classList.remove('empty');
       }
 
@@ -1947,37 +1968,37 @@
       }
       html += '</div>';
 
-      // Locks
+      // Locks — qty-aware
       const lockList = Object.values(state.locks);
       html += '<div class="cs-group"><div class="cs-group-label">Locks &amp; Access</div>';
       if (lockList.length) {
         lockList.forEach(l => {
-          html += `<div class="cs-row"><span class="cs-row-label">${l.name}</span><span class="cs-row-amount">${fmt(l.price)}</span></div>`;
+          html += `<div class="cs-row"><span class="cs-row-label">${l.qty}× ${l.name}</span><span class="cs-row-amount">${fmt(l.price)}</span></div>`;
         });
       } else {
         html += '<div class="cs-row muted"><span class="cs-row-label">None selected</span><span class="cs-row-amount">—</span></div>';
       }
       html += '</div>';
 
-      // Lighting
+      // Lighting — qty-aware
       const lightList = Object.values(state.lighting);
       html += '<div class="cs-group"><div class="cs-group-label">Lighting &amp; Switches</div>';
       if (lightList.length) {
         lightList.forEach(l => {
-          html += `<div class="cs-row"><span class="cs-row-label">${l.name}</span><span class="cs-row-amount">${fmt(l.price)}</span></div>`;
+          html += `<div class="cs-row"><span class="cs-row-label">${l.qty}× ${l.name}</span><span class="cs-row-amount">${fmt(l.price)}</span></div>`;
         });
       } else {
         html += '<div class="cs-row muted"><span class="cs-row-label">None selected</span><span class="cs-row-amount">—</span></div>';
       }
       html += '</div>';
 
-      // Add-ons
+      // Add-ons — qty-aware
       const addonList = Object.values(state.addons);
       html += '<div class="cs-group"><div class="cs-group-label">Add-ons</div>';
       if (addonList.length) {
         addonList.forEach(a => {
           const priceText = a.note ? a.note : (a.price ? fmt(a.price) : 'Included');
-          html += `<div class="cs-row"><span class="cs-row-label">${a.name}</span><span class="cs-row-amount">${priceText}</span></div>`;
+          html += `<div class="cs-row"><span class="cs-row-label">${a.qty}× ${a.name}</span><span class="cs-row-amount">${priceText}</span></div>`;
         });
       } else {
         html += '<div class="cs-row muted"><span class="cs-row-label">None selected</span><span class="cs-row-amount">—</span></div>';
@@ -2007,9 +2028,9 @@
       const t = state.thermostat;
       let txt = `Thermostat: ${t.qty}× ${t.name}\n`;
       Object.values(state.cameras).forEach(c => txt += `Camera: ${c.qty}× ${c.name}\n`);
-      Object.values(state.locks).forEach(l => txt += `Lock: ${l.name}\n`);
-      Object.values(state.lighting).forEach(l => txt += `Lighting: ${l.name}\n`);
-      Object.values(state.addons).forEach(a => txt += `Add-on: ${a.name}\n`);
+      Object.values(state.locks).forEach(l => txt += `Lock: ${l.qty}× ${l.name}\n`);
+      Object.values(state.lighting).forEach(l => txt += `Lighting: ${l.qty}× ${l.name}\n`);
+      Object.values(state.addons).forEach(a => txt += `Add-on: ${a.qty}× ${a.name}\n`);
       let hardware = t.qty * t.unitPrice;
       Object.values(state.cameras).forEach(c => hardware += c.qty * c.unitPrice);
       Object.values(state.locks).forEach(l => hardware += l.price);
