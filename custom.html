@@ -940,186 +940,44 @@
 
           <div class="device-picker" id="thermostatPicker">
 
-            <!-- Thermostat 1: Classic Round -->
-            <div class="device-card" data-id="thermo-classic" onclick="selectDevice('thermostat', 'thermo-classic', 265, this)">
+            <div class="device-card selected" data-id="thermo-t6pro" onclick="selectDevice('thermostat', 'thermo-t6pro', 265, this)">
               <div class="card-visual">
-                <svg class="thermo-round" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                  <!-- Outer ring -->
-                  <circle cx="50" cy="50" r="46" fill="#1a1a2e" stroke="#6b21a8" stroke-width="2.5"/>
-                  <!-- Inner ring -->
-                  <circle cx="50" cy="50" r="36" fill="#0d0d1a" stroke="#a855f7" stroke-width="1.5"/>
-                  <!-- Tick marks -->
-                  <g stroke="#6b21a8" stroke-width="1.5">
-                    <line x1="50" y1="8" x2="50" y2="15" transform="rotate(0 50 50)"/>
-                    <line x1="50" y1="8" x2="50" y2="14" transform="rotate(30 50 50)"/>
-                    <line x1="50" y1="8" x2="50" y2="14" transform="rotate(60 50 50)"/>
-                    <line x1="50" y1="8" x2="50" y2="15" transform="rotate(90 50 50)"/>
-                    <line x1="50" y1="8" x2="50" y2="14" transform="rotate(120 50 50)"/>
-                    <line x1="50" y1="8" x2="50" y2="14" transform="rotate(150 50 50)"/>
-                    <line x1="50" y1="8" x2="50" y2="15" transform="rotate(180 50 50)"/>
-                    <line x1="50" y1="8" x2="50" y2="14" transform="rotate(210 50 50)"/>
-                    <line x1="50" y1="8" x2="50" y2="14" transform="rotate(240 50 50)"/>
-                    <line x1="50" y1="8" x2="50" y2="15" transform="rotate(270 50 50)"/>
-                    <line x1="50" y1="8" x2="50" y2="14" transform="rotate(300 50 50)"/>
-                    <line x1="50" y1="8" x2="50" y2="14" transform="rotate(330 50 50)"/>
-                  </g>
-                  <!-- Arc indicator -->
-                  <path d="M 20 72 A 36 36 0 1 1 80 72" fill="none" stroke="#a855f7" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
-                  <!-- Active arc -->
-                  <path d="M 20 72 A 36 36 0 0 1 68 22" fill="none" stroke="#c084fc" stroke-width="3" stroke-linecap="round"/>
-                  <!-- Temp display -->
-                  <text x="50" y="47" text-anchor="middle" fill="#f3e8ff" font-size="16" font-weight="700" font-family="sans-serif">21°</text>
-                  <text x="50" y="60" text-anchor="middle" fill="#a855f7" font-size="7" font-family="sans-serif">HEATING</text>
-                  <!-- Dot indicator -->
-                  <circle cx="67" cy="23" r="3" fill="#c084fc"/>
+                <svg viewBox="0 0 96 128" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="6" y="6" width="84" height="116" rx="8" fill="#1a1a2e" stroke="#6b21a8" stroke-width="2"/>
+                  <rect x="14" y="16" width="68" height="60" rx="4" fill="#0a0a1e"/>
+                  <rect x="14" y="16" width="68" height="60" rx="4" fill="none" stroke="#a855f7" stroke-width="1" opacity="0.5"/>
+                  <text x="48" y="42" text-anchor="middle" fill="#f3e8ff" font-size="18" font-weight="700" font-family="sans-serif">72°</text>
+                  <text x="48" y="58" text-anchor="middle" fill="#a855f7" font-size="7" font-family="sans-serif">HEAT · HOLD 70°</text>
+                  <text x="48" y="70" text-anchor="middle" fill="#7c3aed" font-size="6" font-family="sans-serif">40% RH</text>
+                  <rect x="18" y="84" width="20" height="18" rx="3" fill="#4a0e82"/>
+                  <text x="28" y="96" text-anchor="middle" fill="#e9d5ff" font-size="7" font-family="sans-serif" font-weight="700">MODE</text>
+                  <rect x="42" y="84" width="20" height="18" rx="3" fill="#4a0e82"/>
+                  <text x="52" y="96" text-anchor="middle" fill="#e9d5ff" font-size="7" font-family="sans-serif" font-weight="700">FAN</text>
+                  <rect x="66" y="84" width="16" height="18" rx="3" fill="#4a0e82"/>
+                  <text x="74" y="96" text-anchor="middle" fill="#e9d5ff" font-size="7" font-family="sans-serif" font-weight="700">△▽</text>
+                  <text x="48" y="118" text-anchor="middle" fill="#6b21a8" font-size="6" font-family="sans-serif" letter-spacing="1">HONEYWELL T6 PRO</text>
                 </svg>
               </div>
-              <h3>Basic Z-Wave Thermostat</h3>
-              <span class="card-tag">Z-Wave</span>
-              <p>Basic wall-mounted programmable Z-Wave thermostat. Compatible with heat, cool, heat pump, and dual-fuel systems.</p>
+              <h3>Honeywell T6 Pro Z-Wave</h3>
+              <span class="card-tag">Z-Wave Plus · Model TH6320ZW</span>
+              <p>The industry-standard Z-Wave thermostat. Programmable 7-day schedule, heat/cool/heat-pump/dual-fuel compatible, works with any 24V HVAC system. Directly integrates with EJG-OS scenes and away modes.</p>
               <div class="spec-chips">
-                <span class="spec-chip">7" dial</span>
-                <span class="spec-chip">Touch ring</span>
-                <span class="spec-chip">E-ink</span>
-              </div>
-              <div class="card-price">$265/each</div>
-              <div class="qty-row">
-                <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-classic', -1)">−</button>
-                <div class="qty-val" id="qty-thermo-classic">1</div>
-                <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-classic', 1)">+</button>
-              </div>
-            </div>
-
-            <!-- Thermostat 2: Modern Rectangular -->
-            <div class="device-card" data-id="thermo-modern" onclick="selectDevice('thermostat', 'thermo-modern', 265, this)">
-              <div class="card-visual">
-                <svg class="thermo-rect" viewBox="0 0 72 100" xmlns="http://www.w3.org/2000/svg">
-                  <!-- Body -->
-                  <rect x="4" y="4" width="64" height="92" rx="10" fill="#1a1a2e" stroke="#6b21a8" stroke-width="2"/>
-                  <!-- Screen -->
-                  <rect x="10" y="14" width="52" height="52" rx="6" fill="#0a0a1e"/>
-                  <!-- Screen glow -->
-                  <rect x="10" y="14" width="52" height="52" rx="6" fill="none" stroke="#a855f7" stroke-width="1" opacity="0.6"/>
-                  <!-- Temp big -->
-                  <text x="36" y="46" text-anchor="middle" fill="#f3e8ff" font-size="20" font-weight="700" font-family="sans-serif">21°C</text>
-                  <!-- Status -->
-                  <text x="36" y="58" text-anchor="middle" fill="#a855f7" font-size="7" font-family="sans-serif">HEAT ON · 23° TARGET</text>
-                  <!-- Mini graph line -->
-                  <polyline points="14,62 22,58 30,60 38,55 46,57 54,52 58,54" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.7"/>
-                  <!-- Bottom bar -->
-                  <rect x="10" y="80" width="52" height="6" rx="3" fill="#1a1a2e" stroke="#4a0e82" stroke-width="1"/>
-                  <!-- Indicator dot -->
-                  <circle cx="36" cy="83" r="2" fill="#a855f7"/>
-                  <!-- Side buttons -->
-                  <rect x="0" y="36" width="4" height="12" rx="2" fill="#4a0e82"/>
-                  <rect x="68" y="36" width="4" height="12" rx="2" fill="#4a0e82"/>
-                </svg>
-              </div>
-              <h3>Modern Touchscreen</h3>
-              <span class="card-tag">Z-Wave Pro</span>
-              <p>Sleek rectangular touchscreen with live energy graphs and schedule display.</p>
-              <div class="spec-chips">
-                <span class="spec-chip">Color LCD</span>
-                <span class="spec-chip">Schedules</span>
-                <span class="spec-chip">Energy graph</span>
-              </div>
-              <div class="card-price">$265/each</div>
-              <div class="qty-row">
-                <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-modern', -1)">−</button>
-                <div class="qty-val" id="qty-thermo-modern">1</div>
-                <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-modern', 1)">+</button>
-              </div>
-            </div>
-
-            <!-- Thermostat 3: Wall Panel -->
-            <div class="device-card" data-id="thermo-panel" onclick="selectDevice('thermostat', 'thermo-panel', 325, this)">
-              <div class="card-visual">
-                <svg class="thermo-panel" viewBox="0 0 140 96" xmlns="http://www.w3.org/2000/svg">
-                  <!-- Main panel body -->
-                  <rect x="4" y="4" width="132" height="88" rx="8" fill="#1a1a2e" stroke="#6b21a8" stroke-width="2"/>
-                  <!-- Large screen area -->
-                  <rect x="10" y="10" width="120" height="76" rx="6" fill="#080818"/>
-                  <rect x="10" y="10" width="120" height="76" rx="6" fill="none" stroke="#a855f7" stroke-width="1" opacity="0.5"/>
-                  <!-- Left zone -->
-                  <rect x="14" y="14" width="54" height="68" rx="4" fill="#0d0d20"/>
-                  <text x="41" y="38" text-anchor="middle" fill="#c084fc" font-size="7" font-family="sans-serif" font-weight="700">MAIN FLOOR</text>
-                  <text x="41" y="54" text-anchor="middle" fill="#f3e8ff" font-size="16" font-weight="700" font-family="sans-serif">21°</text>
-                  <text x="41" y="66" text-anchor="middle" fill="#a855f7" font-size="6" font-family="sans-serif">HEAT · 23° SET</text>
-                  <!-- Right zone -->
-                  <rect x="72" y="14" width="54" height="68" rx="4" fill="#0d0d20"/>
-                  <text x="99" y="38" text-anchor="middle" fill="#c084fc" font-size="7" font-family="sans-serif" font-weight="700">UPSTAIRS</text>
-                  <text x="99" y="54" text-anchor="middle" fill="#f3e8ff" font-size="16" font-weight="700" font-family="sans-serif">19°</text>
-                  <text x="99" y="66" text-anchor="middle" fill="#6b21a8" font-size="6" font-family="sans-serif">IDLE · 20° SET</text>
-                  <!-- Divider -->
-                  <line x1="70" y1="18" x2="70" y2="78" stroke="#a855f7" stroke-width="0.5" opacity="0.4"/>
-                  <!-- Status dots -->
-                  <circle cx="41" cy="75" r="3" fill="#22c55e" opacity="0.8"/>
-                  <circle cx="99" cy="75" r="3" fill="#a855f7" opacity="0.5"/>
-                </svg>
-              </div>
-              <h3>Dual-Zone Wall Panel</h3>
-              <span class="card-tag">Z-Wave Elite</span>
-              <p>Large wall-mounted panel controlling two zones simultaneously. Premium look.</p>
-              <div class="spec-chips">
-                <span class="spec-chip">2 zones</span>
-                <span class="spec-chip">5" display</span>
+                <span class="spec-chip">7-day sched</span>
+                <span class="spec-chip">Heat pump</span>
                 <span class="spec-chip">Humidity</span>
+                <span class="spec-chip">24V wired</span>
               </div>
-              <div class="card-price">$325/each</div>
+              <div class="card-price">$265/each</div>
               <div class="qty-row">
-                <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-panel', -1)">−</button>
-                <div class="qty-val" id="qty-thermo-panel">1</div>
-                <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-panel', 1)">+</button>
+                <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-t6pro', -1)">−</button>
+                <div class="qty-val" id="qty-thermo-t6pro">1</div>
+                <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-t6pro', 1)">+</button>
               </div>
             </div>
 
-            <!-- Thermostat 4: Premium OLED -->
-            <div class="device-card" data-id="thermo-premium" onclick="selectDevice('thermostat', 'thermo-premium', 365, this)">
-              <div class="card-visual">
-                <svg class="thermo-premium" viewBox="0 0 88 100" xmlns="http://www.w3.org/2000/svg">
-                  <!-- Premium housing -->
-                  <rect x="4" y="4" width="80" height="92" rx="12" fill="#110824" stroke="#a855f7" stroke-width="2.5"/>
-                  <!-- OLED glow effect -->
-                  <rect x="4" y="4" width="80" height="92" rx="12" fill="none" stroke="#c084fc" stroke-width="0.5" opacity="0.4"/>
-                  <!-- Screen -->
-                  <rect x="12" y="12" width="64" height="64" rx="8" fill="#050010"/>
-                  <!-- Gradient overlay -->
-                  <defs>
-                    <radialGradient id="oledGlow" cx="50%" cy="40%" r="60%">
-                      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3"/>
-                      <stop offset="100%" stop-color="#050010" stop-opacity="0"/>
-                    </radialGradient>
-                  </defs>
-                  <rect x="12" y="12" width="64" height="64" rx="8" fill="url(#oledGlow)"/>
-                  <!-- Time -->
-                  <text x="44" y="28" text-anchor="middle" fill="#c084fc" font-size="7" font-family="sans-serif">MONDAY  ·  9:41 AM</text>
-                  <!-- Big temp -->
-                  <text x="44" y="52" text-anchor="middle" fill="white" font-size="24" font-weight="700" font-family="sans-serif">21°C</text>
-                  <!-- Set line -->
-                  <text x="44" y="64" text-anchor="middle" fill="#a855f7" font-size="7" font-family="sans-serif">TARGET 23° · HEATING</text>
-                  <!-- Screen border glow -->
-                  <rect x="12" y="12" width="64" height="64" rx="8" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.7"/>
-                  <!-- Bottom controls -->
-                  <rect x="20" y="84" width="20" height="6" rx="3" fill="#2d0a52"/>
-                  <rect x="48" y="84" width="20" height="6" rx="3" fill="#2d0a52"/>
-                  <!-- Premium gold accent line at top -->
-                  <rect x="30" y="7" width="28" height="2" rx="1" fill="#fbbf24" opacity="0.6"/>
-                </svg>
-              </div>
-              <h3>Premium OLED</h3>
-              <span class="card-tag">Flagship</span>
-              <p>OLED display with ambient light sensor, ultra-thin profile, and AI-assisted scheduling.</p>
-              <div class="spec-chips">
-                <span class="spec-chip">OLED</span>
-                <span class="spec-chip">AI schedule</span>
-                <span class="spec-chip">Presence</span>
-              </div>
-              <div class="card-price">$365/each</div>
-              <div class="qty-row">
-                <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-premium', -1)">−</button>
-                <div class="qty-val" id="qty-thermo-premium">1</div>
-                <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-premium', 1)">+</button>
-              </div>
+            <div style="grid-column: 1 / -1; padding: 20px 24px; background: rgba(139, 92, 246, 0.06); border: 1px dashed rgba(139, 92, 246, 0.3); border-radius: 14px; text-align: center; color: #cbd5e1; font-size: 13.5px; line-height: 1.6;">
+              <strong style="color:#f8fafc;">Boiler / radiant heat / multi-zone system?</strong><br/>
+              We use the Zooz ZEN17 universal relay for boilers and specialty HVAC. <a href="mailto:info@ejgos.com?subject=Boiler%20Thermostat%20Quote" style="color:#a78bfa;">Request a quote →</a>
             </div>
 
           </div>
@@ -1685,7 +1543,7 @@
     const state = {
       currentStep: 1,
       totalSteps: 6,
-      thermostat: { id: 'thermo-classic', name: 'Classic Round', qty: 1, unitPrice: 189 },
+      thermostat: { id: 'thermo-t6pro', name: 'Honeywell T6 Pro Z-Wave', qty: 1, unitPrice: 265 },
       cameras: {},   // id → { name, qty, unitPrice }
       locks: {},     // id → { name, qty, unitPrice }
       lighting: {},  // id → { name, price }
@@ -1693,10 +1551,7 @@
     };
 
     const THERMO_INFO = {
-      'thermo-classic': { name: 'Classic Round', unitPrice: 189 },
-      'thermo-modern':  { name: 'Modern Touchscreen', unitPrice: 249 },
-      'thermo-panel':   { name: 'Dual-Zone Panel', unitPrice: 349 },
-      'thermo-premium': { name: 'Premium OLED', unitPrice: 449 },
+      'thermo-t6pro': { name: 'Honeywell T6 Pro Z-Wave (TH6320ZW)', unitPrice: 265 },
     };
     const CAM_INFO = {
       'cam-indoor':   { name: 'Indoor HD', unitPrice: 99 },
@@ -1972,7 +1827,7 @@
     // Init
     updateSummary();
     // Pre-select classic thermostat card
-    document.querySelector('[data-id="thermo-classic"]').classList.add('selected');
+    document.querySelector('[data-id="thermo-t6pro"]').classList.add('selected');
   </script>
 </body>
 </html>
