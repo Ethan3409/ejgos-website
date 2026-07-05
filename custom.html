@@ -1138,15 +1138,19 @@
           </div>
 
           <div class="camera-grid">
-            <div class="cam-card" data-id="cam-indoor" onclick="selectCam('cam-indoor', 99, this)">
+            <p style="color:#94a3b8; font-size:13px; margin: -8px 0 20px; text-align:center;">
+              Each camera price includes the camera, Cat6 cable run, and install labor.
+            </p>
+            <div class="cam-card" data-id="cam-indoor" onclick="selectCam('cam-indoor', 195, this)">
               <span class="cam-icon">📷</span>
-              <h3>Indoor HD</h3>
-              <p>1080p wide-angle. Great for living rooms, hallways, and nurseries.</p>
+              <h3>Indoor PoE HD</h3>
+              <p>1080p wide-angle PoE camera. Great for living rooms, hallways, and nurseries.</p>
               <div class="spec-chips" style="justify-content:center">
                 <span class="spec-chip">1080p</span>
                 <span class="spec-chip">Night vision</span>
+                <span class="spec-chip">PoE</span>
               </div>
-              <div class="card-price" style="display:inline-block;margin-top:10px">$99/each</div>
+              <div class="card-price" style="display:inline-block;margin-top:10px">$195/each</div>
               <div class="cam-qty">
                 <button class="qty-btn" onclick="event.stopPropagation(); adjustCamQty('cam-indoor', -1)">−</button>
                 <div class="qty-val" id="qty-cam-indoor">0</div>
@@ -1154,16 +1158,16 @@
               </div>
             </div>
 
-            <div class="cam-card" data-id="cam-outdoor" onclick="selectCam('cam-outdoor', 179, this)">
+            <div class="cam-card" data-id="cam-outdoor" onclick="selectCam('cam-outdoor', 195, this)">
               <span class="cam-icon">🎥</span>
-              <h3>Outdoor 2K</h3>
-              <p>Weatherproof 2K. Motion zones, colour night vision, and two-way audio.</p>
+              <h3>Outdoor PoE</h3>
+              <p>Weatherproof PoE camera. Motion zones, colour night vision, and two-way audio.</p>
               <div class="spec-chips" style="justify-content:center">
                 <span class="spec-chip">2K</span>
                 <span class="spec-chip">Weatherproof</span>
-                <span class="spec-chip">2-way audio</span>
+                <span class="spec-chip">PoE</span>
               </div>
-              <div class="card-price" style="display:inline-block;margin-top:10px">$179/each</div>
+              <div class="card-price" style="display:inline-block;margin-top:10px">$195/each</div>
               <div class="cam-qty">
                 <button class="qty-btn" onclick="event.stopPropagation(); adjustCamQty('cam-outdoor', -1)">−</button>
                 <div class="qty-val" id="qty-cam-outdoor">0</div>
@@ -1171,37 +1175,20 @@
               </div>
             </div>
 
-            <div class="cam-card" data-id="cam-doorbell" onclick="selectCam('cam-doorbell', 229, this)">
+            <div class="cam-card" data-id="cam-doorbell" onclick="selectCam('cam-doorbell', 275, this)">
               <span class="cam-icon">🔔</span>
               <h3>Video Doorbell</h3>
-              <p>4K doorbell cam with face detection, package alerts, and instant EJG-OS notifications.</p>
+              <p>Doorbell camera with face detection, package alerts, and instant EJG-OS notifications.</p>
               <div class="spec-chips" style="justify-content:center">
-                <span class="spec-chip">4K</span>
+                <span class="spec-chip">2K</span>
                 <span class="spec-chip">Face detect</span>
                 <span class="spec-chip">Package alert</span>
               </div>
-              <div class="card-price" style="display:inline-block;margin-top:10px">$229/each</div>
+              <div class="card-price" style="display:inline-block;margin-top:10px">$275/each</div>
               <div class="cam-qty">
                 <button class="qty-btn" onclick="event.stopPropagation(); adjustCamQty('cam-doorbell', -1)">−</button>
                 <div class="qty-val" id="qty-cam-doorbell">0</div>
                 <button class="qty-btn" onclick="event.stopPropagation(); adjustCamQty('cam-doorbell', 1)">+</button>
-              </div>
-            </div>
-
-            <div class="cam-card" data-id="cam-ptz" onclick="selectCam('cam-ptz', 299, this)">
-              <span class="cam-icon">🔍</span>
-              <h3>PTZ Pan/Tilt</h3>
-              <p>360° pan, 90° tilt, 4K. Remotely controllable. Ideal for garages and large open areas.</p>
-              <div class="spec-chips" style="justify-content:center">
-                <span class="spec-chip">360° pan</span>
-                <span class="spec-chip">4K</span>
-                <span class="spec-chip">Remote ctrl</span>
-              </div>
-              <div class="card-price" style="display:inline-block;margin-top:10px">$299/each</div>
-              <div class="cam-qty">
-                <button class="qty-btn" onclick="event.stopPropagation(); adjustCamQty('cam-ptz', -1)">−</button>
-                <div class="qty-val" id="qty-cam-ptz">0</div>
-                <button class="qty-btn" onclick="event.stopPropagation(); adjustCamQty('cam-ptz', 1)">+</button>
               </div>
             </div>
           </div>
