@@ -327,7 +327,13 @@
     .addon-item:hover { border-color: var(--purple-500); background: rgba(168,85,247,0.06); }
     .addon-item.selected { border-color: var(--purple-400); background: rgba(168,85,247,0.1); }
     .addon-left { display: flex; gap: 14px; align-items: center; }
-    .addon-icon { font-size: 26px; }
+    .addon-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
     .addon-info h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
     .addon-info p { font-size: 12px; color: var(--text-muted); }
     .addon-toggle {
@@ -1307,7 +1313,7 @@
           <div class="addons-grid">
             <div class="addon-item" onclick="toggleAddon(this, 'voice', 500)">
               <div class="addon-left">
-                <div class="addon-icon">🎙️</div>
+                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></div>
                 <div class="addon-info">
                   <h4>Voice Control "Hey Skip"</h4>
                   <p>On-device voice assistant. No cloud. Fully private.</p>
@@ -1318,7 +1324,7 @@
 
             <div class="addon-item" onclick="toggleAddon(this, 'monitoring', 0)">
               <div class="addon-left">
-                <div class="addon-icon">🛡️</div>
+                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3z"/></svg></div>
                 <div class="addon-info">
                   <h4>24/7 Professional Monitoring</h4>
                   <p>+$29/month optional. Cancel anytime. No contract.</p>
@@ -1329,7 +1335,7 @@
 
             <div class="addon-item" onclick="toggleAddon(this, 'energy', 299)">
               <div class="addon-left">
-                <div class="addon-icon">⚡</div>
+                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 4 14 11 14 10 22 20 10 13 10 13 2" stroke-linejoin="round"/></svg></div>
                 <div class="addon-info">
                   <h4>Energy Monitoring Hub</h4>
                   <p>Track real-time electricity use by room and device.</p>
@@ -1340,7 +1346,7 @@
 
             <div class="addon-item" onclick="toggleAddon(this, 'motion-sensor', 91)">
               <div class="addon-left">
-                <div class="addon-icon">🏃</div>
+                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="M14 8l-3 5 3 3v6"/><path d="M6 10l4-1 3 4"/><path d="M18 14l-3-4"/></svg></div>
                 <div class="addon-info">
                   <h4>Zooz Motion Sensor</h4>
                   <p>Battery-powered. Trigger scenes, alarms, or occupancy timers.</p>
@@ -1351,7 +1357,7 @@
 
             <div class="addon-item" onclick="toggleAddon(this, 'door-contact', 75)">
               <div class="addon-left">
-                <div class="addon-icon">🚪</div>
+                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="1"/><circle cx="14" cy="12" r="1" fill="#c084fc"/></svg></div>
                 <div class="addon-info">
                   <h4>Zooz Door/Window Contact</h4>
                   <p>Slim recessed magnetic sensor. Alarm and automation trigger.</p>
@@ -1362,7 +1368,7 @@
 
             <div class="addon-item" onclick="toggleAddon(this, 'water-leak', 55)">
               <div class="addon-left">
-                <div class="addon-icon">💧</div>
+                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s-6 8-6 12a6 6 0 0 0 12 0c0-4-6-12-6-12z"/></svg></div>
                 <div class="addon-info">
                   <h4>Zooz Water Leak Sensor</h4>
                   <p>Compact sensor for under sinks, water heater pan, laundry.</p>
@@ -1373,7 +1379,7 @@
 
             <div class="addon-item" onclick="toggleAddon(this, 'smoke-co', 70)">
               <div class="addon-left">
-                <div class="addon-icon">🔥</div>
+                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 4 5 6 5 11a5 5 0 0 1-10 0c0-3 2-5 3-7 0 2 1 3 2 3s0-4 0-7z"/></svg></div>
                 <div class="addon-info">
                   <h4>First Alert Smoke + CO Alarm</h4>
                   <p>Z-Wave combo alarm. Alerts your phone + triggers scenes on activation.</p>
@@ -1384,7 +1390,7 @@
 
             <div class="addon-item" onclick="toggleAddon(this, 'siren', 90)">
               <div class="addon-left">
-                <div class="addon-icon">🚨</div>
+                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0v7l2 2H4l2-2z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></div>
                 <div class="addon-info">
                   <h4>Aeotec 105dB Siren</h4>
                   <p>Loud indoor siren for alarm mode. Battery + AC options.</p>
@@ -1395,7 +1401,7 @@
 
             <div class="addon-item" onclick="toggleAddon(this, 'water-shutoff', 225)">
               <div class="addon-left">
-                <div class="addon-icon">🚰</div>
+                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="6" x2="12" y2="4"/><line x1="10" y1="4" x2="14" y2="4"/></svg></div>
                 <div class="addon-info">
                   <h4>Whole-Home Water Shutoff</h4>
                   <p>Dome motorized valve. Auto-close on leak detection.</p>
@@ -1406,7 +1412,7 @@
 
             <div class="addon-item" onclick="toggleAddon(this, 'glass-break', 75)">
               <div class="addon-left">
-                <div class="addon-icon">🪟</div>
+                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1"/><line x1="4" y1="8" x2="20" y2="8"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="16" x2="20" y2="16"/></svg></div>
                 <div class="addon-info">
                   <h4>Glass Break Detector</h4>
                   <p>Acoustic sensor covers a 20-ft radius. Perimeter alarm essential.</p>
@@ -1417,7 +1423,7 @@
 
             <div class="addon-item" onclick="toggleAddon(this, 'doorbell', 105)">
               <div class="addon-left">
-                <div class="addon-icon">🔔</div>
+                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0v7l2 2H4l2-2z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></div>
                 <div class="addon-info">
                   <h4>Aeotec Doorbell</h4>
                   <p>Battery button + plug-in chime. Trigger scenes and phone alerts.</p>
@@ -1428,7 +1434,7 @@
 
             <div class="addon-item" onclick="toggleAddon(this, 'temp-humidity', 75)">
               <div class="addon-left">
-                <div class="addon-icon">🌡️</div>
+                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4a2 2 0 0 1 4 0v10a4 4 0 1 1-4 0z"/><circle cx="12" cy="17" r="2" fill="#c084fc"/></svg></div>
                 <div class="addon-info">
                   <h4>Temp + Humidity Sensor</h4>
                   <p>Aeotec 700-series. Room-by-room climate awareness for HVAC automations.</p>
@@ -1439,7 +1445,7 @@
 
             <div class="addon-item" onclick="toggleAddon(this, 'fan-controller', 80)">
               <div class="addon-left">
-                <div class="addon-icon">🌀</div>
+                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M12 10c-2-3 0-8 4-6s0 6-4 6z"/><path d="M14 12c3-2 8 0 6 4s-6 0-6-4z"/><path d="M12 14c2 3 0 8-4 6s0-6 4-6z"/><path d="M10 12c-3 2-8 0-6-4s6 0 6 4z"/></svg></div>
                 <div class="addon-info">
                   <h4>Ceiling Fan Controller</h4>
                   <p>In-wall Z-Wave 4-speed fan switch. Replaces standard pull chain wiring.</p>
@@ -1461,7 +1467,7 @@
 
             <div class="addon-item" onclick="toggleAddon(this, 'range-extender', 65)">
               <div class="addon-left">
-                <div class="addon-icon">📶</div>
+                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a15 15 0 0 1 20 0"/><path d="M5 15a10 10 0 0 1 14 0"/><path d="M8 18a5 5 0 0 1 8 0"/><circle cx="12" cy="21" r="1" fill="#c084fc"/></svg></div>
                 <div class="addon-info">
                   <h4>Z-Wave Range Extender</h4>
                   <p>Aeotec repeater for large homes or dead spots. Add one per floor if needed.</p>
@@ -1472,7 +1478,7 @@
 
             <div class="addon-item" onclick="toggleAddon(this, 'multilang', 300)">
               <div class="addon-left">
-                <div class="addon-icon">🌐</div>
+                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a13 13 0 0 1 0 18M12 3a13 13 0 0 0 0 18"/></svg></div>
                 <div class="addon-info">
                   <h4>Multi-Language Interface</h4>
                   <p>French, Spanish, Tagalog, Punjabi + more on request.</p>
@@ -1483,7 +1489,7 @@
 
             <div class="addon-item" onclick="toggleAddon(this, 'backup', 399)">
               <div class="addon-left">
-                <div class="addon-icon">🔋</div>
+                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="16" height="8" rx="1"/><line x1="20" y1="11" x2="20" y2="13"/><rect x="5" y="10" width="10" height="4" rx="0.5" fill="#c084fc" stroke="none"/></svg></div>
                 <div class="addon-info">
                   <h4>UPS Backup Power</h4>
                   <p>Keep your system running during power outages. 4-hour runtime.</p>
