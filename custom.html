@@ -299,7 +299,12 @@
       border-color: var(--purple-400);
       background: rgba(168,85,247,0.1);
     }
-    .option-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+    /* Option row icons: SVG hardware illustrations, not emoji */
+    .option-icon {
+      width: 44px; height: 44px; flex-shrink: 0; margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .option-icon svg { width: 100%; height: 100%; display: block; }
     .option-info h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
     .option-info p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
     .option-info .opt-price {
@@ -1145,7 +1150,16 @@
 
           <div class="option-grid">
             <div class="option-item" data-id="weiser-lock" onclick="toggleOption('lock', 'weiser-lock', 295, this)">
-              <div class="option-icon">🔐</div>
+              <div class="option-icon"><svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <rect x="6" y="6" width="32" height="32" rx="7" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
+  <circle cx="22" cy="16" r="4" fill="#0a0a1e" stroke="#c084fc" stroke-width="1.5"/>
+  <rect x="14" y="22" width="4" height="4" rx="1" fill="#4a0e82"/>
+  <rect x="20" y="22" width="4" height="4" rx="1" fill="#4a0e82"/>
+  <rect x="26" y="22" width="4" height="4" rx="1" fill="#4a0e82"/>
+  <rect x="14" y="28" width="4" height="4" rx="1" fill="#4a0e82"/>
+  <rect x="20" y="28" width="4" height="4" rx="1" fill="#4a0e82"/>
+  <rect x="26" y="28" width="4" height="4" rx="1" fill="#4a0e82"/>
+</svg></div>
               <div class="option-info">
                 <h4>Weiser Z-Wave Smart Lock</h4>
                 <p>Weiser SmartCode with Z-Wave. Backlit keypad, 30 user codes, auto-lock, one-touch locking. Fully integrated with EJG-OS scenes and away modes.</p>
@@ -1153,7 +1167,15 @@
               </div>
             </div>
             <div class="option-item" data-id="garage-tilt" onclick="toggleOption('lock', 'garage-tilt', 60, this)">
-              <div class="option-icon">🚗</div>
+              <div class="option-icon"><svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <rect x="6" y="10" width="32" height="8" rx="1" fill="#1a1a2e" stroke="#a855f7" stroke-width="1.5"/>
+  <line x1="14" y1="10" x2="14" y2="18" stroke="#a855f7" stroke-width="1" opacity="0.6"/>
+  <line x1="22" y1="10" x2="22" y2="18" stroke="#a855f7" stroke-width="1" opacity="0.6"/>
+  <line x1="30" y1="10" x2="30" y2="18" stroke="#a855f7" stroke-width="1" opacity="0.6"/>
+  <rect x="16" y="24" width="12" height="14" rx="2" fill="#1a1a2e" stroke="#c084fc" stroke-width="1.5"/>
+  <circle cx="22" cy="30" r="2" fill="#22c55e"/>
+  <line x1="22" y1="35" x2="22" y2="37" stroke="#c084fc" stroke-width="1"/>
+</svg></div>
               <div class="option-info">
                 <h4>Garage Door Tilt Sensor</h4>
                 <p>Ecolink Z-Wave tilt sensor. Know when the garage door opens/closes; trigger scenes on state change. (Add relay to physically open — quote below.)</p>
@@ -1181,7 +1203,12 @@
           </p>
           <div class="option-grid">
             <div class="option-item" data-id="zooz-switch" onclick="toggleOption('lighting', 'zooz-switch', 75, this)">
-              <div class="option-icon">🔘</div>
+              <div class="option-icon"><svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <rect x="10" y="4" width="24" height="36" rx="3" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
+  <rect x="14" y="9" width="16" height="26" rx="4" fill="#0a0a1e" stroke="#c084fc" stroke-width="1.5"/>
+  <line x1="14" y1="22" x2="30" y2="22" stroke="#c084fc" stroke-width="1" opacity="0.5"/>
+  <circle cx="22" cy="15" r="1" fill="#22c55e"/>
+</svg></div>
               <div class="option-info">
                 <h4>Zooz Regular Switch</h4>
                 <p>Standard on/off in-wall switch. Instant status, double-tap scenes, no neutral required on most.</p>
@@ -1189,7 +1216,14 @@
               </div>
             </div>
             <div class="option-item" data-id="zooz-dimmer" onclick="toggleOption('lighting', 'zooz-dimmer', 87, this)">
-              <div class="option-icon">💡</div>
+              <div class="option-icon"><svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <rect x="10" y="4" width="24" height="36" rx="3" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
+  <rect x="14" y="9" width="16" height="26" rx="4" fill="#0a0a1e" stroke="#c084fc" stroke-width="1.5"/>
+  <line x1="14" y1="22" x2="30" y2="22" stroke="#c084fc" stroke-width="1" opacity="0.5"/>
+  <rect x="32" y="12" width="2" height="20" rx="1" fill="#4a0e82"/>
+  <rect x="32" y="18" width="2" height="14" rx="1" fill="#c084fc"/>
+  <circle cx="22" cy="15" r="1" fill="#22c55e"/>
+</svg></div>
               <div class="option-info">
                 <h4>Zooz Dimmer Switch</h4>
                 <p>In-wall dimmer with ramp control, scene triggers on double/triple tap. Works with LED, CFL, incandescent.</p>
@@ -1197,7 +1231,14 @@
               </div>
             </div>
             <div class="option-item" data-id="zooz-plug" onclick="toggleOption('lighting', 'zooz-plug', 76, this)">
-              <div class="option-icon">🔌</div>
+              <div class="option-icon"><svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <rect x="10" y="6" width="24" height="32" rx="4" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
+  <rect x="18" y="12" width="2" height="6" rx="0.5" fill="#c084fc"/>
+  <rect x="24" y="12" width="2" height="6" rx="0.5" fill="#c084fc"/>
+  <circle cx="22" cy="24" r="1.6" fill="#c084fc"/>
+  <rect x="16" y="30" width="12" height="4" rx="1" fill="#4a0e82"/>
+  <circle cx="22" cy="9" r="1" fill="#22c55e"/>
+</svg></div>
               <div class="option-info">
                 <h4>Zooz Smart Plug</h4>
                 <p>Plug-in outlet for lamps, fans, seasonal lighting. Energy monitoring built in.</p>
@@ -1205,7 +1246,13 @@
               </div>
             </div>
             <div class="option-item" data-id="zooz-4btn-switch" onclick="toggleOption('lighting', 'zooz-4btn-switch', 90, this)">
-              <div class="option-icon">🎛️</div>
+              <div class="option-icon"><svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <rect x="10" y="4" width="24" height="36" rx="3" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
+  <rect x="14" y="8" width="16" height="6" rx="1.5" fill="#0a0a1e" stroke="#c084fc" stroke-width="1"/>
+  <rect x="14" y="16" width="16" height="6" rx="1.5" fill="#0a0a1e" stroke="#c084fc" stroke-width="1"/>
+  <rect x="14" y="24" width="16" height="6" rx="1.5" fill="#0a0a1e" stroke="#c084fc" stroke-width="1"/>
+  <rect x="14" y="32" width="16" height="4" rx="1" fill="#4a0e82" opacity="0.6"/>
+</svg></div>
               <div class="option-info">
                 <h4>Zooz 4-Button Switch</h4>
                 <p>Four programmable scene buttons in a single wallplate. Ideal for entryway, master bedroom, kitchen.</p>
@@ -1213,7 +1260,14 @@
               </div>
             </div>
             <div class="option-item" data-id="zooz-4btn-remote" onclick="toggleOption('lighting', 'zooz-4btn-remote', 90, this)">
-              <div class="option-icon">🎚️</div>
+              <div class="option-icon"><svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <rect x="12" y="6" width="20" height="32" rx="4" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
+  <circle cx="18" cy="16" r="3" fill="#0a0a1e" stroke="#c084fc" stroke-width="1.3"/>
+  <circle cx="26" cy="16" r="3" fill="#0a0a1e" stroke="#c084fc" stroke-width="1.3"/>
+  <circle cx="18" cy="26" r="3" fill="#0a0a1e" stroke="#c084fc" stroke-width="1.3"/>
+  <circle cx="26" cy="26" r="3" fill="#0a0a1e" stroke="#c084fc" stroke-width="1.3"/>
+  <circle cx="22" cy="34" r="1" fill="#22c55e"/>
+</svg></div>
               <div class="option-info">
                 <h4>Zooz 4-Button Remote</h4>
                 <p>Portable 4-button scene remote. Nightstand or coffee table. Battery powered.</p>
@@ -1221,7 +1275,13 @@
               </div>
             </div>
             <div class="option-item" data-id="zooz-remote" onclick="toggleOption('lighting', 'zooz-remote', 78, this)">
-              <div class="option-icon">📟</div>
+              <div class="option-icon"><svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <rect x="14" y="8" width="16" height="28" rx="4" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
+  <circle cx="22" cy="16" r="4" fill="#0a0a1e" stroke="#c084fc" stroke-width="1.5"/>
+  <circle cx="22" cy="16" r="1.5" fill="#c084fc"/>
+  <rect x="18" y="25" width="8" height="6" rx="1.5" fill="#4a0e82" opacity="0.7"/>
+  <circle cx="26" cy="10" r="0.8" fill="#22c55e"/>
+</svg></div>
               <div class="option-info">
                 <h4>Zooz Regular Remote</h4>
                 <p>Simple single-action remote for lights or scenes. Great for guest rooms and grandparents.</p>
