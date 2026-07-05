@@ -924,7 +924,7 @@
               </div>
             </div>
             <div class="essentials-footer">
-              <span class="essentials-price">Base Cost: <strong>$1,499</strong></span>
+              <span class="essentials-price">Base Package: <strong>$1,000</strong></span>
               <span class="essentials-note">Customize below to add optional upgrades</span>
             </div>
           </div>
@@ -941,7 +941,7 @@
           <div class="device-picker" id="thermostatPicker">
 
             <!-- Thermostat 1: Classic Round -->
-            <div class="device-card" data-id="thermo-classic" onclick="selectDevice('thermostat', 'thermo-classic', 189, this)">
+            <div class="device-card" data-id="thermo-classic" onclick="selectDevice('thermostat', 'thermo-classic', 265, this)">
               <div class="card-visual">
                 <svg class="thermo-round" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                   <!-- Outer ring -->
@@ -982,7 +982,7 @@
                 <span class="spec-chip">Touch ring</span>
                 <span class="spec-chip">E-ink</span>
               </div>
-              <div class="card-price">Included</div>
+              <div class="card-price">$265/each</div>
               <div class="qty-row">
                 <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-classic', -1)">−</button>
                 <div class="qty-val" id="qty-thermo-classic">1</div>
@@ -991,7 +991,7 @@
             </div>
 
             <!-- Thermostat 2: Modern Rectangular -->
-            <div class="device-card" data-id="thermo-modern" onclick="selectDevice('thermostat', 'thermo-modern', 249, this)">
+            <div class="device-card" data-id="thermo-modern" onclick="selectDevice('thermostat', 'thermo-modern', 265, this)">
               <div class="card-visual">
                 <svg class="thermo-rect" viewBox="0 0 72 100" xmlns="http://www.w3.org/2000/svg">
                   <!-- Body -->
@@ -1023,7 +1023,7 @@
                 <span class="spec-chip">Schedules</span>
                 <span class="spec-chip">Energy graph</span>
               </div>
-              <div class="card-price">+$60/unit</div>
+              <div class="card-price">$265/each</div>
               <div class="qty-row">
                 <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-modern', -1)">−</button>
                 <div class="qty-val" id="qty-thermo-modern">1</div>
@@ -1032,7 +1032,7 @@
             </div>
 
             <!-- Thermostat 3: Wall Panel -->
-            <div class="device-card" data-id="thermo-panel" onclick="selectDevice('thermostat', 'thermo-panel', 349, this)">
+            <div class="device-card" data-id="thermo-panel" onclick="selectDevice('thermostat', 'thermo-panel', 325, this)">
               <div class="card-visual">
                 <svg class="thermo-panel" viewBox="0 0 140 96" xmlns="http://www.w3.org/2000/svg">
                   <!-- Main panel body -->
@@ -1065,7 +1065,7 @@
                 <span class="spec-chip">5" display</span>
                 <span class="spec-chip">Humidity</span>
               </div>
-              <div class="card-price">+$160/unit</div>
+              <div class="card-price">$325/each</div>
               <div class="qty-row">
                 <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-panel', -1)">−</button>
                 <div class="qty-val" id="qty-thermo-panel">1</div>
@@ -1074,7 +1074,7 @@
             </div>
 
             <!-- Thermostat 4: Premium OLED -->
-            <div class="device-card" data-id="thermo-premium" onclick="selectDevice('thermostat', 'thermo-premium', 449, this)">
+            <div class="device-card" data-id="thermo-premium" onclick="selectDevice('thermostat', 'thermo-premium', 365, this)">
               <div class="card-visual">
                 <svg class="thermo-premium" viewBox="0 0 88 100" xmlns="http://www.w3.org/2000/svg">
                   <!-- Premium housing -->
@@ -1114,7 +1114,7 @@
                 <span class="spec-chip">AI schedule</span>
                 <span class="spec-chip">Presence</span>
               </div>
-              <div class="card-price">+$260/unit</div>
+              <div class="card-price">$365/each</div>
               <div class="qty-row">
                 <button class="qty-btn" onclick="event.stopPropagation(); adjustQty('thermo-premium', -1)">−</button>
                 <div class="qty-val" id="qty-thermo-premium">1</div>
@@ -1221,36 +1221,20 @@
           </div>
 
           <div class="option-grid">
-            <div class="option-item" data-id="lock-keypad" onclick="toggleOption('lock', 'lock-keypad', 199, this)">
-              <div class="option-icon">🔢</div>
+            <div class="option-item" data-id="weiser-lock" onclick="toggleOption('lock', 'weiser-lock', 295, this)">
+              <div class="option-icon">🔐</div>
               <div class="option-info">
-                <h4>Keypad Deadbolt</h4>
-                <p>Backlit keypad, 100 user codes, auto-lock timer. Works with EJG-OS schedules.</p>
-                <span class="opt-price">$199/lock</span>
+                <h4>Weiser Z-Wave Smart Lock</h4>
+                <p>Weiser SmartCode with Z-Wave. Backlit keypad, 30 user codes, auto-lock, one-touch locking. Fully integrated with EJG-OS scenes and away modes.</p>
+                <span class="opt-price">$295/lock</span>
               </div>
             </div>
-            <div class="option-item" data-id="lock-touch" onclick="toggleOption('lock', 'lock-touch', 279, this)">
-              <div class="option-icon">👆</div>
-              <div class="option-info">
-                <h4>Touchscreen Lock</h4>
-                <p>No physical keys. Illuminated touchscreen with virtual keypad and tamper alarm.</p>
-                <span class="opt-price">$279/lock</span>
-              </div>
-            </div>
-            <div class="option-item" data-id="lock-biometric" onclick="toggleOption('lock', 'lock-biometric', 379, this)">
-              <div class="option-icon">🖐️</div>
-              <div class="option-info">
-                <h4>Fingerprint Biometric</h4>
-                <p>Fingerprint scanner + keypad + RFID fob support. Up to 50 fingerprints stored locally.</p>
-                <span class="opt-price">$379/lock</span>
-              </div>
-            </div>
-            <div class="option-item" data-id="lock-garage" onclick="toggleOption('lock', 'lock-garage', 249, this)">
+            <div class="option-item" data-id="garage-tilt" onclick="toggleOption('lock', 'garage-tilt', 60, this)">
               <div class="option-icon">🚗</div>
               <div class="option-info">
-                <h4>Garage Door Controller</h4>
-                <p>Retrofit your existing garage door opener. Open/close from EJG-OS app or automatically.</p>
-                <span class="opt-price">$249/door</span>
+                <h4>Garage Door Tilt Sensor</h4>
+                <p>Ecolink Z-Wave tilt sensor. Know when the garage door opens/closes; trigger scenes on state change. (Add relay to physically open — quote below.)</p>
+                <span class="opt-price">$60/each</span>
               </div>
             </div>
           </div>
@@ -1269,37 +1253,56 @@
             <p>Smart lighting that reacts to your scenes, your schedule, and your presence — all processed locally.</p>
           </div>
 
+          <p style="color:#94a3b8; font-size:13px; margin: -8px 0 20px; text-align:center;">
+            Every device price below includes the device + $25 install labor. Bring your own or let us supply.
+          </p>
           <div class="option-grid">
-            <div class="option-item" data-id="light-bulbs" onclick="toggleOption('lighting', 'light-bulbs', 299, this)">
+            <div class="option-item" data-id="zooz-switch" onclick="toggleOption('lighting', 'zooz-switch', 75, this)">
+              <div class="option-icon">🔘</div>
+              <div class="option-info">
+                <h4>Zooz Regular Switch</h4>
+                <p>Standard on/off in-wall switch. Instant status, double-tap scenes, no neutral required on most.</p>
+                <span class="opt-price">$75/each</span>
+              </div>
+            </div>
+            <div class="option-item" data-id="zooz-dimmer" onclick="toggleOption('lighting', 'zooz-dimmer', 87, this)">
               <div class="option-icon">💡</div>
               <div class="option-info">
-                <h4>Smart Bulb Pack (8 bulbs)</h4>
-                <p>Colour + warm white Zigbee bulbs. Full dimming, scene automation, and group control.</p>
-                <span class="opt-price">$299/pack</span>
+                <h4>Zooz Dimmer Switch</h4>
+                <p>In-wall dimmer with ramp control, scene triggers on double/triple tap. Works with LED, CFL, incandescent.</p>
+                <span class="opt-price">$87/each</span>
               </div>
             </div>
-            <div class="option-item" data-id="light-switches" onclick="toggleOption('lighting', 'light-switches', 349, this)">
+            <div class="option-item" data-id="zooz-plug" onclick="toggleOption('lighting', 'zooz-plug', 76, this)">
               <div class="option-icon">🔌</div>
               <div class="option-info">
-                <h4>In-Wall Dimmer Pack (6 switches)</h4>
-                <p>Replace standard switches. Works with any dimmable bulb. No neutral wire required.</p>
-                <span class="opt-price">$349/pack</span>
+                <h4>Zooz Smart Plug</h4>
+                <p>Plug-in outlet for lamps, fans, seasonal lighting. Energy monitoring built in.</p>
+                <span class="opt-price">$76/each</span>
               </div>
             </div>
-            <div class="option-item" data-id="light-strips" onclick="toggleOption('lighting', 'light-strips', 179, this)">
-              <div class="option-icon">🌈</div>
+            <div class="option-item" data-id="zooz-4btn-switch" onclick="toggleOption('lighting', 'zooz-4btn-switch', 90, this)">
+              <div class="option-icon">🎛️</div>
               <div class="option-info">
-                <h4>Ambient LED Strips (5m)</h4>
-                <p>RGBW strips for under-cabinet, stair, and accent lighting. Fully scene-synced.</p>
-                <span class="opt-price">$179/5m</span>
+                <h4>Zooz 4-Button Switch</h4>
+                <p>Four programmable scene buttons in a single wallplate. Ideal for entryway, master bedroom, kitchen.</p>
+                <span class="opt-price">$90/each</span>
               </div>
             </div>
-            <div class="option-item" data-id="light-outdoor" onclick="toggleOption('lighting', 'light-outdoor', 249, this)">
-              <div class="option-icon">🏡</div>
+            <div class="option-item" data-id="zooz-4btn-remote" onclick="toggleOption('lighting', 'zooz-4btn-remote', 90, this)">
+              <div class="option-icon">🎚️</div>
               <div class="option-info">
-                <h4>Outdoor Smart Lights (4 fixtures)</h4>
-                <p>Weatherproof path and exterior lights. Sunrise/sunset automations built in.</p>
-                <span class="opt-price">$249/set</span>
+                <h4>Zooz 4-Button Remote</h4>
+                <p>Portable 4-button scene remote. Nightstand or coffee table. Battery powered.</p>
+                <span class="opt-price">$90/each</span>
+              </div>
+            </div>
+            <div class="option-item" data-id="zooz-remote" onclick="toggleOption('lighting', 'zooz-remote', 78, this)">
+              <div class="option-icon">📟</div>
+              <div class="option-info">
+                <h4>Zooz Regular Remote</h4>
+                <p>Simple single-action remote for lights or scenes. Great for guest rooms and grandparents.</p>
+                <span class="opt-price">$78/each</span>
               </div>
             </div>
           </div>
@@ -1352,12 +1355,133 @@
               <div class="addon-toggle"></div>
             </div>
 
-            <div class="addon-item" onclick="toggleAddon(this, 'sensors', 199)">
+            <div class="addon-item" onclick="toggleAddon(this, 'motion-sensor', 91)">
               <div class="addon-left">
-                <div class="addon-icon">📡</div>
+                <div class="addon-icon">🏃</div>
                 <div class="addon-info">
-                  <h4>Sensor Pack (6 sensors)</h4>
-                  <p>Motion, door/window, water leak, smoke. Complete awareness.</p>
+                  <h4>Zooz Motion Sensor</h4>
+                  <p>Battery-powered. Trigger scenes, alarms, or occupancy timers.</p>
+                </div>
+              </div>
+              <div class="addon-toggle"></div>
+            </div>
+
+            <div class="addon-item" onclick="toggleAddon(this, 'door-contact', 75)">
+              <div class="addon-left">
+                <div class="addon-icon">🚪</div>
+                <div class="addon-info">
+                  <h4>Zooz Door/Window Contact</h4>
+                  <p>Slim recessed magnetic sensor. Alarm and automation trigger.</p>
+                </div>
+              </div>
+              <div class="addon-toggle"></div>
+            </div>
+
+            <div class="addon-item" onclick="toggleAddon(this, 'water-leak', 55)">
+              <div class="addon-left">
+                <div class="addon-icon">💧</div>
+                <div class="addon-info">
+                  <h4>Zooz Water Leak Sensor</h4>
+                  <p>Compact sensor for under sinks, water heater pan, laundry.</p>
+                </div>
+              </div>
+              <div class="addon-toggle"></div>
+            </div>
+
+            <div class="addon-item" onclick="toggleAddon(this, 'smoke-co', 70)">
+              <div class="addon-left">
+                <div class="addon-icon">🔥</div>
+                <div class="addon-info">
+                  <h4>First Alert Smoke + CO Alarm</h4>
+                  <p>Z-Wave combo alarm. Alerts your phone + triggers scenes on activation.</p>
+                </div>
+              </div>
+              <div class="addon-toggle"></div>
+            </div>
+
+            <div class="addon-item" onclick="toggleAddon(this, 'siren', 90)">
+              <div class="addon-left">
+                <div class="addon-icon">🚨</div>
+                <div class="addon-info">
+                  <h4>Aeotec 105dB Siren</h4>
+                  <p>Loud indoor siren for alarm mode. Battery + AC options.</p>
+                </div>
+              </div>
+              <div class="addon-toggle"></div>
+            </div>
+
+            <div class="addon-item" onclick="toggleAddon(this, 'water-shutoff', 225)">
+              <div class="addon-left">
+                <div class="addon-icon">🚰</div>
+                <div class="addon-info">
+                  <h4>Whole-Home Water Shutoff</h4>
+                  <p>Dome motorized valve. Auto-close on leak detection.</p>
+                </div>
+              </div>
+              <div class="addon-toggle"></div>
+            </div>
+
+            <div class="addon-item" onclick="toggleAddon(this, 'glass-break', 75)">
+              <div class="addon-left">
+                <div class="addon-icon">🪟</div>
+                <div class="addon-info">
+                  <h4>Glass Break Detector</h4>
+                  <p>Acoustic sensor covers a 20-ft radius. Perimeter alarm essential.</p>
+                </div>
+              </div>
+              <div class="addon-toggle"></div>
+            </div>
+
+            <div class="addon-item" onclick="toggleAddon(this, 'doorbell', 105)">
+              <div class="addon-left">
+                <div class="addon-icon">🔔</div>
+                <div class="addon-info">
+                  <h4>Aeotec Doorbell</h4>
+                  <p>Battery button + plug-in chime. Trigger scenes and phone alerts.</p>
+                </div>
+              </div>
+              <div class="addon-toggle"></div>
+            </div>
+
+            <div class="addon-item" onclick="toggleAddon(this, 'temp-humidity', 75)">
+              <div class="addon-left">
+                <div class="addon-icon">🌡️</div>
+                <div class="addon-info">
+                  <h4>Temp + Humidity Sensor</h4>
+                  <p>Aeotec 700-series. Room-by-room climate awareness for HVAC automations.</p>
+                </div>
+              </div>
+              <div class="addon-toggle"></div>
+            </div>
+
+            <div class="addon-item" onclick="toggleAddon(this, 'fan-controller', 80)">
+              <div class="addon-left">
+                <div class="addon-icon">🌀</div>
+                <div class="addon-info">
+                  <h4>Ceiling Fan Controller</h4>
+                  <p>In-wall Z-Wave 4-speed fan switch. Replaces standard pull chain wiring.</p>
+                </div>
+              </div>
+              <div class="addon-toggle"></div>
+            </div>
+
+            <div class="addon-item" onclick="toggleAddon(this, 'shade-relay', 65)">
+              <div class="addon-left">
+                <div class="addon-icon">🪟</div>
+                <div class="addon-info">
+                  <h4>Motorized Shade Relay</h4>
+                  <p>Zooz double relay for motorized blinds and shades. Two-channel open/close.</p>
+                </div>
+              </div>
+              <div class="addon-toggle"></div>
+            </div>
+
+            <div class="addon-item" onclick="toggleAddon(this, 'range-extender', 65)">
+              <div class="addon-left">
+                <div class="addon-icon">📶</div>
+                <div class="addon-info">
+                  <h4>Z-Wave Range Extender</h4>
+                  <p>Aeotec repeater for large homes or dead spots. Add one per floor if needed.</p>
                 </div>
               </div>
               <div class="addon-toggle"></div>
@@ -1384,6 +1508,17 @@
               </div>
               <div class="addon-toggle"></div>
             </div>
+          </div>
+
+          <div style="margin-top: 40px; padding: 28px 32px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(6, 1, 15, 0.4)); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 16px;">
+            <h3 style="color:#f8fafc; font-size: 20px; margin: 0 0 8px 0;">Don't see the device you need?</h3>
+            <p style="color:#cbd5e1; font-size: 14.5px; line-height: 1.6; margin: 0 0 16px 0;">
+              EJG-OS works with hundreds of Z-Wave, Zigbee, and Wi-Fi devices — irrigation controllers, pool automation, retrofit garage openers, hardwired outlets, custom scene controllers, and more.
+              Tell us what you're looking for and we'll price it and confirm compatibility before you commit.
+            </p>
+            <a href="mailto:contact@ejgos.com?subject=Custom%20Device%20Quote%20Request" class="btn btn-primary" style="display: inline-block;">
+              Request Custom Device Quote →
+            </a>
           </div>
 
           <div class="step-nav">
@@ -1500,7 +1635,7 @@
 
         <div class="summary-line">
           <span class="summary-label">Base Install</span>
-          <span class="summary-value">$1,499</span>
+          <span class="summary-value">$1,000</span>
         </div>
         <div class="summary-line">
           <span class="summary-label">Hardware</span>
@@ -1757,7 +1892,7 @@
       Object.values(state.addons).forEach(a => hardware += a.price);
 
       document.getElementById('sum-hardware').textContent = '$' + hardware.toLocaleString();
-      document.getElementById('sum-total').textContent = '$' + (1499 + hardware).toLocaleString();
+      document.getElementById('sum-total').textContent = '$' + (1000 + hardware).toLocaleString();
     }
 
     function buildConfirmSummary() {
@@ -1789,7 +1924,7 @@
       Object.values(state.locks).forEach(l => hardware += l.price);
       Object.values(state.lighting).forEach(l => hardware += l.price);
       Object.values(state.addons).forEach(a => hardware += a.price);
-      const total = 1499 + hardware;
+      const total = 1000 + hardware;
 
       rows += `<div class="confirm-row" style="margin-top:12px; font-size:16px;"><span style="color:var(--text);font-weight:700;">Estimated Total</span><span style="color:var(--purple-400);font-size:18px;">$${total.toLocaleString()}</span></div>`;
 
@@ -1809,7 +1944,7 @@
       Object.values(state.locks).forEach(l => hardware += l.price);
       Object.values(state.lighting).forEach(l => hardware += l.price);
       Object.values(state.addons).forEach(a => hardware += a.price);
-      txt += `\nEstimated Total: $${(1499+hardware).toLocaleString()}`;
+      txt += `\nEstimated Total: $${(1000+hardware).toLocaleString()}`;
       return txt;
     }
 
