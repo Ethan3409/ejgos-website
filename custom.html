@@ -1968,6 +1968,9 @@
       // Total
       let hardware = t.qty * t.unitPrice;
       Object.values(state.cameras).forEach(c => hardware += c.qty * c.unitPrice);
+      // PoE switch bundled when any camera is picked (see summary breakdown).
+      const _camsQtySum = Object.values(state.cameras).reduce((s, c) => s + (c.qty || 0), 0);
+      if (_camsQtySum > 0) hardware += 150;
       Object.values(state.locks).forEach(l => hardware += l.price);
       Object.values(state.lighting).forEach(l => hardware += l.price);
       Object.values(state.addons).forEach(a => hardware += a.price);
@@ -1984,7 +1987,7 @@
       // Base install (always present)
       html += `<div class="cs-group">
         <div class="cs-group-label">Base Install</div>
-        <div class="cs-row"><span class="cs-row-label">EJG-OS Hub, wall tablet, PoE switch, 2 hr labor</span><span class="cs-row-amount">$1,000</span></div>
+        <div class="cs-row"><span class="cs-row-label">EJG-OS Hub, wall tablet, 2 hr labor</span><span class="cs-row-amount">$1,000</span></div>
       </div>`;
 
       // Thermostat — skip the whole group when none selected
@@ -1996,6 +1999,7 @@
 
       // Cameras
       const camList = Object.values(state.cameras);
+      const camsQty = camList.reduce((sum, c) => sum + (c.qty || 0), 0);
       html += '<div class="cs-group"><div class="cs-group-label">Cameras</div>';
       if (camList.length) {
         camList.forEach(c => {
@@ -2004,6 +2008,13 @@
         });
       } else {
         html += '<div class="cs-row muted"><span class="cs-row-label">None selected</span><span class="cs-row-amount">—</span></div>';
+      }
+      // Cameras use PoE, so a PoE-capable 8-port switch is required
+      // for the install. Bundled automatically when 1+ cameras are
+      // picked; kept out of the Base Package for non-camera builds
+      // where it would just be dead weight in the closet.
+      if (camsQty > 0) {
+        html += `<div class="cs-row"><span class="cs-row-label">8-port PoE network switch (required for cameras)</span><span class="cs-row-amount">$150</span></div>`;
       }
       html += '</div>';
 
@@ -2047,6 +2058,8 @@
       // Total
       let hardware = tPrice;
       camList.forEach(c => hardware += c.qty * c.unitPrice);
+      // PoE switch bundled when any camera picked (same rule as above).
+      if (camList.reduce((s, c) => s + (c.qty || 0), 0) > 0) hardware += 150;
       lockList.forEach(l => hardware += l.price);
       lightList.forEach(l => hardware += l.price);
       addonList.forEach(a => hardware += (a.price || 0));
