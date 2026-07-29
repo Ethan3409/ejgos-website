@@ -1,0 +1,37 @@
+<svg viewBox="140 40 400 415" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bar1g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#d4bcff"/>
+      <stop offset="100%" stop-color="#9b7ff0"/>
+    </linearGradient>
+    <linearGradient id="bar2g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#9b7ff0"/>
+      <stop offset="100%" stop-color="#7a5fd0"/>
+    </linearGradient>
+    <linearGradient id="bar3g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7a5fd0"/>
+      <stop offset="100%" stop-color="#4a2fa0"/>
+    </linearGradient>
+    <linearGradient id="hexstroke" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9b7ff0"/>
+      <stop offset="100%" stop-color="#2a1a60"/>
+    </linearGradient>
+    <linearGradient id="hexfill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a0e40"/>
+      <stop offset="100%" stop-color="#09071a"/>
+    </linearGradient>
+    <clipPath id="hexclip">
+      <polygon points="340,52 510,150 510,346 340,444 170,346 170,150"/>
+    </clipPath>
+  </defs>
+
+  <polygon points="340,52 510,150 510,346 340,444 170,346 170,150" fill="url(#hexfill)" stroke="url(#hexstroke)" stroke-width="4"/>
+
+  <g clip-path="url(#hexclip)" transform="translate(340 248) scale(0.65) translate(-340 -248)">
+    <rect x="208" y="158" width="264" height="36" rx="7" fill="url(#bar1g)"/>
+    <rect x="208" y="228" width="172" height="36" rx="7" fill="url(#bar2g)"/>
+    <rect x="208" y="298" width="264" height="36" rx="7" fill="url(#bar3g)"/>
+  </g>
+
+  <polygon points="340,52 510,150 510,346 340,444 170,346 170,150" fill="none" stroke="url(#hexstroke)" stroke-width="4"/>
+</svg>
