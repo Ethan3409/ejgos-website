@@ -693,7 +693,7 @@
     </div>
     <div class="stat-item">
       <span class="stat-num">Z-Wave</span>
-      <span class="stat-label">+ Zigbee + Wi-Fi Device Support</span>
+      <span class="stat-label">Z-Wave Device Support</span>
     </div>
     <div class="stat-item">
       <span class="stat-num">3-Layer</span>
@@ -889,7 +889,7 @@
           <h3>Deep Configuration Panel — Layer 3</h3>
           <p>
             The technical layer. A collapsible left-sidebar navigation for accessing device-level configuration,
-            Z-Wave/Zigbee pairing, automation builder, scene editor, system logs, and Home Assistant integration.
+            Z-Wave pairing, automation builder, scene editor, system logs, and Home Assistant integration.
             Built for expert use — powerful and comprehensive, but never shown to homeowners. Collapsible sidebar
             keeps the interface clean even when every setting is available.
           </p>
@@ -934,7 +934,7 @@
         <div class="step-num">2</div>
         <div>
           <h3>Hardware Installation</h3>
-          <p>Z-Wave switches, Zigbee smart plugs, thermostats, cameras, smart locks — physically installed and wired in your home. The Raspberry Pi-based local server is also set up and hidden from view.</p>
+          <p>Z-Wave switches, smart plugs, thermostats, cameras, smart locks — physically installed and wired in your home. The Raspberry Pi-based local server is also set up and hidden from view.</p>
         </div>
       </div>
       <div class="step">
@@ -988,11 +988,6 @@
         <p>Military-grade mesh protocol — dedicated frequency, no Wi-Fi interference</p>
       </div>
       <div class="tech-badge">
-        <div class="tb-icon">🔵</div>
-        <h4>Zigbee</h4>
-        <p>Low-power mesh networking for plugs, sensors, and battery devices</p>
-      </div>
-      <div class="tech-badge">
         <div class="tb-icon">🥧</div>
         <h4>Raspberry Pi</h4>
         <p>Silent, low-power local server that lives in your home — not a data center</p>
@@ -1001,11 +996,6 @@
         <div class="tb-icon">⚛️</div>
         <h4>React + Vite</h4>
         <p>Blazing-fast, modern frontend — snappier than any cloud-based smart home app</p>
-      </div>
-      <div class="tech-badge">
-        <div class="tb-icon">📶</div>
-        <h4>Wi-Fi Devices</h4>
-        <p>TP-Link Kasa and other popular Wi-Fi smart devices fully supported</p>
       </div>
       <div class="tech-badge">
         <div class="tb-icon">🔐</div>
@@ -1089,7 +1079,7 @@
           <td><span class="check">✓</span></td>
         </tr>
         <tr>
-          <td class="feature-name">Multi-protocol support (Z-Wave + Zigbee + Wi-Fi)</td>
+          <td class="feature-name">Z-Wave protocol support</td>
           <td><span class="check">✓</span></td>
           <td><span class="cross">✗</span></td>
           <td><span class="cross">✗</span></td>
@@ -1264,9 +1254,9 @@
         <div class="pricing-price"><sup>$</sup>1,000<sub> install</sub></div>
         <div class="pricing-desc">Required foundation for every install. Add devices from there.</div>
         <ul class="pricing-features">
-          <li><span class="pf-check">✓</span> EJG-OS Pi Hub (Z-Wave + Zigbee)</li>
+          <li><span class="pf-check">✓</span> EJG-OS Pi Hub (Z-Wave)</li>
           <li><span class="pf-check">✓</span> 10" wall-mount tablet</li>
-          <li><span class="pf-check">✓</span> 8-port PoE network switch</li>
+          <li><span class="pf-check">✓</span> 3 Zooz Z-Wave switches, installed</li>
           <li><span class="pf-check">✓</span> 2 hours install labor + tuning</li>
           <li><span class="pf-check">✓</span> Secure remote access — encrypted tunnel</li>
           <li><span class="pf-check">✓</span> Free lifetime software updates</li>
@@ -1396,7 +1386,7 @@
           <div class="builder-row">
             <div>
               <div class="builder-label">Smart Plugs</div>
-              <div class="builder-sub">$35/each installed · Zigbee</div>
+              <div class="builder-sub">$35/each installed · Z-Wave</div>
             </div>
             <div class="builder-controls">
               <button class="qty-btn" onclick="adj('plugs',-1)">−</button>
@@ -1432,7 +1422,7 @@
           <div class="builder-row">
             <div>
               <div class="builder-label">Motion Sensors</div>
-              <div class="builder-sub">$65/each installed · Zigbee</div>
+              <div class="builder-sub">$65/each installed · Z-Wave</div>
             </div>
             <div class="builder-controls">
               <button class="qty-btn" onclick="adj('motion',-1)">−</button>
@@ -1444,7 +1434,7 @@
           <div class="builder-row">
             <div>
               <div class="builder-label">Door / Window Sensors</div>
-              <div class="builder-sub">$45/each installed · Zigbee</div>
+              <div class="builder-sub">$45/each installed · Z-Wave</div>
             </div>
             <div class="builder-controls">
               <button class="qty-btn" onclick="adj('sensors',-1)">−</button>
@@ -1846,8 +1836,8 @@
           <span class="faq-arrow">▾</span>
         </div>
         <div class="faq-a">
-          EJG-OS supports Z-Wave devices (switches, dimmers, locks, sensors), Zigbee devices (plugs, sensors, bulbs),
-          and Wi-Fi devices (TP-Link Kasa, and others). Because it runs on Home Assistant under the hood, it's
+          EJG-OS supports Z-Wave devices (switches, dimmers, locks, sensors, plugs, thermostats, cameras),
+          It's
           compatible with thousands of devices from hundreds of brands. Your installer will recommend specific
           hardware during the consultation.
         </div>
@@ -1872,7 +1862,7 @@
           <span class="faq-arrow">▾</span>
         </div>
         <div class="faq-a">
-          EJG-OS is primarily designed for homeowners. That said, many Z-Wave and Zigbee devices can be installed
+          EJG-OS is primarily designed for homeowners. That said, many Z-Wave devices can be installed
           without permanent modification (especially smart plugs and some light switches). If you're renting,
           speak to your installer — there may be options that work for your situation. Homeowners with rental
           properties can also deploy EJG-OS in units they manage.
