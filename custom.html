@@ -469,8 +469,14 @@
       display: flex; justify-content: space-between; align-items: flex-start;
       margin-bottom: 14px; gap: 12px;
     }
-    .summary-label { font-size: 13px; color: var(--text-muted); flex: 1; }
-    .summary-value { font-size: 13px; font-weight: 600; color: var(--text); text-align: right; flex-shrink: 0; }
+    .summary-label { font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+    .summary-value {
+      font-size: 13px; font-weight: 600; color: var(--text);
+      text-align: right; line-height: 1.5;
+      min-width: 0; flex: 1;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
     .summary-value.empty { color: var(--text-muted); font-weight: 400; font-style: italic; }
     .summary-divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
     .summary-total-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
