@@ -247,9 +247,18 @@
 
     .comparison-section h2 {
       font-size: 32px;
-      margin-bottom: 40px;
+      margin-bottom: 16px;
       text-align: center;
       color: var(--text);
+    }
+
+    .comparison-lede {
+      max-width: 720px;
+      margin: 0 auto 40px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.6;
     }
 
     .comparison-table {
@@ -709,46 +718,39 @@
 
     <!-- Comparison Table -->
     <section class="comparison-section">
-      <h2>EJG-OS vs The Competition</h2>
+      <h2>How EJG-OS Compares</h2>
+      <p class="comparison-lede">Against the alternatives a homeowner or builder actually shops for — the big installer platform, the voice-first installer platform, the DIY option for tinkerers, and the mass-market cloud stack.</p>
       <div class="comparison-table">
         <table>
           <thead>
             <tr>
               <th>Feature</th>
               <th>EJG-OS</th>
-              <th>Telus SmartHome</th>
-              <th>ADT</th>
+              <th>Control4</th>
+              <th>Josh.ai</th>
+              <th>Home Assistant</th>
               <th>Google Home</th>
-              <th>Amazon Alexa</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>100% Local Processing</td>
+              <td>100% local processing</td>
               <td class="check">✓</td>
               <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
               <td class="cross">✗</td>
             </tr>
             <tr>
-              <td>Zero Monthly Fees</td>
+              <td>No monthly subscriptions</td>
               <td class="check">✓</td>
               <td class="cross">✗</td>
               <td class="cross">✗</td>
               <td class="check">✓</td>
-              <td class="check">✓</td>
-            </tr>
-            <tr>
-              <td>Professional Installation</td>
-              <td class="check">✓</td>
-              <td class="check">✓</td>
-              <td class="check">✓</td>
-              <td class="cross">✗</td>
               <td class="cross">✗</td>
             </tr>
             <tr>
-              <td>Z-Wave Support</td>
+              <td>Professionally installed</td>
               <td class="check">✓</td>
               <td class="check">✓</td>
               <td class="check">✓</td>
@@ -756,7 +758,31 @@
               <td class="cross">✗</td>
             </tr>
             <tr>
-              <td>Built-in Voice Assistant</td>
+              <td>Native Z-Wave &amp; Zigbee</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
+              <td class="cross">✗</td>
+              <td class="check">✓</td>
+              <td class="cross">✗</td>
+            </tr>
+            <tr>
+              <td>Built-in voice assistant</td>
+              <td class="check">✓</td>
+              <td class="cross">✗</td>
+              <td class="check">✓</td>
+              <td class="cross">✗</td>
+              <td class="check">✓</td>
+            </tr>
+            <tr>
+              <td>No cloud data collection</td>
+              <td class="check">✓</td>
+              <td class="cross">✗</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
+              <td class="cross">✗</td>
+            </tr>
+            <tr>
+              <td>Modifiable without a dealer</td>
               <td class="check">✓</td>
               <td class="cross">✗</td>
               <td class="cross">✗</td>
@@ -764,28 +790,20 @@
               <td class="check">✓</td>
             </tr>
             <tr>
-              <td>Data Privacy (No Cloud)</td>
+              <td>Works during an internet outage</td>
               <td class="check">✓</td>
               <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
+              <td class="check">✓</td>
+              <td class="check">✓</td>
               <td class="cross">✗</td>
             </tr>
             <tr>
-              <td>Installer Network Support</td>
+              <td>One vendor for hardware + install + support</td>
               <td class="check">✓</td>
               <td class="check">✓</td>
               <td class="check">✓</td>
               <td class="cross">✗</td>
               <td class="cross">✗</td>
-            </tr>
-            <tr>
-              <td>You Own Your System</td>
-              <td class="check">✓</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="check">✓</td>
-              <td class="check">✓</td>
             </tr>
           </tbody>
         </table>
