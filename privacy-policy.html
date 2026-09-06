@@ -1,53 +1,459 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EJG-OS Privacy Policy</title>
-<style>
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 800px; margin: 0 auto; padding: 40px 20px; color: #1a1a2e; line-height: 1.7; }
-  h1 { color: #6b5ce7; } h2 { color: #3d2fa0; margin-top: 2rem; }
-  a { color: #6b5ce7; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — EJG-OS</title>
+  <meta name="description" content="How the EJG Home iPhone and tablet apps handle your data — a local-first policy, updated September 2026.">
+  <style>
+    :root {
+      --purple-900: #1a0533;
+      --purple-800: #2d0a52;
+      --purple-700: #4a0e82;
+      --purple-600: #6b21a8;
+      --purple-500: #9333ea;
+      --purple-400: #a855f7;
+      --purple-300: #c084fc;
+      --bg: #060010;
+      --surface: rgba(255,255,255,0.04);
+      --text: #f3e8ff;
+      --text-muted: rgba(196,150,255,0.7);
+      --border: rgba(168,85,247,0.2);
+      --border-strong: rgba(168,85,247,0.35);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Navigation — identical to about.html */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 64px;
+      background: rgba(6,0,16,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+    .nav-logo {
+      font-size: 20px; font-weight: 700;
+      color: var(--purple-300);
+      text-decoration: none;
+      letter-spacing: 2px;
+      transition: color 0.3s;
+    }
+    .nav-logo:hover { color: var(--purple-400); }
+    .nav-hamburger {
+      display: none; background: none; border: none;
+      color: var(--text); font-size: 24px; cursor: pointer; padding: 8px;
+    }
+    .nav-links {
+      display: flex; list-style: none; gap: 32px; align-items: center;
+    }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 14px; font-weight: 500; transition: color 0.3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400)) !important;
+      color: white !important; padding: 8px 20px !important;
+      border-radius: 6px; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(168,85,247,0.3); }
+    @media (max-width: 768px) {
+      .nav-hamburger { display: block; }
+      .nav-links {
+        position: absolute; top: 64px; left: 0; right: 0;
+        background: rgba(6,0,16,0.98);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column; gap: 16px; padding: 20px 24px; display: none;
+      }
+      .nav-links.nav-open { display: flex; }
+    }
+
+    main { margin-top: 64px; }
+
+    /* Page hero — smaller than the marketing pages; this is a doc. */
+    .doc-hero {
+      padding: 96px 24px 48px;
+      background: linear-gradient(180deg, rgba(107,33,168,0.20), transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .doc-hero-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .doc-eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--purple-300);
+      margin-bottom: 16px;
+    }
+    .doc-hero h1 {
+      font-size: clamp(32px, 4.5vw, 46px);
+      line-height: 1.1;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      text-wrap: balance;
+      margin-bottom: 18px;
+    }
+    .doc-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+    .doc-meta .sep {
+      width: 3px; height: 3px; border-radius: 50%;
+      background: var(--text-muted); opacity: 0.6;
+    }
+
+    /* Body content */
+    .doc {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 96px;
+    }
+    .doc .lede {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 40px;
+    }
+    .doc section {
+      padding-top: 36px;
+      margin-top: 36px;
+      border-top: 1px solid var(--border);
+    }
+    .doc section:first-of-type {
+      padding-top: 0;
+      margin-top: 0;
+      border-top: none;
+    }
+    .doc h2 {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+      letter-spacing: -0.005em;
+    }
+    .doc h2 .kicker {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--purple-300);
+      margin-bottom: 10px;
+    }
+    .doc p {
+      color: rgba(243,232,255,0.82);
+      margin-top: 14px;
+    }
+    .doc ul {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+    }
+    .doc ul li {
+      position: relative;
+      padding: 10px 0 10px 22px;
+      color: rgba(243,232,255,0.82);
+      border-bottom: 1px solid rgba(168,85,247,0.10);
+    }
+    .doc ul li:last-child { border-bottom: none; }
+    .doc ul li::before {
+      content: "";
+      position: absolute;
+      left: 4px; top: 20px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--purple-400);
+      opacity: 0.75;
+    }
+    .doc ul li strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .doc a {
+      color: var(--purple-300);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(192,132,252,0.35);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .doc a:hover {
+      color: var(--purple-400);
+      border-color: var(--purple-400);
+    }
+
+    .contact-card {
+      margin-top: 56px;
+      padding: 28px 28px 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    .contact-card .kicker {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--purple-300);
+      margin-bottom: 10px;
+    }
+    .contact-card p { margin-top: 8px; }
+    .contact-card .company {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-top: 16px;
+    }
+
+    /* Footer — identical to about.html */
+    footer {
+      background: var(--purple-900);
+      border-top: 1px solid var(--border);
+      padding: 56px 24px 24px;
+    }
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+    .footer-column h3 {
+      font-size: 14px; font-weight: 700;
+      color: var(--purple-300);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .footer-column a, .footer-column p {
+      display: block;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 10px;
+      transition: color 0.3s;
+    }
+    .footer-column a:hover { color: var(--text); }
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 40px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+    @media (max-width: 768px) {
+      .footer-content { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+      .doc-hero { padding: 80px 24px 40px; }
+      .contact-card { padding: 22px 20px 20px; }
+    }
+    @media (max-width: 480px) {
+      .footer-content { grid-template-columns: 1fr; }
+    }
+  </style>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 </head>
 <body>
-<h1>EJG-OS Privacy Policy</h1>
-<p><strong>Last updated:</strong> April 30, 2026</p>
-<p>EJG Technologies ("we", "us", or "our") operates the EJG-OS application. This policy describes how we handle information when you use our app.</p>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="nav-logo">EJG-OS</a>
+    <button class="nav-hamburger" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="custom.html">Custom Build</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Get Started</a></li>
+    </ul>
+  </nav>
 
-<h2>Information We Collect</h2>
-<p>The EJG-OS app collects and stores the following on your device only:</p>
-<ul>
-  <li>The local IP address of your EJG-OS hub (entered by the installer during setup)</li>
-  <li>App configuration preferences stored locally on your device</li>
-</ul>
-<p>We do not collect, transmit, or store any personal information on our servers. All communication is between your tablet and your local EJG-OS hub on your home network.</p>
+  <main>
+    <!-- Doc hero -->
+    <section class="doc-hero">
+      <div class="doc-hero-inner">
+        <div class="doc-eyebrow">Legal</div>
+        <h1>Privacy Policy</h1>
+        <div class="doc-meta">
+          <span>Effective September 6, 2026</span>
+          <span class="sep" aria-hidden="true"></span>
+          <span>Version 1.0</span>
+        </div>
+      </div>
+    </section>
 
-<h2>Data Storage</h2>
-<p>All data is stored locally on your Android device using Android's SharedPreferences system. No data is sent to EJG Technologies or any third party.</p>
+    <div class="doc">
+      <p class="lede">
+        EJG Home is the companion app for EJG-OS, a local-first smart home
+        platform installed by <strong>EJG Smart Systems Inc.</strong> This
+        policy covers both the EJG Home iPhone app and the EJG Home wall
+        tablet app, and describes exactly what data each handles — and what
+        it deliberately does not.
+      </p>
 
-<h2>Network Access</h2>
-<p>The app connects only to your EJG-OS hub on your local home network (or via your Tailscale VPN if configured). It does not connect to any external servers operated by EJG Technologies.</p>
+      <section>
+        <h2><span class="kicker">What EJG Home collects</span>Only what's needed to talk to your hub.</h2>
+        <ul>
+          <li><strong>Login credentials.</strong> Username and password (or PIN) are stored in encrypted device storage — iOS Keychain on iPhone, Android's SharedPreferences on the tablet — and used to authenticate with your EJG-OS hub. They are never transmitted to EJG Smart Systems or any third party.</li>
+          <li><strong>Hub address.</strong> The Cloudflare Tunnel hostname or local IP of your EJG-OS hub, entered once during setup and stored on your device only.</li>
+          <li><strong>Device identifier.</strong> A random per-install ID your hub uses to distinguish this device from any other device signed into the same account. Not shared externally.</li>
+          <li><strong>Push notification token.</strong> Issued by Apple Push Notification Service or Firebase Cloud Messaging and sent to your hub so it can deliver alerts about your home. Not shared with third parties.</li>
+        </ul>
+      </section>
 
-<h2>Permissions</h2>
-<p>The app requests the following Android permissions:</p>
-<ul>
-  <li><strong>INTERNET</strong> — to connect to your local EJG-OS hub</li>
-  <li><strong>WAKE_LOCK</strong> — to keep the screen on for wall panel use</li>
-  <li><strong>RECEIVE_BOOT_COMPLETED</strong> — to auto-launch after device restart</li>
-  <li><strong>RECORD_AUDIO</strong> — for the optional Skip voice assistant feature (microphone access)</li>
-</ul>
+      <section>
+        <h2><span class="kicker">What EJG Home does not collect</span>No trackers, no analytics, no advertising.</h2>
+        <ul>
+          <li>No advertising identifiers, marketing SDKs, or third-party analytics of any kind.</li>
+          <li>No location tracking. Neither app requests GPS access.</li>
+          <li>No access to your contacts, calendar, or photo library.</li>
+          <li>No access to your microphone or camera unless you explicitly grant it for a specific feature. Voice control via Skip requires the microphone; you can revoke that permission at any time in your device's settings.</li>
+          <li>No behavioural telemetry. Neither app reports which screens you visit or how you use it.</li>
+        </ul>
+      </section>
 
-<h2>Children's Privacy</h2>
-<p>EJG-OS is intended for homeowners and is not directed at children under 13. We do not knowingly collect any information from children.</p>
+      <section>
+        <h2><span class="kicker">Your hub handles the rest</span>Everything you see in the app lives on your hub.</h2>
+        <p>
+          Your EJG-OS hub is a physical device installed at your home. It is
+          the source of every reading, event, and recording surfaced in the
+          app. Device state, camera footage, sensor history, and automation
+          logs live on that hub, which is under your physical control.
+        </p>
+        <p>
+          Nothing is uploaded to EJG Smart Systems servers unless you
+          explicitly enable remote access — via a Cloudflare Tunnel or
+          Tailscale — and even then, the data path is between your hub and
+          your app only.
+        </p>
+      </section>
 
-<h2>Changes to This Policy</h2>
-<p>We may update this policy from time to time. Updates will be posted at this URL.</p>
+      <section>
+        <h2><span class="kicker">Voice control (Skip)</span>Audio goes to your hub; language processing may reach OpenAI.</h2>
+        <p>
+          When you invoke voice control, your microphone audio is streamed
+          to your EJG-OS hub for processing. From the hub, the transcript
+          may be sent to OpenAI's API for language understanding, subject
+          to <a href="https://openai.com/policies/privacy-policy">OpenAI's own privacy policy</a>.
+          The transcript is not stored by EJG Smart Systems.
+        </p>
+      </section>
 
-<h2>Contact</h2>
-<p>Questions about this policy: <a href="mailto:info@ejgtechnologies.ca">info@ejgtechnologies.ca</a><br>
-EJG Technologies — Calgary, Alberta, Canada</p>
+      <section>
+        <h2><span class="kicker">Push notifications</span>Composed on your hub, delivered by Apple or Google.</h2>
+        <p>
+          Push notification content is composed on your hub and passed
+          through Apple Push Notification Service (iOS) or Firebase Cloud
+          Messaging (Android) to your device. EJG Smart Systems does not
+          read, process, or store the content of these notifications.
+        </p>
+      </section>
+
+      <section>
+        <h2><span class="kicker">Permissions requested</span>Only what each feature needs.</h2>
+        <ul>
+          <li><strong>Network access</strong> — to reach your local EJG-OS hub.</li>
+          <li><strong>Microphone</strong> — only if you enable Skip voice control.</li>
+          <li><strong>Notifications</strong> — only if you opt in when prompted.</li>
+          <li><strong>Wake lock</strong> (tablet only) — to keep the wall panel display on.</li>
+          <li><strong>Boot completed</strong> (tablet only) — to auto-launch the wall panel after a restart.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2><span class="kicker">Children's privacy</span>Not directed at children under 13.</h2>
+        <p>
+          EJG Home is designed for use by adult homeowners. We do not
+          knowingly collect any information from children under 13.
+        </p>
+      </section>
+
+      <section>
+        <h2><span class="kicker">Changes</span>Updates will bump the version and date above.</h2>
+        <p>
+          Material changes to this policy will be reflected in an updated
+          version number and effective date at the top of this page.
+          Continued use of the app after such a change constitutes
+          acceptance.
+        </p>
+      </section>
+
+      <div class="contact-card">
+        <span class="kicker">Contact</span>
+        <p>
+          Questions about this policy? Email
+          <a href="mailto:info@ejgos.com">info@ejgos.com</a>.
+        </p>
+        <p class="company">
+          EJG Smart Systems Inc. — Calgary, Alberta, Canada
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Product</h3>
+        <a href="features.html">Features</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="how-it-works.html">How It Works</a>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-column">
+        <h3>Legal</h3>
+        <a href="privacy-policy.html">Privacy</a>
+        <a href="#terms">Terms</a>
+        <a href="#security">Security</a>
+      </div>
+      <div class="footer-column">
+        <h3>Location</h3>
+        <p>Calgary, AB</p>
+        <p>Growing Nationwide</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 EJG Smart Systems Inc. All rights reserved. The Smart Home Operating System.</p>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.querySelector('.nav-hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('nav-open'));
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('nav-open'));
+    });
+  </script>
 </body>
 </html>
