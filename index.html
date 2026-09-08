@@ -690,7 +690,7 @@
     </div>
     <div class="stat-item">
       <span class="stat-num">$0</span>
-      <span class="stat-label">Monthly Platform Fees (optional monitoring only)</span>
+      <span class="stat-label">Monthly Platform Fees (optional support plan only)</span>
     </div>
     <div class="stat-item">
       <span class="stat-num">Z-Wave</span>
@@ -949,14 +949,14 @@
         <div class="step-num">4</div>
         <div>
           <h3>Handoff &amp; Training</h3>
-          <p>You get a walkthrough of the app, your login credentials, and instructions. Everything is running locally on your own hardware — no monthly fees unless you choose optional monitoring.</p>
+          <p>You get a walkthrough of the app, your login credentials, and instructions. Everything is running locally on your own hardware — no monthly fees unless you choose the optional Priority Support plan.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">5</div>
         <div>
-          <h3>Optional: 24/7 Monitoring</h3>
-          <p>For homeowners who want professional eyes on their home, EJG-OS offers optional live monitoring. Alerts, event response, and peace of mind — for a flat monthly fee, with no lock-in contract.</p>
+          <h3>Optional: Priority Support</h3>
+          <p>Every install includes ongoing support from your installer. Priority Support is an optional add-on for homeowners who want faster response times, remote diagnostics, and hands-on help configuring new devices and automations.</p>
         </div>
       </div>
     </div>
@@ -1083,7 +1083,7 @@
           <td><span class="check">✓ Hey Skip</span></td>
         </tr>
         <tr>
-          <td class="feature-name">Optional 24/7 monitoring (no contract)</td>
+          <td class="feature-name">Direct installer support (no contract)</td>
           <td><span class="partial">Contract required</span></td>
           <td><span class="check">✓</span></td>
         </tr>
@@ -1224,7 +1224,7 @@
     <h2>One-time install.<br />No monthly surprises.</h2>
     <p class="section-sub">
       EJG-OS is a one-time hardware investment. Every plan includes a configured wall tablet,
-      full scenes and automations, and optional 24/7 monitoring — no mandatory fees, no lock-in.
+      full scenes and automations, and installer support — no mandatory fees, no lock-in.
     </p>
 
     <div class="pricing-grid-5">
@@ -1315,23 +1315,19 @@
 
     </div>
 
-    <!-- Monitoring Add-On -->
+    <!-- Support Add-On -->
     <div style="margin-top: 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 1.5rem 2rem; display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; justify-content: space-between;">
       <div>
         <div class="pricing-tier" style="margin-bottom: 0.4rem;">Optional Add-On — All Plans</div>
-        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.3rem;">24/7 Professional Monitoring</h3>
+        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.3rem;">Priority Support Plan</h3>
         <p style="font-size: 0.83rem; color: var(--text-muted); max-width: 480px;">
-          Live human monitoring, event response, and alerts — no lock-in contract. Start, pause, or cancel any time.
+          Priority response for questions, remote diagnostics into your hub with your permission, and hands-on help configuring new devices, scenes, or automations. No lock-in — start, pause, or cancel any time.
         </p>
       </div>
       <div style="display:flex; gap: 1rem; flex-wrap: wrap;">
         <div style="text-align:center; background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.3); border-radius: 14px; padding: 0.8rem 1.25rem;">
-          <div style="font-size: 1.5rem; font-weight: 900; color: var(--purple-300);">$25<span style="font-size:0.8rem;font-weight:400;color:var(--text-muted)">/mo</span></div>
-          <div style="font-size: 0.7rem; color: var(--text-muted);">Standard</div>
-        </div>
-        <div style="text-align:center; background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.3); border-radius: 14px; padding: 0.8rem 1.25rem;">
-          <div style="font-size: 1.5rem; font-weight: 900; color: var(--purple-300);">$40<span style="font-size:0.8rem;font-weight:400;color:var(--text-muted)">/mo</span></div>
-          <div style="font-size: 0.7rem; color: var(--text-muted);">Premium (large home)</div>
+          <div style="font-size: 1.4rem; font-weight: 900; color: var(--purple-300);">Contact for quote</div>
+          <div style="font-size: 0.7rem; color: var(--text-muted);">Priced per home size</div>
         </div>
       </div>
     </div>
@@ -1471,16 +1467,15 @@
         <div class="builder-col">
           <h4>Options &amp; Payment</h4>
 
-          <!-- Monitoring -->
+          <!-- Priority Support (optional add-on, quoted separately) -->
           <div class="builder-row" style="align-items:flex-start; padding-bottom:1rem;">
             <div>
-              <div class="builder-label">24/7 Monitoring</div>
-              <div class="builder-sub">Added to your monthly total</div>
+              <div class="builder-label">Priority Support</div>
+              <div class="builder-sub">Optional monthly add-on — priced per home, quoted with your final estimate</div>
             </div>
             <div class="monitoring-select">
-              <button class="select-btn" id="mon-none" onclick="setMonitor('none')">None</button>
-              <button class="select-btn selected" id="mon-std" onclick="setMonitor('std')">$25/mo</button>
-              <button class="select-btn" id="mon-prem" onclick="setMonitor('prem')">$40/mo</button>
+              <button class="select-btn selected" id="mon-none" onclick="setMonitor('none')">No</button>
+              <button class="select-btn" id="mon-std" onclick="setMonitor('std')">Include</button>
             </div>
           </div>
 
@@ -1528,8 +1523,8 @@
               <span class="s-val" id="s-finance">$0</span>
             </div>
             <div class="summary-row" id="s-monitor-row" style="display:none">
-              <span class="s-label">Monitoring (monthly)</span>
-              <span class="s-val green" id="s-monitor">$0/mo</span>
+              <span class="s-label">Priority Support</span>
+              <span class="s-val green" id="s-monitor">Quoted separately</span>
             </div>
 
             <div class="summary-total">
@@ -1557,7 +1552,7 @@
     switches: 0, plugs: 0, locks: 0, cameras: 0,
     motion: 0, sensors: 0, tablets: 0,
     therm: false, bell: false, garage: false,
-    monitor: 'std', payment: 'full'
+    monitor: 'none', payment: 'full'
   };
 
   var PRICES = {
@@ -1584,8 +1579,9 @@
 
   function setMonitor(val) {
     state.monitor = val;
-    ['none','std','prem'].forEach(function(v) {
-      document.getElementById('mon-' + v).classList.toggle('selected', v === val);
+    ['none','std'].forEach(function(v) {
+      var el = document.getElementById('mon-' + v);
+      if (el) el.classList.toggle('selected', v === val);
     });
     recalc();
   }
@@ -1613,7 +1609,9 @@
 
     var subtotal = BASE + TABLET_INCL + deviceCost + extraCost;
     var total = subtotal;
-    var monAmt = state.monitor === 'std' ? 25 : state.monitor === 'prem' ? 40 : 0;
+    // Priority Support is a yes/no add-on quoted separately (no fixed
+    // monthly rate in this calculator); it doesn't roll into the total.
+    var supportSelected = state.monitor && state.monitor !== 'none';
 
     // update display
     document.getElementById('s-devices').textContent = fmt(deviceCost);
@@ -1624,8 +1622,8 @@
     document.getElementById('s-finance-row').style.display = 'none';
 
     var monRow = document.getElementById('s-monitor-row');
-    monRow.style.display = monAmt > 0 ? '' : 'none';
-    document.getElementById('s-monitor').textContent = '$' + monAmt + '/mo';
+    monRow.style.display = supportSelected ? '' : 'none';
+    document.getElementById('s-monitor').textContent = 'Quoted separately';
 
     var tLabel = document.getElementById('t-label');
     var tSub = document.getElementById('t-sub');
@@ -1654,72 +1652,70 @@
 <div class="divider"></div>
 
 <!-- ════════════════════════════════════════════════════════
-     MONITORING DETAILS
+     PRIORITY SUPPORT
 ════════════════════════════════════════════════════════ -->
 <div class="section-wrap">
   <div class="container">
-    <div class="section-label">24/7 Monitoring</div>
-    <h2>Professional eyes on your home,<br />around the clock.</h2>
+    <div class="section-label">Priority Support</div>
+    <h2>Direct support from the person who installed your system.</h2>
     <p class="section-sub">
-      Optional monitoring powered by a real team — not bots, not automated calls.
-      Live alert response, event escalation, and full peace of mind for a flat monthly rate.
+      Every install includes ongoing support from your EJG-OS installer.
+      Priority Support is an optional add-on for homeowners who want
+      faster response times and hands-on help when something needs
+      attention.
     </p>
 
     <div class="monitoring-split">
       <div>
         <div class="steps">
           <div class="step">
-            <div class="step-num" style="width:42px;height:42px;font-size:0.9rem">🚨</div>
+            <div class="step-num" style="width:42px;height:42px;font-size:0.9rem">💬</div>
             <div>
-              <h3>Event Detection</h3>
-              <p>EJG-OS detects unusual activity — motion at odd hours, doors unlocked, temperature spikes, device anomalies — and flags it immediately.</p>
+              <h3>Direct contact</h3>
+              <p>Email or call your installer for help with your system — settings, new devices, adding automations, troubleshooting.</p>
             </div>
           </div>
           <div class="step">
-            <div class="step-num" style="width:42px;height:42px;font-size:0.9rem">📞</div>
+            <div class="step-num" style="width:42px;height:42px;font-size:0.9rem">🔧</div>
             <div>
-              <h3>Human Response</h3>
-              <p>A live monitoring agent reviews the alert and contacts you directly. If you can't be reached, they escalate to your designated emergency contacts.</p>
+              <h3>Remote diagnostics</h3>
+              <p>With your permission, your installer can tunnel into your hub securely to diagnose and fix issues — no home visit required for most problems.</p>
             </div>
           </div>
           <div class="step">
-            <div class="step-num" style="width:42px;height:42px;font-size:0.9rem">🛡️</div>
+            <div class="step-num" style="width:42px;height:42px;font-size:0.9rem">📈</div>
             <div>
-              <h3>Resolution &amp; Log</h3>
-              <p>Every event is logged, timestamped, and stored locally in your home server. You always have a full history of what happened and when.</p>
+              <h3>Ongoing improvements</h3>
+              <p>Firmware updates, new features, and system tuning as EJG-OS improves. Priority Support subscribers are first in line for updates and setup help.</p>
             </div>
           </div>
         </div>
       </div>
 
       <div class="monitoring-visual">
-        <div style="font-size: 0.85rem; font-weight: 700; color: var(--purple-300); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.06em;">Monitoring Breakdown</div>
+        <div style="font-size: 0.85rem; font-weight: 700; color: var(--purple-300); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.06em;">What's included</div>
         <div class="monitor-row">
-          <span class="monitor-label">Homeowner monthly cost</span>
-          <span class="monitor-val gold">$25–$40/mo</span>
+          <span class="monitor-label">Basic support (with every install)</span>
+          <span class="monitor-val green">Included</span>
         </div>
         <div class="monitor-row">
-          <span class="monitor-label">Monitoring operator share</span>
-          <span class="monitor-val blue">$15/home/mo</span>
+          <span class="monitor-label">Priority Support plan</span>
+          <span class="monitor-val gold">Optional add-on</span>
         </div>
         <div class="monitor-row">
-          <span class="monitor-label">EJG-OS network share</span>
-          <span class="monitor-val green">$5–$10/home/mo</span>
-        </div>
-        <div class="monitor-row">
-          <span class="monitor-label">Response time (human)</span>
-          <span class="monitor-val" style="color: var(--text);">&lt; 5 minutes</span>
-        </div>
-        <div class="monitor-row">
-          <span class="monitor-label">Contract requirement</span>
+          <span class="monitor-label">Contract required</span>
           <span class="monitor-val green">None</span>
         </div>
         <div class="monitor-row">
-          <span class="monitor-label">Monitoring location</span>
-          <span class="monitor-val" style="color: var(--text);">24/7 Remote Team</span>
+          <span class="monitor-label">Cancel anytime</span>
+          <span class="monitor-val green">Yes</span>
         </div>
         <div class="monitor-row">
-          <span class="monitor-label">Data stored locally</span>
+          <span class="monitor-label">Remote diagnostics</span>
+          <span class="monitor-val" style="color: var(--text);">Homeowner-approved</span>
+        </div>
+        <div class="monitor-row">
+          <span class="monitor-label">Your data stays local</span>
           <span class="monitor-val green">100% Yes</span>
         </div>
       </div>
@@ -1744,8 +1740,8 @@
     <div class="installer-hero">
       <h3>Turn Your Installations Into a Recurring Business</h3>
       <p>
-        License EJG-OS, deploy it for your clients, and build a portfolio of monitored homes
-        generating ongoing monthly revenue. We give you the tools — you build the business.
+        License EJG-OS, deploy it for your clients, and build a portfolio of installed homes
+        with optional recurring support revenue. We give you the tools — you build the business.
       </p>
       <a href="#contact" class="btn-primary">Apply as an Installer</a>
     </div>
@@ -1795,7 +1791,8 @@
         <div class="faq-a">
           Yes. EJG-OS runs entirely on a Raspberry Pi server inside your home. Your lights, locks, thermostats, scenes,
           and automations all continue working without any internet connection. The only features that require internet
-          are optional — like remote access from your phone when you're away, and the monitoring service.
+          are optional — like remote access from your phone when you're away, and remote diagnostics if you subscribe
+          to Priority Support.
         </div>
       </div>
 
@@ -1806,8 +1803,9 @@
         </div>
         <div class="faq-a">
           No. The base EJG-OS platform is a one-time installation cost. There are no mandatory platform fees, no
-          subscription required to use your smart home, and no features locked behind a paywall. The only optional
-          recurring cost is the 24/7 monitoring service ($25–$40/month) — which you can start, pause, or cancel anytime.
+          subscription required to use your smart home, and no features locked behind a paywall. Every install
+          comes with ongoing installer support included — a Priority Support plan is available as an optional
+          add-on if you want faster response, remote diagnostics, and hands-on configuration help.
         </div>
       </div>
 
