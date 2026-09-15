@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Build Your Custom System — EJG-OS</title>
+  <meta name="description" content="Configure your EJG-OS system device by device: switches, cameras, locks, thermostat and add-ons, with a live running total.">
+  <link rel="canonical" href="https://ejgos.com/custom.html">
   <style>
     :root {
       --purple-900: #1a0533;
@@ -524,17 +526,6 @@
     .cs-row-amount { color: #f8fafc; font-weight: 600; tabular-nums: ; font-variant-numeric: tabular-nums; }
     .cs-row.muted .cs-row-label,
     .cs-row.muted .cs-row-amount { color: var(--text-muted); font-style: italic; }
-    /* Unconfirmed value — replace before publishing. Deliberately loud. */
-    .placeholder {
-      display: inline-block;
-      font-family: ui-monospace, Menlo, Consolas, monospace;
-      font-size: 0.9em;
-      color: #fbbf24;
-      background: rgba(251,191,36,0.12);
-      border: 1px dashed #fbbf24;
-      border-radius: 4px;
-      padding: 0 6px;
-    }
     .cs-divider { height: 1px; background: rgba(139, 92, 246, 0.3); margin: 18px 0 12px; }
     .cs-total {
       display: flex; align-items: baseline; justify-content: space-between;
@@ -1098,7 +1089,7 @@
             Each camera price includes the camera, wiring, and professional install.
           </p>
           <p style="color:#94a3b8; font-size:13px; margin: 0 auto 24px; max-width: 640px; text-align:center; line-height:1.6;">
-            <strong style="color:#cbd5e1;">Every camera install requires a dedicated NVR (network video recorder) with its own storage drive.</strong> Cameras record to the NVR — not to your hub — so footage stays in your home and the hub stays responsive. The NVR (<span class="placeholder">[[NVR_MODEL]]</span>, <span class="placeholder">[[NVR_PRICE]]</span>) and a storage drive sized to the number of days you want to keep are quoted with your estimate; see <a href="pricing.html#camera-storage" style="color:#a78bfa;">storage options</a>.
+            <strong style="color:#cbd5e1;">Every camera install requires a dedicated NVR (network video recorder) with its own storage drive.</strong> Cameras record to the NVR — not to your hub — so footage stays in your home and the hub stays responsive. The NVR (TRENDnet TV-NVR1508, 8-channel 4K with 8 PoE ports, $239) is added to your estimate automatically; cameras plug straight into its PoE ports on their own isolated camera network. The WD Purple storage drive ($199–$369 by size) is chosen with your installer — see <a href="pricing.html#camera-storage" style="color:#a78bfa;">storage options</a>.
           </p>
 
           <div class="camera-grid">
@@ -1747,7 +1738,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 EJG-OS. All rights reserved. The Smart Home Operating System.</p>
+      <p>&copy; 2026 EJG-OS. All rights reserved. The Smart Home Operating System.</p>
     </div>
   </footer>
 
@@ -1994,9 +1985,9 @@
       // Total
       let hardware = t.qty * t.unitPrice;
       Object.values(state.cameras).forEach(c => hardware += c.qty * c.unitPrice);
-      // PoE switch bundled when any camera is picked (see summary breakdown).
+      // NVR bundled when any camera is picked (see summary breakdown).
       const _camsQtySum = Object.values(state.cameras).reduce((s, c) => s + (c.qty || 0), 0);
-      if (_camsQtySum > 0) hardware += 150;
+      if (_camsQtySum > 0) hardware += 239;
       Object.values(state.locks).forEach(l => hardware += l.price);
       Object.values(state.lighting).forEach(l => hardware += l.price);
       Object.values(state.addons).forEach(a => hardware += a.price);
@@ -2035,16 +2026,16 @@
       } else {
         html += '<div class="cs-row muted"><span class="cs-row-label">None selected</span><span class="cs-row-amount">—</span></div>';
       }
-      // Cameras use PoE, so a PoE-capable 8-port switch is required
-      // for the install. Bundled automatically when 1+ cameras are
-      // picked; kept out of the Base Package for non-camera builds
-      // where it would just be dead weight in the closet.
+      // Every camera install requires a dedicated NVR. Cameras plug into
+      // its 8 built-in PoE ports, so no separate switch is needed by
+      // default. Bundled automatically when 1+ cameras are picked; the
+      // storage drive size is chosen with the installer (not in total).
       if (camsQty > 0) {
-        html += `<div class="cs-row"><span class="cs-row-label">8-port PoE network switch (required for cameras)</span><span class="cs-row-amount">$150</span></div>`;
-        // NVR + storage drive are required for every camera install but are
-        // not priced here yet — shown as a line item so the total is never
-        // read as "all-in" for a camera build. Not added to the total.
-        html += `<div class="cs-row"><span class="cs-row-label">NVR recorder + storage drive (required for cameras) — quoted separately, not in total</span><span class="cs-row-amount"><span class="placeholder">[[NVR_PRICE]]</span></span></div>`;
+        html += `<div class="cs-row"><span class="cs-row-label">NVR — TRENDnet TV-NVR1508, 8 PoE ports (required for cameras)</span><span class="cs-row-amount">$239</span></div>`;
+        html += `<div class="cs-row muted"><span class="cs-row-label">WD Purple storage drive, 1–6 TB ($199–$369) — size chosen with your installer, not in total</span><span class="cs-row-amount">—</span></div>`;
+        if (camsQty > 8) {
+          html += `<div class="cs-row muted"><span class="cs-row-label">More than 8 cameras: a separate PoE switch is recommended — quoted separately</span><span class="cs-row-amount">—</span></div>`;
+        }
       }
       html += '</div>';
 
@@ -2088,8 +2079,8 @@
       // Total
       let hardware = tPrice;
       camList.forEach(c => hardware += c.qty * c.unitPrice);
-      // PoE switch bundled when any camera picked (same rule as above).
-      if (camList.reduce((s, c) => s + (c.qty || 0), 0) > 0) hardware += 150;
+      // NVR bundled when any camera picked (same rule as above).
+      if (camList.reduce((s, c) => s + (c.qty || 0), 0) > 0) hardware += 239;
       lockList.forEach(l => hardware += l.price);
       lightList.forEach(l => hardware += l.price);
       addonList.forEach(a => hardware += (a.price || 0));
@@ -2110,12 +2101,14 @@
       const t = state.thermostat;
       let txt = `Thermostat: ${t.qty}× ${t.name}\n`;
       Object.values(state.cameras).forEach(c => txt += `Camera: ${c.qty}× ${c.name}\n`);
-      if (Object.values(state.cameras).some(c => c.qty > 0)) txt += `Camera install requires: 8-port PoE switch ($150, in total) + NVR recorder + storage drive (quoted separately, NOT in total)\n`;
+      const anyCams = Object.values(state.cameras).some(c => c.qty > 0);
+      if (anyCams) txt += `Camera install requires: NVR TRENDnet TV-NVR1508 ($239, in total) + WD Purple storage drive 1-6 TB ($199-$369, size TBD, NOT in total)\n`;
       Object.values(state.locks).forEach(l => txt += `Lock: ${l.qty}× ${l.name}\n`);
       Object.values(state.lighting).forEach(l => txt += `Lighting: ${l.qty}× ${l.name}\n`);
       Object.values(state.addons).forEach(a => txt += `Add-on: ${a.qty}× ${a.name}\n`);
       let hardware = t.qty * t.unitPrice;
       Object.values(state.cameras).forEach(c => hardware += c.qty * c.unitPrice);
+      if (anyCams) hardware += 239; // keep the emailed total in step with the on-screen one
       Object.values(state.locks).forEach(l => hardware += l.price);
       Object.values(state.lighting).forEach(l => hardware += l.price);
       Object.values(state.addons).forEach(a => hardware += a.price);

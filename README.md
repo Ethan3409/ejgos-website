@@ -4,11 +4,9 @@ Marketing / customer-facing website for EJG Smart Systems.
 
 ## Pages
 
-- `index.html` — main landing (copy of `ejg-os-website.html`)
+- `index.html` — main landing
 - `about.html`, `features.html`, `how-it-works.html`, `pricing.html`, `contact.html` — navigation
-- `builders.html`, `installers.html`, `deploy.html`, `custom.html` — role-specific landing pages
-- `marketing-site.html` — alternate compact landing page (older/simpler variant)
-- `ejg-os-website.html` — source of `index.html`
+- `builders.html`, `installers.html`, `custom.html` — role-specific landing pages
 - `privacy-policy.html`
 
 ## Local preview
