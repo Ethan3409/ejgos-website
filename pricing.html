@@ -326,6 +326,87 @@
       border-color: var(--purple-400);
     }
 
+    /* Camera recording + storage */
+    .storage-section {
+      max-width: 900px;
+      margin: 0 auto 80px;
+    }
+
+    .storage-section h2 {
+      margin-bottom: 16px;
+    }
+
+    .storage-section .lede {
+      text-align: center;
+      color: #cbd5e1;
+      font-size: 15px;
+      line-height: 1.7;
+      max-width: 720px;
+      margin: 0 auto 32px;
+    }
+
+    .storage-table-wrap {
+      overflow-x: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .storage-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .storage-table th,
+    .storage-table td {
+      padding: 14px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .storage-table th {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--purple-400);
+      background: rgba(168,85,247,0.06);
+    }
+
+    .storage-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .storage-table td:first-child {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .storage-table td {
+      color: var(--text-muted);
+    }
+
+    .storage-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-top: 16px;
+    }
+
+    /* Unconfirmed value — replace before publishing. Deliberately loud. */
+    .placeholder {
+      display: inline-block;
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--gold);
+      background: rgba(251,191,36,0.12);
+      border: 1px dashed var(--gold);
+      border-radius: 4px;
+      padding: 0 6px;
+    }
+
     /* Monitoring Add-on */
     .monitoring-section {
       background: var(--surface);
@@ -777,9 +858,53 @@
           <li>✓ Free lifetime software updates</li>
         </ul>
         <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(139, 92, 246, 0.15); color: #94a3b8; font-size: 13px; line-height: 1.6;">
-          <strong style="color:#cbd5e1;">Add cameras?</strong> An 8-port PoE network switch is included automatically as a $150 add-on when your build includes any PoE cameras — no PoE switch is bundled otherwise.
+          <strong style="color:#cbd5e1;">Add cameras?</strong> Every camera install requires a dedicated network video recorder (NVR) with its own storage drive. Cameras record to the NVR — not to your hub — so footage stays inside your home and the hub stays fast for everything else. When your build includes any PoE cameras, the NVR (<span class="placeholder">[[NVR_MODEL]]</span>, <span class="placeholder">[[NVR_PRICE]]</span>), a storage drive (<a href="#camera-storage" style="color:#a78bfa;">sized by how many days you want to keep</a>) and an 8-port PoE network switch ($150) are added automatically. None of these are bundled for builds without cameras.
         </div>
       </div>
+    </section>
+
+    <!-- Camera Recording & Storage -->
+    <section class="pricing-section storage-section" id="camera-storage" style="padding-top: 20px;">
+      <h2>Camera Recording &amp; Storage</h2>
+      <p class="lede">
+        Cameras record continuously to the NVR's drive, and the NVR overwrites the oldest footage once the drive is full. Pick a drive by how many days of history you want on hand. Live and recorded video is viewed through the same EJG-OS app as the rest of your home.
+      </p>
+      <div class="storage-table-wrap">
+        <table class="storage-table">
+          <thead>
+            <tr>
+              <th>Drive capacity</th>
+              <th>Approx. retention, 4 cameras<sup>*</sup></th>
+              <th>Price, installed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2 TB</td>
+              <td>About 45 days</td>
+              <td><span class="placeholder">[[PRICE_2TB]]</span></td>
+            </tr>
+            <tr>
+              <td>4 TB</td>
+              <td>About 90 days</td>
+              <td><span class="placeholder">[[PRICE_4TB]]</span></td>
+            </tr>
+            <tr>
+              <td>8 TB</td>
+              <td>About 6 months</td>
+              <td><span class="placeholder">[[PRICE_8TB]]</span></td>
+            </tr>
+            <tr>
+              <td>16 TB</td>
+              <td>About 1 year</td>
+              <td><span class="placeholder">[[PRICE_16TB]]</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="storage-note">
+        <sup>*</sup> Retention estimates assume 4 cameras recording continuously at roughly 1 Mbps each (the sub-stream bitrate we record), which works out to about 43 GB of footage per day. Fewer cameras, motion-only recording, or a lower bitrate stretch retention; more cameras or higher-quality streams shorten it. Drive capacities are manufacturer-rated (decimal TB); a small amount is used by formatting. The NVR itself (<span class="placeholder">[[NVR_MODEL]]</span>, <span class="placeholder">[[NVR_PRICE]]</span>) is priced separately from the drive.
+      </p>
     </section>
 
     <!-- Sample Packages -->
@@ -915,6 +1040,14 @@
 
       <div class="faq-item">
         <div class="faq-question">
+          <span>What do cameras need beyond the cameras themselves?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">A dedicated network video recorder (NVR) with its own storage drive, plus a PoE network switch to power the cameras. The NVR is required for every camera install: cameras record to it around the clock, the footage stays inside your home, and your EJG-OS hub is left free to run lights, scenes and voice without competing for resources. You choose the drive size based on how many days of footage you want to keep (see the storage table above).</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
           <span>Is the support plan really optional?</span>
           <span class="faq-toggle">▼</span>
         </div>
@@ -934,13 +1067,13 @@
       </div>
       <div class="footer-column">
         <h3>Company</h3>
-        <a href="#about">About</a>
+        <a href="about.html">About</a>
         <a href="#blog">Blog</a>
         <a href="contact.html">Contact</a>
       </div>
       <div class="footer-column">
         <h3>Legal</h3>
-        <a href="#privacy">Privacy</a>
+        <a href="privacy-policy.html">Privacy</a>
         <a href="#terms">Terms</a>
         <a href="#security">Security</a>
       </div>

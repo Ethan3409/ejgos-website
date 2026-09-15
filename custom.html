@@ -524,6 +524,17 @@
     .cs-row-amount { color: #f8fafc; font-weight: 600; tabular-nums: ; font-variant-numeric: tabular-nums; }
     .cs-row.muted .cs-row-label,
     .cs-row.muted .cs-row-amount { color: var(--text-muted); font-style: italic; }
+    /* Unconfirmed value — replace before publishing. Deliberately loud. */
+    .placeholder {
+      display: inline-block;
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: 0.9em;
+      color: #fbbf24;
+      background: rgba(251,191,36,0.12);
+      border: 1px dashed #fbbf24;
+      border-radius: 4px;
+      padding: 0 6px;
+    }
     .cs-divider { height: 1px; background: rgba(139, 92, 246, 0.3); margin: 18px 0 12px; }
     .cs-total {
       display: flex; align-items: baseline; justify-content: space-between;
@@ -1080,11 +1091,14 @@
           <div class="step-header">
             <div class="step-eyebrow">Step 2 of 5</div>
             <h2>Choose Your Cameras</h2>
-            <p>All cameras record locally. No cloud subscription needed. Choose what suits each part of your home.</p>
+            <p>All cameras record to a dedicated recorder inside your home. No cloud subscription. Choose what suits each part of your home.</p>
           </div>
 
-          <p style="color:#94a3b8; font-size:13px; margin: -8px 0 24px; text-align:center;">
+          <p style="color:#94a3b8; font-size:13px; margin: -8px 0 12px; text-align:center;">
             Each camera price includes the camera, wiring, and professional install.
+          </p>
+          <p style="color:#94a3b8; font-size:13px; margin: 0 auto 24px; max-width: 640px; text-align:center; line-height:1.6;">
+            <strong style="color:#cbd5e1;">Every camera install requires a dedicated NVR (network video recorder) with its own storage drive.</strong> Cameras record to the NVR — not to your hub — so footage stays in your home and the hub stays responsive. The NVR (<span class="placeholder">[[NVR_MODEL]]</span>, <span class="placeholder">[[NVR_PRICE]]</span>) and a storage drive sized to the number of days you want to keep are quoted with your estimate; see <a href="pricing.html#camera-storage" style="color:#a78bfa;">storage options</a>.
           </p>
 
           <div class="camera-grid">
@@ -1377,7 +1391,7 @@
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></div>
                 <div class="addon-info">
                   <h4>Voice Control "Hey Skip"</h4>
-                  <p>On-device voice assistant. No cloud. Fully private.</p>
+                  <p>Built-in voice assistant. No smart speaker, no subscription.</p>
                 </div>
               </div>
               <button class="addon-singleton" onclick="event.stopPropagation(); toggleSingletonAddon('voice', 'Voice Control &quot;Hey Skip&quot;', 500)">Add</button>
@@ -1723,7 +1737,7 @@
       </div>
       <div class="footer-column">
         <h3>Legal</h3>
-        <a href="#privacy">Privacy</a>
+        <a href="privacy-policy.html">Privacy</a>
         <a href="#terms">Terms</a>
       </div>
       <div class="footer-column">
@@ -2027,6 +2041,10 @@
       // where it would just be dead weight in the closet.
       if (camsQty > 0) {
         html += `<div class="cs-row"><span class="cs-row-label">8-port PoE network switch (required for cameras)</span><span class="cs-row-amount">$150</span></div>`;
+        // NVR + storage drive are required for every camera install but are
+        // not priced here yet — shown as a line item so the total is never
+        // read as "all-in" for a camera build. Not added to the total.
+        html += `<div class="cs-row"><span class="cs-row-label">NVR recorder + storage drive (required for cameras) — quoted separately, not in total</span><span class="cs-row-amount"><span class="placeholder">[[NVR_PRICE]]</span></span></div>`;
       }
       html += '</div>';
 
@@ -2092,6 +2110,7 @@
       const t = state.thermostat;
       let txt = `Thermostat: ${t.qty}× ${t.name}\n`;
       Object.values(state.cameras).forEach(c => txt += `Camera: ${c.qty}× ${c.name}\n`);
+      if (Object.values(state.cameras).some(c => c.qty > 0)) txt += `Camera install requires: 8-port PoE switch ($150, in total) + NVR recorder + storage drive (quoted separately, NOT in total)\n`;
       Object.values(state.locks).forEach(l => txt += `Lock: ${l.qty}× ${l.name}\n`);
       Object.values(state.lighting).forEach(l => txt += `Lighting: ${l.qty}× ${l.name}\n`);
       Object.values(state.addons).forEach(a => txt += `Add-on: ${a.qty}× ${a.name}\n`);
