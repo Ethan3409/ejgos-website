@@ -6,6 +6,19 @@
   <title>Builder Program — EJG-OS Smart Home</title>
   <meta name="description" content="EJG-OS for home builders: pre-wire specs, per-home builder pricing, and a wall-mounted control tablet in every home. Calgary and area.">
   <link rel="canonical" href="https://ejgos.com/builders.html">
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Builder Program — EJG-OS Smart Home">
+  <meta property="og:description" content="EJG-OS for home builders: pre-wire specs, per-home builder pricing, and a wall-mounted control tablet in every home. Calgary and area.">
+  <meta property="og:url" content="https://ejgos.com/builders.html">
+  <meta property="og:site_name" content="EJG-OS">
+  <meta property="og:locale" content="en_CA">
+
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Builder Program — EJG-OS Smart Home">
+  <meta name="twitter:description" content="EJG-OS for home builders: pre-wire specs, per-home builder pricing, and a wall-mounted control tablet in every home. Calgary and area.">
   <style>
     :root {
       --purple-900: #1a0533;
@@ -679,27 +692,27 @@
           </div>
           <div class="form-row">
             <div class="form-field">
-              <label>Your Name</label>
-              <input type="text" name="name" required placeholder="Jordan Smith">
+              <label for="builder-name">Your Name</label>
+              <input type="text" name="name" id="builder-name" required placeholder="Jordan Smith">
             </div>
             <div class="form-field">
-              <label>Company / Builder Name</label>
-              <input type="text" name="company" placeholder="Smith Homes Ltd.">
+              <label for="builder-company">Company / Builder Name</label>
+              <input type="text" name="company" id="builder-company" placeholder="Smith Homes Ltd.">
             </div>
           </div>
           <div class="form-row">
             <div class="form-field">
-              <label>Email</label>
-              <input type="email" name="email" required placeholder="jordan@smithhomes.ca">
+              <label for="builder-email">Email</label>
+              <input type="email" name="email" id="builder-email" required placeholder="jordan@smithhomes.ca">
             </div>
             <div class="form-field">
-              <label>Phone</label>
-              <input type="tel" name="phone" placeholder="(403) 555-0100">
+              <label for="builder-phone">Phone</label>
+              <input type="tel" name="phone" id="builder-phone" placeholder="(403) 555-0100">
             </div>
           </div>
           <div class="form-field">
-            <label>Project Type</label>
-            <select name="project-type">
+            <label for="builder-project-type">Project Type</label>
+            <select name="project-type" id="builder-project-type">
               <option value="">Select your project type...</option>
               <option>Single spec home</option>
               <option>Small development (2–5 homes)</option>
@@ -710,12 +723,12 @@
             </select>
           </div>
           <div class="form-field">
-            <label>Estimated start / possession date</label>
-            <input type="text" name="timeline" placeholder="e.g. Spring 2026, Q3 2026...">
+            <label for="builder-timeline">Estimated start / possession date</label>
+            <input type="text" name="timeline" id="builder-timeline" placeholder="e.g. Spring 2026, Q3 2026...">
           </div>
           <div class="form-field">
-            <label>Tell us about your project</label>
-            <textarea name="details" placeholder="Number of homes, location, any special requirements, package interest..."></textarea>
+            <label for="builder-details">Tell us about your project</label>
+            <textarea name="details" id="builder-details" placeholder="Number of homes, location, any special requirements, package interest..."></textarea>
           </div>
           <button type="submit" class="btn btn-gold" style="width:100%; justify-content:center; font-size:16px; padding:16px;">
             🏗️ Send Builder Inquiry

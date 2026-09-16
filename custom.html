@@ -6,6 +6,19 @@
   <title>Build Your Custom System — EJG-OS</title>
   <meta name="description" content="Configure your EJG-OS system device by device: switches, cameras, locks, thermostat and add-ons, with a live running total.">
   <link rel="canonical" href="https://ejgos.com/custom.html">
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Build Your Custom System — EJG-OS">
+  <meta property="og:description" content="Configure your EJG-OS system device by device: switches, cameras, locks, thermostat and add-ons, with a live running total.">
+  <meta property="og:url" content="https://ejgos.com/custom.html">
+  <meta property="og:site_name" content="EJG-OS">
+  <meta property="og:locale" content="en_CA">
+
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Build Your Custom System — EJG-OS">
+  <meta name="twitter:description" content="Configure your EJG-OS system device by device: switches, cameras, locks, thermostat and add-ons, with a live running total.">
   <style>
     :root {
       --purple-900: #1a0533;
@@ -523,7 +536,7 @@
       padding: 4px 0; font-size: 14px;
     }
     .cs-row-label { color: #cbd5e1; }
-    .cs-row-amount { color: #f8fafc; font-weight: 600; tabular-nums: ; font-variant-numeric: tabular-nums; }
+    .cs-row-amount { color: #f8fafc; font-weight: 600; font-variant-numeric: tabular-nums; }
     .cs-row.muted .cs-row-label,
     .cs-row.muted .cs-row-amount { color: var(--text-muted); font-style: italic; }
     .cs-divider { height: 1px; background: rgba(139, 92, 246, 0.3); margin: 18px 0 12px; }
@@ -1606,24 +1619,24 @@
               <p>We'll review your configuration and get back to you with a final quote and install date.</p>
               <div class="form-row">
                 <div class="form-field">
-                  <label>First Name</label>
+                  <label for="qFirstName">First Name</label>
                   <input type="text" name="first-name" id="qFirstName" required placeholder="Alex">
                 </div>
                 <div class="form-field">
-                  <label>Last Name</label>
+                  <label for="qLastName">Last Name</label>
                   <input type="text" name="last-name" id="qLastName" required placeholder="Smith">
                 </div>
               </div>
               <div class="form-field">
-                <label>Email</label>
+                <label for="qEmail">Email</label>
                 <input type="email" name="email" id="qEmail" required placeholder="alex@example.com">
               </div>
               <div class="form-field">
-                <label>Phone (optional)</label>
+                <label for="qPhone">Phone (optional)</label>
                 <input type="tel" name="phone" id="qPhone" placeholder="(403) 555-0100">
               </div>
               <div class="form-field">
-                <label>Home Type</label>
+                <label for="qHomeType">Home Type</label>
                 <select name="home-type" id="qHomeType">
                   <option value="">Select...</option>
                   <option>Single Family Home</option>
@@ -1635,7 +1648,7 @@
                 </select>
               </div>
               <div class="form-field">
-                <label>Anything else you'd like to add?</label>
+                <label for="qNotes">Anything else you'd like to add?</label>
                 <textarea name="notes" id="qNotes" placeholder="e.g. I have a detached garage, or I need everything installed within the next two weeks..."></textarea>
               </div>
               <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; font-size:16px; padding:16px;">
@@ -1726,7 +1739,6 @@
       <div class="footer-column">
         <h3>Legal</h3>
         <a href="privacy-policy.html">Privacy</a>
-        <a href="#terms">Terms</a>
       </div>
       <div class="footer-column">
         <h3>Location</h3>
