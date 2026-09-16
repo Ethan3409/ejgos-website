@@ -848,6 +848,16 @@
     max-width: 1100px; margin: 24px auto 0; text-align: center;
     font-size: 12.5px; line-height: 1.6; color: #94a3b8;
   }
+  .warranty-callout {
+    max-width: 1100px; margin: 28px auto 0; padding: 26px 30px;
+    background: rgba(0,0,0,0.25); border: 1px solid rgba(139,92,246,0.3);
+    border-left: 4px solid var(--purple-400);
+    border-radius: 14px; text-align: left;
+  }
+  .warranty-callout h3 { font-size: 18px; color: #f8fafc; margin: 0 0 14px; }
+  .warranty-callout p { font-size: 13.5px; line-height: 1.75; color: #94a3b8; margin: 0 0 12px; }
+  .warranty-callout p:last-child { margin-bottom: 0; }
+  .warranty-callout strong { color: #e9d5ff; }
 </style>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -937,7 +947,7 @@
   "@context": "https://schema.org",
   "@type": "Product",
   "name": "EJG-OS Premium",
-  "description": "Base package plus whole home, climate and a full security perimeter.",
+  "description": "Base package plus whole-home lighting, climate, two locks, cameras and door, motion and leak sensors. Self-monitored: alerts go to you, with no monitoring service.",
   "brand": {
     "@type": "Brand",
     "name": "EJG-OS"
@@ -1175,7 +1185,7 @@
 
         <div class="pricing-card">
           <h3>Premium</h3>
-          <div class="pricing-tag">Whole home + climate + security</div>
+          <div class="pricing-tag">Whole home + climate + locks &amp; sensors</div>
           <div class="price">$6,495</div>
           <div class="price-label">58 devices in total</div>
           <div class="price-features">
@@ -1248,8 +1258,14 @@
         <div class="warranty-card">
           <h3>After the install</h3>
           <p>Changes or additions outside the original installation scope are charged at the current service rate, or covered by the $30/month Priority Support plan.</p>
-          <p>EJG-OS is a lifestyle and convenience product. It is not sold or warranted as a monitored security system.</p>
         </div>
+      </div>
+
+      <div class="warranty-callout" id="self-monitored">
+        <h3>Security on EJG-OS is self-monitored</h3>
+        <p>The security hardware is real: cameras, smart locks, door and window contacts, motion and glass-break sensors, and sirens. You can arm and disarm the system, and it records and reports what happens.</p>
+        <p>What it does with an event is tell <strong>you</strong>. Alerts go to your phone and to your wall tablet, and a siren sounds in the house. There is no monitoring centre, nobody else is watching your cameras, and no one is dispatched on your behalf. EJG-OS will not call the police or the fire department, and it cannot guarantee that anything is prevented. It reports and it records. Deciding what to do next is yours.</p>
+        <p>This is what the Purchase and Installation Agreement means when it describes EJG-OS as a lifestyle and convenience product rather than a monitored security system.</p>
       </div>
       <p class="warranty-note">This is a summary. Your signed Purchase and Installation Agreement sets out the full terms and takes precedence over anything on this page.</p>
     </section>
