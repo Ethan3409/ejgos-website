@@ -1014,7 +1014,7 @@
               </div>
             </div>
             <div class="essentials-footer">
-              <span class="essentials-price">Base Package: <strong>$1,000</strong></span>
+              <span class="essentials-price">Base Package: <strong>$700</strong></span>
               <span class="essentials-note">Customize below to add optional upgrades</span>
             </div>
           </div>
@@ -1277,7 +1277,7 @@
           </div>
 
           <p style="color:#94a3b8; font-size:13px; margin: -8px 0 20px; text-align:center;">
-            Every device price below includes the device + $25 install labor. Bring your own or let us supply.
+            Every device price below includes professional installation — labour is never billed on top. Bring your own or let us supply.
           </p>
           <div class="option-grid">
             <div class="option-item" data-id="zooz-switch">
@@ -1679,7 +1679,7 @@
         </div>
         <div class="summary-line">
           <span class="summary-label">💡 Lighting</span>
-          <span class="summary-value empty" id="sum-lighting">None</span>
+          <span class="summary-value" id="sum-lighting">3× Zooz switches (included)</span>
         </div>
         <div class="summary-line">
           <span class="summary-label">✨ Add-ons</span>
@@ -1690,21 +1690,17 @@
 
         <div class="summary-line">
           <span class="summary-label">Base Install</span>
-          <span class="summary-value">$1,000</span>
+          <span class="summary-value">$700</span>
         </div>
         <div class="summary-line">
           <span class="summary-label">Hardware</span>
-          <span class="summary-value" id="sum-hardware">$189</span>
-        </div>
-        <div class="summary-line">
-          <span class="summary-label">Labour</span>
-          <span class="summary-value">Included</span>
+          <span class="summary-value" id="sum-hardware">$0</span>
         </div>
 
         <hr class="summary-divider">
 
         <div class="summary-total-label">Estimated Total</div>
-        <div class="summary-total" id="sum-total">$1,688</div>
+        <div class="summary-total" id="sum-total">$700</div>
         <div class="summary-note">Final quote confirmed after consultation</div>
 
         <button class="btn btn-primary summary-cta" onclick="goToStep(6)">Get My Quote →</button>
@@ -1772,6 +1768,12 @@
       'weiser-lock':  { name: 'Weiser Z-Wave Smart Lock', price: 295 },
       'garage-tilt':  { name: 'Garage Door Tilt Sensor',  price: 60 },
     };
+    // What the Base Package ships with. Priced into BASE_PRICE, never
+    // added to the hardware subtotal — the summary shows it so a fresh
+    // page doesn't read "Lighting: None" when 3 switches are included.
+    const BASE_PRICE = 700;
+    const BASE_INCLUDED_LIGHTING = '3× Zooz Z-Wave switches';
+
     const LIGHTING_INFO = {
       'zooz-switch':      { name: 'Zooz Regular Switch',  price: 75 },
       'zooz-dimmer':      { name: 'Zooz Dimmer Switch',   price: 87 },
@@ -1962,15 +1964,17 @@
         sumL.classList.remove('empty');
       }
 
-      // Lighting — qty-aware
+      // Lighting — qty-aware, on top of the switches included in the base
       const lightKeys = Object.keys(state.lighting);
       const sumLi = document.getElementById('sum-lighting');
+      const includedLighting = BASE_INCLUDED_LIGHTING + ' (included)';
       if (lightKeys.length === 0) {
-        sumLi.textContent = 'None'; sumLi.classList.add('empty');
+        sumLi.textContent = includedLighting;
       } else {
-        sumLi.textContent = lightKeys.map(k => state.lighting[k].qty + '× ' + state.lighting[k].name).join(', ');
-        sumLi.classList.remove('empty');
+        sumLi.textContent = includedLighting + ' + ' +
+          lightKeys.map(k => state.lighting[k].qty + '× ' + state.lighting[k].name).join(', ');
       }
+      sumLi.classList.remove('empty');
 
       // Add-ons — qty-aware
       const addonKeys = Object.keys(state.addons);
@@ -1993,7 +1997,7 @@
       Object.values(state.addons).forEach(a => hardware += a.price);
 
       document.getElementById('sum-hardware').textContent = '$' + hardware.toLocaleString();
-      document.getElementById('sum-total').textContent = '$' + (1000 + hardware).toLocaleString();
+      document.getElementById('sum-total').textContent = '$' + (BASE_PRICE + hardware).toLocaleString();
     }
 
     function buildConfirmSummary() {
@@ -2004,7 +2008,7 @@
       // Base install (always present)
       html += `<div class="cs-group">
         <div class="cs-group-label">Base Install</div>
-        <div class="cs-row"><span class="cs-row-label">EJG-OS Hub, wall tablet, 2 hr labor</span><span class="cs-row-amount">$1,000</span></div>
+        <div class="cs-row"><span class="cs-row-label">EJG-OS Hub, wall tablet, ${BASE_INCLUDED_LIGHTING}, install + tuning</span><span class="cs-row-amount">${fmt(BASE_PRICE)}</span></div>
       </div>`;
 
       // Thermostat — skip the whole group when none selected
@@ -2054,13 +2058,10 @@
       // Lighting — qty-aware
       const lightList = Object.values(state.lighting);
       html += '<div class="cs-group"><div class="cs-group-label">Lighting &amp; Switches</div>';
-      if (lightList.length) {
-        lightList.forEach(l => {
-          html += `<div class="cs-row"><span class="cs-row-label">${l.qty}× ${l.name}</span><span class="cs-row-amount">${fmt(l.price)}</span></div>`;
-        });
-      } else {
-        html += '<div class="cs-row muted"><span class="cs-row-label">None selected</span><span class="cs-row-amount">—</span></div>';
-      }
+      html += `<div class="cs-row muted"><span class="cs-row-label">${BASE_INCLUDED_LIGHTING} — included in base</span><span class="cs-row-amount">Included</span></div>`;
+      lightList.forEach(l => {
+        html += `<div class="cs-row"><span class="cs-row-label">${l.qty}× ${l.name}</span><span class="cs-row-amount">${fmt(l.price)}</span></div>`;
+      });
       html += '</div>';
 
       // Add-ons — qty-aware
@@ -2084,7 +2085,7 @@
       lockList.forEach(l => hardware += l.price);
       lightList.forEach(l => hardware += l.price);
       addonList.forEach(a => hardware += (a.price || 0));
-      const total = 1000 + hardware;
+      const total = BASE_PRICE + hardware;
 
       html += `<div class="cs-divider"></div>
         <div class="cs-total">
@@ -2099,7 +2100,8 @@
     // Build configuration summary for hidden field before submit
     function buildConfigText() {
       const t = state.thermostat;
-      let txt = `Thermostat: ${t.qty}× ${t.name}\n`;
+      let txt = `Base Package ($${BASE_PRICE}): EJG-OS Hub, wall tablet, ${BASE_INCLUDED_LIGHTING} installed, install + tuning\n`;
+      txt += `Thermostat: ${t.qty}× ${t.name}\n`;
       Object.values(state.cameras).forEach(c => txt += `Camera: ${c.qty}× ${c.name}\n`);
       const anyCams = Object.values(state.cameras).some(c => c.qty > 0);
       if (anyCams) txt += `Camera install requires: NVR TRENDnet TV-NVR1508 ($239, in total) + WD Purple storage drive 1-6 TB ($199-$369, size TBD, NOT in total)\n`;
@@ -2112,7 +2114,7 @@
       Object.values(state.locks).forEach(l => hardware += l.price);
       Object.values(state.lighting).forEach(l => hardware += l.price);
       Object.values(state.addons).forEach(a => hardware += a.price);
-      txt += `\nEstimated Total: $${(1000+hardware).toLocaleString()}`;
+      txt += `\nEstimated Total: $${(BASE_PRICE+hardware).toLocaleString()} (device prices include install labour)`;
       return txt;
     }
 

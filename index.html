@@ -1233,7 +1233,7 @@
       <!-- BASE -->
       <div class="pricing-card-sm">
         <div class="pricing-tier">Base Package</div>
-        <div class="pricing-price"><sup>$</sup>1,000<sub> install</sub></div>
+        <div class="pricing-price"><sup>$</sup>700<sub> install</sub></div>
         <div class="pricing-desc">Required foundation for every install. Add devices from there.</div>
         <ul class="pricing-features">
           <li><span class="pf-check">✓</span> EJG-OS Pi Hub (Z-Wave)</li>
@@ -1504,15 +1504,11 @@
             <div style="font-size:0.72rem; font-weight:700; letter-spacing:0.08em; color:var(--purple-400); text-transform:uppercase; margin-bottom:0.75rem;">Your Estimate</div>
 
             <div class="summary-row">
-              <span class="s-label">Base system (Pi + hardware)</span>
-              <span class="s-val">$600</span>
-            </div>
-            <div class="summary-row">
-              <span class="s-label">Wall tablet (included)</span>
-              <span class="s-val">$200</span>
+              <span class="s-label">Base package (hub, tablet, 3 switches installed)</span>
+              <span class="s-val">$700</span>
             </div>
             <div class="summary-row" id="s-devices-row">
-              <span class="s-label">Devices &amp; installation</span>
+              <span class="s-label">Devices (install labour included)</span>
               <span class="s-val" id="s-devices">$0</span>
             </div>
             <div class="summary-row" id="s-extras-row" style="display:none">
@@ -1533,7 +1529,7 @@
                 <div class="t-label" id="t-label">Total (upfront)</div>
                 <div style="font-size:0.72rem; color:var(--text-muted); margin-top:2px;" id="t-sub">All-in, one payment</div>
               </div>
-              <div class="t-price" id="t-total">$800</div>
+              <div class="t-price" id="t-total">$700</div>
             </div>
 
             <button class="builder-cta" onclick="window.location='#contact'">
@@ -1562,7 +1558,9 @@
     therm: 320, bell: 280, garage: 220
   };
 
-  var BASE = 600, TABLET_INCL = 200;
+  // Base package matches custom.html: hub + wall tablet + 3 switches
+  // installed, labour included. Device prices include their own labour.
+  var BASE = 700;
 
   function adj(key, delta) {
     state[key] = Math.max(0, state[key] + delta);
@@ -1608,7 +1606,7 @@
       if (state[k]) extraCost += PRICES[k];
     });
 
-    var subtotal = BASE + TABLET_INCL + deviceCost + extraCost;
+    var subtotal = BASE + deviceCost + extraCost;
     var total = subtotal;
     // Priority Support is a yes/no add-on quoted separately (no fixed
     // monthly rate in this calculator); it doesn't roll into the total.
