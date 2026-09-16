@@ -1,4 +1,4 @@
-# ejgos.com — EJG Smart Systems Inc.
+# ejgos.com — EJG Technologies Inc.
 User-agent: *
 Allow: /
 

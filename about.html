@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About — EJG-OS Smart Home Operating System</title>
-  <meta name="description" content="EJG Smart Systems builds EJG-OS, a local-first smart home platform professionally installed in Calgary. Why we built it and what we believe.">
+  <meta name="description" content="EJG Technologies Inc. builds and installs EJG-OS, a local-first smart home system, in Calgary and the surrounding area.">
   <link rel="canonical" href="https://ejgos.com/about.html">
 
   <!-- Open Graph / social sharing -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="About — EJG-OS Smart Home Operating System">
-  <meta property="og:description" content="EJG Smart Systems builds EJG-OS, a local-first smart home platform professionally installed in Calgary. Why we built it and what we believe.">
+  <meta property="og:description" content="EJG Technologies Inc. builds and installs EJG-OS, a local-first smart home system, in Calgary and the surrounding area.">
   <meta property="og:url" content="https://ejgos.com/about.html">
   <meta property="og:site_name" content="EJG-OS">
   <meta property="og:locale" content="en_CA">
@@ -18,7 +18,7 @@
   <!-- Twitter card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="About — EJG-OS Smart Home Operating System">
-  <meta name="twitter:description" content="EJG Smart Systems builds EJG-OS, a local-first smart home platform professionally installed in Calgary. Why we built it and what we believe.">
+  <meta name="twitter:description" content="EJG Technologies Inc. builds and installs EJG-OS, a local-first smart home system, in Calgary and the surrounding area.">
   <style>
     :root {
       --purple-900: #1a0533;
@@ -109,7 +109,7 @@
 
     /* Page Hero */
     .page-hero {
-      min-height: 480px;
+      min-height: 340px;
       display: flex; align-items: center; justify-content: center;
       text-align: center; padding: 100px 24px;
       background: linear-gradient(135deg, rgba(107,33,168,0.2), rgba(168,85,247,0.08));
@@ -149,7 +149,7 @@
 
     /* Origin Story */
     .origin-section {
-      padding: 100px 24px;
+      padding: 88px 24px 24px;
       max-width: 900px;
       margin: 0 auto;
     }
@@ -201,7 +201,7 @@
     }
     @media (max-width: 640px) { .origin-lede { font-size: 16.5px; } }
 
-    /* Attributed pull-quote: Ethan's own words, set apart from body copy */
+    /* Attributed pull-quote: the one quote on the site, set apart from body copy */
     .founder-quote {
       border-left: 4px solid var(--purple-400);
       padding: 24px 32px;
@@ -223,16 +223,6 @@
       .founder-quote { padding: 20px 22px; }
       .founder-quote blockquote { font-size: 19px; }
     }
-
-    /* Values Grid */
-    .values-section {
-      padding: 80px 24px;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .values-inner { max-width: 1100px; margin: 0 auto; }
 
     .section-header { text-align: center; margin-bottom: 64px; }
     .section-header h2 {
@@ -275,7 +265,7 @@
     @media (max-width: 640px) { .trust-inner { padding: 26px 22px; } }
 
     /* Solo-founder / continuity section */
-    .continuity-section { padding: 96px 24px; }
+    .continuity-section { padding: 56px 24px 88px; }
     .continuity-inner {
       max-width: 820px; margin: 0 auto;
       background: rgba(0,0,0,0.3);
@@ -297,132 +287,6 @@
     }
     @media (max-width: 640px) { .continuity-inner { padding: 30px 22px; } }
 
-    .values-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 28px;
-    }
-
-    .value-card {
-      background: rgba(0,0,0,0.3);
-      border: 1px solid var(--border);
-      padding: 36px;
-      border-radius: 12px;
-      transition: all 0.3s;
-    }
-    .value-card:hover {
-      border-color: var(--purple-400);
-      background: rgba(168,85,247,0.06);
-      transform: translateY(-4px);
-    }
-
-    .value-icon {
-      font-size: 40px; margin-bottom: 20px; display: block;
-    }
-
-    .value-card h3 {
-      font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--text);
-    }
-
-    .value-card p {
-      font-size: 14px; color: var(--text-muted); line-height: 1.7;
-    }
-
-    /* Timeline / Journey */
-    .journey-section {
-      padding: 100px 24px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .journey-section .section-header { margin-bottom: 64px; }
-
-    .timeline {
-      position: relative;
-      padding-left: 40px;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute; left: 8px; top: 0; bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--purple-400), transparent);
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 52px;
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -38px; top: 4px;
-      width: 14px; height: 14px;
-      border-radius: 50%;
-      background: var(--purple-400);
-      border: 3px solid var(--bg);
-      box-shadow: 0 0 0 2px var(--purple-400);
-    }
-
-    .timeline-label {
-      font-size: 12px; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--purple-500);
-      margin-bottom: 8px;
-    }
-
-    .timeline-item h3 {
-      font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--text);
-    }
-
-    .timeline-item p {
-      font-size: 14px; color: var(--text-muted); line-height: 1.7;
-    }
-
-    /* Mission Banner */
-    .mission-banner {
-      padding: 100px 24px;
-      background: linear-gradient(135deg, var(--purple-800), var(--purple-700));
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .mission-banner::before {
-      content: '';
-      position: absolute; top: -50%; left: -20%;
-      width: 800px; height: 800px;
-      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
-      border-radius: 50%;
-    }
-
-    .mission-banner-content {
-      position: relative; z-index: 2; max-width: 760px; margin: 0 auto;
-    }
-
-    .mission-banner h2 {
-      font-size: clamp(32px, 4.5vw, 52px);
-      font-weight: 700; line-height: 1.2; color: white; margin-bottom: 28px;
-    }
-
-    .mission-banner p {
-      font-size: 18px; color: rgba(255,255,255,0.85); margin-bottom: 48px; line-height: 1.7;
-    }
-
-    .mission-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 32px;
-      margin-bottom: 48px;
-    }
-
-    .mission-stat { text-align: center; }
-    .mission-stat-number {
-      font-size: 36px; font-weight: 700; color: white; margin-bottom: 8px;
-    }
-    .mission-stat-label {
-      font-size: 13px; color: rgba(255,255,255,0.7);
-    }
 
     /* CTA Banner */
     .cta-section {
@@ -520,9 +384,6 @@
       }
 
       .origin-section,
-      .values-section,
-      .timeline-section,
-      .mission-section,
       .cta-section {
         padding: 48px 16px;
       }
@@ -549,69 +410,6 @@
       .origin-content p {
         font-size: 14px;
         line-height: 1.7;
-      }
-
-      .values-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .value-card {
-        padding: 24px;
-      }
-
-      .value-card h3 {
-        font-size: 18px;
-      }
-
-      .value-card p {
-        font-size: 13px;
-      }
-
-      .timeline {
-        padding-left: 28px;
-      }
-
-      .timeline::before {
-        left: 0;
-      }
-
-      .timeline-item {
-        padding-left: 28px;
-        margin-bottom: 32px;
-      }
-
-      .timeline-dot {
-        left: -28px;
-        width: 14px;
-        height: 14px;
-      }
-
-      .timeline-item h3 {
-        font-size: 16px;
-      }
-
-      .timeline-item p {
-        font-size: 13px;
-      }
-
-      .timeline-year {
-        font-size: 12px;
-      }
-
-      .mission-banner,
-      .mission-content {
-        padding: 32px 20px;
-      }
-
-      .mission-banner h2,
-      .mission-content h2 {
-        font-size: 22px;
-      }
-
-      .mission-banner p,
-      .mission-content p {
-        font-size: 14px;
       }
 
       .cta-section h2 {
@@ -656,15 +454,6 @@
         font-size: 22px;
       }
 
-      .mission-banner h2,
-      .mission-content h2 {
-        font-size: 20px;
-      }
-
-      .values-grid {
-        gap: 12px;
-      }
-
       .footer-content {
         grid-template-columns: 1fr;
       }
@@ -693,21 +482,17 @@
     <!-- Page Hero -->
     <section class="page-hero">
       <div class="page-hero-content">
-        <div class="page-hero-eyebrow">Our Story</div>
-        <h1>Built Out of Frustration. Designed for Freedom.</h1>
-        <p>One person got tired of paying rent on their own home. Monthly for the thermostat. Subscriptions for cameras. Apps that died when companies got acquired. So they built something different.</p>
+        <div class="page-hero-eyebrow">About</div>
+        <h1>EJG Technologies Inc.</h1>
+        <p>We build and install EJG-OS, a smart home system that runs on hardware in your house. Based in Calgary, Alberta.</p>
       </div>
     </section>
 
-    <!-- Origin Story -->
     <section class="origin-section">
-      <div class="origin-eyebrow">The Why</div>
-      <h2>Smart home became a rental agreement in disguise.</h2>
-
       <div class="origin-body">
         <div class="founder-quote">
           <blockquote>You already work for your home. Let it work for you.</blockquote>
-          <cite>Ethan Fischer, founder, EJG Smart Systems Inc.</cite>
+          <cite>Ethan Fischer, founder, EJG Technologies Inc.</cite>
         </div>
 
         <p class="origin-lede">
@@ -716,97 +501,39 @@
         </p>
 
         <p>
-          When you buy a car, you own it. You pay once, drive it, maintain it, sell it when you're done. But somehow "smart home" became different. Monthly fees for a thermostat you bought. A subscription to see your own security cameras. Apps that evaporated when the company got acquired, taking your automations with them. You didn't own your home. You rented access to it.
+          EJG-OS is a smart home system that runs on a hub installed in your home. Lights, locks,
+          heating, cameras and scenes are controlled from a wall-mounted tablet, from your phone, or
+          by voice through Skip, the voice assistant built into the system.
         </p>
 
         <p>
-          The worst part? It didn't have to be this way. The technology is simple. Local hardware can do everything you need. But the business model demanded subscriptions. Data harvesting. Lock-in. Cloud dependency. Because that's where the money is for venture-backed startups.
-        </p>
-
-        <div class="origin-pullquote">
-          <p>"You shouldn't need a password and a subscription to turn on your own lights."</p>
-        </div>
-
-        <p>
-          That's where EJG-OS came from. <strong>What if you could own your smart home the way you own your car?</strong> You buy it. You own it. It works. No required monthly bill. No company deciding what features you get access to. No data being harvested. Just your house, doing what you told it to do, forever.
+          It runs locally. The system keeps working with the internet unplugged, your home's data
+          stays on your hub, and you own the hardware outright. No subscription is required to use it.
         </p>
 
         <p>
-          We built it in Calgary because that's home, and because Calgary winters force you to build things right. When your furnace integration matters, when keeping your home comfortable in -30°C is real, you don't cut corners. You build something that genuinely works, every single time.
+          EJG Technologies Inc. is registered in Alberta and installs in Calgary and the surrounding
+          area. Installation is included in the price of every device.
         </p>
-
-        <p>
-          Here's the core idea: a smart home OS that runs entirely on hardware inside your house. Your automations work even when the internet's down. Your camera footage never leaves your walls. Your data is yours alone. Every install includes a dedicated EJG-OS tablet mounted in the home as the control hub. It isn't an optional feature. It's standard. The person who designs your system is the person who installs it and the person who picks up the phone a year later. Nothing is subcontracted. Then it's yours. Forever.
-        </p>
-
-        <p>
-          We built on Z-Wave, a rock-solid mesh protocol on its own dedicated frequency, because your system should work with thousands of different devices without depending on Wi-Fi or the cloud. Not a locked ecosystem. Not a proprietary garden. Real choice about what hardware you use.
-        </p>
-
-        <p>
-          This isn't a startup pitch. It's the opposite of that. We're not trying to build the next unicorn or get acquired. We're building something that actually works for people who live in homes. EJG-OS solves a real problem: the feeling that you should be able to control your own house without paying rent to a company forever.
-        </p>
-      </div>
-    </section>
-
-    <!-- Values -->
-    <section class="values-section">
-      <div class="values-inner">
-        <div class="section-header">
-          <h2>What We Actually Believe</h2>
-          <p>Not marketing values. Real principles that show up in every decision.</p>
-        </div>
-        <div class="values-grid">
-          <div class="value-card fade-up">
-            <span class="value-icon">🏠</span>
-            <h3>You Actually Own It</h3>
-            <p>One price. Professional install. Then it's yours. Like buying a house instead of renting. No monthly fees hiding in your account. No subscriptions expiring. No company deciding which features you get to keep. It's paid for. It's running. It's done.</p>
-          </div>
-          <div class="value-card fade-up">
-            <span class="value-icon">🔒</span>
-            <h3>Your Data Stays in Your House</h3>
-            <p>Your home's patterns, your cameras, your device history: all of it stored and processed on the hub in your house, on hardware you own. We don't run a cloud that copies it, and we can't reach your hub unless you ask us to. When you use remote access it's end-to-end encrypted between your hub and your phone, so no third party in the middle can read it. The one exception is the optional &ldquo;Hey Skip&rdquo; voice assistant, which sends what you say to an external language model to understand it. Our <a href="privacy-policy.html" style="color:inherit;text-decoration:underline;">privacy policy</a> spells that out. Everything else stays home.</p>
-          </div>
-          <div class="value-card fade-up">
-            <span class="value-icon">⚡</span>
-            <h3>Everything Runs Locally</h3>
-            <p>Your commands don't travel to a server farm and back. The EJG-OS hub installed in your home processes everything right there. The wall tablet is just one of the screens that talks to it. Instant response. Unplug your internet and your lights, locks, scenes and schedules keep working. No dependency on a cloud company staying in business or keeping its prices reasonable. Your home operates independently.</p>
-          </div>
-          <div class="value-card fade-up">
-            <span class="value-icon">🤝</span>
-            <h3>Straight Talk, No Upsell</h3>
-            <p>We tell you what you actually need, not what makes us more money. No hidden fees in fine print. No convincing you to buy features you won't use. If a simpler system works for your home, that's what we'll recommend. Trust is earned by being honest, especially when honesty costs us.</p>
-          </div>
-          <div class="value-card fade-up">
-            <span class="value-icon">🇨🇦</span>
-            <h3>Built for This Country</h3>
-            <p>We built this in Alberta. We know what Canadian winters demand. We understand privacy expectations in Canada. We respect Canadian standards and regulations. This isn't a California system retrofitted for our market. It's it was built here, for here, by people who actually live here.</p>
-          </div>
-          <div class="value-card fade-up">
-            <span class="value-icon">📱</span>
-            <h3>Your Tablet, Your Hub</h3>
-            <p>Every home gets a dedicated EJG-OS tablet mounted where you need it, the control center for everything. It's not optional. It's standard. A real, physical interface in your home that you own, that doesn't depend on a smartphone app, that's always there and always yours.</p>
-          </div>
-        </div>
       </div>
     </section>
 
     <!-- ══════════════════════════════════════════════════════════════
          NEEDS ETHAN'S SIGN-OFF BEFORE MERGE.
-         Drafted to answer the unspoken solo-founder objection using only
-         facts already true of the product. Contains no succession plan,
-         escrow arrangement, or partner company. Do not add one without
-         his say-so.
+         Answers the real objection to buying from a small company, using
+         only facts already true of the product. Contains no succession
+         plan, escrow arrangement, or partner company. Do not add one
+         without his say-so.
     ══════════════════════════════════════════════════════════════ -->
     <section class="continuity-section">
       <div class="continuity-inner">
-        <h2>&ldquo;What happens if you're not around?&rdquo;</h2>
+        <h2>What happens if EJG Technologies Inc. is no longer around?</h2>
         <p>
-          It's a fair question to ask anyone buying something this permanent from one person, and
-          it deserves a straight answer rather than a reassuring one.
+          It's a fair question to ask of any small company selling something this permanent, and it
+          deserves a straight answer rather than a reassuring one.
         </p>
         <p>
-          Your smart home does not depend on EJG Smart Systems still being here. That isn't a
+          Your smart home does not depend on EJG Technologies Inc. still being here. That isn't a
           promise about anyone's plans. It's how the system is built:
         </p>
         <ul class="continuity-list">
@@ -816,77 +543,10 @@
           <li><strong>Nothing of yours is held anywhere else.</strong> Your data lives on your hub. There's no export to request and no account to recover, because there was never a copy off your property to begin with.</li>
         </ul>
         <p>
-          What you would lose is the person who knows your house and can change things quickly.
-          That's a real loss. What you would not lose is the system you paid for, or the ability to
-          have someone else look after it.
+          What you would lose is the support that comes with the install. That's a real loss and
+          worth weighing. What you would not lose is the system you paid for, or the ability to have
+          someone else look after it.
         </p>
-      </div>
-    </section>
-
-    <!-- Journey Timeline -->
-    <section class="journey-section">
-      <div class="section-header">
-        <h2>How This Actually Happened</h2>
-        <p>Not a typical startup story. Just what actually occurred.</p>
-      </div>
-
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-label">The Real Problem</div>
-          <h3>Tired of paying rent on home tech</h3>
-          <p>Monthly bill for the thermostat. Cloud subscription for the cameras. An app that stopped working when the company got acquired. The realization: you own the house, but you rent the ability to control it. That's broken.</p>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-label">The Search</div>
-          <h3>Nothing existed that actually solved this</h3>
-          <p>Every existing option either needed a computer science degree to set up, locked you into one brand, or still depended on cloud servers (defeating the purpose). There genuinely wasn't an alternative: a local-first smart home OS you could own outright and have installed by a professional.</p>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-label">The Build</div>
-          <h3>Built it. In Calgary. During winter.</h3>
-          <p>Open protocols. Local processing. Real hardware tablet for control. Professional installation standard from day one. Calgary winters meant no cutting corners. Your heating needs to work when it's -30°C. That forces you to build things right.</p>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-label">First Installs</div>
-          <h3>Real homes, real people, real feedback</h3>
-          <p>Started installing in Calgary with families willing to try something different. Each install taught us what actually matters. Not what investors want to hear. What homeowners actually need.</p>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-label">Now</div>
-          <h3>Owner-operated, and opening up</h3>
-          <p>Every EJG-OS install to date is done by the person who built it. One set of hands, one standard, no subcontractors. The next step is bringing on other installers who believe the same thing: that people should genuinely own their homes. Not a tech company pretending to care about privacy. Actually building it.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Mission Banner -->
-    <section class="mission-banner">
-      <div class="mission-banner-content">
-        <h2>Our mission is simple: your home, fully intelligent, completely yours.</h2>
-        <p>No required subscription. No cloud storage of your home's data. Just a home that works exactly the way you want it to, and keeps working with the internet unplugged. Priority Support is there if you want it, and only if you want it.</p>
-
-        <div class="mission-stats">
-          <div class="mission-stat">
-            <div class="mission-stat-number">100%</div>
-            <div class="mission-stat-label">Local</div>
-          </div>
-          <div class="mission-stat">
-            <div class="mission-stat-number">$0</div>
-            <div class="mission-stat-label">Required monthly fees</div>
-          </div>
-          <div class="mission-stat">
-            <div class="mission-stat-number">📱</div>
-            <div class="mission-stat-label">Your Tablet Included</div>
-          </div>
-          <div class="mission-stat">
-            <div class="mission-stat-number">🔓</div>
-            <div class="mission-stat-label">Open Protocols</div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -910,7 +570,7 @@
       <div class="trust-inner">
         <h3>Business details</h3>
         <div class="trust-grid">
-          <div class="trust-item"><span class="trust-label">Registered business</span><span class="trust-value">EJG Smart Systems Inc. &middot; Alberta, Canada</span></div>
+          <div class="trust-item"><span class="trust-label">Registered business</span><span class="trust-value">EJG Technologies Inc. &middot; Alberta, Canada</span></div>
           <div class="trust-item"><span class="trust-label">Service area</span><span class="trust-value">Calgary and surrounding area</span></div>
         <div class="trust-item"><span class="trust-label">GST / HST number</span><span class="trust-value todo">NOT YET SUPPLIED — [[GST_NUMBER]]</span></div>
         <div class="trust-item"><span class="trust-label">Liability insurance</span><span class="trust-value todo">NOT YET SUPPLIED — [[INSURANCE_PROVIDER_AND_COVERAGE]]</span></div>
