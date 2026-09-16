@@ -1,0 +1,5 @@
+# ejgos.com — EJG Smart Systems Inc.
+User-agent: *
+Allow: /
+
+Sitemap: https://ejgos.com/sitemap.xml
