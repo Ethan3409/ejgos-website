@@ -1002,7 +1002,7 @@
               </div>
               <div class="essential-item">
                 <span class="essential-check">✓</span>
-                <span class="essential-text">2 hours install labor + first-day tuning</span>
+                <span class="essential-text">Professional installation + first-day tuning</span>
               </div>
               <div class="essential-item">
                 <span class="essential-check">✓</span>
@@ -1013,8 +1013,9 @@
                 <span class="essential-text">Free lifetime software updates</span>
               </div>
             </div>
+            <p style="margin: 16px 0 0; color: #94a3b8; font-size: 13px; line-height: 1.6;">Why the switches? We don't install a hub with nothing attached to it — three devices is where a working smart home starts, so they go in with every system.</p>
             <div class="essentials-footer">
-              <span class="essentials-price">Base Package: <strong>$700</strong></span>
+              <span class="essentials-price">Base Package: <strong>$1,000</strong></span>
               <span class="essentials-note">Customize below to add optional upgrades</span>
             </div>
           </div>
@@ -1277,7 +1278,7 @@
           </div>
 
           <p style="color:#94a3b8; font-size:13px; margin: -8px 0 20px; text-align:center;">
-            Every device price below includes professional installation — labour is never billed on top. Bring your own or let us supply.
+            Every device price below includes professional installation — nothing extra is added at the end. Bring your own or let us supply.
           </p>
           <div class="option-grid">
             <div class="option-item" data-id="zooz-switch">
@@ -1690,7 +1691,7 @@
 
         <div class="summary-line">
           <span class="summary-label">Base Install</span>
-          <span class="summary-value">$700</span>
+          <span class="summary-value">$1,000</span>
         </div>
         <div class="summary-line">
           <span class="summary-label">Hardware</span>
@@ -1700,7 +1701,7 @@
         <hr class="summary-divider">
 
         <div class="summary-total-label">Estimated Total</div>
-        <div class="summary-total" id="sum-total">$700</div>
+        <div class="summary-total" id="sum-total">$1,000</div>
         <div class="summary-note">Final quote confirmed after consultation</div>
 
         <button class="btn btn-primary summary-cta" onclick="goToStep(6)">Get My Quote →</button>
@@ -1771,7 +1772,7 @@
     // What the Base Package ships with. Priced into BASE_PRICE, never
     // added to the hardware subtotal — the summary shows it so a fresh
     // page doesn't read "Lighting: None" when 3 switches are included.
-    const BASE_PRICE = 700;
+    const BASE_PRICE = 1000;
     const BASE_INCLUDED_LIGHTING = '3× Zooz Z-Wave switches';
 
     const LIGHTING_INFO = {
@@ -2114,7 +2115,7 @@
       Object.values(state.locks).forEach(l => hardware += l.price);
       Object.values(state.lighting).forEach(l => hardware += l.price);
       Object.values(state.addons).forEach(a => hardware += a.price);
-      txt += `\nEstimated Total: $${(BASE_PRICE+hardware).toLocaleString()} (device prices include install labour)`;
+      txt += `\nEstimated Total: $${(BASE_PRICE+hardware).toLocaleString()} (device prices include professional installation)`;
       return txt;
     }
 

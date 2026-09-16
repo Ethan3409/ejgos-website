@@ -1233,13 +1233,13 @@
       <!-- BASE -->
       <div class="pricing-card-sm">
         <div class="pricing-tier">Base Package</div>
-        <div class="pricing-price"><sup>$</sup>700<sub> install</sub></div>
+        <div class="pricing-price"><sup>$</sup>1,000<sub> install</sub></div>
         <div class="pricing-desc">Required foundation for every install. Add devices from there.</div>
         <ul class="pricing-features">
           <li><span class="pf-check">✓</span> EJG-OS Pi Hub (Z-Wave)</li>
           <li><span class="pf-check">✓</span> 10" wall-mount tablet</li>
           <li><span class="pf-check">✓</span> 3 Zooz Z-Wave switches, installed</li>
-          <li><span class="pf-check">✓</span> 2 hours install labor + tuning</li>
+          <li><span class="pf-check">✓</span> Professional installation + first-day tuning</li>
           <li><span class="pf-check">✓</span> Secure remote access — encrypted tunnel</li>
           <li><span class="pf-check">✓</span> Free lifetime software updates</li>
         </ul>
@@ -1304,7 +1304,7 @@
         <div class="pricing-price" style="font-size: 1.4rem;">Configure It</div>
         <div class="pricing-desc">Pick the exact devices for your home. Live running total.</div>
         <ul class="pricing-features">
-          <li><span class="pf-check">✓</span> Every device at retail (labor included)</li>
+          <li><span class="pf-check">✓</span> Every device at retail (installation included)</li>
           <li><span class="pf-check">✓</span> Custom device requests welcome</li>
           <li><span class="pf-check">✓</span> Instant estimate before you commit</li>
           <li><span class="pf-check">✓</span> Base package + your picks</li>
@@ -1505,10 +1505,10 @@
 
             <div class="summary-row">
               <span class="s-label">Base package (hub, tablet, 3 switches installed)</span>
-              <span class="s-val">$700</span>
+              <span class="s-val">$1,000</span>
             </div>
             <div class="summary-row" id="s-devices-row">
-              <span class="s-label">Devices (install labour included)</span>
+              <span class="s-label">Devices (installation included)</span>
               <span class="s-val" id="s-devices">$0</span>
             </div>
             <div class="summary-row" id="s-extras-row" style="display:none">
@@ -1529,7 +1529,7 @@
                 <div class="t-label" id="t-label">Total (upfront)</div>
                 <div style="font-size:0.72rem; color:var(--text-muted); margin-top:2px;" id="t-sub">All-in, one payment</div>
               </div>
-              <div class="t-price" id="t-total">$700</div>
+              <div class="t-price" id="t-total">$1,000</div>
             </div>
 
             <button class="builder-cta" onclick="window.location='#contact'">
@@ -1559,8 +1559,8 @@
   };
 
   // Base package matches custom.html: hub + wall tablet + 3 switches
-  // installed, labour included. Device prices include their own labour.
-  var BASE = 700;
+  // installed. Every device price already includes its installation.
+  var BASE = 1000;
 
   function adj(key, delta) {
     state[key] = Math.max(0, state[key] + delta);
