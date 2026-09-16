@@ -443,6 +443,63 @@
     .cam-card p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
     .cam-qty { display: flex; align-items: center; gap: 12px; justify-content: center; margin-top: 12px; }
 
+    /* Required recording gear (NVR + drive) */
+    .rec-req {
+      margin: 28px 0 8px; padding: 22px 24px;
+      background: rgba(139, 92, 246, 0.06);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 14px;
+    }
+    .rec-req-head { margin-bottom: 18px; }
+    .rec-req-badge {
+      display: inline-block; margin-bottom: 10px;
+      padding: 4px 10px; border-radius: 999px;
+      background: rgba(168, 85, 247, 0.18);
+      border: 1px solid rgba(168, 85, 247, 0.45);
+      color: #e9d5ff; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .rec-req-head h3 { font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+    .rec-req-head p { font-size: 13px; color: var(--text-muted); line-height: 1.6; max-width: 62ch; }
+    .rec-req-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+      padding: 14px 0; border-top: 1px solid rgba(139, 92, 246, 0.2);
+    }
+    .rec-req-row strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 3px; }
+    .rec-req-row span { font-size: 12.5px; color: var(--text-muted); }
+    .rec-req-price { font-size: 15px; font-weight: 800; color: var(--purple-300); white-space: nowrap; }
+    .rec-req-drive { padding: 14px 0 4px; border-top: 1px solid rgba(139, 92, 246, 0.2); }
+    .rec-req-drive-head strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 3px; }
+    .rec-req-drive-head span { display: block; font-size: 12.5px; color: var(--text-muted); line-height: 1.55; }
+    .drive-picker { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .drive-opt {
+      flex: 1 1 128px; min-width: 128px;
+      padding: 12px 14px; border-radius: 10px; cursor: pointer;
+      background: rgba(10, 10, 30, 0.6);
+      border: 1px solid rgba(139, 92, 246, 0.28);
+      transition: border-color 0.2s, background 0.2s;
+      text-align: left;
+    }
+    .drive-opt:hover { border-color: rgba(168, 85, 247, 0.6); }
+    .drive-opt.selected { border-color: var(--purple-400); background: rgba(168, 85, 247, 0.16); }
+    .drive-opt .do-size { font-size: 14px; font-weight: 800; color: var(--text); }
+    .drive-opt .do-price { font-size: 13px; font-weight: 700; color: var(--purple-300); margin-top: 2px; }
+    .drive-opt .do-keep { font-size: 11.5px; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
+    .drive-opt .do-rec {
+      display: inline-block; margin-top: 6px; padding: 2px 7px; border-radius: 999px;
+      background: rgba(34, 197, 94, 0.16); border: 1px solid rgba(34, 197, 94, 0.4);
+      color: #86efac; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .rec-req-notice {
+      margin-top: 16px; padding: 13px 16px; border-radius: 10px;
+      background: rgba(251, 191, 36, 0.09);
+      border: 1px solid rgba(251, 191, 36, 0.38);
+      font-size: 12.5px; line-height: 1.6; color: #fde68a;
+    }
+    .rec-req-notice strong { display: block; color: #fcd34d; margin-bottom: 3px; }
+    .rec-req-notice span { color: var(--text-muted); }
+
     /* Step Nav */
     .step-nav {
       display: flex; gap: 16px; align-items: center; margin-top: 8px;
@@ -1023,6 +1080,10 @@
               </div>
               <div class="essential-item">
                 <span class="essential-check">✓</span>
+                <span class="essential-text">&ldquo;Hey Skip&rdquo; built-in voice assistant — no smart speaker, no subscription</span>
+              </div>
+              <div class="essential-item">
+                <span class="essential-check">✓</span>
                 <span class="essential-text">Free lifetime software updates</span>
               </div>
             </div>
@@ -1037,7 +1098,7 @@
         <!-- STEP 1: Thermostat -->
         <div class="config-step active" id="step-1">
           <div class="step-header">
-            <div class="step-eyebrow">Step 1 of 5</div>
+            <div class="step-eyebrow">Step 1 of 6</div>
             <h2>Add a Smart Thermostat</h2>
             <p>Optional — skip this step if your home already has one you'd rather keep. If you want us to install a new one, pick the style that fits your home.</p>
           </div>
@@ -1094,7 +1155,7 @@
         <!-- STEP 2: Cameras -->
         <div class="config-step" id="step-2">
           <div class="step-header">
-            <div class="step-eyebrow">Step 2 of 5</div>
+            <div class="step-eyebrow">Step 2 of 6</div>
             <h2>Choose Your Cameras</h2>
             <p>All cameras record to a dedicated recorder inside your home. No cloud subscription. Choose what suits each part of your home.</p>
           </div>
@@ -1103,35 +1164,41 @@
             Each camera price includes the camera, wiring, and professional install.
           </p>
           <p style="color:#94a3b8; font-size:13px; margin: 0 auto 24px; max-width: 640px; text-align:center; line-height:1.6;">
-            <strong style="color:#cbd5e1;">Every camera install requires a dedicated NVR (network video recorder) with its own storage drive.</strong> Cameras record to the NVR — not to your hub — so footage stays in your home and the hub stays responsive. The NVR (TRENDnet TV-NVR1508, 8-channel 4K with 8 PoE ports, $239) is added to your estimate automatically; cameras plug straight into its PoE ports on their own isolated camera network. The WD Purple storage drive ($199–$369 by size) is chosen with your installer — see <a href="pricing.html#camera-storage" style="color:#a78bfa;">storage options</a>.
+            <strong style="color:#cbd5e1;">Every camera install requires a dedicated NVR (network video recorder) with its own storage drive.</strong> Cameras record to the NVR — not to your hub — so footage stays in your home and the hub stays responsive. The NVR (TRENDnet TV-NVR1508, 8-channel 4K with 8 PoE ports, $239) is added to your estimate automatically as soon as you pick a camera; PoE cameras plug straight into its PoE ports on their own isolated camera network, and the Wi-Fi indoor camera joins a separate camera SSID and records to the same NVR. A WD Purple storage drive is required too — pick the size below and it's added to your estimate, or see the <a href="pricing.html#camera-storage" style="color:#a78bfa;">full storage table</a>.
           </p>
 
           <div class="camera-grid">
             <div class="cam-card" data-id="cam-indoor" onclick="selectCam('cam-indoor', 195, this)">
               <span class="cam-icon">
                 <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" fill="none">
-                  <!-- Wall mount plate -->
-                  <rect x="8" y="72" width="80" height="4" rx="1" fill="#4a0e82"/>
-                  <!-- Camera body (dome-cylinder) -->
-                  <path d="M20 26 h56 a10 10 0 0 1 10 10 v28 a8 8 0 0 1 -8 8 h-60 a8 8 0 0 1 -8 -8 v-28 a10 10 0 0 1 10 -10 z" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
-                  <!-- Lens (large circle) -->
-                  <circle cx="48" cy="50" r="18" fill="#0a0a1e" stroke="#c084fc" stroke-width="2"/>
-                  <circle cx="48" cy="50" r="12" fill="#4a0e82"/>
-                  <circle cx="48" cy="50" r="7" fill="#0a0a1e"/>
-                  <!-- Lens glint -->
-                  <circle cx="44" cy="46" r="2.5" fill="#e9d5ff" opacity="0.7"/>
+                  <!-- Circular base -->
+                  <ellipse cx="48" cy="84" rx="25" ry="6" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
+                  <ellipse cx="48" cy="82" rx="15" ry="3.5" fill="#4a0e82" opacity="0.7"/>
+                  <!-- Pan/tilt neck (gap between base and head) -->
+                  <rect x="41" y="68" width="14" height="12" rx="3" fill="#0a0a1e" stroke="#a855f7" stroke-width="1.5"/>
+                  <!-- Head: taller than wide, heavily rounded -->
+                  <rect x="22" y="8" width="52" height="60" rx="24" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
+                  <!-- Lens -->
+                  <circle cx="48" cy="34" r="16" fill="#0a0a1e" stroke="#c084fc" stroke-width="2"/>
+                  <circle cx="48" cy="34" r="10.5" fill="#4a0e82"/>
+                  <circle cx="48" cy="34" r="5.5" fill="#0a0a1e"/>
+                  <circle cx="44" cy="30" r="2.2" fill="#e9d5ff" opacity="0.7"/>
+                  <!-- Low-light LEDs flanking the lens -->
+                  <circle cx="30" cy="34" r="2" fill="#a855f7" opacity="0.5"/>
+                  <circle cx="66" cy="34" r="2" fill="#a855f7" opacity="0.5"/>
+                  <!-- Mic / speaker slot -->
+                  <rect x="38" y="56" width="20" height="3" rx="1.5" fill="#4a0e82" opacity="0.7"/>
                   <!-- Status LED -->
-                  <circle cx="76" cy="34" r="2" fill="#22c55e"/>
-                  <!-- Brand strip -->
-                  <rect x="30" y="30" width="36" height="2" rx="1" fill="#a855f7" opacity="0.4"/>
+                  <circle cx="48" cy="17" r="2" fill="#22c55e"/>
                 </svg>
               </span>
-              <h3>Indoor HD Camera</h3>
-              <p>1080p wide-angle hardwired camera. Great for living rooms, hallways, and nurseries.</p>
+              <h3>Indoor Pan/Tilt Camera</h3>
+              <p>Amcrest IP2M-841B-V3 — a 1080p wide-angle Wi-Fi camera you can pan and tilt from the app to sweep the whole room. Two-way audio, motion alerts, and enhanced low-light imaging. Great for living rooms, hallways, and nurseries.</p>
               <div class="spec-chips" style="justify-content:center">
                 <span class="spec-chip">1080p</span>
-                <span class="spec-chip">Night vision</span>
-                <span class="spec-chip">Hardwired</span>
+                <span class="spec-chip">Wi-Fi</span>
+                <span class="spec-chip">Pan + tilt</span>
+                <span class="spec-chip">Two-way audio</span>
               </div>
               <div class="card-price" style="display:inline-block;margin-top:10px">$195/each</div>
               <div class="cam-qty">
@@ -1144,40 +1211,36 @@
             <div class="cam-card" data-id="cam-outdoor" onclick="selectCam('cam-outdoor', 195, this)">
               <span class="cam-icon">
                 <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" fill="none">
-                  <!-- Mounting arm -->
-                  <rect x="12" y="20" width="14" height="4" rx="1" fill="#4a0e82"/>
-                  <rect x="18" y="14" width="4" height="14" rx="1" fill="#4a0e82"/>
-                  <circle cx="20" cy="12" r="4" fill="#1a1a2e" stroke="#a855f7" stroke-width="1.5"/>
-                  <!-- Camera body (bullet) -->
-                  <rect x="24" y="30" width="60" height="30" rx="8" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
-                  <!-- Front bezel -->
-                  <rect x="24" y="30" width="14" height="30" rx="7" fill="#0a0a1e" stroke="#c084fc" stroke-width="2"/>
-                  <!-- Lens on front -->
-                  <circle cx="31" cy="45" r="8" fill="#4a0e82"/>
-                  <circle cx="31" cy="45" r="4.5" fill="#0a0a1e"/>
-                  <circle cx="29" cy="43" r="1.5" fill="#e9d5ff" opacity="0.7"/>
-                  <!-- IR array (rear of body — under the lens area, on the front bezel actually — use small dots -->
-                  <circle cx="46" cy="38" r="1.5" fill="#a855f7" opacity="0.5"/>
-                  <circle cx="52" cy="38" r="1.5" fill="#a855f7" opacity="0.5"/>
-                  <circle cx="46" cy="52" r="1.5" fill="#a855f7" opacity="0.5"/>
-                  <circle cx="52" cy="52" r="1.5" fill="#a855f7" opacity="0.5"/>
-                  <!-- Model plate -->
-                  <rect x="60" y="42" width="18" height="6" rx="1" fill="#4a0e82" opacity="0.6"/>
+                  <!-- Flat mounting plate -->
+                  <rect x="20" y="82" width="56" height="6" rx="3" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
+                  <!-- Stem from plate up into the bracket -->
+                  <rect x="42" y="68" width="12" height="16" fill="#0a0a1e" stroke="#a855f7" stroke-width="1.5"/>
+                  <!-- Shallow cup / bracket cradling the ball -->
+                  <path d="M16 44 A32 32 0 0 0 80 44" fill="none" stroke="#4a0e82" stroke-width="9" stroke-linecap="round"/>
+                  <path d="M16 44 A32 32 0 0 0 80 44" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+                  <!-- Turret ball -->
+                  <circle cx="48" cy="40" r="26" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
+                  <!-- Lens, centred on the ball -->
+                  <circle cx="48" cy="40" r="15" fill="#0a0a1e" stroke="#c084fc" stroke-width="2"/>
+                  <circle cx="48" cy="40" r="10" fill="#4a0e82"/>
+                  <circle cx="48" cy="40" r="5" fill="#0a0a1e"/>
+                  <circle cx="44.5" cy="36.5" r="2.2" fill="#e9d5ff" opacity="0.7"/>
+                  <!-- Dual illumination: white LED + IR LED, either side of the lens -->
+                  <circle cx="30" cy="32" r="2.6" fill="#e9d5ff" opacity="0.55"/>
+                  <circle cx="66" cy="32" r="2.6" fill="#a855f7" opacity="0.55"/>
+                  <circle cx="30" cy="49" r="2.6" fill="#a855f7" opacity="0.55"/>
+                  <circle cx="66" cy="49" r="2.6" fill="#e9d5ff" opacity="0.55"/>
                   <!-- Status LED -->
-                  <circle cx="78" cy="55" r="1.8" fill="#22c55e"/>
-                  <!-- Weather shield ridges -->
-                  <line x1="70" y1="34" x2="82" y2="34" stroke="#a855f7" stroke-width="1" opacity="0.4"/>
-                  <line x1="70" y1="56" x2="82" y2="56" stroke="#a855f7" stroke-width="1" opacity="0.4"/>
-                  <!-- Cable -->
-                  <path d="M52 62 Q52 74 60 78" stroke="#4a0e82" stroke-width="2" fill="none"/>
+                  <circle cx="48" cy="20" r="1.8" fill="#22c55e"/>
                 </svg>
               </span>
-              <h3>Outdoor Camera</h3>
-              <p>Weatherproof hardwired camera. Motion zones, colour night vision, and two-way audio.</p>
+              <h3>Outdoor Turret Camera</h3>
+              <p>AMLINK AL8M-T8198EW — a weatherproof 4K (8MP) PoE turret with a wide-angle view. Dual white-light and infrared illumination gives full-colour night vision to about 100 ft, AI person and vehicle detection keeps passing shadows from waking you, and a built-in mic and speaker handle two-way audio. One cable from the NVR carries power and video, so the PoE injector it ships without isn't needed on our installs.</p>
               <div class="spec-chips" style="justify-content:center">
-                <span class="spec-chip">2K</span>
+                <span class="spec-chip">4K · 8MP</span>
                 <span class="spec-chip">Weatherproof</span>
-                <span class="spec-chip">Hardwired</span>
+                <span class="spec-chip">Colour night vision</span>
+                <span class="spec-chip">Person + vehicle AI</span>
               </div>
               <div class="card-price" style="display:inline-block;margin-top:10px">$195/each</div>
               <div class="cam-qty">
@@ -1190,34 +1253,31 @@
             <div class="cam-card" data-id="cam-doorbell" onclick="selectCam('cam-doorbell', 275, this)">
               <span class="cam-icon">
                 <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" fill="none">
-                  <!-- Doorbell body (rounded rectangle vertical) -->
-                  <rect x="30" y="8" width="36" height="80" rx="10" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
-                  <!-- Camera lens at top -->
-                  <circle cx="48" cy="26" r="10" fill="#0a0a1e" stroke="#c084fc" stroke-width="2"/>
-                  <circle cx="48" cy="26" r="6" fill="#4a0e82"/>
-                  <circle cx="48" cy="26" r="3" fill="#0a0a1e"/>
-                  <circle cx="46" cy="24" r="1.3" fill="#e9d5ff" opacity="0.7"/>
-                  <!-- Motion sensor strip -->
-                  <rect x="38" y="42" width="20" height="4" rx="1" fill="#4a0e82" opacity="0.6"/>
-                  <!-- Speaker grille -->
-                  <circle cx="42" cy="54" r="1" fill="#a855f7" opacity="0.5"/>
-                  <circle cx="48" cy="54" r="1" fill="#a855f7" opacity="0.5"/>
-                  <circle cx="54" cy="54" r="1" fill="#a855f7" opacity="0.5"/>
-                  <circle cx="42" cy="59" r="1" fill="#a855f7" opacity="0.5"/>
-                  <circle cx="48" cy="59" r="1" fill="#a855f7" opacity="0.5"/>
-                  <circle cx="54" cy="59" r="1" fill="#a855f7" opacity="0.5"/>
-                  <!-- Big illuminated ring button -->
-                  <circle cx="48" cy="74" r="8" fill="#4a0e82" stroke="#c084fc" stroke-width="1.5"/>
-                  <circle cx="48" cy="74" r="5" fill="#a855f7" opacity="0.4"/>
-                  <circle cx="48" cy="74" r="2" fill="#e9d5ff"/>
+                  <!-- Tall vertical body -->
+                  <rect x="28" y="6" width="40" height="84" rx="13" fill="#1a1a2e" stroke="#a855f7" stroke-width="2"/>
+                  <!-- Recessed faceplate -->
+                  <rect x="33" y="11" width="30" height="74" rx="9" fill="#0a0a1e" stroke="#a855f7" stroke-width="1" opacity="0.6"/>
+                  <!-- Camera lens, upper portion -->
+                  <circle cx="48" cy="29" r="13" fill="#0a0a1e" stroke="#c084fc" stroke-width="2"/>
+                  <circle cx="48" cy="29" r="8.5" fill="#4a0e82"/>
+                  <circle cx="48" cy="29" r="4.5" fill="#0a0a1e"/>
+                  <circle cx="45" cy="26" r="1.8" fill="#e9d5ff" opacity="0.7"/>
+                  <!-- Speaker / mic grille -->
+                  <circle cx="42" cy="50" r="1.2" fill="#a855f7" opacity="0.5"/>
+                  <circle cx="48" cy="50" r="1.2" fill="#a855f7" opacity="0.5"/>
+                  <circle cx="54" cy="50" r="1.2" fill="#a855f7" opacity="0.5"/>
+                  <!-- Illuminated round push button, clearly separate from the lens -->
+                  <circle cx="48" cy="70" r="12" fill="#0a0a1e" stroke="#c084fc" stroke-width="2"/>
+                  <circle cx="48" cy="70" r="8" fill="#4a0e82"/>
+                  <circle cx="48" cy="70" r="4" fill="#e9d5ff" opacity="0.85"/>
                 </svg>
               </span>
               <h3>Video Doorbell</h3>
-              <p>Doorbell camera with face detection, package alerts, and instant EJG-OS notifications.</p>
+              <p>HD doorbell camera at your front door, with two-way audio and motion alerts that land straight in EJG-OS. Records to the same in-home NVR as the rest of your cameras.</p>
               <div class="spec-chips" style="justify-content:center">
-                <span class="spec-chip">2K</span>
-                <span class="spec-chip">Face detect</span>
-                <span class="spec-chip">Package alert</span>
+                <span class="spec-chip">HD video</span>
+                <span class="spec-chip">Two-way audio</span>
+                <span class="spec-chip">Motion alerts</span>
               </div>
               <div class="card-price" style="display:inline-block;margin-top:10px">$275/each</div>
               <div class="cam-qty">
@@ -1225,6 +1285,38 @@
                 <div class="qty-val" id="qty-cam-doorbell">0</div>
                 <button class="qty-btn" onclick="event.stopPropagation(); adjustCamQty('cam-doorbell', 1)">+</button>
               </div>
+            </div>
+          </div>
+
+          <!-- Required recording gear — appears automatically once any camera
+               is selected. The customer cannot opt out of the NVR or the
+               drive; only the drive SIZE is a choice. -->
+          <div class="rec-req" id="recordingRequired" style="display:none;">
+            <div class="rec-req-head">
+              <span class="rec-req-badge">Required with any camera</span>
+              <h3>Where your footage records</h3>
+              <p>Cameras need somewhere to record. Every camera build includes the recorder and a drive — they're part of the estimate, not an upsell. The only thing to decide is how much footage you want to keep.</p>
+            </div>
+
+            <div class="rec-req-row">
+              <div>
+                <strong>NVR — TRENDnet TV-NVR1508</strong>
+                <span>8-channel 4K, 8 built-in PoE ports. One per home.</span>
+              </div>
+              <div class="rec-req-price">$239</div>
+            </div>
+
+            <div class="rec-req-drive">
+              <div class="rec-req-drive-head">
+                <strong>WD Purple surveillance drive</strong>
+                <span id="driveAssumption">Retention shown for 0 cameras recording continuously at about 1&nbsp;Mbps each.</span>
+              </div>
+              <div class="drive-picker" id="drivePicker"><!-- built by JS --></div>
+            </div>
+
+            <div class="rec-req-notice" id="portNotice" style="display:none;">
+              <strong>More cameras than the recorder has ports.</strong>
+              <span id="portNoticeText"></span>
             </div>
           </div>
 
@@ -1237,7 +1329,7 @@
         <!-- STEP 3: Locks -->
         <div class="config-step" id="step-3">
           <div class="step-header">
-            <div class="step-eyebrow">Step 3 of 5</div>
+            <div class="step-eyebrow">Step 3 of 6</div>
             <h2>Choose Your Smart Locks</h2>
             <p>All locks integrate directly into EJG-OS. Unlock with your phone, a code, a fob, or automatically via presence detection.</p>
           </div>
@@ -1285,7 +1377,7 @@
         <!-- STEP 4: Lighting -->
         <div class="config-step" id="step-4">
           <div class="step-header">
-            <div class="step-eyebrow">Step 4 of 5</div>
+            <div class="step-eyebrow">Step 4 of 6</div>
             <h2>Configure Your Lighting</h2>
             <p>Smart lighting that reacts to your scenes, your schedule, and your presence — all processed locally.</p>
           </div>
@@ -1331,7 +1423,7 @@
 </svg></div>
               <div class="option-info">
                 <h4>Zooz Smart Plug</h4>
-                <p>Plug-in outlet for lamps, fans, seasonal lighting. Energy monitoring built in.</p>
+                <p>Plug-in outlet for lamps, fans, seasonal lighting. Reports real-time energy use back to EJG-OS, so anything on a smart plug shows you what it costs to run — included, not an extra.</p>
                 <span class="opt-price">$76/each</span>
               <div class="opt-qty" onclick="event.stopPropagation()"><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lighting', 'zooz-plug', 'Zooz Smart Plug', 76, -1)">−</button><div class="qty-val" id="qty-zooz-plug">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lighting', 'zooz-plug', 'Zooz Smart Plug', 76, 1)">+</button></div></div></div>
             <div class="option-item" data-id="zooz-4btn-switch">
@@ -1385,43 +1477,21 @@
         <!-- STEP 5: Add-ons -->
         <div class="config-step" id="step-5">
           <div class="step-header">
-            <div class="step-eyebrow">Step 5 of 5</div>
+            <div class="step-eyebrow">Step 5 of 6</div>
             <h2>Power Up Your System</h2>
             <p>Optional features that make EJG-OS even smarter. Add what matters most to you.</p>
           </div>
 
           <div class="addons-grid">
-            <div class="addon-item" data-id="voice">
-              <div class="addon-left">
-                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></div>
-                <div class="addon-info">
-                  <h4>Voice Control "Hey Skip"</h4>
-                  <p>Built-in voice assistant. No smart speaker, no subscription.</p>
-                </div>
-              </div>
-              <button class="addon-singleton" onclick="event.stopPropagation(); toggleSingletonAddon('voice', 'Voice Control &quot;Hey Skip&quot;', 500)">Add</button>
-            </div>
-
             <div class="addon-item" data-id="support">
               <div class="addon-left">
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3z"/></svg></div>
                 <div class="addon-info">
-                  <h4>Priority Support Plan</h4>
-                  <p>Optional monthly add-on. Priced per home. Cancel anytime. No contract.</p>
+                  <h4>Priority Support Plan — $30/month</h4>
+                  <p>Optional recurring plan: faster response and remote diagnostics. Billed monthly, cancel anytime, no contract. Not part of your install total.</p>
                 </div>
               </div>
-              <button class="addon-singleton" onclick="event.stopPropagation(); toggleSingletonAddon('support', 'Priority Support Plan', 0)">Add</button>
-              </div>
-
-            <div class="addon-item" data-id="energy">
-              <div class="addon-left">
-                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 4 14 11 14 10 22 20 10 13 10 13 2" stroke-linejoin="round"/></svg></div>
-                <div class="addon-info">
-                  <h4>Energy Monitoring Hub</h4>
-                  <p>Track real-time electricity use by room and device.</p>
-                </div>
-              </div>
-              <button class="addon-singleton" onclick="event.stopPropagation(); toggleSingletonAddon('energy', 'Energy Monitoring Hub', 299)">Add</button>
+              <button class="addon-singleton" onclick="event.stopPropagation(); toggleSupportPlan()">Add</button>
               </div>
 
             <div class="addon-item" data-id="motion-sensor">
@@ -1472,11 +1542,11 @@
               <div class="addon-left">
                 <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0v7l2 2H4l2-2z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></div>
                 <div class="addon-info">
-                  <h4>Aeotec 105dB Siren</h4>
+                  <h4>Aeotec 110dB Siren</h4>
                   <p>Loud indoor siren for alarm mode. Battery + AC options.</p>
                 </div>
               </div>
-              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('siren', 'Aeotec 105dB Siren', 90, -1)">−</button><div class="qty-val" id="qty-siren">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('siren', 'Aeotec 105dB Siren', 90, 1)">+</button></div>
+              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('siren', 'Aeotec 110dB Siren', 90, -1)">−</button><div class="qty-val" id="qty-siren">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('siren', 'Aeotec 110dB Siren', 90, 1)">+</button></div>
               </div>
 
             <div class="addon-item" data-id="water-shutoff">
@@ -1534,15 +1604,15 @@
               <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('fan-controller', 'Ceiling Fan Controller', 80, -1)">−</button><div class="qty-val" id="qty-fan-controller">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('fan-controller', 'Ceiling Fan Controller', 80, 1)">+</button></div>
               </div>
 
-            <div class="addon-item" data-id="shade-relay">
+            <div class="addon-item" data-id="custom-shades">
               <div class="addon-left">
-                <div class="addon-icon">🪟</div>
+                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 6.5h18"/><path d="M3 9.5h18"/><path d="M3 12.5h18" stroke-width="2.6"/><path d="M12 12.5v2.4"/><circle cx="12" cy="15.8" r="1"/></svg></div>
                 <div class="addon-info">
-                  <h4>Motorized Shade Relay</h4>
-                  <p>Zooz double relay for motorized blinds and shades. Two-channel open/close.</p>
+                  <h4>Custom Automatic Shades</h4>
+                  <p>Motorised blinds and shades fitted to your windows and controlled from the tablet — by scene, on a schedule, or by voice. Sized and quoted per home after a site visit.</p>
                 </div>
               </div>
-              <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('shade-relay', 'Motorized Shade Relay', 65, -1)">−</button><div class="qty-val" id="qty-shade-relay">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('shade-relay', 'Motorized Shade Relay', 65, 1)">+</button></div>
+              <button class="addon-singleton" onclick="event.stopPropagation(); toggleInterest('custom-shades')">Add</button>
               </div>
 
             <div class="addon-item" data-id="range-extender">
@@ -1554,17 +1624,6 @@
                 </div>
               </div>
               <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('range-extender', 'Z-Wave Range Extender', 65, -1)">−</button><div class="qty-val" id="qty-range-extender">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('range-extender', 'Z-Wave Range Extender', 65, 1)">+</button></div>
-              </div>
-
-            <div class="addon-item" data-id="multilang">
-              <div class="addon-left">
-                <div class="addon-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a13 13 0 0 1 0 18M12 3a13 13 0 0 0 0 18"/></svg></div>
-                <div class="addon-info">
-                  <h4>Multi-Language Interface</h4>
-                  <p>French, Spanish, Tagalog, Punjabi + more on request.</p>
-                </div>
-              </div>
-              <button class="addon-singleton" onclick="event.stopPropagation(); toggleSingletonAddon('multilang', 'Multi-Language Interface', 300)">Add</button>
               </div>
 
             <div class="addon-item" data-id="backup">
@@ -1599,7 +1658,7 @@
         <!-- STEP 6: Quote -->
         <div class="config-step" id="step-6">
           <div class="step-header">
-            <div class="step-eyebrow">Your Custom Build</div>
+            <div class="step-eyebrow">Step 6 of 6 · Your Custom Build</div>
             <h2>Here's Your System</h2>
             <p>Built exactly to your specs. Send it to our team and we'll follow up within one business day.</p>
           </div>
@@ -1652,7 +1711,7 @@
                 <textarea name="notes" id="qNotes" placeholder="e.g. I have a detached garage, or I need everything installed within the next two weeks..."></textarea>
               </div>
               <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; font-size:16px; padding:16px;">
-                🚀 Send My Custom Quote
+                Send My Custom Quote
               </button>
               <p style="font-size:12px; color:var(--text-muted); text-align:center; margin-top:14px;">
                 No commitment required. We'll reach out within 1 business day.
@@ -1687,6 +1746,10 @@
           <span class="summary-label">📷 Cameras</span>
           <span class="summary-value empty" id="sum-cameras">None</span>
         </div>
+        <div class="summary-line" id="sum-recording-line" style="display:none">
+          <span class="summary-label">💾 Recording</span>
+          <span class="summary-value" id="sum-recording">—</span>
+        </div>
         <div class="summary-line">
           <span class="summary-label">🔒 Locks</span>
           <span class="summary-value empty" id="sum-locks">None</span>
@@ -1715,7 +1778,16 @@
 
         <div class="summary-total-label">Estimated Total</div>
         <div class="summary-total" id="sum-total">$1,000</div>
-        <div class="summary-note">Final quote confirmed after consultation</div>
+        <div class="summary-note">One-time install cost. Final quote confirmed after consultation.</div>
+
+        <div class="summary-line" id="sum-interest-line" style="display:none; margin-top:14px;">
+          <span class="summary-label" id="sum-interest-label">Quoted after consultation</span>
+          <span class="summary-value">No price yet</span>
+        </div>
+        <div class="summary-line" id="sum-support-line" style="display:none; margin-top:14px;">
+          <span class="summary-label">Priority Support (recurring)</span>
+          <span class="summary-value" id="sum-support">$30/month</span>
+        </div>
 
         <button class="btn btn-primary summary-cta" onclick="goToStep(6)">Get My Quote →</button>
       </div>
@@ -1763,6 +1835,13 @@
       currentStep: 1,
       totalSteps: 6,
       thermostat: { id: 'thermo-t6pro', name: 'Honeywell T6 Pro Z-Wave', qty: 0, unitPrice: 265 },
+      // Recurring plan — deliberately NOT part of state.addons, so it can
+      // never be swept into the one-off hardware subtotal or the total.
+      driveSize: '4tb',
+      supportPlan: false,
+      // Made-to-measure items: interest flags only. Never priced, never
+      // summed. Add an id + label to INTEREST_INFO to create another one.
+      interests: {},
       cameras: {},   // id → { name, qty, unitPrice }
       locks: {},     // id → { name, qty, unitPrice }
       lighting: {},  // id → { name, price }
@@ -1785,6 +1864,28 @@
     // added to the hardware subtotal — the summary shows it so a fresh
     // page doesn't read "Lighting: None" when 3 switches are included.
     const BASE_PRICE = 1000;
+    // Priority Support is a recurring monthly plan, never a one-off cost.
+    const SUPPORT_MONTHLY = 30;
+
+    // Cameras cannot record without a recorder and a drive, so both are
+    // required whenever camera qty > 0. Only the drive SIZE is a choice.
+    const NVR = { name: 'TRENDnet TV-NVR1508', price: 239, ports: 8 };
+    const DRIVES = [
+      { id: '1tb', label: '1 TB', tb: 1, price: 199 },
+      { id: '2tb', label: '2 TB', tb: 2, price: 225 },
+      { id: '3tb', label: '3 TB', tb: 3, price: 235 },
+      { id: '4tb', label: '4 TB', tb: 4, price: 275, recommended: true },
+      { id: '6tb', label: '6 TB', tb: 6, price: 369 },
+    ];
+    // ~1 Mbps per camera, continuous = 10.8 GB per camera per day.
+    const GB_PER_CAM_PER_DAY = 10.8;
+
+    // Items quoted after a consultation rather than sold at a list price.
+    // Reusable: any card wired to toggleInterest(id) with an entry here
+    // shows up in the summary and the emailed quote with no dollar figure.
+    const INTEREST_INFO = {
+      'custom-shades': { name: 'Custom automatic shades' },
+    };
     const BASE_INCLUDED_LIGHTING = '3× Zooz Z-Wave switches';
 
     const LIGHTING_INFO = {
@@ -1796,10 +1897,6 @@
       'zooz-remote':      { name: 'Zooz Regular Remote',  price: 78 },
     };
     const ADDON_INFO = {
-      'voice':          { name: 'Voice "Hey Skip"',            price: 500 },
-      'support':        { name: 'Priority Support Plan',       price: 0, note: 'optional monthly' },
-      'energy':         { name: 'Energy Monitor',              price: 299 },
-      'multilang':      { name: 'Multi-Language Interface',    price: 300 },
       'backup':         { name: 'UPS Backup Power',            price: 399 },
       'motion-sensor':  { name: 'Zooz Motion Sensor',          price: 91 },
       'door-contact':   { name: 'Zooz Door/Window Contact',    price: 75 },
@@ -1811,7 +1908,6 @@
       'doorbell':       { name: 'Aeotec Doorbell',             price: 105 },
       'temp-humidity':  { name: 'Temp + Humidity Sensor',      price: 75 },
       'fan-controller': { name: 'Ceiling Fan Controller',      price: 80 },
-      'shade-relay':    { name: 'Motorized Shade Relay',       price: 65 },
       'range-extender': { name: 'Z-Wave Range Extender',       price: 65 },
     };
 
@@ -1843,23 +1939,41 @@
     }
 
     // ─── Thermostat Selection ──────────────────────────────────────────
+    // Clicking the card selects the thermostat. Selecting something has to
+    // mean at least one unit, otherwise the card highlights but adds $0.
     function selectDevice(category, id, price, el) {
+      const qtyEl = document.getElementById('qty-' + id);
+      let qty = parseInt(qtyEl.textContent, 10) || 0;
+      if (qty === 0) {
+        qty = 1;
+        qtyEl.textContent = qty;
+      }
       document.querySelectorAll('#thermostatPicker .device-card').forEach(c => c.classList.remove('selected'));
       el.classList.add('selected');
       const info = THERMO_INFO[id];
-      state.thermostat = { id, name: info.name, qty: parseInt(document.getElementById('qty-' + id).textContent), unitPrice: info.unitPrice };
+      state.thermostat = { id: id, name: info.name, qty: qty, unitPrice: info.unitPrice };
       updateSummary();
     }
 
+    // Qty floor is 0, not 1 — pressing "−" at 0 must not silently add a
+    // thermostat (and its price) to the estimate.
     function adjustQty(id, delta) {
       const el = document.getElementById('qty-' + id);
-      let val = parseInt(el.textContent) + delta;
-      if (val < 1) val = 1;
+      let val = Math.max(0, (parseInt(el.textContent, 10) || 0) + delta);
       el.textContent = val;
-      if (state.thermostat.id === id) {
-        state.thermostat.qty = val;
-        updateSummary();
+      const card = document.querySelector('#thermostatPicker [data-id="' + id + '"]');
+      const info = THERMO_INFO[id];
+      if (val > 0) {
+        if (card) {
+          document.querySelectorAll('#thermostatPicker .device-card').forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+        }
+        state.thermostat = { id: id, name: info.name, qty: val, unitPrice: info.unitPrice };
+      } else {
+        if (card) card.classList.remove('selected');
+        state.thermostat = { id: id, name: info.name, qty: 0, unitPrice: info.unitPrice };
       }
+      updateSummary();
     }
 
     // ─── Camera Selection ──────────────────────────────────────────────
@@ -1883,6 +1997,7 @@
         card.classList.remove('selected');
         delete state.cameras[id];
       }
+      renderRecording();
       updateSummary();
     }
 
@@ -1922,6 +2037,104 @@
         if (card) card.classList.add('selected');
         if (btn) btn.textContent = 'Added';
       }
+      updateSummary();
+    }
+
+    function camCount() {
+      return Object.values(state.cameras).reduce((n, c) => n + (c.qty || 0), 0);
+    }
+
+    function selectedDrive() {
+      return DRIVES.find(d => d.id === state.driveSize) || DRIVES[3];
+    }
+
+    // Recording cost is all-or-nothing with cameras: no cameras, no cost;
+    // any camera, NVR + the chosen drive.
+    function recordingCost() {
+      return camCount() > 0 ? NVR.price + selectedDrive().price : 0;
+    }
+
+    function retentionText(drive, cams) {
+      if (cams <= 0) return '';
+      const days = (drive.tb * 1000) / (GB_PER_CAM_PER_DAY * cams);
+      if (days >= 60) return '~' + Math.round(days / 30) + ' months';
+      if (days >= 14) return '~' + Math.round(days) + ' days';
+      return '~' + Math.round(days) + ' days';
+    }
+
+    function setDrive(id) {
+      state.driveSize = id;
+      renderRecording();
+      updateSummary();
+    }
+
+    // Renders the required-recording panel: shown only when cameras > 0.
+    function renderRecording() {
+      const cams = camCount();
+      const panel = document.getElementById('recordingRequired');
+      if (!panel) return;
+      panel.style.display = cams > 0 ? '' : 'none';
+      if (cams === 0) return;
+
+      const assume = document.getElementById('driveAssumption');
+      if (assume) {
+        assume.textContent = 'Retention below is for your ' + cams + ' camera' +
+          (cams === 1 ? '' : 's') + ' recording continuously at about 1 Mbps each' +
+          ' (roughly ' + Math.round(GB_PER_CAM_PER_DAY * cams) + ' GB a day).' +
+          ' Motion-only recording typically keeps footage about 4× longer.';
+      }
+
+      const picker = document.getElementById('drivePicker');
+      if (picker) {
+        picker.innerHTML = DRIVES.map(function (d) {
+          return '<div class="drive-opt' + (d.id === state.driveSize ? ' selected' : '') + '"' +
+            ' onclick="setDrive(\'' + d.id + '\')">' +
+            '<div class="do-size">' + d.label + '</div>' +
+            '<div class="do-price">$' + d.price + '</div>' +
+            '<div class="do-keep">Keeps ' + retentionText(d, cams) + '</div>' +
+            (d.recommended ? '<span class="do-rec">Recommended</span>' : '') +
+            '</div>';
+        }).join('');
+      }
+
+      const notice = document.getElementById('portNotice');
+      const noticeText = document.getElementById('portNoticeText');
+      if (notice) {
+        const over = cams > NVR.ports;
+        notice.style.display = over ? '' : 'none';
+        if (over && noticeText) {
+          noticeText.textContent = 'You\'ve selected ' + cams + ' cameras and the recorder has ' +
+            NVR.ports + ' ports. This build needs extra capacity — a second recorder or a PoE switch — ' +
+            'which we size and quote after the consultation. It is not in the estimate below.';
+        }
+      }
+    }
+
+    // Made-to-measure interest flag — records that the customer wants to
+    // discuss an item. Deliberately adds nothing to hardware or the total.
+    function toggleInterest(id) {
+      const card = document.querySelector('[data-id="' + id + '"]');
+      const btn = card && card.querySelector('.addon-singleton');
+      if (state.interests[id]) {
+        delete state.interests[id];
+        if (card) card.classList.remove('selected');
+        if (btn) btn.textContent = 'Add';
+      } else {
+        state.interests[id] = INTEREST_INFO[id] || { name: id };
+        if (card) card.classList.add('selected');
+        if (btn) btn.textContent = 'Added';
+      }
+      updateSummary();
+    }
+
+    // Priority Support: recurring, so it is tracked apart from state.addons
+    // and shown on its own per-month line. It never touches the install total.
+    function toggleSupportPlan() {
+      const card = document.querySelector('[data-id="support"]');
+      const btn = card && card.querySelector('.addon-singleton');
+      state.supportPlan = !state.supportPlan;
+      if (card) card.classList.toggle('selected', state.supportPlan);
+      if (btn) btn.textContent = state.supportPlan ? 'Added' : 'Add';
       updateSummary();
     }
 
@@ -2002,15 +2215,38 @@
       // Total
       let hardware = t.qty * t.unitPrice;
       Object.values(state.cameras).forEach(c => hardware += c.qty * c.unitPrice);
-      // NVR bundled when any camera is picked (see summary breakdown).
-      const _camsQtySum = Object.values(state.cameras).reduce((s, c) => s + (c.qty || 0), 0);
-      if (_camsQtySum > 0) hardware += 239;
+      // Recorder + drive are required with any camera, never optional.
+      hardware += recordingCost();
       Object.values(state.locks).forEach(l => hardware += l.price);
       Object.values(state.lighting).forEach(l => hardware += l.price);
       Object.values(state.addons).forEach(a => hardware += a.price);
 
+      const recLine = document.getElementById('sum-recording-line');
+      if (recLine) {
+        const cams = camCount();
+        recLine.style.display = cams > 0 ? '' : 'none';
+        if (cams > 0) {
+          const d = selectedDrive();
+          document.getElementById('sum-recording').textContent =
+            NVR.name + ' + ' + d.label + ' drive' + (cams > NVR.ports ? ' (extra capacity quoted)' : '');
+        }
+      }
+
       document.getElementById('sum-hardware').textContent = '$' + hardware.toLocaleString();
       document.getElementById('sum-total').textContent = '$' + (BASE_PRICE + hardware).toLocaleString();
+
+      // Recurring plan shown separately — never folded into the total above.
+      const supLine = document.getElementById('sum-support-line');
+      if (supLine) supLine.style.display = state.supportPlan ? '' : 'none';
+
+      // Interest flags — listed, never priced.
+      const intKeys = Object.keys(state.interests);
+      const intLine = document.getElementById('sum-interest-line');
+      if (intLine) {
+        intLine.style.display = intKeys.length ? '' : 'none';
+        document.getElementById('sum-interest-label').textContent =
+          intKeys.map(k => state.interests[k].name).join(', ') + ' — quoted after consultation';
+      }
     }
 
     function buildConfirmSummary() {
@@ -2043,15 +2279,15 @@
       } else {
         html += '<div class="cs-row muted"><span class="cs-row-label">None selected</span><span class="cs-row-amount">—</span></div>';
       }
-      // Every camera install requires a dedicated NVR. Cameras plug into
-      // its 8 built-in PoE ports, so no separate switch is needed by
-      // default. Bundled automatically when 1+ cameras are picked; the
-      // storage drive size is chosen with the installer (not in total).
+      // Every camera install requires a dedicated NVR and a drive. Both
+      // are added automatically when 1+ cameras are picked; only the
+      // drive size is the customer's choice.
       if (camsQty > 0) {
-        html += `<div class="cs-row"><span class="cs-row-label">NVR — TRENDnet TV-NVR1508, 8 PoE ports (required for cameras)</span><span class="cs-row-amount">$239</span></div>`;
-        html += `<div class="cs-row muted"><span class="cs-row-label">WD Purple storage drive, 1–6 TB ($199–$369) — size chosen with your installer, not in total</span><span class="cs-row-amount">—</span></div>`;
-        if (camsQty > 8) {
-          html += `<div class="cs-row muted"><span class="cs-row-label">More than 8 cameras: a separate PoE switch is recommended — quoted separately</span><span class="cs-row-amount">—</span></div>`;
+        const drv = selectedDrive();
+        html += `<div class="cs-row"><span class="cs-row-label">NVR — ${NVR.name}, ${NVR.ports} PoE ports (required for cameras)</span><span class="cs-row-amount">${fmt(NVR.price)}</span></div>`;
+        html += `<div class="cs-row"><span class="cs-row-label">WD Purple ${drv.label} drive — keeps ${retentionText(drv, camsQty)} at ~1 Mbps per camera, continuous</span><span class="cs-row-amount">${fmt(drv.price)}</span></div>`;
+        if (camsQty > NVR.ports) {
+          html += `<div class="cs-row muted"><span class="cs-row-label">${camsQty} cameras exceeds the recorder's ${NVR.ports} ports — extra capacity (second recorder or PoE switch) quoted after consultation, not in total</span><span class="cs-row-amount">Not priced</span></div>`;
         }
       }
       html += '</div>';
@@ -2093,19 +2329,32 @@
       // Total
       let hardware = tPrice;
       camList.forEach(c => hardware += c.qty * c.unitPrice);
-      // NVR bundled when any camera picked (same rule as above).
-      if (camList.reduce((s, c) => s + (c.qty || 0), 0) > 0) hardware += 239;
+      // Recorder + drive: required with any camera.
+      hardware += recordingCost();
       lockList.forEach(l => hardware += l.price);
       lightList.forEach(l => hardware += l.price);
       addonList.forEach(a => hardware += (a.price || 0));
       const total = BASE_PRICE + hardware;
 
+      // Made-to-measure items — listed so Ethan sees he has to price them.
+      const intList = Object.values(state.interests);
+      if (intList.length) {
+        html += '<div class="cs-group"><div class="cs-group-label">Quoted After Consultation</div>';
+        intList.forEach(i => {
+          html += `<div class="cs-row"><span class="cs-row-label">${i.name} — quoted after consultation</span><span class="cs-row-amount">Not priced</span></div>`;
+        });
+        html += '</div>';
+      }
+
       html += `<div class="cs-divider"></div>
         <div class="cs-total">
-          <span class="cs-total-label">Estimated Total</span>
+          <span class="cs-total-label">Estimated Total (one-time)</span>
           <span class="cs-total-amount">${fmt(total)}</span>
-        </div>
-        <div class="cs-note">Final quote confirmed after in-home consultation</div>`;
+        </div>`;
+      if (state.supportPlan) {
+        html += `<div class="cs-row"><span class="cs-row-label">Priority Support Plan — recurring, not included in the total above</span><span class="cs-row-amount">$${SUPPORT_MONTHLY}/month</span></div>`;
+      }
+      html += `<div class="cs-note">Final quote confirmed after in-home consultation</div>`;
 
       document.getElementById('confirmSummary').innerHTML = html;
     }
@@ -2114,20 +2363,32 @@
     function buildConfigText() {
       const t = state.thermostat;
       let txt = `Base Package ($${BASE_PRICE}): EJG-OS Hub, wall tablet, ${BASE_INCLUDED_LIGHTING} installed, install + tuning\n`;
-      txt += `Thermostat: ${t.qty}× ${t.name}\n`;
+      if (t.qty > 0) txt += `Thermostat: ${t.qty}× ${t.name}\n`;
       Object.values(state.cameras).forEach(c => txt += `Camera: ${c.qty}× ${c.name}\n`);
       const anyCams = Object.values(state.cameras).some(c => c.qty > 0);
-      if (anyCams) txt += `Camera install requires: NVR TRENDnet TV-NVR1508 ($239, in total) + WD Purple storage drive 1-6 TB ($199-$369, size TBD, NOT in total)\n`;
+      if (anyCams) {
+        const drv = selectedDrive();
+        const cams = camCount();
+        txt += `Recorder: ${NVR.name} ($${NVR.price}, in total)\n`;
+        txt += `Drive: WD Purple ${drv.label} ($${drv.price}, in total) — keeps ${retentionText(drv, cams)} at ~1 Mbps per camera continuous\n`;
+        if (cams > NVR.ports) {
+          txt += `*** QUOTE REQUIRED: ${cams} cameras exceeds the ${NVR.ports}-port recorder — needs a second NVR or a PoE switch, NOT priced on site ***\n`;
+        }
+      }
       Object.values(state.locks).forEach(l => txt += `Lock: ${l.qty}× ${l.name}\n`);
       Object.values(state.lighting).forEach(l => txt += `Lighting: ${l.qty}× ${l.name}\n`);
       Object.values(state.addons).forEach(a => txt += `Add-on: ${a.qty}× ${a.name}\n`);
+      Object.values(state.interests).forEach(i => txt += `*** QUOTE REQUIRED: ${i.name} — customer wants this, no price given on site ***\n`);
       let hardware = t.qty * t.unitPrice;
       Object.values(state.cameras).forEach(c => hardware += c.qty * c.unitPrice);
-      if (anyCams) hardware += 239; // keep the emailed total in step with the on-screen one
+      hardware += recordingCost(); // keep the emailed total in step with the on-screen one
       Object.values(state.locks).forEach(l => hardware += l.price);
       Object.values(state.lighting).forEach(l => hardware += l.price);
       Object.values(state.addons).forEach(a => hardware += a.price);
-      txt += `\nEstimated Total: $${(BASE_PRICE+hardware).toLocaleString()} (device prices include professional installation)`;
+      txt += `\nEstimated Total (one-time): $${(BASE_PRICE+hardware).toLocaleString()} (device prices include professional installation)`;
+      if (state.supportPlan) {
+        txt += `\nPriority Support Plan: $${SUPPORT_MONTHLY}/month recurring — NOT included in the one-time total above`;
+      }
       return txt;
     }
 
@@ -2162,10 +2423,11 @@
         alert('Network error. Please try again or email info@ejgos.com directly.');
       }
       btn.disabled = false;
-      btn.innerHTML = '🚀 Send My Custom Quote';
+      btn.innerHTML = 'Send My Custom Quote';
     });
 
     // Init
+    renderRecording();
     updateSummary();
     // Pre-select classic thermostat card
     // Thermostat is NOT preselected — customers who want none can leave it at 0
