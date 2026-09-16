@@ -491,24 +491,16 @@
       background: rgba(34, 197, 94, 0.16); border: 1px solid rgba(34, 197, 94, 0.4);
       color: #86efac; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
     }
-    /* Optional network switch — a choice, not a line item, so it needs
-       a selected state and an obvious control. */
-    .ns-row { align-items: flex-start; }
-    .ns-row.selected { background: rgba(168, 85, 247, 0.08); }
-    .ns-row .ns-copy { flex: 1 1 320px; min-width: 0; }
-    .ns-row .ns-copy span { display: block; line-height: 1.6; max-width: 58ch; }
-    .ns-tag {
-      display: inline-block; margin-left: 8px; padding: 2px 7px; border-radius: 999px;
-      background: rgba(34, 197, 94, 0.16); border: 1px solid rgba(34, 197, 94, 0.4);
-      color: #86efac; font-size: 10px; font-weight: 700;
-      letter-spacing: 0.04em; text-transform: uppercase; vertical-align: 2px;
-    }
-    .ns-tag.required {
-      background: rgba(251, 191, 36, 0.14); border-color: rgba(251, 191, 36, 0.42); color: #fcd34d;
-    }
+    /* Optional network switch — same panel shape as the recorder block,
+       with room to explain itself. */
+    .ns-panel.selected { border-color: rgba(168, 85, 247, 0.6); background: rgba(168, 85, 247, 0.10); }
+    .ns-badge { background: rgba(56, 189, 248, 0.16); border-color: rgba(56, 189, 248, 0.45); color: #bae6fd; }
+    .ns-badge.required { background: rgba(251, 191, 36, 0.14); border-color: rgba(251, 191, 36, 0.42); color: #fcd34d; }
+    .ns-copy { flex: 1 1 320px; min-width: 0; }
+    .ns-copy span { display: block; line-height: 1.6; max-width: 60ch; }
     .ns-right { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
     .ns-btn {
-      padding: 9px 18px; border-radius: 8px; cursor: pointer;
+      padding: 10px 22px; border-radius: 8px; cursor: pointer;
       background: transparent; color: var(--text);
       border: 1px solid rgba(168, 85, 247, 0.5);
       font-size: 13px; font-weight: 700; transition: background 0.2s, border-color 0.2s;
@@ -516,6 +508,20 @@
     .ns-btn:hover { background: rgba(168, 85, 247, 0.14); }
     .ns-btn.added { background: rgba(168, 85, 247, 0.22); border-color: var(--purple-400); }
     .ns-btn:disabled { opacity: 0.55; cursor: default; }
+    .ns-points {
+      list-style: none; margin: 4px 0 0; padding: 14px 0 0;
+      border-top: 1px solid rgba(139, 92, 246, 0.2);
+      display: grid; gap: 11px;
+    }
+    .ns-points li {
+      font-size: 12.5px; line-height: 1.6; color: var(--text-muted);
+      padding-left: 16px; position: relative; max-width: 72ch;
+    }
+    .ns-points li::before {
+      content: ''; position: absolute; left: 0; top: 8px;
+      width: 5px; height: 5px; border-radius: 50%; background: var(--purple-400);
+    }
+    .ns-points strong { color: var(--text); font-weight: 700; }
 
     .rec-req-notice {
       margin-top: 16px; padding: 13px 16px; border-radius: 10px;
@@ -1347,12 +1353,26 @@
               <div class="drive-picker" id="drivePicker"><!-- built by JS --></div>
             </div>
 
-            <!-- Optional network switch. Offered with any camera build,
-                 and required once the camera count passes the recorder's
-                 PoE ports. Same switch, same price, either way. -->
-            <div class="rec-req-row ns-row" id="netSwitchRow">
+          </div>
+
+          <!-- The network switch gets its own panel rather than a row
+               inside the recorder's, because it is the one thing on this
+               step the customer actually decides, and it needs room to
+               explain itself. Same shape as the recorder panel above, so
+               the only thing that reads differently is the badge:
+               Optional here, Required with any camera there. Flips to
+               Required once the camera count passes the recorder's PoE
+               ports. -->
+          <div class="rec-req ns-panel" id="netSwitchPanel" style="display:none;">
+            <div class="rec-req-head">
+              <span class="rec-req-badge ns-badge" id="netSwitchBadge">Optional</span>
+              <h3 id="netSwitchHeading">Keep the system off your household network</h3>
+              <p id="netSwitchLead"></p>
+            </div>
+
+            <div class="rec-req-row">
               <div class="ns-copy">
-                <strong>Network switch<span class="ns-tag" id="netSwitchTag">Recommended</span></strong>
+                <strong>Network switch</strong>
                 <span id="netSwitchText"></span>
               </div>
               <div class="ns-right">
@@ -1360,6 +1380,13 @@
                 <button type="button" class="ns-btn" id="netSwitchBtn" onclick="toggleNetSwitch()">Add</button>
               </div>
             </div>
+
+            <ul class="ns-points">
+              <li><strong>What it separates.</strong> Your hub, wall tablet and Wi-Fi camera stop sharing a network with every phone, laptop, games console and TV in the house. A device that picks something up elsewhere in the home has nothing to reach.</li>
+              <li><strong>Why it matters most with cameras.</strong> Cameras wired into the recorder already sit on their own network. This puts the same wall around everything else, including the footage the Wi-Fi camera sends back.</li>
+              <li><strong>Power over the same cable.</strong> It runs PoE, so it powers cameras down the network cable with no separate adapter. That is a convenience, not the reason to buy it.</li>
+              <li><strong>Nothing to maintain.</strong> It is configured during the install and left alone. No app, no subscription, no monthly fee.</li>
+            </ul>
           </div>
 
           <div class="step-nav">
@@ -2002,7 +2029,17 @@
     function revealStep(panel) {
       if (!panel) return;
       var top = panel.getBoundingClientRect().top;
-      if (top >= HEADER_OFFSET && top <= window.innerHeight * 0.4) return;
+      // Never scroll UP. Next gets pressed at the bottom of a step, so any
+      // upward correction throws you back through the part you have just
+      // finished and makes you scroll down again to reach the next button.
+      // Staying put leaves the new step's buttons near where your finger
+      // already is, and the browser clamps the position by itself when the
+      // new step is shorter than the one it replaced.
+      //
+      // The one case still worth moving for is a step whose top sits below
+      // the fold — jumping backwards through the numbered dots — where
+      // otherwise the page would look like it had not reacted at all.
+      if (top <= window.innerHeight * 0.5) return;
       window.scrollTo({
         top: Math.max(0, window.scrollY + top - HEADER_OFFSET - 16),
         behavior: 'smooth',
@@ -2200,25 +2237,31 @@
         }).join('');
       }
 
-      const row = document.getElementById('netSwitchRow');
-      const tag = document.getElementById('netSwitchTag');
+      const panelNs = document.getElementById('netSwitchPanel');
+      const badge = document.getElementById('netSwitchBadge');
+      const heading = document.getElementById('netSwitchHeading');
+      const lead = document.getElementById('netSwitchLead');
       const text = document.getElementById('netSwitchText');
       const btn = document.getElementById('netSwitchBtn');
-      if (row && tag && text && btn) {
+      if (panelNs && badge && heading && lead && text && btn) {
         const required = switchRequired();
         const on = switchIncluded();
-        row.classList.toggle('selected', on);
-        tag.textContent = required ? 'Required' : 'Recommended';
-        tag.classList.toggle('required', required);
+        panelNs.style.display = cams > 0 ? '' : 'none';
+        panelNs.classList.toggle('selected', on);
+        badge.textContent = required ? 'Required with this many cameras' : 'Optional';
+        badge.classList.toggle('required', required);
+        heading.textContent = required
+          ? 'Your build needs a switch for the extra cameras'
+          : 'Keep the system off your household network';
+        lead.textContent = required
+          ? cams + ' cameras is more than the recorder\'s ' + NVR.ports + ' PoE ports, so there is ' +
+            'nowhere left to plug the rest in. The switch connects and powers them, and it does the ' +
+            'network separation below at the same time.'
+          : 'One network switch, installed and configured, that puts the EJG-OS side of your home ' +
+            'on its own stretch of network. Most people add it once there are cameras in the build.';
         text.textContent = required
-          ? cams + ' cameras is more than the recorder\'s ' + NVR.ports + ' ports, so the switch ' +
-            'connects and powers the rest. Added to your estimate automatically.'
-          : 'Cameras wired into the recorder already sit on their own network. This extends that ' +
-            'same separation to the rest of the system — the hub, the tablet and the Wi-Fi ' +
-            'camera stop sharing a network with every phone, laptop and TV in the house, so a ' +
-            'device that picks something up elsewhere in the home has nothing to reach. Most ' +
-            'people add it once there are cameras in the build, because that is the footage you ' +
-            'would least want anyone near. It powers PoE cameras over the same cables as well.';
+          ? 'Added to your estimate automatically. Nothing to decide.'
+          : 'Added to your estimate only if you want it. You can change your mind before the quote.';
         btn.disabled = required;
         btn.textContent = required ? 'Included' : (on ? 'Added' : 'Add');
         btn.classList.toggle('added', on);
