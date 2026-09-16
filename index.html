@@ -206,6 +206,8 @@
       display: flex; justify-content: space-between; align-items: center;
       padding: 10px 16px 6px; font-size: 0.65rem; color: var(--text-muted);
     }
+    .ico { vertical-align: -0.16em; flex-shrink: 0; }
+    .phone-status .sig { display: inline-flex; align-items: center; gap: 5px; }
     .phone-greeting {
       padding: 8px 16px; font-size: 1.1rem; font-weight: 700; color: #fff;
     }
@@ -233,7 +235,8 @@
       background: rgba(255,255,255,0.05); border: 1px solid rgba(168,85,247,0.2);
       border-radius: 14px; padding: 12px; font-size: 0.7rem;
     }
-    .pinned-card .icon { font-size: 1.4rem; margin-bottom: 4px; }
+    .pinned-card .icon { line-height: 0; margin-bottom: 8px; color: var(--purple-300); }
+    .pinned-card.on .icon { color: var(--purple-200); }
     .pinned-card .label { color: var(--text-muted); }
     .pinned-card .val { font-weight: 700; color: #fff; font-size: 0.85rem; }
     .pinned-card.on { border-color: rgba(168,85,247,0.5); background: rgba(168,85,247,0.1); }
@@ -247,7 +250,7 @@
       font-size: 0.55rem; color: var(--text-muted);
     }
     .phone-nav-item.active { color: #fff; }
-    .phone-nav-item .ni { font-size: 1.1rem; }
+    .phone-nav-item .ni { line-height: 0; display: block; }
 
     /* ── SECTION FRAMEWORK ─────────────────────────────────────────── */
     section { padding: 6rem 1.5rem; max-width: 1200px; margin: 0 auto; }
@@ -310,7 +313,7 @@
       width: 48px; height: 48px; border-radius: 12px;
       background: rgba(168,85,247,0.15); border: 1px solid rgba(168,85,247,0.3);
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem; margin-bottom: 1rem;
+      color: var(--purple-300); margin-bottom: 1rem;
     }
     .feature-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
     .feature-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
@@ -462,7 +465,8 @@
       transition: border-color 0.2s;
     }
     .tech-badge:hover { border-color: rgba(168,85,247,0.5); }
-    .tech-badge .tb-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .tech-badge .tb-icon { height: 40px; display: flex; align-items: center;
+      justify-content: center; color: var(--purple-300); margin-bottom: 0.75rem; }
     .tech-badge h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.2rem; }
     .tech-badge p { font-size: 0.75rem; color: var(--text-muted); }
 
@@ -491,7 +495,7 @@
       border: 1px solid rgba(168,85,247,0.4); border-radius: 24px;
       padding: 3rem; text-align: center; margin: 4rem 0;
     }
-    .callout-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .callout-icon { line-height: 0; color: var(--purple-300); margin-bottom: 1rem; }
     .callout p {
       font-size: clamp(1rem, 2vw, 1.3rem); font-style: italic;
       color: var(--text); max-width: 700px; margin: 0 auto;
@@ -679,46 +683,46 @@
       <div class="phone-screen">
         <div class="phone-status">
           <span>9:41 AM</span>
-          <span>📶 🔋</span>
+          <span class="sig"><svg class="ico" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.6" y="15.4" width="3.2" height="5.8" rx="1"/><rect x="7.6" y="12.2" width="3.2" height="9" rx="1"/><rect x="12.6" y="8.6" width="3.2" height="12.6" rx="1"/><rect x="17.6" y="4.6" width="3.2" height="16.6" rx="1"/></svg><svg class="ico" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.8" y="7.4" width="17.2" height="9.2" rx="2.4"/><path d="M21.6 10.6v2.8"/><rect x="4.2" y="9.8" width="10" height="4.4" rx="1.1" fill="currentColor" stroke="none"/></svg></span>
         </div>
         <div class="phone-greeting">
           Good morning
-          <span>☀️ Calgary · 12°C · Clear</span>
+          <span><svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.8v2.6M12 19.6v2.6M22.2 12h-2.6M4.4 12H1.8M19.2 4.8 17.4 6.6M6.6 17.4l-1.8 1.8M19.2 19.2l-1.8-1.8M6.6 6.6 4.8 4.8"/></svg> Calgary · 12°C · Clear</span>
         </div>
         <div class="quick-scenes">
-          <div class="scene-chip active">🌞 Good Morning</div>
-          <div class="scene-chip">📦 Away</div>
-          <div class="scene-chip">🎬 Movie</div>
-          <div class="scene-chip">🌙 Sleep</div>
+          <div class="scene-chip active"><svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.8v2.6M12 19.6v2.6M22.2 12h-2.6M4.4 12H1.8M19.2 4.8 17.4 6.6M6.6 17.4l-1.8 1.8M19.2 19.2l-1.8-1.8M6.6 6.6 4.8 4.8"/></svg> Good Morning</div>
+          <div class="scene-chip"><svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8.1a2 2 0 0 0-1-1.74l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8.1v7.8a2 2 0 0 0 1 1.74l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.74z"/><path d="m3.3 7.1 8.7 5 8.7-5M12 21.9V12.1M7.5 4.3l9 5.15"/></svg> Away</div>
+          <div class="scene-chip"><svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 6.1 3 11.2l-.9-2.5c-.3-1.1.3-2.2 1.4-2.5l13.4-3.9c1.1-.3 2.2.3 2.5 1.4z"/><path d="m6.3 5.4 3.1 3.9M12.5 3.5l3.1 4"/><path d="M3 11.2h18v8.2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Movie</div>
+          <div class="scene-chip"><svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 15.3A9.1 9.1 0 1 1 9.2 3.5a7.3 7.3 0 0 0 11.4 11.8z"/></svg> Sleep</div>
         </div>
         <div class="pinned-grid">
           <div class="pinned-card on">
-            <div class="icon">💡</div>
+            <div class="icon"><svg class="ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.6a6.6 6.6 0 0 0-4 11.9c.7.5 1.1 1.3 1.1 2.1v.3h5.8v-.3c0-.8.4-1.6 1.1-2.1A6.6 6.6 0 0 0 12 2.6z"/><path d="M9.3 19.1h5.4M10.4 21.6h3.2"/></svg></div>
             <div class="label">Living Room</div>
             <div class="val">ON · 80%</div>
           </div>
           <div class="pinned-card">
-            <div class="icon">🌡️</div>
+            <div class="icon"><svg class="ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 14.6V4.6a2.1 2.1 0 1 0-4.2 0v10a4.4 4.4 0 1 0 4.2 0z"/><path d="M12 8.4v8.5"/><circle cx="12" cy="18.2" r="1.3" fill="currentColor" stroke="none"/></svg></div>
             <div class="label">Thermostat</div>
             <div class="val">21°C</div>
           </div>
           <div class="pinned-card">
-            <div class="icon">🔒</div>
+            <div class="icon"><svg class="ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.6" y="10.2" width="16.8" height="11.3" rx="2.4"/><path d="M7.6 10.2V6.9a4.4 4.4 0 0 1 8.8 0v3.3"/><circle cx="12" cy="15.8" r="1.4" fill="currentColor" stroke="none"/></svg></div>
             <div class="label">Front Door</div>
             <div class="val" style="color: var(--green)">Locked</div>
           </div>
           <div class="pinned-card on">
-            <div class="icon">📷</div>
+            <div class="icon"><svg class="ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9a2.2 2.2 0 0 1 2.2-2.2h1.9l1.4-2.3h7l1.4 2.3h1.9A2.2 2.2 0 0 1 21 9v8.6a2.2 2.2 0 0 1-2.2 2.2H5.2A2.2 2.2 0 0 1 3 17.6z"/><circle cx="12" cy="13" r="3.7"/></svg></div>
             <div class="label">Driveway Cam</div>
             <div class="val">Live</div>
           </div>
         </div>
         <div class="phone-nav">
-          <div class="phone-nav-item active"><span class="ni">🏠</span>Home</div>
-          <div class="phone-nav-item"><span class="ni">🧩</span>Rooms</div>
-          <div class="phone-nav-item"><span class="ni">🎛️</span>Scenes</div>
-          <div class="phone-nav-item"><span class="ni">💡</span>Devices</div>
-          <div class="phone-nav-item"><span class="ni">⚙️</span>Settings</div>
+          <div class="phone-nav-item active"><span class="ni"><svg class="ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.4 12 3l9 7.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9.4 21v-6.2h5.2V21"/></svg></span>Home</div>
+          <div class="phone-nav-item"><span class="ni"><svg class="ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="2.8" width="8.2" height="8.2" rx="1.6"/><rect x="13" y="2.8" width="8.2" height="8.2" rx="1.6"/><rect x="2.8" y="13" width="8.2" height="8.2" rx="1.6"/><rect x="13" y="13" width="8.2" height="8.2" rx="1.6"/></svg></span>Rooms</div>
+          <div class="phone-nav-item"><span class="ni"><svg class="ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 6.5h17M3.5 12h17M3.5 17.5h17"/><circle cx="8.5" cy="6.5" r="2.1" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="9.5" cy="17.5" r="2.1" fill="currentColor" stroke="none"/></svg></span>Scenes</div>
+          <div class="phone-nav-item"><span class="ni"><svg class="ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.6a6.6 6.6 0 0 0-4 11.9c.7.5 1.1 1.3 1.1 2.1v.3h5.8v-.3c0-.8.4-1.6 1.1-2.1A6.6 6.6 0 0 0 12 2.6z"/><path d="M9.3 19.1h5.4M10.4 21.6h3.2"/></svg></span>Devices</div>
+          <div class="phone-nav-item"><span class="ni"><svg class="ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></span>Settings</div>
         </div>
       </div>
     </div>
@@ -755,28 +759,28 @@
 <div style="max-width: 1200px; margin: 3rem auto 0; padding: 1.75rem 2rem; background: rgba(139, 92, 246, 0.04); border: 1px solid rgba(139, 92, 246, 0.15); border-radius: 20px;">
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; align-items: center;">
     <div style="display: flex; align-items: center; gap: 12px;">
-      <div style="font-size: 1.8rem;">🇨🇦</div>
+      <div style="line-height:0; color: var(--purple-300);"><svg class="ico" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1.8 10.2 5.4c-.2.4-.6.5-1 .3L7.6 5l1 5c.1.5-.3.8-.7.4L5.8 8.6l-.6 1.3c-.1.3-.4.4-.7.3l-2.8-.6 1.2 3c.1.3 0 .6-.2.7l-.9.6 4.7 3.8c.4.4.6.8.4 1.2l-.4 1.6 4.4-.5c.3 0 .6.2.6.5l-.3 3.7h1.2l-.3-3.7c0-.3.3-.6.6-.5l4.4.5-.4-1.6c-.2-.4 0-.8.4-1.2l4.7-3.8-.9-.6c-.2-.1-.3-.4-.2-.7l1.2-3-2.8.6c-.3.1-.6 0-.7-.3l-.6-1.3-2.1 1.8c-.4.4-.8.1-.7-.4l1-5-1.6.7c-.4.2-.8.1-1-.3z" fill="currentColor" stroke="none"/></svg></div>
       <div>
         <div style="font-size: 0.72rem; font-weight: 700; color: var(--purple-400); text-transform: uppercase; letter-spacing: 0.08em;">Canadian Owned</div>
         <div style="font-size: 0.85rem; color: var(--text);">Built in Calgary, AB</div>
       </div>
     </div>
     <div style="display: flex; align-items: center; gap: 12px;">
-      <div style="font-size: 1.8rem;">🏢</div>
+      <div style="line-height:0; color: var(--purple-300);"><svg class="ico" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.2" y="2.6" width="15.6" height="18.8" rx="1.8"/><path d="M2.4 21.4h19.2"/><path d="M9.6 21.4v-4.6h4.8v4.6"/><g fill="currentColor" stroke="none"><circle cx="8.6" cy="7" r="0.95"/><circle cx="12" cy="7" r="0.95"/><circle cx="15.4" cy="7" r="0.95"/><circle cx="8.6" cy="12" r="0.95"/><circle cx="12" cy="12" r="0.95"/><circle cx="15.4" cy="12" r="0.95"/></g></svg></div>
       <div>
         <div style="font-size: 0.72rem; font-weight: 700; color: var(--purple-400); text-transform: uppercase; letter-spacing: 0.08em;">Alberta Registered</div>
         <div style="font-size: 0.85rem; color: var(--text);">EJG Technologies Inc.</div>
       </div>
     </div>
     <div style="display: flex; align-items: center; gap: 12px;">
-      <div style="font-size: 1.8rem;">📡</div>
+      <div style="line-height:0; color: var(--purple-300);"><svg class="ico" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.1 4.9a10 10 0 0 0 0 14.2"/><path d="M18.9 4.9a10 10 0 0 1 0 14.2"/><path d="M8.3 8.1a5.5 5.5 0 0 0 0 7.8"/><path d="M15.7 8.1a5.5 5.5 0 0 1 0 7.8"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/></svg></div>
       <div>
         <div style="font-size: 0.72rem; font-weight: 700; color: var(--purple-400); text-transform: uppercase; letter-spacing: 0.08em;">Certified Devices</div>
         <div style="font-size: 0.85rem; color: var(--text);">Z-Wave Plus &amp; Wi-Fi</div>
       </div>
     </div>
     <div style="display: flex; align-items: center; gap: 12px;">
-      <div style="font-size: 1.8rem;">📍</div>
+      <div style="line-height:0; color: var(--purple-300);"><svg class="ico" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21.6s7.6-6.5 7.6-11.6a7.6 7.6 0 1 0-15.2 0c0 5.1 7.6 11.6 7.6 11.6z"/><circle cx="12" cy="9.9" r="2.8"/></svg></div>
       <div>
         <div style="font-size: 0.72rem; font-weight: 700; color: var(--purple-400); text-transform: uppercase; letter-spacing: 0.08em;">Service Area</div>
         <div style="font-size: 0.85rem; color: var(--text);">Calgary &amp; surrounding communities</div>
@@ -799,67 +803,67 @@
     <div class="feature-grid">
 
       <div class="feature-card">
-        <div class="feature-icon">🏠</div>
+        <div class="feature-icon"><svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.4 12 3l9 7.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9.4 21v-6.2h5.2V21"/></svg></div>
         <h3>Personalized Home Dashboard</h3>
         <p>Pin your most-used devices — lights, locks, thermostats, cameras — directly to your home screen for instant one-tap control. Greets you by name with live weather and time.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">🧩</div>
+        <div class="feature-icon"><svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="2.8" width="8.2" height="8.2" rx="1.6"/><rect x="13" y="2.8" width="8.2" height="8.2" rx="1.6"/><rect x="2.8" y="13" width="8.2" height="8.2" rx="1.6"/><rect x="13" y="13" width="8.2" height="8.2" rx="1.6"/></svg></div>
         <h3>Room-by-Room Control</h3>
         <p>Organize every device by room. Navigate into any space and control everything in it — lights, plugs, sensors, climate — with a clean, intuitive room interface.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">🎛️</div>
+        <div class="feature-icon"><svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 6.5h17M3.5 12h17M3.5 17.5h17"/><circle cx="8.5" cy="6.5" r="2.1" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="2.1" fill="currentColor" stroke="none"/><circle cx="9.5" cy="17.5" r="2.1" fill="currentColor" stroke="none"/></svg></div>
         <h3>Smart Scenes</h3>
         <p>One tap activates a full experience. Good Morning can brighten your lights, set the thermostat, unlock the front door, and start your coffee plug — all at once. Fully customizable.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">⚡</div>
+        <div class="feature-icon"><svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.2 2.2 4.6 13.6h6.3l-.1 8.2 8.6-11.4h-6.3z"/></svg></div>
         <h3>Automations Engine</h3>
         <p>Build time-based, motion-triggered, or condition-based automations. Lights on at sunset. Locks engaged when everyone leaves. Thermostat adjusts before you wake up. Runs entirely locally.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">📷</div>
+        <div class="feature-icon"><svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9a2.2 2.2 0 0 1 2.2-2.2h1.9l1.4-2.3h7l1.4 2.3h1.9A2.2 2.2 0 0 1 21 9v8.6a2.2 2.2 0 0 1-2.2 2.2H5.2A2.2 2.2 0 0 1 3 17.6z"/><circle cx="12" cy="13" r="3.7"/></svg></div>
         <h3>Live Camera Access</h3>
         <p>View your security cameras live from any screen in your home or on your phone. Motion alerts, recordings, and live streaming all tied into the same interface as your devices. You watch and decide what to do; nobody else is watching the feed. Cameras record to a dedicated NVR in your home — required for every camera install — and plug straight into its PoE ports on their own isolated camera network, so footage never leaves your walls.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">🎙️</div>
+        <div class="feature-icon"><svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2.4" width="6" height="11.4" rx="3"/><path d="M5.6 11.6a6.4 6.4 0 0 0 12.8 0"/><path d="M12 18v3.6M8.6 21.6h6.8"/></svg></div>
         <h3>Voice Control — "Hey Skip"</h3>
         <p>EJG-OS includes its own built-in voice assistant. Say "Hey Skip" to control lights, run scenes, check devices, or ask about your home — no smart speaker to buy, no subscription.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">🌡️</div>
+        <div class="feature-icon"><svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 14.6V4.6a2.1 2.1 0 1 0-4.2 0v10a4.4 4.4 0 1 0 4.2 0z"/><path d="M12 8.4v8.5"/><circle cx="12" cy="18.2" r="1.3" fill="currentColor" stroke="none"/></svg></div>
         <h3>Climate Control</h3>
         <p>Full thermostat integration with temperature scheduling, room-by-room sensors, and automatic conversions between Celsius and Fahrenheit. Smart heating without waste.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">🔒</div>
+        <div class="feature-icon"><svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.6" y="10.2" width="16.8" height="11.3" rx="2.4"/><path d="M7.6 10.2V6.9a4.4 4.4 0 0 1 8.8 0v3.3"/><circle cx="12" cy="15.8" r="1.4" fill="currentColor" stroke="none"/></svg></div>
         <h3>Smart Locks &amp; Security</h3>
         <p>Control your door locks from anywhere in the house or remotely. Set lock schedules, see every lock and unlock event, and get an alert when a door is left open or unlocked unexpectedly. EJG-OS is self-monitored: those alerts reach you on your phone and the tablet. There's no monitoring centre behind them and nobody is dispatched on your behalf.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">📋</div>
+        <div class="feature-icon"><svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8.6" y="2" width="6.8" height="4.2" rx="1.3"/><path d="M15.4 4.1H18a2 2 0 0 1 2 2V20a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6.1a2 2 0 0 1 2-2h2.6"/><path d="M8.4 11.4h7.2M8.4 15.6h4.8"/></svg></div>
         <h3>Device Health Monitoring</h3>
         <p>EJG-OS tracks the status of every connected device and surfaces alerts when something goes offline, runs unexpectedly, or falls below performance thresholds.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">🌙</div>
+        <div class="feature-icon"><svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 15.3A9.1 9.1 0 1 1 9.2 3.5a7.3 7.3 0 0 0 11.4 11.8z"/></svg></div>
         <h3>Sleep Screen Mode</h3>
         <p>Dedicated sleep/standby mode for wall-mounted tablets. Turns your panel into a minimal ambient display when not in active use — and snaps back instantly on touch.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">🛡️</div>
+        <div class="feature-icon"><svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.4 4.2 5.5v6.1c0 5.1 3.3 9.3 7.8 10.8 4.5-1.5 7.8-5.7 7.8-10.8V5.5z"/><path d="m8.9 11.9 2.2 2.3 4-4.3"/></svg></div>
         <h3>Local-First Privacy</h3>
         <p>Your home's data lives on the hub in your house, not on a corporate cloud. No vendor can shut off your system, sell your usage data, or hike your prices. Remote access is end-to-end encrypted between your hub and your phone. Your home, your rules.</p>
       </div>
@@ -1020,22 +1024,22 @@
 
     <div class="tech-grid">
       <div class="tech-badge">
-        <div class="tb-icon">📡</div>
+        <div class="tb-icon"><svg class="ico" viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.1 4.9a10 10 0 0 0 0 14.2"/><path d="M18.9 4.9a10 10 0 0 1 0 14.2"/><path d="M8.3 8.1a5.5 5.5 0 0 0 0 7.8"/><path d="M15.7 8.1a5.5 5.5 0 0 1 0 7.8"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/></svg></div>
         <h4>Z-Wave</h4>
         <p>Military-grade mesh protocol — dedicated frequency, no Wi-Fi interference</p>
       </div>
       <div class="tech-badge">
-        <div class="tb-icon">🥧</div>
+        <div class="tb-icon"><svg class="ico" viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" role="img"><title>Raspberry Pi single-board computer</title><rect x="1.2" y="5.6" width="18" height="12.8" rx="1.4"/><g fill="currentColor" stroke="none"><rect x="3.40" y="7.80" width="0.95" height="0.95" rx="0.18"/><rect x="5.25" y="7.80" width="0.95" height="0.95" rx="0.18"/><rect x="7.10" y="7.80" width="0.95" height="0.95" rx="0.18"/><rect x="8.95" y="7.80" width="0.95" height="0.95" rx="0.18"/><rect x="10.80" y="7.80" width="0.95" height="0.95" rx="0.18"/><rect x="12.65" y="7.80" width="0.95" height="0.95" rx="0.18"/><rect x="14.50" y="7.80" width="0.95" height="0.95" rx="0.18"/><rect x="16.35" y="7.80" width="0.95" height="0.95" rx="0.18"/><rect x="3.40" y="9.80" width="0.95" height="0.95" rx="0.18"/><rect x="5.25" y="9.80" width="0.95" height="0.95" rx="0.18"/><rect x="7.10" y="9.80" width="0.95" height="0.95" rx="0.18"/><rect x="8.95" y="9.80" width="0.95" height="0.95" rx="0.18"/><rect x="10.80" y="9.80" width="0.95" height="0.95" rx="0.18"/><rect x="12.65" y="9.80" width="0.95" height="0.95" rx="0.18"/><rect x="14.50" y="9.80" width="0.95" height="0.95" rx="0.18"/><rect x="16.35" y="9.80" width="0.95" height="0.95" rx="0.18"/></g><rect x="7.4" y="13" width="5" height="3.9" rx="0.6"/><rect x="19.2" y="7.6" width="3.5" height="4" rx="0.5"/><rect x="19.2" y="12.6" width="3.5" height="4" rx="0.5"/></svg></div>
         <h4>Raspberry Pi</h4>
         <p>Silent, low-power local server that lives in your home — not a data center</p>
       </div>
       <div class="tech-badge">
-        <div class="tb-icon">⚛️</div>
+        <div class="tb-icon"><svg class="ico" viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="3.5" width="19" height="17" rx="2.5"/><path d="M2.5 8.5h19"/><circle cx="5.9" cy="6" r="0.75" fill="currentColor" stroke="none"/><circle cx="8.4" cy="6" r="0.75" fill="currentColor" stroke="none"/><path d="m10.6 12.2-2 2.4 2 2.4M13.4 12.2l2 2.4-2 2.4"/></svg></div>
         <h4>React + Vite</h4>
         <p>Blazing-fast, modern frontend — snappier than any cloud-based smart home app</p>
       </div>
       <div class="tech-badge">
-        <div class="tb-icon">🔐</div>
+        <div class="tb-icon"><svg class="ico" viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.6" y="10.2" width="16.8" height="11.3" rx="2.4"/><path d="M7.6 10.2V6.9a4.4 4.4 0 0 1 8.8 0v3.3"/><circle cx="12" cy="15.8" r="1.4" fill="currentColor" stroke="none"/></svg></div>
         <h4>Local Auth</h4>
         <p>Role-based authentication — homeowner, installer, and admin access levels</p>
       </div>
@@ -1286,7 +1290,7 @@
 
       <!-- STANDARD HOME (FEATURED) -->
       <div class="pricing-card-sm featured">
-        <div class="featured-badge">⭐ Most Popular</div>
+        <div class="featured-badge"><svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2.6 2.95 6.1 6.65 1-4.8 4.8 1.15 6.75L12 18.1l-5.95 3.15L7.2 14.5l-4.8-4.8 6.65-1z" fill="currentColor" stroke="none"/></svg> Most Popular</div>
         <div class="pricing-tier">Standard Home</div>
         <div class="pricing-price"><sup>$</sup>3,845<sub> install</sub></div>
         <div class="pricing-desc">Whole-home lighting, entry, and climate — the sweet spot.</div>
@@ -1657,21 +1661,21 @@
       <div>
         <div class="steps">
           <div class="step">
-            <div class="step-num" style="width:42px;height:42px;font-size:0.9rem">💬</div>
+            <div class="step-num" style="width:42px;height:42px"><svg class="ico" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.4a8.6 8.6 0 0 1-12.6 7.6L3 20.8l1.8-5.4A8.6 8.6 0 1 1 21 11.4z"/><g fill="currentColor" stroke="none"><circle cx="8.6" cy="11.6" r="0.95"/><circle cx="12" cy="11.6" r="0.95"/><circle cx="15.4" cy="11.6" r="0.95"/></g></svg></div>
             <div>
               <h3>Direct contact</h3>
               <p>Email or call your installer for help with your system — settings, new devices, adding automations, troubleshooting.</p>
             </div>
           </div>
           <div class="step">
-            <div class="step-num" style="width:42px;height:42px;font-size:0.9rem">🔧</div>
+            <div class="step-num" style="width:42px;height:42px"><svg class="ico" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.9 6.5a1.1 1.1 0 0 0 0 1.5l1.6 1.6a1.1 1.1 0 0 0 1.5 0l3.7-3.7a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.15 2.15 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></svg></div>
             <div>
               <h3>Remote diagnostics</h3>
               <p>With your permission, your installer can tunnel into your hub securely to diagnose and fix issues — no home visit required for most problems.</p>
             </div>
           </div>
           <div class="step">
-            <div class="step-num" style="width:42px;height:42px;font-size:0.9rem">📈</div>
+            <div class="step-num" style="width:42px;height:42px"><svg class="ico" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17.2 9.4 10.6l4 4L21 7"/><path d="M15.4 7H21v5.6"/></svg></div>
             <div>
               <h3>Ongoing improvements</h3>
               <p>Firmware updates, new features, and system tuning as EJG-OS improves. Priority Support subscribers are first in line for updates and setup help.</p>
@@ -1752,7 +1756,7 @@
 ════════════════════════════════════════════════════════ -->
 <div style="max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;">
   <div class="callout">
-    <div class="callout-icon">🏠</div>
+    <div class="callout-icon"><svg class="ico" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.4 12 3l9 7.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9.4 21v-6.2h5.2V21"/></svg></div>
     <p>
       "Most smart home systems are built to make you dependent on someone else's cloud, someone else's subscription,
       and someone else's terms of service. EJG-OS was built from the ground up to reverse that — your home,
@@ -1886,15 +1890,15 @@
 
   <div style="margin-top: 4rem; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;">
     <div style="text-align: center;">
-      <div style="font-size: 2rem; margin-bottom: 0.25rem;">📍</div>
+      <div style="line-height:0; color: var(--purple-300); margin-bottom: 0.6rem;"><svg class="ico" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21.6s7.6-6.5 7.6-11.6a7.6 7.6 0 1 0-15.2 0c0 5.1 7.6 11.6 7.6 11.6z"/><circle cx="12" cy="9.9" r="2.8"/></svg></div>
       <div style="font-size: 0.82rem; color: var(--text-muted);">Based in Calgary, AB<br/>Serving Airdrie · Cochrane · Okotoks · Chestermere · Springbank</div>
     </div>
     <div style="text-align: center;">
-      <div style="font-size: 2rem; margin-bottom: 0.25rem;">📬</div>
+      <div style="line-height:0; color: var(--purple-300); margin-bottom: 0.6rem;"><svg class="ico" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.4" y="4.8" width="19.2" height="14.4" rx="2.4"/><path d="m3.4 6.8 8.6 6.1 8.6-6.1"/></svg></div>
       <div style="font-size: 0.82rem; color: var(--text-muted);">info@ejgos.com<br/>Responses within 24hrs</div>
     </div>
     <div style="text-align: center;">
-      <div style="font-size: 2rem; margin-bottom: 0.25rem;">🔒</div>
+      <div style="line-height:0; color: var(--purple-300); margin-bottom: 0.6rem;"><svg class="ico" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.6" y="10.2" width="16.8" height="11.3" rx="2.4"/><path d="M7.6 10.2V6.9a4.4 4.4 0 0 1 8.8 0v3.3"/><circle cx="12" cy="15.8" r="1.4" fill="currentColor" stroke="none"/></svg></div>
       <div style="font-size: 0.82rem; color: var(--text-muted);">Your data stays<br/>in your home. Always.</div>
     </div>
   </div>

@@ -129,7 +129,8 @@
       font-size: 12px; font-weight: 700; color: var(--gold);
       letter-spacing: 2px; text-transform: uppercase; margin-bottom: 28px;
     }
-    .hero-eyebrow::before { content: '🏗️'; font-size: 14px; }
+    .hero-eyebrow svg { flex-shrink: 0; }
+    .ico { vertical-align: -0.16em; flex-shrink: 0; }
 
     .builder-hero h1 {
       font-size: clamp(40px, 6vw, 70px);
@@ -232,7 +233,7 @@
     }
     .value-card:hover::before { opacity: 1; }
 
-    .vc-icon { font-size: 40px; margin-bottom: 20px; display: block; }
+    .vc-icon { display: block; line-height: 0; color: var(--gold); margin-bottom: 20px; }
     .value-card h3 { font-size: 19px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
     .value-card p { font-size: 14px; color: var(--text-muted); line-height: 1.75; }
 
@@ -516,7 +517,7 @@
     <!-- ═══ HERO ══════════════════════════════════════════════════════ -->
     <section class="builder-hero">
       <div class="hero-inner">
-        <div class="hero-eyebrow">Home Builder Program</div>
+        <div class="hero-eyebrow"><svg class="ico" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.2 17.4v-3a7.8 7.8 0 0 1 15.6 0v3"/><path d="M1.9 17.4h20.2a1.15 1.15 0 0 1 0 2.3H1.9a1.15 1.15 0 0 1 0-2.3z"/><path d="M9.4 7.6v9.8M14.6 7.6v9.8"/></svg>Home Builder Program</div>
         <h1>
           <span class="h1-line1">Build Smarter Homes.</span>
           <span class="h1-line2">Sell Faster. Stand Out.</span>
@@ -553,32 +554,32 @@
 
       <div class="value-grid">
         <div class="value-card">
-          <span class="vc-icon">📐</span>
+          <span class="vc-icon"><svg class="ico" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.3 15.3 8.7 2.7a1.6 1.6 0 0 0-2.3 0L2.7 6.4a1.6 1.6 0 0 0 0 2.3l12.6 12.6a1.6 1.6 0 0 0 2.3 0l3.7-3.7a1.6 1.6 0 0 0 0-2.3z"/><path d="m7.2 10.8 2 2M10.4 7.6l2 2M13.6 4.4l2 2M4 14l2 2"/></svg></span>
           <h3>Pre-Wire Ready</h3>
           <p>We provide pre-wire specs at the framing stage. Your electrical sub knows exactly what to rough in. No retrofit surprises. No running wires through finished walls. Clean, professional, and spec-certified from day one.</p>
         </div>
         <div class="value-card">
-          <span class="vc-icon">🏘️</span>
+          <span class="vc-icon"><svg class="ico" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.2 13.2 7.6 8.6 13 13.2v8.2H2.2z"/><path d="M13 21.4V9.6l4.4-3.8 4.4 3.8v11.8z"/><path d="M6 21.4v-4h3.2v4"/></svg></span>
           <h3>Volume Pricing That Makes Sense</h3>
           <p>The more homes you build, the better your per-unit cost. Whether you're finishing three spec homes or a 40-unit development, our builder pricing scales with you. We provide transparent tiered rates — no negotiations every time.</p>
         </div>
         <div class="value-card">
-          <span class="vc-icon">🏆</span>
+          <span class="vc-icon"><svg class="ico" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 8.6H4.9a2.6 2.6 0 0 1 0-5.2h1.7M17.4 8.6h1.7a2.6 2.6 0 0 0 0-5.2h-1.7"/><path d="M6.6 2.4h10.8v6.4a5.4 5.4 0 0 1-10.8 0z"/><path d="M12 14.2v3.4M8.4 21.6h7.2M9.8 21.6c0-1.9.9-3.3 2.2-4M14.2 21.6c0-1.9-.9-3.3-2.2-4"/></svg></span>
           <h3>A Differentiator That Sells</h3>
           <p>Walk buyers through your show home, and they'll see a sleek wall-mounted tablet displaying the entire home's intelligent status — lighting, temperature, self-monitored security, automation scenes, all at a glance. Nothing else on the market offers this experience. It's a wow moment that closes sales. Your buyers get something they can't find anywhere else: a fully owned, zero-subscription smart home under their complete control.</p>
         </div>
         <div class="value-card">
-          <span class="vc-icon">🔒</span>
+          <span class="vc-icon"><svg class="ico" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.6" y="10.2" width="16.8" height="11.3" rx="2.4"/><path d="M7.6 10.2V6.9a4.4 4.4 0 0 1 8.8 0v3.3"/><circle cx="12" cy="15.8" r="1.4" fill="currentColor" stroke="none"/></svg></span>
           <h3>Privacy Buyers Can Trust</h3>
           <p>No cloud accounts required. No monthly data harvesting. Your buyers own their home's intelligence just like they own their home. In a market where privacy is increasingly valued, this is a genuine selling point.</p>
         </div>
         <div class="value-card">
-          <span class="vc-icon">🤝</span>
+          <span class="vc-icon"><svg class="ico" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="7.8" r="3.5"/><path d="M2.4 20.6a6.6 6.6 0 0 1 13.2 0"/><path d="M16.8 5a3.5 3.5 0 0 1 0 5.6"/><path d="M18.2 14.6a6.6 6.6 0 0 1 3.4 6"/></svg></span>
           <h3>Dedicated Builder Liaison</h3>
           <p>You get one point of contact, and it's the owner — someone who understands construction timelines, trades coordination, and permit processes. Not a help desk, and never a subcontractor you've not met. The same person on site every time.</p>
         </div>
         <div class="value-card">
-          <span class="vc-icon">📋</span>
+          <span class="vc-icon"><svg class="ico" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8.6" y="2" width="6.8" height="4.2" rx="1.3"/><path d="M15.4 4.1H18a2 2 0 0 1 2 2V20a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6.1a2 2 0 0 1 2-2h2.6"/><path d="M8.4 11.4h7.2M8.4 15.6h4.8"/></svg></span>
           <h3>Buyer Handoff Package</h3>
           <p>We handle the full technology handoff at occupancy — the wall-mounted control tablet is already installed and fully configured. We walk the new homeowner through app setup, scene configuration, and teach them how to control every aspect of their home. Your warranty card looks sharp. Your buyers feel taken care of. You look like a pro.</p>
         </div>
