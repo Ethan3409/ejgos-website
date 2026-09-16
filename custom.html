@@ -1393,7 +1393,7 @@
                 <p>Weiser SmartCode with Z-Wave. Backlit keypad, 30 user codes, auto-lock, one-touch locking. Fully integrated with EJG-OS scenes and away modes.</p>
                 <span class="opt-price">$295/lock</span>
               <div class="opt-qty" onclick="event.stopPropagation()"><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lock', 'weiser-lock', 'Weiser Z-Wave Smart Lock', 295, -1)">−</button><div class="qty-val" id="qty-weiser-lock">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lock', 'weiser-lock', 'Weiser Z-Wave Smart Lock', 295, 1)">+</button></div></div></div>
-            <div class="option-item" data-id="garage-tilt">
+            <div class="option-item" data-id="garage-control">
               <div class="option-icon"><svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" fill="none">
   <rect x="6" y="10" width="32" height="8" rx="1" fill="#1a1a2e" stroke="#a855f7" stroke-width="1.5"/>
   <line x1="14" y1="10" x2="14" y2="18" stroke="#a855f7" stroke-width="1" opacity="0.6"/>
@@ -1404,10 +1404,10 @@
   <line x1="22" y1="35" x2="22" y2="37" stroke="#c084fc" stroke-width="1"/>
 </svg></div>
               <div class="option-info">
-                <h4>Garage Door Tilt Sensor</h4>
-                <p>Ecolink Z-Wave tilt sensor. Tells you whether the garage door is open or closed and triggers scenes on state change. It reports only — opening and closing the door from the app needs a relay, which we quote after the consultation.</p>
-                <span class="opt-price">$60/each</span>
-              <div class="opt-qty" onclick="event.stopPropagation()"><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lock', 'garage-tilt', 'Garage Door Tilt Sensor', 60, -1)">−</button><div class="qty-val" id="qty-garage-tilt">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lock', 'garage-tilt', 'Garage Door Tilt Sensor', 60, 1)">+</button></div></div></div>
+                <h4>Garage Door Control</h4>
+                <p>Opens and closes the garage door from the app, and tells you whether it is actually open or closed. One price covers the Z-Wave relay that does the opening, the tilt sensor that reports the door’s real position, and the power supply. They go in as a set — a relay on its own can trigger the door but cannot tell you whether it moved, and a sensor on its own can only watch.</p>
+                <span class="opt-price">$120/each</span>
+              <div class="opt-qty" onclick="event.stopPropagation()"><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lock', 'garage-control', 'Garage Door Control', 120, -1)">−</button><div class="qty-val" id="qty-garage-control">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustOptionQty('lock', 'garage-control', 'Garage Door Control', 120, 1)">+</button></div></div></div>
           </div>
 
           <div class="step-nav">
@@ -1909,7 +1909,10 @@
     };
     const LOCK_INFO = {
       'weiser-lock':  { name: 'Weiser Z-Wave Smart Lock', price: 295 },
-      'garage-tilt':  { name: 'Garage Door Tilt Sensor',  price: 60 },
+      // Relay, tilt sensor and power supply, quoted and installed as one
+      // unit. Sold only as a set: the relay is what opens the door, the
+      // sensor is what confirms it actually moved.
+      'garage-control': { name: 'Garage Door Control', price: 120 },
     };
     // What the Base Package ships with. Priced into BASE_PRICE, never
     // added to the hardware subtotal — the summary shows it so a fresh
