@@ -322,7 +322,8 @@
     .option-icon svg { width: 100%; height: 100%; display: block; }
     .option-info h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
     .option-info p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
-    .option-info .opt-price {
+    .option-info .opt-price,
+    .addon-info .opt-price {
       font-size: 11px; font-weight: 700; color: var(--purple-400); margin-top: 6px; display: block;
     }
 
@@ -1569,6 +1570,7 @@
                 <div class="addon-info">
                   <h4>Zooz Motion Sensor</h4>
                   <p>Battery-powered. Trigger scenes, alarms, or occupancy timers.</p>
+                  <span class="opt-price">$91/each</span>
                 </div>
               </div>
               <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('motion-sensor', 'Zooz Motion Sensor', 91, -1)">−</button><div class="qty-val" id="qty-motion-sensor">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('motion-sensor', 'Zooz Motion Sensor', 91, 1)">+</button></div>
@@ -1580,6 +1582,7 @@
                 <div class="addon-info">
                   <h4>Zooz Door/Window Contact</h4>
                   <p>Slim recessed magnetic sensor. Alarm and automation trigger.</p>
+                  <span class="opt-price">$75/each</span>
                 </div>
               </div>
               <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('door-contact', 'Zooz Door/Window Contact', 75, -1)">−</button><div class="qty-val" id="qty-door-contact">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('door-contact', 'Zooz Door/Window Contact', 75, 1)">+</button></div>
@@ -1591,6 +1594,7 @@
                 <div class="addon-info">
                   <h4>Zooz Water Leak Sensor</h4>
                   <p>Compact sensor for under sinks, water heater pan, laundry.</p>
+                  <span class="opt-price">$55/each</span>
                 </div>
               </div>
               <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('water-leak', 'Zooz Water Leak Sensor', 55, -1)">−</button><div class="qty-val" id="qty-water-leak">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('water-leak', 'Zooz Water Leak Sensor', 55, 1)">+</button></div>
@@ -1602,6 +1606,7 @@
                 <div class="addon-info">
                   <h4>First Alert Smoke + CO Alarm</h4>
                   <p>Z-Wave combo alarm. Alerts your phone + triggers scenes on activation.</p>
+                  <span class="opt-price">$70/each</span>
                 </div>
               </div>
               <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('smoke-co', 'First Alert Smoke + CO Alarm', 70, -1)">−</button><div class="qty-val" id="qty-smoke-co">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('smoke-co', 'First Alert Smoke + CO Alarm', 70, 1)">+</button></div>
@@ -1613,6 +1618,7 @@
                 <div class="addon-info">
                   <h4>Aeotec 110dB Siren</h4>
                   <p>Loud indoor siren for alarm mode. Battery + AC options.</p>
+                  <span class="opt-price">$90/each</span>
                 </div>
               </div>
               <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('siren', 'Aeotec 110dB Siren', 90, -1)">−</button><div class="qty-val" id="qty-siren">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('siren', 'Aeotec 110dB Siren', 90, 1)">+</button></div>
@@ -1624,6 +1630,7 @@
                 <div class="addon-info">
                   <h4>Automatic Water Shutoff Actuator</h4>
                   <p>Motorised actuator fitted to your existing main shutoff valve — closes the water automatically when a leak sensor trips. No plumbing work included; we check your valve is a suitable type at the consultation.</p>
+                  <span class="opt-price">$225</span>
                 </div>
               </div>
               <button class="addon-singleton" onclick="event.stopPropagation(); toggleSingletonAddon('water-shutoff', 'Automatic Water Shutoff Actuator', 225)">Add</button>
@@ -1635,6 +1642,7 @@
                 <div class="addon-info">
                   <h4>Glass Break Detector</h4>
                   <p>Acoustic sensor for a single room — listens for breaking glass and trips the alarm. Placement and coverage confirmed at the consultation.</p>
+                  <span class="opt-price">$75/each</span>
                 </div>
               </div>
               <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('glass-break', 'Glass Break Detector', 75, -1)">−</button><div class="qty-val" id="qty-glass-break">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('glass-break', 'Glass Break Detector', 75, 1)">+</button></div>
@@ -1646,6 +1654,7 @@
                 <div class="addon-info">
                   <h4>Aeotec Wireless Chime &amp; Button</h4>
                   <p>Battery push-button and plug-in chime. Audio only — no camera. Triggers scenes and phone alerts.</p>
+                  <span class="opt-price">$105/each</span>
                 </div>
               </div>
               <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('doorbell', 'Aeotec Wireless Chime & Button', 105, -1)">−</button><div class="qty-val" id="qty-doorbell">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('doorbell', 'Aeotec Wireless Chime & Button', 105, 1)">+</button></div>
@@ -1657,6 +1666,7 @@
                 <div class="addon-info">
                   <h4>Temp + Humidity Sensor</h4>
                   <p>Aeotec 700-series. Room-by-room climate awareness for HVAC automations.</p>
+                  <span class="opt-price">$75/each</span>
                 </div>
               </div>
               <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('temp-humidity', 'Temp + Humidity Sensor', 75, -1)">−</button><div class="qty-val" id="qty-temp-humidity">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('temp-humidity', 'Temp + Humidity Sensor', 75, 1)">+</button></div>
@@ -1668,6 +1678,7 @@
                 <div class="addon-info">
                   <h4>Ceiling Fan Controller</h4>
                   <p>In-wall Z-Wave 4-speed fan switch. Replaces standard pull chain wiring.</p>
+                  <span class="opt-price">$80/each</span>
                 </div>
               </div>
               <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('fan-controller', 'Ceiling Fan Controller', 80, -1)">−</button><div class="qty-val" id="qty-fan-controller">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('fan-controller', 'Ceiling Fan Controller', 80, 1)">+</button></div>
@@ -1690,6 +1701,7 @@
                 <div class="addon-info">
                   <h4>Z-Wave Range Extender</h4>
                   <p>Aeotec repeater for large homes or dead spots. Add one per floor if needed.</p>
+                  <span class="opt-price">$65/each</span>
                 </div>
               </div>
               <div class="opt-qty" onclick="event.stopPropagation()" style="margin-top:0;flex-shrink:0"><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('range-extender', 'Z-Wave Range Extender', 65, -1)">−</button><div class="qty-val" id="qty-range-extender">0</div><button class="qty-btn" onclick="event.stopPropagation(); adjustAddonQty('range-extender', 'Z-Wave Range Extender', 65, 1)">+</button></div>
@@ -1701,6 +1713,7 @@
                 <div class="addon-info">
                   <h4>UPS Battery Backup for the Hub</h4>
                   <p>Keeps the hub and your network powered through a short outage, so the system is still there and logging when the lights come back. It does not power your mains-wired switches or lights — nothing can.</p>
+                  <span class="opt-price">$399</span>
                 </div>
               </div>
               <button class="addon-singleton" onclick="event.stopPropagation(); toggleSingletonAddon('backup', 'UPS Battery Backup for the Hub', 399)">Add</button>
