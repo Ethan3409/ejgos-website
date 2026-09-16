@@ -87,6 +87,10 @@
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-hamburger {
+      display: none; background: none; border: none;
+      color: var(--text); font-size: 24px; cursor: pointer; padding: 8px;
+    }
     .nav-links a {
       color: var(--text-muted); font-size: 0.9rem; font-weight: 500;
       transition: color 0.2s;
@@ -554,7 +558,14 @@
     /* ── RESPONSIVE ────────────────────────────────────────────────── */
     @media (max-width: 768px) {
       nav { padding: 0 1rem; }
-      .nav-links { display: none; }
+      .nav-hamburger { display: block; }
+      .nav-links {
+        position: absolute; top: 64px; left: 0; right: 0;
+        background: rgba(6,0,16,0.98);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column; gap: 16px; padding: 20px 24px; display: none;
+      }
+      .nav-links.nav-open { display: flex; }
       .layers-wrap .layer-card { grid-template-columns: 1fr; }
       .layer-num { width: 42px; height: 42px; font-size: 1.1rem; }
     }
@@ -626,7 +637,8 @@
 ════════════════════════════════════════════════════════ -->
 <nav>
   <a href="index.html" class="nav-logo">EJG-OS</a>
-  <ul class="nav-links">
+  <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav">&#9776;</button>
+  <ul class="nav-links" id="primary-nav">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="features.html">Features</a></li>
       <li><a href="how-it-works.html">How It Works</a></li>
@@ -1908,5 +1920,28 @@
   </div>
 </footer>
 
+
+<script>
+  // The homepage hid its nav below 768px with nothing to replace it, so a
+  // phone had no way to reach another page. Same drop-down the other pages use.
+  (function () {
+    var burger = document.querySelector('.nav-hamburger');
+    var links = document.getElementById('primary-nav');
+    if (!burger || !links) return;
+    function setOpen(open) {
+      links.classList.toggle('nav-open', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    burger.addEventListener('click', function () {
+      setOpen(!links.classList.contains('nav-open'));
+    });
+    links.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') setOpen(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') setOpen(false);
+    });
+  })();
+</script>
 </body>
 </html>

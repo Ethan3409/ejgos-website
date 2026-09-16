@@ -467,7 +467,7 @@
   <!-- Navigation -->
   <nav>
     <a href="index.html" class="nav-logo">EJG-OS</a>
-    <button class="nav-hamburger" aria-label="Toggle menu">☰</button>
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">☰</button>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="features.html">Features</a></li>
@@ -609,7 +609,15 @@
   <script>
     const hamburger = document.querySelector('.nav-hamburger');
     const navLinks = document.querySelector('.nav-links');
-    hamburger.addEventListener('click', () => navLinks.classList.toggle('nav-open'));
+    if (hamburger && navLinks) {
+      const setOpen = (open) => {
+        navLinks.classList.toggle('nav-open', open);
+        hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      };
+      hamburger.addEventListener('click', () => setOpen(!navLinks.classList.contains('nav-open')));
+      navLinks.addEventListener('click', (e) => { if (e.target.tagName === 'A') setOpen(false); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+    }
     document.querySelectorAll('.nav-links a').forEach(link => {
       link.addEventListener('click', () => navLinks.classList.remove('nav-open'));
     });
