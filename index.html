@@ -738,7 +738,7 @@
 </div>
 
 <!-- ════════════════════════════════════════════════════════
-     TRUST BAR — credentials, insurance, service area
+     TRUST BAR — registration, devices, service area
 ════════════════════════════════════════════════════════ -->
 <div style="max-width: 1200px; margin: 3rem auto 0; padding: 1.75rem 2rem; background: rgba(139, 92, 246, 0.04); border: 1px solid rgba(139, 92, 246, 0.15); border-radius: 20px;">
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; align-items: center;">
@@ -918,7 +918,7 @@
           <h3>Deep Configuration Panel — Layer 3</h3>
           <p>
             The technical layer. A collapsible left-sidebar navigation for accessing device-level configuration,
-            Z-Wave pairing, automation builder, scene editor, system logs, and Home Assistant integration.
+            Z-Wave pairing, automation builder, scene editor, and system logs.
             Built for expert use — powerful and comprehensive, but never shown to homeowners. Collapsible sidebar
             keeps the interface clean even when every setting is available.
           </p>
@@ -1007,11 +1007,6 @@
     </p>
 
     <div class="tech-grid">
-      <div class="tech-badge">
-        <div class="tb-icon">🏡</div>
-        <h4>Home Assistant</h4>
-        <p>Industry-leading local smart home engine runs silently in the background</p>
-      </div>
       <div class="tech-badge">
         <div class="tb-icon">📡</div>
         <h4>Z-Wave</h4>
@@ -1267,7 +1262,7 @@
         <div class="pricing-desc">1–2 rooms of coverage — the smart-home starter.</div>
         <ul class="pricing-features">
           <li><span class="pf-check">✓</span> Base package included</li>
-          <li><span class="pf-check">✓</span> 6 Zooz switches</li>
+          <li><span class="pf-check">✓</span> 6 Zooz switches in total</li>
           <li><span class="pf-check">✓</span> 1 dimmer for main room</li>
           <li><span class="pf-check">✓</span> 2 motion sensors</li>
           <li><span class="pf-check">✓</span> 1 door/window contact</li>
@@ -1281,11 +1276,11 @@
       <div class="pricing-card-sm featured">
         <div class="featured-badge">⭐ Most Popular</div>
         <div class="pricing-tier">Standard Home</div>
-        <div class="pricing-price"><sup>$</sup>3,495<sub> install</sub></div>
+        <div class="pricing-price"><sup>$</sup>3,845<sub> install</sub></div>
         <div class="pricing-desc">Whole-home lighting, entry, and climate — the sweet spot.</div>
         <ul class="pricing-features">
           <li><span class="pf-check">✓</span> Base package included</li>
-          <li><span class="pf-check">✓</span> 20 Zooz switches + 4 dimmers</li>
+          <li><span class="pf-check">✓</span> 20 Zooz switches + 4 dimmers in total</li>
           <li><span class="pf-check">✓</span> 3 door contacts, 2 motion sensors</li>
           <li><span class="pf-check">✓</span> 1 Honeywell T6 Pro thermostat</li>
           <li><span class="pf-check">✓</span> 1 Weiser Z-Wave lock</li>
@@ -1298,15 +1293,15 @@
       <!-- PREMIUM -->
       <div class="pricing-card-sm">
         <div class="pricing-tier">Premium</div>
-        <div class="pricing-price"><sup>$</sup>5,995<sub> install</sub></div>
+        <div class="pricing-price"><sup>$</sup>6,495<sub> install</sub></div>
         <div class="pricing-desc">Whole home + climate + full security perimeter.</div>
         <ul class="pricing-features">
           <li><span class="pf-check">✓</span> Base package included</li>
-          <li><span class="pf-check">✓</span> 40+ switches &amp; dimmers</li>
+          <li><span class="pf-check">✓</span> 32 switches + 8 dimmers in total</li>
           <li><span class="pf-check">✓</span> 2 thermostats, 2 locks</li>
-          <li><span class="pf-check">✓</span> Motion + contacts throughout</li>
-          <li><span class="pf-check">✓</span> Water leak + smoke/CO alarms</li>
-          <li><span class="pf-check">✓</span> Remotes for master + guest</li>
+          <li><span class="pf-check">✓</span> 4 motion sensors, 6 door contacts</li>
+          <li><span class="pf-check">✓</span> 2 water leak + 2 smoke/CO alarms</li>
+          <li><span class="pf-check">✓</span> 2 scene remotes</li>
           <li><span class="pf-check">✓</span> Whole-home scenes + occupancy timers</li>
         </ul>
         <a href="#contact" class="plan-btn">Get a Quote →</a>
@@ -1329,6 +1324,10 @@
       </div>
 
     </div>
+
+    <p style="text-align:center; color:var(--text-muted); font-size:0.78rem; max-width:620px; margin:1.25rem auto 0; line-height:1.6;">
+      Device counts in these packages are totals for the finished system. The 3 switches in the base package are part of the count, not on top of it.
+    </p>
 
     <!-- Support Add-On -->
     <div style="margin-top: 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 1.5rem 2rem; display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; justify-content: space-between;">
@@ -1840,15 +1839,14 @@
 
       <div class="faq-item">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          How is EJG-OS different from just using Home Assistant directly?
+          Do I need to be technical to use it?
           <span class="faq-arrow">▾</span>
         </div>
         <div class="faq-a">
-          Home Assistant is the engine powering EJG-OS behind the scenes — but it's hidden. Home Assistant is
-          a powerful but complex tool that requires significant technical knowledge to set up and maintain.
-          EJG-OS wraps it in a clean, consumer-grade interface that your family can actually use. A professional
-          installer handles all the configuration, and you interact with a polished app — not raw YAML files
-          and integrations.
+          No. Everything is set up and configured for you during the install, and tuned on the first day so
+          it works the way your household actually lives. Day to day you use the wall tablet or the EJG Home
+          app: tap a scene, open a lock, check a camera. Adding devices or changing automations later is
+          handled by your installer, so nothing asks you to learn a configuration file.
         </div>
       </div>
 

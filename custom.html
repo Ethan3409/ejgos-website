@@ -1193,7 +1193,7 @@
                 </svg>
               </span>
               <h3>Indoor Pan/Tilt Camera</h3>
-              <p>Amcrest IP2M-841B-V3 — a 1080p wide-angle Wi-Fi camera you can pan and tilt from the app to sweep the whole room. Two-way audio, motion alerts, and enhanced low-light imaging. Great for living rooms, hallways, and nurseries.</p>
+              <p>A 1080p wide-angle Wi-Fi camera you can pan and tilt from the app to sweep the whole room. Two-way audio, motion alerts, and enhanced low-light imaging. Great for living rooms, hallways, and nurseries.</p>
               <div class="spec-chips" style="justify-content:center">
                 <span class="spec-chip">1080p</span>
                 <span class="spec-chip">Wi-Fi</span>
@@ -1235,7 +1235,7 @@
                 </svg>
               </span>
               <h3>Outdoor Turret Camera</h3>
-              <p>AMLINK AL8M-T8198EW — a weatherproof 4K (8MP) PoE turret with a wide-angle view. Dual white-light and infrared illumination gives full-colour night vision to about 100 ft, AI person and vehicle detection keeps passing shadows from waking you, and a built-in mic and speaker handle two-way audio. One cable from the NVR carries power and video, so the PoE injector it ships without isn't needed on our installs.</p>
+              <p>A weatherproof 4K (8MP) PoE turret camera with a wide-angle view. White-light and infrared illumination give full-colour night vision to about 100 ft, person and vehicle detection keeps passing shadows from waking you, and a built-in mic and speaker handle two-way audio. One cable from the recorder carries both power and video.</p>
               <div class="spec-chips" style="justify-content:center">
                 <span class="spec-chip">4K · 8MP</span>
                 <span class="spec-chip">Weatherproof</span>
@@ -1314,9 +1314,12 @@
               <div class="drive-picker" id="drivePicker"><!-- built by JS --></div>
             </div>
 
-            <div class="rec-req-notice" id="portNotice" style="display:none;">
-              <strong>More cameras than the recorder has ports.</strong>
-              <span id="portNoticeText"></span>
+            <div class="rec-req-row" id="portNotice" style="display:none;">
+              <div>
+                <strong>PoE network switch</strong>
+                <span id="portNoticeText"></span>
+              </div>
+              <div class="rec-req-price">$300</div>
             </div>
           </div>
 
@@ -1870,6 +1873,9 @@
     // Cameras cannot record without a recorder and a drive, so both are
     // required whenever camera qty > 0. Only the drive SIZE is a choice.
     const NVR = { name: 'TRENDnet TV-NVR1508', price: 239, ports: 8 };
+    // Past the recorder's 8 PoE ports a build needs a PoE switch to power
+    // and connect the extra cameras. Required, so it is priced, not deferred.
+    const POE_SWITCH = { name: 'PoE network switch', price: 300 };
     const DRIVES = [
       { id: '1tb', label: '1 TB', tb: 1, price: 199 },
       { id: '2tb', label: '2 TB', tb: 2, price: 225 },
@@ -2051,7 +2057,11 @@
     // Recording cost is all-or-nothing with cameras: no cameras, no cost;
     // any camera, NVR + the chosen drive.
     function recordingCost() {
-      return camCount() > 0 ? NVR.price + selectedDrive().price : 0;
+      const cams = camCount();
+      if (cams === 0) return 0;
+      let cost = NVR.price + selectedDrive().price;
+      if (cams > NVR.ports) cost += POE_SWITCH.price;
+      return cost;
     }
 
     function retentionText(drive, cams) {
@@ -2103,9 +2113,9 @@
         const over = cams > NVR.ports;
         notice.style.display = over ? '' : 'none';
         if (over && noticeText) {
-          noticeText.textContent = 'You\'ve selected ' + cams + ' cameras and the recorder has ' +
-            NVR.ports + ' ports. This build needs extra capacity — a second recorder or a PoE switch — ' +
-            'which we size and quote after the consultation. It is not in the estimate below.';
+          noticeText.textContent = cams + ' cameras is more than the recorder\'s ' + NVR.ports +
+            ' ports, so a PoE switch powers and connects the rest. Added automatically and included ' +
+            'in your estimate.';
         }
       }
     }
@@ -2228,7 +2238,7 @@
         if (cams > 0) {
           const d = selectedDrive();
           document.getElementById('sum-recording').textContent =
-            NVR.name + ' + ' + d.label + ' drive' + (cams > NVR.ports ? ' (extra capacity quoted)' : '');
+            NVR.name + ' + ' + d.label + ' drive' + (cams > NVR.ports ? ' + PoE switch' : '');
         }
       }
 
@@ -2287,7 +2297,7 @@
         html += `<div class="cs-row"><span class="cs-row-label">NVR — ${NVR.name}, ${NVR.ports} PoE ports (required for cameras)</span><span class="cs-row-amount">${fmt(NVR.price)}</span></div>`;
         html += `<div class="cs-row"><span class="cs-row-label">WD Purple ${drv.label} drive — keeps ${retentionText(drv, camsQty)} at ~1 Mbps per camera, continuous</span><span class="cs-row-amount">${fmt(drv.price)}</span></div>`;
         if (camsQty > NVR.ports) {
-          html += `<div class="cs-row muted"><span class="cs-row-label">${camsQty} cameras exceeds the recorder's ${NVR.ports} ports — extra capacity (second recorder or PoE switch) quoted after consultation, not in total</span><span class="cs-row-amount">Not priced</span></div>`;
+          html += `<div class="cs-row"><span class="cs-row-label">${POE_SWITCH.name} — ${camsQty} cameras exceeds the recorder's ${NVR.ports} ports</span><span class="cs-row-amount">${fmt(POE_SWITCH.price)}</span></div>`;
         }
       }
       html += '</div>';
@@ -2372,7 +2382,7 @@
         txt += `Recorder: ${NVR.name} ($${NVR.price}, in total)\n`;
         txt += `Drive: WD Purple ${drv.label} ($${drv.price}, in total) — keeps ${retentionText(drv, cams)} at ~1 Mbps per camera continuous\n`;
         if (cams > NVR.ports) {
-          txt += `*** QUOTE REQUIRED: ${cams} cameras exceeds the ${NVR.ports}-port recorder — needs a second NVR or a PoE switch, NOT priced on site ***\n`;
+          txt += `PoE switch: ${POE_SWITCH.name} ($${POE_SWITCH.price}, in total) — ${cams} cameras exceeds the ${NVR.ports}-port recorder\n`;
         }
       }
       Object.values(state.locks).forEach(l => txt += `Lock: ${l.qty}× ${l.name}\n`);

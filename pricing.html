@@ -829,7 +829,26 @@
         grid-template-columns: 1fr;
       }
     }
-  </style>
+    .tier-note {
+    font-size: 11.5px; line-height: 1.5; color: #94a3b8;
+    margin: 12px 0 18px; text-align: left;
+  }
+  .warranty-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px; max-width: 1100px; margin: 0 auto;
+  }
+  .warranty-card {
+    background: rgba(0,0,0,0.25); border: 1px solid rgba(139,92,246,0.25);
+    border-radius: 14px; padding: 26px 28px; text-align: left;
+  }
+  .warranty-card h3 { font-size: 17px; color: #f8fafc; margin: 0 0 12px; }
+  .warranty-card p { font-size: 13.5px; line-height: 1.7; color: #94a3b8; margin: 0 0 12px; }
+  .warranty-card p:last-child { margin-bottom: 0; }
+  .warranty-note {
+    max-width: 1100px; margin: 24px auto 0; text-align: center;
+    font-size: 12.5px; line-height: 1.6; color: #94a3b8;
+  }
+</style>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <script type="application/ld+json">
@@ -899,7 +918,7 @@
   "category": "Smart home installation",
   "offers": {
     "@type": "Offer",
-    "price": "3495",
+    "price": "3845",
     "priceCurrency": "CAD",
     "availability": "https://schema.org/InStock",
     "url": "https://ejgos.com/pricing.html",
@@ -926,7 +945,7 @@
   "category": "Smart home installation",
   "offers": {
     "@type": "Offer",
-    "price": "5995",
+    "price": "6495",
     "priceCurrency": "CAD",
     "availability": "https://schema.org/InStock",
     "url": "https://ejgos.com/pricing.html",
@@ -982,7 +1001,7 @@
       "name": "What do cameras need beyond the cameras themselves?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A dedicated network video recorder (NVR) with its own storage drive. The NVR is required for every camera install: cameras record to it around the clock, the footage stays inside your home, and your EJG-OS hub is left free to run lights, scenes and voice without competing for resources. PoE cameras plug directly into the NVR's built-in PoE ports, which powers them and keeps them on their own isolated camera network with no path to your home Wi-Fi or the internet. The indoor pan/tilt camera is a Wi-Fi unit on a separate camera SSID, and records to the same NVR. A separate PoE switch is only recommended for more than 8 cameras, long cable runs, or a managed VLAN, and is quoted separately. You choose the drive size by how many days of footage you want to keep (see the storage table above)."
+        "text": "A dedicated network video recorder (NVR) with its own storage drive. The NVR is required for every camera install: cameras record to it around the clock, the footage stays inside your home, and your EJG-OS hub is left free to run lights, scenes and voice without competing for resources. PoE cameras plug directly into the NVR's built-in PoE ports, which powers them and keeps them on their own isolated camera network with no path to your home Wi-Fi or the internet. The indoor pan/tilt camera is a Wi-Fi unit on a separate camera SSID, and records to the same NVR. Past 8 cameras a PoE switch ($300) powers and connects the rest; the builder adds it automatically. You choose the drive size by how many days of footage you want to keep (see the storage table above)."
       }
     },
     {
@@ -1040,7 +1059,7 @@
         </ul>
         <p style="margin: 14px 0 0; color: #94a3b8; font-size: 13px; line-height: 1.6;">Why the switches? We don't install a hub with nothing attached to it — three devices is where a working smart home starts, so they go in with every system.</p>
         <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(139, 92, 246, 0.15); color: #94a3b8; font-size: 13px; line-height: 1.6;">
-          <strong style="color:#cbd5e1;">Add cameras?</strong> Every camera install requires a dedicated network video recorder (NVR) with its own storage drive. Cameras record to the NVR — not to your hub — so footage stays inside your home and the hub stays fast for everything else. The NVR is a TRENDnet TV-NVR1508 (8-channel 4K, 8 PoE ports) at $239, plus a WD Purple surveillance drive <a href="#camera-storage" style="color:#a78bfa;">sized by how many days you want to keep</a> (from $199). PoE cameras plug straight into the NVR's PoE ports, which powers them and keeps them on their own isolated camera network with no path to your home Wi-Fi or the internet. The indoor pan/tilt camera is a Wi-Fi unit — it joins a separate camera SSID and records to the same NVR. A separate PoE switch is recommended only when a home has more cameras than NVR ports, long cable runs, or wants a managed VLAN — quoted separately. None of this is bundled for builds without cameras.
+          <strong style="color:#cbd5e1;">Add cameras?</strong> Every camera install requires a dedicated network video recorder (NVR) with its own storage drive. Cameras record to the NVR — not to your hub — so footage stays inside your home and the hub stays fast for everything else. The NVR is a TRENDnet TV-NVR1508 (8-channel 4K, 8 PoE ports) at $239, plus a WD Purple surveillance drive <a href="#camera-storage" style="color:#a78bfa;">sized by how many days you want to keep</a> (from $199). PoE cameras plug straight into the NVR's PoE ports, which powers them and keeps them on their own isolated camera network with no path to your home Wi-Fi or the internet. The indoor pan/tilt camera is a Wi-Fi unit — it joins a separate camera SSID and records to the same NVR. Past 8 cameras a PoE switch ($300) powers and connects the rest, and the builder adds it automatically. None of this is bundled for builds without cameras.
         </div>
       </div>
     </section>
@@ -1125,14 +1144,15 @@
           <h3>Essentials</h3>
           <div class="pricing-tag">1–2 rooms, entry-level</div>
           <div class="price">$1,795</div>
-          <div class="price-label">Base + ~10 devices</div>
+          <div class="price-label">10 devices in total</div>
           <div class="price-features">
             <div class="price-feature">Base package included</div>
-            <div class="price-feature">6 Zooz in-wall switches</div>
-            <div class="price-feature">1 dimmer for main room</div>
+            <div class="price-feature">6 Zooz in-wall switches in total</div>
+            <div class="price-feature">1 dimmer for the main room</div>
             <div class="price-feature">2 motion sensors</div>
             <div class="price-feature">1 door/window contact</div>
           </div>
+          <p class="tier-note">Counts are totals for the finished system. The 3 switches from the base package are part of the 6, not on top of them.</p>
           <a href="contact.html" class="btn btn-secondary">Get Started</a>
         </div>
 
@@ -1140,30 +1160,33 @@
           <div class="featured-badge">Most Popular</div>
           <h3>Standard Home</h3>
           <div class="pricing-tag">Whole-home lighting + entry</div>
-          <div class="price">$3,495</div>
-          <div class="price-label">Base + ~30 devices</div>
+          <div class="price">$3,845</div>
+          <div class="price-label">30 devices in total</div>
           <div class="price-features">
             <div class="price-feature">Base package included</div>
-            <div class="price-feature">20 switches + 4 dimmers</div>
-            <div class="price-feature">3 door contacts, 2 motion</div>
+            <div class="price-feature">20 switches + 4 dimmers in total</div>
+            <div class="price-feature">3 door contacts, 2 motion sensors</div>
             <div class="price-feature">1 Honeywell T6 Pro thermostat</div>
             <div class="price-feature">1 Weiser Z-Wave lock</div>
           </div>
+          <p class="tier-note">Counts are totals for the finished system. The 3 switches from the base package are part of the 20, not on top of them.</p>
           <a href="contact.html" class="btn btn-primary">Get Started</a>
         </div>
 
         <div class="pricing-card">
           <h3>Premium</h3>
           <div class="pricing-tag">Whole home + climate + security</div>
-          <div class="price">$5,995</div>
-          <div class="price-label">Base + ~55 devices</div>
+          <div class="price">$6,495</div>
+          <div class="price-label">58 devices in total</div>
           <div class="price-features">
             <div class="price-feature">Base package included</div>
-            <div class="price-feature">40+ switches &amp; dimmers</div>
+            <div class="price-feature">32 switches + 8 dimmers in total</div>
             <div class="price-feature">2 thermostats, 2 locks</div>
-            <div class="price-feature">Motion + contact throughout</div>
-            <div class="price-feature">Water-leak &amp; smoke coverage</div>
+            <div class="price-feature">4 motion sensors, 6 door contacts</div>
+            <div class="price-feature">2 water-leak + 2 smoke/CO alarms</div>
+            <div class="price-feature">2 scene remotes</div>
           </div>
+          <p class="tier-note">Counts are totals for the finished system. The 3 switches from the base package are part of the 32, not on top of them.</p>
           <a href="contact.html" class="btn btn-secondary">Get Started</a>
         </div>
       </div>
@@ -1207,6 +1230,30 @@
       </div>
     </section>
 
+    <!-- Warranty. Wording tracks the signed Purchase and Installation
+         Agreement, section 4. If the two ever differ, the agreement wins. -->
+    <section class="pricing-section warranty-section" id="warranty">
+      <h2>Warranty</h2>
+      <div class="warranty-grid">
+        <div class="warranty-card">
+          <h3>Hardware &mdash; 12 months</h3>
+          <p>The hardware is warranted against manufacturing defects for 12 months from the date of installation. If a device fails because of a defect in how it was made, we deal with it.</p>
+          <p>Not covered: damage from improper operation or use of the product, and damage caused by moving the product after it has been installed.</p>
+        </div>
+        <div class="warranty-card">
+          <h3>Workmanship &mdash; 12 months</h3>
+          <p>Separate from the hardware warranty, and worth knowing the difference. The hardware warranty covers a device that fails. The workmanship warranty covers the installation itself.</p>
+          <p>For 12 months, if something was mounted, wired or configured incorrectly on our end, we come back and put it right at no charge.</p>
+        </div>
+        <div class="warranty-card">
+          <h3>After the install</h3>
+          <p>Changes or additions outside the original installation scope are charged at the current service rate, or covered by the $30/month Priority Support plan.</p>
+          <p>EJG-OS is a lifestyle and convenience product. It is not sold or warranted as a monitored security system.</p>
+        </div>
+      </div>
+      <p class="warranty-note">This is a summary. Your signed Purchase and Installation Agreement sets out the full terms and takes precedence over anything on this page.</p>
+    </section>
+
     <!-- Pricing FAQ -->
     <section class="pricing-faq">
       <h2>Pricing FAQs</h2>
@@ -1248,7 +1295,7 @@
           <span>What do cameras need beyond the cameras themselves?</span>
           <span class="faq-toggle">▼</span>
         </div>
-        <div class="faq-answer">A dedicated network video recorder (NVR) with its own storage drive. The NVR is required for every camera install: cameras record to it around the clock, the footage stays inside your home, and your EJG-OS hub is left free to run lights, scenes and voice without competing for resources. PoE cameras plug directly into the NVR's built-in PoE ports, which powers them and keeps them on their own isolated camera network with no path to your home Wi-Fi or the internet. The indoor pan/tilt camera is a Wi-Fi unit on a separate camera SSID, and records to the same NVR. A separate PoE switch is only recommended for more than 8 cameras, long cable runs, or a managed VLAN, and is quoted separately. You choose the drive size by how many days of footage you want to keep (see the storage table above).</div>
+        <div class="faq-answer">A dedicated network video recorder (NVR) with its own storage drive. The NVR is required for every camera install: cameras record to it around the clock, the footage stays inside your home, and your EJG-OS hub is left free to run lights, scenes and voice without competing for resources. PoE cameras plug directly into the NVR's built-in PoE ports, which powers them and keeps them on their own isolated camera network with no path to your home Wi-Fi or the internet. The indoor pan/tilt camera is a Wi-Fi unit on a separate camera SSID, and records to the same NVR. Past 8 cameras a PoE switch ($300) powers and connects the rest; the builder adds it automatically. You choose the drive size by how many days of footage you want to keep (see the storage table above).</div>
       </div>
 
       <div class="faq-item">
