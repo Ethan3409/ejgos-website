@@ -491,6 +491,32 @@
       background: rgba(34, 197, 94, 0.16); border: 1px solid rgba(34, 197, 94, 0.4);
       color: #86efac; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
     }
+    /* Optional network switch — a choice, not a line item, so it needs
+       a selected state and an obvious control. */
+    .ns-row { align-items: flex-start; }
+    .ns-row.selected { background: rgba(168, 85, 247, 0.08); }
+    .ns-row .ns-copy { flex: 1 1 320px; min-width: 0; }
+    .ns-row .ns-copy span { display: block; line-height: 1.6; max-width: 58ch; }
+    .ns-tag {
+      display: inline-block; margin-left: 8px; padding: 2px 7px; border-radius: 999px;
+      background: rgba(34, 197, 94, 0.16); border: 1px solid rgba(34, 197, 94, 0.4);
+      color: #86efac; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.04em; text-transform: uppercase; vertical-align: 2px;
+    }
+    .ns-tag.required {
+      background: rgba(251, 191, 36, 0.14); border-color: rgba(251, 191, 36, 0.42); color: #fcd34d;
+    }
+    .ns-right { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .ns-btn {
+      padding: 9px 18px; border-radius: 8px; cursor: pointer;
+      background: transparent; color: var(--text);
+      border: 1px solid rgba(168, 85, 247, 0.5);
+      font-size: 13px; font-weight: 700; transition: background 0.2s, border-color 0.2s;
+    }
+    .ns-btn:hover { background: rgba(168, 85, 247, 0.14); }
+    .ns-btn.added { background: rgba(168, 85, 247, 0.22); border-color: var(--purple-400); }
+    .ns-btn:disabled { opacity: 0.55; cursor: default; }
+
     .rec-req-notice {
       margin-top: 16px; padding: 13px 16px; border-radius: 10px;
       background: rgba(251, 191, 36, 0.09);
@@ -1321,12 +1347,18 @@
               <div class="drive-picker" id="drivePicker"><!-- built by JS --></div>
             </div>
 
-            <div class="rec-req-row" id="portNotice" style="display:none;">
-              <div>
-                <strong>PoE network switch</strong>
-                <span id="portNoticeText"></span>
+            <!-- Optional network switch. Offered with any camera build,
+                 and required once the camera count passes the recorder's
+                 PoE ports. Same switch, same price, either way. -->
+            <div class="rec-req-row ns-row" id="netSwitchRow">
+              <div class="ns-copy">
+                <strong>Network switch<span class="ns-tag" id="netSwitchTag">Recommended</span></strong>
+                <span id="netSwitchText"></span>
               </div>
-              <div class="rec-req-price">$300</div>
+              <div class="ns-right">
+                <div class="rec-req-price">$300</div>
+                <button type="button" class="ns-btn" id="netSwitchBtn" onclick="toggleNetSwitch()">Add</button>
+              </div>
             </div>
           </div>
 
@@ -1851,6 +1883,7 @@
     // ─── State ─────────────────────────────────────────────────────────
     const state = {
       currentStep: 1,
+      netSwitch: false,
       totalSteps: 6,
       thermostat: { id: 'thermo-t6pro', name: 'Honeywell T6 Pro Z-Wave', qty: 0, unitPrice: 265 },
       // Recurring plan — deliberately NOT part of state.addons, so it can
@@ -1890,7 +1923,13 @@
     const NVR = { name: 'TRENDnet TV-NVR1508', price: 239, ports: 8 };
     // Past the recorder's 8 PoE ports a build needs a PoE switch to power
     // and connect the extra cameras. Required, so it is priced, not deferred.
-    const POE_SWITCH = { name: 'PoE network switch', price: 300 };
+    // One switch, one price, whichever reason it ends up in the build.
+    // It carries PoE, but that is a convenience — what it is actually
+    // for is keeping the cameras and the hub on their own stretch of
+    // network instead of sharing one with every phone, laptop and TV in
+    // the house. Required once the camera count passes the recorder's
+    // own PoE ports, optional and recommended below that.
+    const NET_SWITCH = { name: 'Network switch', price: 300 };
     const DRIVES = [
       { id: '1tb', label: '1 TB', tb: 1, price: 199 },
       { id: '2tb', label: '2 TB', tb: 2, price: 225 },
@@ -1940,7 +1979,31 @@
       document.getElementById('step-' + n).classList.add('active');
       updateProgressBar();
       if (n === 6) buildConfirmSummary();
-      window.scrollTo({ top: document.querySelector('.custom-hero').offsetHeight + 64, behavior: 'smooth' });
+      revealStep(document.getElementById('step-' + n));
+    }
+
+    // Where "Next" leaves you.
+    //
+    // This used to scroll to the bottom of the hero, which is a long way
+    // above the step panels — the "Included with Every Install" banner
+    // sits between them. So every Next threw you a full screen higher
+    // than the step you had just moved to, and you had to scroll back
+    // down past that banner before you could carry on. Six steps of that
+    // is enough to make someone give up on the builder.
+    //
+    // Now it lands on the step's own heading, tucked just under the fixed
+    // header, and it does not move the page at all when that heading is
+    // already somewhere you can see — clicking a numbered dot while you
+    // are near the top should not jolt the page.
+    var HEADER_OFFSET = 84;   // fixed nav, matching the summary panel's sticky top
+    function revealStep(panel) {
+      if (!panel) return;
+      var top = panel.getBoundingClientRect().top;
+      if (top >= HEADER_OFFSET && top <= window.innerHeight * 0.4) return;
+      window.scrollTo({
+        top: Math.max(0, window.scrollY + top - HEADER_OFFSET - 16),
+        behavior: 'smooth',
+      });
     }
 
     function updateProgressBar() {
@@ -2075,8 +2138,20 @@
       const cams = camCount();
       if (cams === 0) return 0;
       let cost = NVR.price + selectedDrive().price;
-      if (cams > NVR.ports) cost += POE_SWITCH.price;
+      if (switchIncluded()) cost += NET_SWITCH.price;
       return cost;
+    }
+
+    // Past the recorder's own PoE ports there is nowhere left to plug a
+    // camera in, so the switch stops being a choice.
+    function switchRequired() { return camCount() > NVR.ports; }
+    function switchIncluded() { return camCount() > 0 && (switchRequired() || state.netSwitch); }
+
+    function toggleNetSwitch() {
+      if (switchRequired()) return;
+      state.netSwitch = !state.netSwitch;
+      renderRecording();
+      updateSummary();
     }
 
     function retentionText(drive, cams) {
@@ -2122,16 +2197,28 @@
         }).join('');
       }
 
-      const notice = document.getElementById('portNotice');
-      const noticeText = document.getElementById('portNoticeText');
-      if (notice) {
-        const over = cams > NVR.ports;
-        notice.style.display = over ? '' : 'none';
-        if (over && noticeText) {
-          noticeText.textContent = cams + ' cameras is more than the recorder\'s ' + NVR.ports +
-            ' ports, so a PoE switch powers and connects the rest. Added automatically and included ' +
-            'in your estimate.';
-        }
+      const row = document.getElementById('netSwitchRow');
+      const tag = document.getElementById('netSwitchTag');
+      const text = document.getElementById('netSwitchText');
+      const btn = document.getElementById('netSwitchBtn');
+      if (row && tag && text && btn) {
+        const required = switchRequired();
+        const on = switchIncluded();
+        row.classList.toggle('selected', on);
+        tag.textContent = required ? 'Required' : 'Recommended';
+        tag.classList.toggle('required', required);
+        text.textContent = required
+          ? cams + ' cameras is more than the recorder\'s ' + NVR.ports + ' ports, so the switch ' +
+            'connects and powers the rest. Added to your estimate automatically.'
+          : 'Cameras wired into the recorder already sit on their own network. This extends that ' +
+            'same separation to the rest of the system — the hub, the tablet and the Wi-Fi ' +
+            'camera stop sharing a network with every phone, laptop and TV in the house, so a ' +
+            'device that picks something up elsewhere in the home has nothing to reach. Most ' +
+            'people add it once there are cameras in the build, because that is the footage you ' +
+            'would least want anyone near. It powers PoE cameras over the same cables as well.';
+        btn.disabled = required;
+        btn.textContent = required ? 'Included' : (on ? 'Added' : 'Add');
+        btn.classList.toggle('added', on);
       }
     }
 
@@ -2253,7 +2340,7 @@
         if (cams > 0) {
           const d = selectedDrive();
           document.getElementById('sum-recording').textContent =
-            NVR.name + ' + ' + d.label + ' drive' + (cams > NVR.ports ? ' + PoE switch' : '');
+            NVR.name + ' + ' + d.label + ' drive' + (switchIncluded() ? ' + network switch' : '');
         }
       }
 
@@ -2311,8 +2398,11 @@
         const drv = selectedDrive();
         html += `<div class="cs-row"><span class="cs-row-label">NVR — ${NVR.name}, ${NVR.ports} PoE ports (required for cameras)</span><span class="cs-row-amount">${fmt(NVR.price)}</span></div>`;
         html += `<div class="cs-row"><span class="cs-row-label">WD Purple ${drv.label} drive — keeps ${retentionText(drv, camsQty)} at ~1 Mbps per camera, continuous</span><span class="cs-row-amount">${fmt(drv.price)}</span></div>`;
-        if (camsQty > NVR.ports) {
-          html += `<div class="cs-row"><span class="cs-row-label">${POE_SWITCH.name} — ${camsQty} cameras exceeds the recorder's ${NVR.ports} ports</span><span class="cs-row-amount">${fmt(POE_SWITCH.price)}</span></div>`;
+        if (switchIncluded()) {
+          const why = switchRequired()
+            ? `${camsQty} cameras exceeds the recorder's ${NVR.ports} ports`
+            : 'keeps the cameras and hub on their own network segment';
+          html += `<div class="cs-row"><span class="cs-row-label">${NET_SWITCH.name} — ${why}</span><span class="cs-row-amount">${fmt(NET_SWITCH.price)}</span></div>`;
         }
       }
       html += '</div>';
@@ -2396,8 +2486,11 @@
         const cams = camCount();
         txt += `Recorder: ${NVR.name} ($${NVR.price}, in total)\n`;
         txt += `Drive: WD Purple ${drv.label} ($${drv.price}, in total) — keeps ${retentionText(drv, cams)} at ~1 Mbps per camera continuous\n`;
-        if (cams > NVR.ports) {
-          txt += `PoE switch: ${POE_SWITCH.name} ($${POE_SWITCH.price}, in total) — ${cams} cameras exceeds the ${NVR.ports}-port recorder\n`;
+        if (switchIncluded()) {
+          const why = switchRequired()
+            ? `${cams} cameras exceeds the ${NVR.ports}-port recorder`
+            : 'customer chose it for network separation';
+          txt += `Network switch: ${NET_SWITCH.name} ($${NET_SWITCH.price}, in total) — ${why}\n`;
         }
       }
       Object.values(state.locks).forEach(l => txt += `Lock: ${l.qty}× ${l.name}\n`);
