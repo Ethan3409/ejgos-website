@@ -195,6 +195,29 @@
       color: var(--purple-300); margin: 0; line-height: 1.6;
     }
 
+    /* Attributed pull-quote: Ethan's own words, set apart from body copy */
+    .founder-quote {
+      border-left: 4px solid var(--purple-400);
+      padding: 24px 32px;
+      margin: 0 0 40px;
+      background: rgba(168,85,247,0.06);
+      border-radius: 0 8px 8px 0;
+    }
+    .founder-quote blockquote {
+      margin: 0;
+      font-size: 23px; line-height: 1.5; font-style: italic;
+      color: var(--purple-300);
+    }
+    .founder-quote cite {
+      display: block; margin-top: 14px;
+      font-size: 13.5px; font-style: normal; letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+    @media (max-width: 640px) {
+      .founder-quote { padding: 20px 22px; }
+      .founder-quote blockquote { font-size: 19px; }
+    }
+
     /* Values Grid */
     .values-section {
       padding: 80px 24px;
@@ -676,8 +699,13 @@
       <h2>Smart home became a rental agreement in disguise.</h2>
 
       <div class="origin-body">
+        <div class="founder-quote">
+          <blockquote>Life is hard enough as it is, why make life at home hard too?</blockquote>
+          <cite>Ethan Fischer, founder, EJG Smart Systems Inc.</cite>
+        </div>
+
         <p>
-          When you buy a car, you own it. You pay once, drive it, maintain it, sell it when you're done. But somehow "smart home" became different. Monthly fees for a thermostat you bought. A subscription to see your own security cameras. Apps that evaporated when the company got acquired, taking your automations with them. You didn't own your home — you rented access to it.
+          When you buy a car, you own it. You pay once, drive it, maintain it, sell it when you're done. But somehow "smart home" became different. Monthly fees for a thermostat you bought. A subscription to see your own security cameras. Apps that evaporated when the company got acquired, taking your automations with them. You didn't own your home. You rented access to it.
         </p>
 
         <p>
@@ -693,15 +721,15 @@
         </p>
 
         <p>
-          We built it in Calgary because that's home — and because Calgary winters force you to build things right. When your furnace integration matters, when keeping your home comfortable in -30°C is real, you don't cut corners. You build something that genuinely works, every single time.
+          We built it in Calgary because that's home, and because Calgary winters force you to build things right. When your furnace integration matters, when keeping your home comfortable in -30°C is real, you don't cut corners. You build something that genuinely works, every single time.
         </p>
 
         <p>
-          Here's the core idea: a smart home OS that runs entirely on hardware inside your house. Your automations work even when the internet's down. Your camera footage never leaves your walls. Your data is yours alone. Every install includes a dedicated EJG-OS tablet mounted in the home as the control hub — this isn't some optional feature, it's standard. The person who designs your system is the person who installs it and the person who picks up the phone a year later. Nothing is subcontracted. Then it's yours. Forever.
+          Here's the core idea: a smart home OS that runs entirely on hardware inside your house. Your automations work even when the internet's down. Your camera footage never leaves your walls. Your data is yours alone. Every install includes a dedicated EJG-OS tablet mounted in the home as the control hub. It isn't an optional feature. It's standard. The person who designs your system is the person who installs it and the person who picks up the phone a year later. Nothing is subcontracted. Then it's yours. Forever.
         </p>
 
         <p>
-          We built on Z-Wave — a rock-solid, dedicated-frequency mesh protocol — because we wanted your system to work with thousands of different devices without depending on Wi-Fi or the cloud. Not a locked ecosystem. Not a proprietary garden. Real choice about what hardware you use.
+          We built on Z-Wave, a rock-solid mesh protocol on its own dedicated frequency, because your system should work with thousands of different devices without depending on Wi-Fi or the cloud. Not a locked ecosystem. Not a proprietary garden. Real choice about what hardware you use.
         </p>
 
         <p>
@@ -726,12 +754,12 @@
           <div class="value-card fade-up">
             <span class="value-icon">🔒</span>
             <h3>Your Data Stays in Your House</h3>
-            <p>Your home's patterns, your cameras, your device history — all stored and processed on the hub in your house, on hardware you own. We don't run a cloud that copies it, and we can't reach your hub unless you ask us to. When you use remote access it's end-to-end encrypted between your hub and your phone, so no third party in the middle can read it. The one exception is the optional &ldquo;Hey Skip&rdquo; voice assistant, which sends what you say to an external language model to understand it — our <a href="privacy-policy.html" style="color:inherit;text-decoration:underline;">privacy policy</a> spells that out. Everything else stays home.</p>
+            <p>Your home's patterns, your cameras, your device history: all of it stored and processed on the hub in your house, on hardware you own. We don't run a cloud that copies it, and we can't reach your hub unless you ask us to. When you use remote access it's end-to-end encrypted between your hub and your phone, so no third party in the middle can read it. The one exception is the optional &ldquo;Hey Skip&rdquo; voice assistant, which sends what you say to an external language model to understand it. Our <a href="privacy-policy.html" style="color:inherit;text-decoration:underline;">privacy policy</a> spells that out. Everything else stays home.</p>
           </div>
           <div class="value-card fade-up">
             <span class="value-icon">⚡</span>
             <h3>Everything Runs Locally</h3>
-            <p>Your commands don't travel to a server farm and back. The EJG-OS hub installed in your home processes everything right there — the wall tablet is just one of the screens that talks to it. Instant response. Unplug your internet and your lights, locks, scenes and schedules keep working. No dependency on a cloud company staying in business or keeping its prices reasonable. Your home operates independently.</p>
+            <p>Your commands don't travel to a server farm and back. The EJG-OS hub installed in your home processes everything right there. The wall tablet is just one of the screens that talks to it. Instant response. Unplug your internet and your lights, locks, scenes and schedules keep working. No dependency on a cloud company staying in business or keeping its prices reasonable. Your home operates independently.</p>
           </div>
           <div class="value-card fade-up">
             <span class="value-icon">🤝</span>
@@ -741,12 +769,12 @@
           <div class="value-card fade-up">
             <span class="value-icon">🇨🇦</span>
             <h3>Built for This Country</h3>
-            <p>We built this in Alberta. We know what Canadian winters demand. We understand privacy expectations in Canada. We respect Canadian standards and regulations. This isn't a California system retrofitted for our market — it was built here, for here, by people who actually live here.</p>
+            <p>We built this in Alberta. We know what Canadian winters demand. We understand privacy expectations in Canada. We respect Canadian standards and regulations. This isn't a California system retrofitted for our market. It's it was built here, for here, by people who actually live here.</p>
           </div>
           <div class="value-card fade-up">
             <span class="value-icon">📱</span>
             <h3>Your Tablet, Your Hub</h3>
-            <p>Every home gets a dedicated EJG-OS tablet mounted where you need it — the control center for everything. It's not optional. It's standard. A real, physical interface in your home that you own, that doesn't depend on a smartphone app, that's always there and always yours.</p>
+            <p>Every home gets a dedicated EJG-OS tablet mounted where you need it, the control center for everything. It's not optional. It's standard. A real, physical interface in your home that you own, that doesn't depend on a smartphone app, that's always there and always yours.</p>
           </div>
         </div>
       </div>
@@ -756,7 +784,7 @@
          NEEDS ETHAN'S SIGN-OFF BEFORE MERGE.
          Drafted to answer the unspoken solo-founder objection using only
          facts already true of the product. Contains no succession plan,
-         escrow arrangement, or partner company — do not add one without
+         escrow arrangement, or partner company. Do not add one without
          his say-so.
     ══════════════════════════════════════════════════════════════ -->
     <section class="continuity-section">
@@ -767,25 +795,19 @@
           it deserves a straight answer rather than a reassuring one.
         </p>
         <p>
-          The honest version is that your smart home doesn't depend on me still being here. That
-          isn't a promise about my plans — it's how the system is built:
+          Your smart home does not depend on EJG Smart Systems still being here. That isn't a
+          promise about anyone's plans. It's how the system is built:
         </p>
         <ul class="continuity-list">
-          <li><strong>You own the hardware outright.</strong> The hub, the tablet, the switches, the cameras — they're yours from the day they're installed. Nothing is leased, financed, or licensed back to you.</li>
-          <li><strong>It runs entirely in your house.</strong> Your scenes, schedules and automations execute on the hub in your home. There's no account to expire, no server of mine to go offline, and no subscription required to keep any of it working. Unplug the internet and your home still works.</li>
-          <li><strong>There's no lock-in to undo.</strong> The devices are standard Z-Wave and Wi-Fi hardware, and the hub is ordinary hardware running a documented setup. If you ever want a different installer, there's nothing proprietary standing in the way — they can take it over.</li>
+          <li><strong>You own the hardware outright.</strong> The hub, the tablet, the switches, the cameras. They're yours from the day they're installed. Nothing is leased, financed, or licensed back to you.</li>
+          <li><strong>It runs entirely in your house.</strong> Your scenes, schedules and automations execute on the hub in your home. There's no account to expire, no remote server to go offline, and no subscription required to keep any of it working. Unplug the internet and your home still works.</li>
+          <li><strong>There's no lock-in to undo.</strong> The devices are standard Z-Wave and Wi-Fi hardware, and the hub is ordinary hardware running a documented setup. If you ever want a different installer, nothing proprietary stands in the way. They can take it over.</li>
           <li><strong>Nothing of yours is held anywhere else.</strong> Your data lives on your hub. There's no export to request and no account to recover, because there was never a copy off your property to begin with.</li>
         </ul>
         <p>
-          What you'd lose if I stopped doing this is <strong>me</strong> — someone who knows your house,
-          answers the phone, and can change things quickly. That's a real loss and I won't pretend
-          otherwise. What you would not lose is the system you paid for, or your ability to have
-          someone else look after it.
-        </p>
-        <p>
-          The flip side of being one person is the reason the work is consistent: the person who
-          designs your system is the person who installs it, and the person who picks it up again a
-          year later. Nothing is handed to a subcontractor who's never seen your house.
+          What you would lose is the person who knows your house and can change things quickly.
+          That's a real loss. What you would not lose is the system you paid for, or the ability to
+          have someone else look after it.
         </p>
       </div>
     </section>
@@ -801,31 +823,31 @@
         <div class="timeline-item">
           <div class="timeline-label">The Real Problem</div>
           <h3>Tired of paying rent on home tech</h3>
-          <p>Monthly bill for the thermostat. Cloud subscription for the cameras. An app that stopped working when the company got acquired. Realizing: I own this house, but I rent the ability to control it. That's broken.</p>
+          <p>Monthly bill for the thermostat. Cloud subscription for the cameras. An app that stopped working when the company got acquired. The realization: you own the house, but you rent the ability to control it. That's broken.</p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-label">The Search</div>
           <h3>Nothing existed that actually solved this</h3>
-          <p>Every existing option either needed a computer science degree to set up, locked you into one brand, or still depended on cloud servers (defeating the purpose). There genuinely wasn't an alternative — a local-first smart home OS you could own outright and have installed by a professional.</p>
+          <p>Every existing option either needed a computer science degree to set up, locked you into one brand, or still depended on cloud servers (defeating the purpose). There genuinely wasn't an alternative: a local-first smart home OS you could own outright and have installed by a professional.</p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-label">The Build</div>
           <h3>Built it. In Calgary. During winter.</h3>
-          <p>Open protocols. Local processing. Real hardware tablet for control. Professional installation standard from day one. Calgary winters meant no cutting corners — your heating needs to work when it's -30°C. That forces you to build things right.</p>
+          <p>Open protocols. Local processing. Real hardware tablet for control. Professional installation standard from day one. Calgary winters meant no cutting corners. Your heating needs to work when it's -30°C. That forces you to build things right.</p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-label">First Installs</div>
           <h3>Real homes, real people, real feedback</h3>
-          <p>Started installing in Calgary with families willing to try something different. Each install taught us what actually matters. Not what investors want to hear — what homeowners actually need.</p>
+          <p>Started installing in Calgary with families willing to try something different. Each install taught us what actually matters. Not what investors want to hear. What homeowners actually need.</p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-label">Now</div>
           <h3>Owner-operated, and opening up</h3>
-          <p>Every EJG-OS install to date is done by the person who built it. That's why the work is consistent: one set of hands, one standard, no subcontractors. The next step is bringing on other installers who believe the same thing — that people should genuinely own their homes. Not a tech company pretending to care about privacy. Actually building it.</p>
+          <p>Every EJG-OS install to date is done by the person who built it. One set of hands, one standard, no subcontractors. The next step is bringing on other installers who believe the same thing: that people should genuinely own their homes. Not a tech company pretending to care about privacy. Actually building it.</p>
         </div>
       </div>
     </section>
@@ -834,7 +856,7 @@
     <section class="mission-banner">
       <div class="mission-banner-content">
         <h2>Our mission is simple: your home, fully intelligent, completely yours.</h2>
-        <p>No required subscription. No cloud storage of your home's data. Just a home that works exactly the way you want it to — and keeps working with the internet unplugged. Priority Support is there if you want it, and only if you want it.</p>
+        <p>No required subscription. No cloud storage of your home's data. Just a home that works exactly the way you want it to, and keeps working with the internet unplugged. Priority Support is there if you want it, and only if you want it.</p>
 
         <div class="mission-stats">
           <div class="mission-stat">
@@ -860,7 +882,7 @@
     <!-- CTA -->
     <section class="cta-section">
       <h2>Ready to own your home?</h2>
-      <p>Get a free consultation with our Calgary team. No pressure, no pitch — just an honest conversation about what your home needs.</p>
+      <p>Book a free consultation in Calgary. No pressure, no pitch. Just an honest conversation about what your home needs.</p>
       <a href="contact.html" class="btn btn-primary">Get Your Free Consultation</a>
       <a href="pricing.html" class="btn btn-secondary">See Pricing →</a>
     </section>
