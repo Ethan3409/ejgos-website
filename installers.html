@@ -1308,6 +1308,7 @@
             <div class="form-field">
               <label for="installer-phone">Phone</label>
               <input type="tel" name="phone" id="installer-phone" placeholder="(403) 555-0100">
+              <small class="phone-note" style="display:block;margin-top:6px;font-size:12.5px;line-height:1.5;color:#dccbf6;">We'll only call this number about your request. We won't text it unless you opt in on our <a href="/contact" style="color:inherit;text-decoration:underline;">contact page</a>.</small>
             </div>
           </div>
           <div class="form-field">
@@ -1378,6 +1379,7 @@
       <div class="footer-column">
         <h3>Legal</h3>
         <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="/privacy-policy#messaging-terms">Messaging Terms</a>
       </div>
       <div class="footer-column">
         <h3>Location</h3>
@@ -1422,7 +1424,7 @@
           body: JSON.stringify(data)
         });
         const result = await resp.json();
-        if (result.success) {
+        if (resp.ok && String(result.success) === 'true') {
           document.getElementById('installerSuccess').style.display = 'block';
           form.reset();
           setTimeout(() => document.getElementById('installerSuccess').style.display = 'none', 6000);
