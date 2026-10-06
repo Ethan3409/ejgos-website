@@ -4,19 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy — EJG-OS</title>
-  <meta name="description" content="How EJG Technologies Inc. handles personal information across ejgos.com, your EJG-OS hub, the EJG Home apps, Skip, remote access, backups and text messages. Version 2.0, effective October 6, 2026.">
+  <meta name="description" content="How EJG Technologies Inc. handles personal information across ejgos.com, your EJG-OS hub, the EJG Home apps, Skip, remote access, backups and text messages. Version 2.1, effective October 6, 2026.">
   <link rel="canonical" href="https://ejgos.com/privacy-policy">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Privacy Policy — EJG-OS">
-  <meta property="og:description" content="How EJG Technologies Inc. handles personal information across ejgos.com, your EJG-OS hub, the EJG Home apps, Skip, remote access, backups and text messages. Version 2.0, effective October 6, 2026.">
+  <meta property="og:description" content="How EJG Technologies Inc. handles personal information across ejgos.com, your EJG-OS hub, the EJG Home apps, Skip, remote access, backups and text messages. Version 2.1, effective October 6, 2026.">
   <meta property="og:url" content="https://ejgos.com/privacy-policy">
   <meta property="og:site_name" content="EJG-OS">
   <meta property="og:locale" content="en_CA">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Privacy Policy — EJG-OS">
-  <meta name="twitter:description" content="How EJG Technologies Inc. handles personal information across ejgos.com, your EJG-OS hub, the EJG Home apps, Skip, remote access, backups and text messages. Version 2.0, effective October 6, 2026.">
+  <meta name="twitter:description" content="How EJG Technologies Inc. handles personal information across ejgos.com, your EJG-OS hub, the EJG Home apps, Skip, remote access, backups and text messages. Version 2.1, effective October 6, 2026.">
   <style>
     :root {
       --purple-900: #1a0533;
@@ -312,7 +312,7 @@
         <div class="doc-meta">
           <span>Effective October 6, 2026</span>
           <span class="sep" aria-hidden="true"></span>
-          <span>Version 2.0</span>
+          <span>Version 2.1</span>
           <span class="sep" aria-hidden="true"></span>
           <span>Includes our <a href="#messaging-terms">Messaging Terms and Conditions</a></span>
         </div>
@@ -396,7 +396,7 @@
           <li><strong>Local network</strong> (iPhone) — to talk to your hub directly on your home network.</li>
           <li><strong>Microphone and speech recognition</strong> — for Skip. On iPhone, only after you enable Skip; while Skip is on, the iPhone may keep listening in the background. On the wall tablet, Skip is on when we install it (see below). You can revoke these permissions at any time in your device's settings.</li>
           <li><strong>Camera</strong> — on iPhone, to scan setup codes (a Secure Link invitation or a Z-Wave device code); on the wall tablet, to take a face-recognition enrolment photo if you use that feature.</li>
-          <li><strong>Notifications</strong> — only if you opt in when prompted.</li>
+          <li><strong>Notifications</strong> — only if you turn them on. The iPhone app doesn't contact Apple or Expo for alerts until you tap Enable notifications.</li>
           <li><strong>Wake lock</strong> (tablet only) — to keep the wall panel display on.</li>
         </ul>
       </section>
@@ -418,14 +418,24 @@
       <section>
         <h2><span class="kicker">Notifications</span>Delivered by Expo, Apple and Google.</h2>
         <p>
-          Your hub composes alerts and sends them through Expo's push service,
-          which passes them to Apple Push Notification service (iPhone) or
-          Firebase Cloud Messaging (Android). Those services receive your
-          device's push token and the notification text. Depending on your
-          settings and the kind of alert, the text can include details such as
-          the name of a device, door or camera, or the name of an installer
-          asking for access. We do not read or store notification content on
-          our servers.
+          Your hub sends alerts through Expo's push service, which passes them
+          to Apple Push Notification service (iPhone) or Firebase Cloud
+          Messaging (Android). By default every alert that leaves your home is
+          the same plain notice — &ldquo;EJG Home: You have a new alert — open
+          the app&rdquo; — with only a random reference number. No device,
+          camera, door, room or person names and no event type or time are
+          included. When you open the app, it fetches the details from your
+          hub. Expo, Apple and Google receive your device's push token, that
+          plain text and the reference, and can see that an alert was sent and
+          when.
+        </p>
+        <p>
+          If you choose detailed notifications in the app's settings (labelled
+          as showing details on your lock screen, with the text passing
+          through Apple/Google), the alert text — such as the name of a
+          device, door or camera, or of an installer asking for access — goes
+          through Expo, Apple and Google. We do not read or store notification
+          content on our servers.
         </p>
       </section>
 
@@ -451,10 +461,12 @@
       <section>
         <h2><span class="kicker">Other services</span>Used only when the feature is in use.</h2>
         <ul>
-          <li><strong>Weather.</strong> Your hub sends your home's location to a weather service (Environment Canada, Open-Meteo or MET Norway) to get local weather, and may use Open-Meteo's geocoding service to turn a place name into coordinates.</li>
+          <li><strong>Weather.</strong> Your hub stores your home's location rounded to about 1 km (two decimal places), and sends only that approximate location to a weather service (Environment Canada, Open-Meteo or MET Norway) to get local weather. When you search for your city in the hub's location settings, the name you type is sent to Open-Meteo's geocoding service.</li>
+          <li><strong>Email reports.</strong> Daily reports and storage warnings by email go through an internet mail provider only if you turn on &ldquo;Email reports (uses the internet)&rdquo; in the app. Otherwise they are sent only to a mail server on your home network or EJG Secure Link, or not at all.</li>
           <li><strong>Tuya and other makers' devices.</strong> Tuya devices are linked through Tuya's cloud once, at setup. After that, a fallback to Tuya's cloud (if your hub can't reach a device locally) is off unless it is switched on; when on, device status and commands pass through Tuya. Some third-party devices also contact their own makers' servers on their own.</li>
-          <li><strong>Z-Wave and Zigbee software.</strong> Where enabled, the Z-Wave software on your hub sends anonymous usage statistics (a list of device makes, models and firmware versions) to the Z-Wave JS project (zwave-js.io). Where a Zigbee stick is installed, its software (deCONZ) uses Phoscon's discovery service (phoscon.de).</li>
-          <li><strong>Home Assistant.</strong> Homes where we set up Home Assistant (for some plug-in devices) use its default online services: weather from MET Norway using your home's location, its alerts feed, Google Translate for its spoken voice, radio-browser for internet radio, and downloads of its software packages.</li>
+          <li><strong>Z-Wave and Zigbee software.</strong> On new installs, the Z-Wave software's usage statistics and automatic firmware-update checks are off, and the Zigbee software (deCONZ) has its internet discovery service off. On homes installed earlier, these are switched off by hand: until then, the Z-Wave software may send anonymous usage statistics (a list of device makes, models and firmware versions) to the Z-Wave JS project (zwave-js.io) and check for firmware updates, and deCONZ may use Phoscon's discovery service (phoscon.de). Either way, the Z-Wave software checks for updated device definition files, which sends only the hub's internet address and software version.</li>
+          <li><strong>Home Assistant.</strong> Where we set up Home Assistant (for some plug-in devices), new installs use a local-only setup, without its weather, Google Translate voice, internet radio or alerts-feed services. On homes installed earlier, these are removed by hand; until then they may use MET Norway weather with your home's location, Home Assistant's alerts feed, Google Translate for its spoken voice and radio-browser. Home Assistant also downloads its own software packages.</li>
+          <li><strong>Voice software on the hub.</strong> On new installs, the hub's wake-word software works offline and does not contact Hugging Face, and no online text-to-speech client is installed.</li>
           <li><strong>App updates.</strong> The EJG Home apps check Expo's update service for app updates, sending an install ID with the check.</li>
           <li><strong>Software, time and updates coming in.</strong> When your hub fetches system software or the time from the internet, those services see only your hub's internet address. EJG-OS software updates are digitally signed and delivered to your hub by your installer.</li>
           <li><strong>Health report.</strong> Your hub reports basic health (status codes and counts, not device names) to your installer over EJG Secure Link so they can support it. Ask us and we will switch it off.</li>
