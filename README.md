@@ -1,6 +1,6 @@
 # ejgos.com
 
-Marketing / customer-facing website for EJG Smart Systems.
+Marketing / customer-facing website for EJG Technologies Inc.
 
 ## Pages
 
@@ -20,7 +20,7 @@ python3 -m http.server 8080
 
 ## Deploy
 
-Static host — Cloudflare Pages, Netlify, Vercel, or drop into any S3/R2 bucket. Domain `ejgos.com` is on Cloudflare.
+Hosted on Netlify behind Cloudflare; pushing to `main` deploys. Domain `ejgos.com` is on Cloudflare.
 
 ## History
 
