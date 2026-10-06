@@ -292,6 +292,58 @@
       color: var(--text-muted);
     }
 
+    /* Text-message consent (carrier A2P 10DLC opt-in) */
+    .sms-consent {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 16px 6px;
+      margin-bottom: 24px;
+      background: rgba(0,0,0,0.2);
+    }
+    .sms-consent legend {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      padding: 0 6px;
+    }
+    .sms-consent .consent-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      color: var(--text);
+      cursor: pointer;
+      line-height: 1.5;
+    }
+    .sms-consent input[type="checkbox"] {
+      flex: 0 0 auto;
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--purple-400);
+      cursor: pointer;
+    }
+    .sms-consent .consent-option.is-disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+    .sms-consent .consent-option.is-disabled input { cursor: not-allowed; }
+
+    .sms-disclosure {
+      margin-top: 24px;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #e4d4fb;
+    }
+    .sms-disclosure p { margin-bottom: 12px; }
+    .sms-disclosure p:last-child { margin-bottom: 0; }
+    .sms-disclosure a {
+      color: var(--purple-300);
+      text-decoration: underline;
+      word-break: break-word;
+    }
+
     .btn {
       width: 100%;
       padding: 14px 32px;
@@ -651,8 +703,8 @@
             </div>
 
             <div class="form-group">
-              <label for="phone">Phone Number (Optional)</label>
-              <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000">
+              <label for="phone">Mobile Phone Number</label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="+1 (555) 000-0000">
             </div>
 
             <div class="form-group">
@@ -689,8 +741,30 @@
               <textarea id="message" name="message" required placeholder="Tell us about your smart home goals..."></textarea>
             </div>
 
+            <fieldset class="sms-consent" id="smsConsent">
+              <legend>Text messages</legend>
+              <label class="consent-option" for="smsCustomerCare">
+                <input type="checkbox" id="smsCustomerCare" name="sms_consent_customer_care" value="Yes">
+                <span>Yes, I consent to receive customer care messages from EJG Technologies Inc</span>
+              </label>
+              <label class="consent-option" for="smsMarketing">
+                <input type="checkbox" id="smsMarketing" name="sms_consent_marketing" value="Yes">
+                <span>Yes, I consent to receive marketing text messages from EJG Technologies Inc</span>
+              </label>
+              <label class="consent-option" for="smsNone">
+                <input type="checkbox" id="smsNone" name="sms_consent_none" value="Yes">
+                <span>No, I do not want to receive any text messages from EJG Technologies Inc</span>
+              </label>
+            </fieldset>
+
             <button type="submit" class="btn">Schedule Free Consultation</button>
           </form>
+
+          <div class="sms-disclosure" id="smsDisclosure">
+            <p>EJG Technologies Inc (doing business as EJG Technologies Inc) would like your consent to send customer care and/or marketing text message communications from (587) 209-3608 to your mobile number listed above. Customer care messages may include responses to messages you send us, as well as information relevant to your relationship with us. Marketing messages may include discount codes, special deals or texts promoting our products/services.</p>
+            <p>Consent is not a condition of purchase. Message frequency varies. Message and data rates may apply. Reply 'STOP' to unsubscribe at any time. Reply 'HELP' for assistance or more information.</p>
+            <p>We do not share your mobile opt-in information with anyone. Our combined Privacy Policy and Messaging Terms and Conditions are available at <a href="https://ejgos.com/privacy-policy">https://ejgos.com/privacy-policy</a>.</p>
+          </div>
         </div>
 
         <!-- Contact Info -->
@@ -799,6 +873,26 @@
       }
     });
 
+    // Text-message consent: "No" and the two "Yes" boxes exclude each other.
+    // None is ever pre-checked; ticking one side unchecks and disables the other.
+    const smsYes = [document.getElementById('smsCustomerCare'), document.getElementById('smsMarketing')];
+    const smsNo = document.getElementById('smsNone');
+    const phoneInput = document.getElementById('phone');
+    function setDisabled(box, off) {
+      box.disabled = off;
+      if (off) box.checked = false;
+      box.closest('.consent-option').classList.toggle('is-disabled', off);
+    }
+    function syncSmsConsent() {
+      const anyYes = smsYes.some(b => b.checked);
+      setDisabled(smsNo, anyYes);
+      smsYes.forEach(b => setDisabled(b, smsNo.checked));
+      // A text-message opt-in needs a mobile number to send to.
+      phoneInput.required = smsYes.some(b => b.checked);
+    }
+    [...smsYes, smsNo].forEach(b => b.addEventListener('change', syncSmsConsent));
+    document.getElementById('contactForm').addEventListener('reset', () => setTimeout(syncSmsConsent, 0));
+
     // FormSubmit.co — AJAX submission (no redirect)
     document.getElementById('contactForm').addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -809,6 +903,21 @@
       try {
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
+        // Record of text-message consent, explicit Yes/No for every box
+        // (unchecked and disabled boxes are otherwise left out of FormData).
+        const care = document.getElementById('smsCustomerCare').checked;
+        const marketing = document.getElementById('smsMarketing').checked;
+        const none = smsNo.checked;
+        data.sms_consent_customer_care = care ? 'Yes' : 'No';
+        data.sms_consent_marketing = marketing ? 'Yes' : 'No';
+        data.sms_consent_none = none ? 'Yes' : 'No';
+        data.sms_consent_summary = none ? 'Declined all text messages'
+          : (care || marketing) ? 'Opted in: ' + [care && 'customer care', marketing && 'marketing'].filter(Boolean).join(' + ')
+          : 'No choice made (treated as no consent)';
+        data.sms_consent_mobile = (care || marketing) ? (data.phone || '') : '';
+        data.sms_consent_disclosure = document.getElementById('smsDisclosure').innerText.trim();
+        data.sms_consent_page = location.href;
+        data.sms_consent_submitted_at = new Date().toISOString();
         data._captcha = 'false';
         data._subject = 'New Contact Form Submission — EJG-OS';
         data._template = 'table';
