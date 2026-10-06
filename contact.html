@@ -677,7 +677,7 @@
     <section class="page-hero">
       <div class="page-hero-content">
         <h1>Let's Build Your Smart Home.</h1>
-        <p>Get your free consultation. Our local team will design the perfect system for your home.</p>
+        <p>Get your free consultation. Ethan, the owner, is the person who designs your system with you and installs it.</p>
       </div>
     </section>
 
@@ -687,11 +687,9 @@
         <!-- Contact Form -->
         <div class="contact-form">
           <h2>Get Started</h2>
-          <p class="form-promise">Every enquiry is answered within 24 hours.</p>
-          <div class="success-message" id="successMessage">
-            <strong>Thank you!</strong> We'll be in touch within 24 hours.
-          </div>
-          <form id="contactForm">
+          <p class="form-promise">Every enquiry is answered within one business day.</p>
+          <form id="contactForm" method="post">
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
             <div class="form-group">
               <label for="name">Full Name *</label>
               <input type="text" id="name" name="name" required placeholder="Your name">
@@ -716,11 +714,13 @@
               <label for="package">Package of Interest</label>
               <select id="package" name="package">
                 <option value="">-- Select a package --</option>
-                <option value="essentials">Essentials (~$1,512)</option>
-                <option value="standard">Standard Home (~$3,483)</option>
-                <option value="premium">Premium (~$6,021)</option>
+                <option value="base">Base package ($1,000 before GST)</option>
+                <option value="essentials">Essentials (~$1,512 before GST)</option>
+                <option value="standard">Standard Home (~$3,483 before GST)</option>
+                <option value="premium">Premium (~$6,021 before GST)</option>
                 <option value="custom">Custom Build (I'll spec my own)</option>
                 <option value="builder">Home Builder / Multi-Unit</option>
+                <option value="unsure">Not sure yet</option>
               </select>
             </div>
 
@@ -764,6 +764,9 @@
             </div>
 
             <button type="submit" class="btn">Schedule Free Consultation</button>
+            <div class="success-message" id="successMessage" role="status" aria-live="polite" style="margin-top: 16px;">
+              <strong>Thank you!</strong> We'll be in touch within one business day.
+            </div>
           </form>
 
         </div>
@@ -776,7 +779,7 @@
               <div class="timeline-item">
                 <div class="timeline-icon"><svg class="ico" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.4" y="4.8" width="19.2" height="14.4" rx="2.4"/><path d="m3.4 6.8 8.6 6.1 8.6-6.1"/></svg></div>
                 <div class="timeline-content">
-                  <h4>Step 1: A reply within 24 hours</h4>
+                  <h4>Step 1: A reply within one business day</h4>
                   <p>Your request comes straight to the owner, who gets in touch to discuss your goals.</p>
                 </div>
               </div>
@@ -805,7 +808,7 @@
           <div class="info-box">
             <h3>Contact</h3>
             <p><a href="mailto:info@ejgos.com">info@ejgos.com</a><br><a href="tel:+15872093608">(587) 209-3608</a> (call or text)</p>
-            <p style="font-size: 12px; margin-top: 16px; color: var(--text-muted);">Response time: 24 business hours</p>
+            <p style="font-size: 12px; margin-top: 16px; color: var(--text-muted);">Response time: one business day</p>
           </div>
         </div>
       </div>
@@ -894,6 +897,14 @@
       phoneInput.required = smsYes.some(b => b.checked);
     }
     [...smsYes, smsNo].forEach(b => b.addEventListener('change', syncSmsConsent));
+
+    // Links like /contact?package=base preselect the package dropdown.
+    (function () {
+      const sel = document.getElementById('package');
+      let wanted = '';
+      try { wanted = new URLSearchParams(location.search).get('package') || ''; } catch (_) {}
+      if (wanted && [...sel.options].some(o => o.value === wanted)) sel.value = wanted;
+    })();
     document.getElementById('contactForm').addEventListener('reset', () => setTimeout(syncSmsConsent, 0));
 
     // FormSubmit.co — AJAX submission (no redirect)
@@ -903,6 +914,8 @@
       const btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
       btn.textContent = 'Sending...';
+      const success = document.getElementById('successMessage');
+      success.classList.remove('show');
       try {
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
@@ -931,9 +944,10 @@
         });
         const result = await resp.json();
         if (resp.ok && String(result.success) === 'true') {
-          document.getElementById('successMessage').classList.add('show');
           form.reset();
-          setTimeout(() => document.getElementById('successMessage').classList.remove('show'), 6000);
+          success.classList.add('show');
+          // Re-set the text so screen readers announce it; it stays visible.
+          success.innerHTML = '<strong>Thank you!</strong> We\'ll be in touch within one business day.';
         } else {
           alert('Something went wrong. Please try again or email info@ejgos.com directly.');
         }
