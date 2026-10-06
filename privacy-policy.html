@@ -336,7 +336,7 @@
         <h2><span class="kicker">The short version</span>What stays home, and what doesn't.</h2>
         <ul>
           <li><strong>Stays on your hub:</strong> your devices and their history, rooms, scenes, automations, household user accounts, lock codes, Skip's household profiles and memories, camera events and any recordings the hub makes, and face data if you use face recognition. Lights, locks, thermostats, scenes and automations work with the internet unplugged.</li>
-          <li><strong>Leaves your home when you use the feature:</strong> the Skip voice assistant (speech recognition by Apple or Google; requests the hub can't handle itself go to Anthropic through a relay we run on Cloudflare; spoken replies can be produced by OpenAI), phone notifications (Expo, Apple, Google), remote access (EJG Secure Link or Cloudflare Tunnel), weather, Spotify if you link it, and encrypted backup copies sent to your installer's computer.</li>
+          <li><strong>Leaves your home:</strong> the Skip voice assistant (on by default on the wall tablet: speech recognition by Google or Apple; requests the hub can't handle itself go to Anthropic through a relay we run on Cloudflare; spoken replies can be produced by OpenAI), phone notifications (Expo, Apple, Google), remote access (EJG Secure Link or Cloudflare Tunnel), weather, Spotify if you link it, encrypted backup copies sent to your installer's computer, and your home's record in your installer's account (see &ldquo;Installer access&rdquo;). Each is described below.</li>
           <li><strong>Never:</strong> we do not sell your personal information, show you ads, or put analytics, advertising or tracking code in our apps or on this website.</li>
         </ul>
       </section>
@@ -394,7 +394,7 @@
         <ul>
           <li><strong>Network access</strong> — to reach your EJG-OS hub.</li>
           <li><strong>Local network</strong> (iPhone) — to talk to your hub directly on your home network.</li>
-          <li><strong>Microphone and speech recognition</strong> — only for Skip, after you enable it. You can revoke these permissions at any time in your device's settings.</li>
+          <li><strong>Microphone and speech recognition</strong> — for Skip. On iPhone, only after you enable Skip; while Skip is on, the iPhone may keep listening in the background. On the wall tablet, Skip is on when we install it (see below). You can revoke these permissions at any time in your device's settings.</li>
           <li><strong>Camera</strong> — on iPhone, to scan setup codes (a Secure Link invitation or a Z-Wave device code); on the wall tablet, to take a face-recognition enrolment photo if you use that feature.</li>
           <li><strong>Notifications</strong> — only if you opt in when prompted.</li>
           <li><strong>Wake lock</strong> (tablet only) — to keep the wall panel display on.</li>
@@ -402,11 +402,14 @@
       </section>
 
       <section>
-        <h2><span class="kicker">Skip, the voice assistant</span>Optional, and it needs the internet today.</h2>
+        <h2><span class="kicker">Skip, the voice assistant</span>On by default on the wall tablet; it needs the internet today.</h2>
         <ul>
-          <li><strong>Speech recognition.</strong> Turning your speech into text is done by your device's built-in speech service: Google's on the Android wall tablet, and Apple's on iPhone. Your audio may be processed on Apple's or Google's servers under their privacy policies. On the wall tablet, while wake-word listening is on, the tablet uses Google's speech service to listen for &ldquo;Hey Skip&rdquo;, so speech near the tablet may be processed by Google. You can turn wake-word listening off.</li>
+          <li><strong>Speech recognition.</strong> Turning your speech into text is done by your device's built-in speech service: Google's on the Android wall tablet, and Apple's on iPhone. Your audio may be processed on Apple's or Google's servers under their privacy policies.</li>
+          <li><strong>The wall tablet listens continuously.</strong> On the wall tablet, Skip is on when we install it. While it listens, the tablet sends sound from the room to Google's speech service continuously — not only after &ldquo;Hey Skip&rdquo; — and the text that comes back is written to your hub's log, which your installer can see during approved access. Mute the tablet or turn Skip off in Settings to stop this.</li>
           <li><strong>Everyday commands.</strong> Simple commands — lights, locks, the thermostat, scenes — are understood and carried out by your hub where it can.</li>
-          <li><strong>Other requests.</strong> Requests your hub can't handle itself are sent to our AI provider, Anthropic (Claude), through a relay we operate on Cloudflare. A request can include what was said, the speaker's first name, the relevant state of your home's devices, and household details Skip needs to answer, such as memories you've asked it to keep. Our relay passes requests through and is not used to store them; Anthropic processes them under its commercial terms and privacy policy.</li>
+          <li><strong>Other requests.</strong> Requests your hub can't handle itself are sent to our AI provider, Anthropic (Claude), through a relay we operate on Cloudflare. A request can include what was said; the speaker's first name, age, pronouns and profile notes; memories Skip keeps, including other household members' memories and family messages; your city or region and time zone; the state of your home's devices, recent activity and camera event summaries; and your home's ID. Anthropic may run a web search to answer. Our relay keeps basic logs (your home's ID and the type of request), not the content; Anthropic processes requests under its commercial terms and privacy policy.</li>
+          <li><strong>AI scene and automation builders.</strong> When an AI builder is used to draft a scene or automation, the request and your devices' names, rooms and types are sent to Anthropic the same way.</li>
+          <li><strong>Fun answers.</strong> For recipes, trivia and fun facts Skip may ask TheMealDB, Open Trivia DB or uselessfacts; these requests carry the question topic, not your personal details.</li>
           <li><strong>Skip's voice.</strong> Skip's spoken replies are produced either by a voice that runs on your hub (Piper) or by OpenAI. When OpenAI is used, the text of Skip's reply is sent to OpenAI to produce the audio, under OpenAI's privacy policy.</li>
           <li><strong>Spotify.</strong> If you link Spotify, your hub stores the link and sends playback commands to Spotify under its privacy policy.</li>
         </ul>
@@ -430,7 +433,7 @@
         <h2><span class="kicker">Remote access</span>Using your home from away.</h2>
         <ul>
           <li><strong>EJG Secure Link.</strong> On homes using Secure Link, your phone and hub connect over a tunnel that is end-to-end encrypted between them. A coordination server we run on DigitalOcean (mesh.ejgos.com) helps devices find each other. It holds device names, network keys and connection details, not the contents of your traffic.</li>
-          <li><strong>Cloudflare Tunnel.</strong> On homes that use a Cloudflare Tunnel, traffic is encrypted between your phone and Cloudflare and between Cloudflare and your hub, but it is decrypted at Cloudflare's servers in between. This includes camera video you watch from away.</li>
+          <li><strong>Cloudflare Tunnel.</strong> On homes that use a Cloudflare Tunnel, traffic is encrypted between your phone and Cloudflare and between Cloudflare and your hub, but it is decrypted at Cloudflare's servers in between. This includes camera video you watch from away. Cloudflare Tunnel is the default for homes not on Secure Link, and those homes have a public address of the form <em>name</em>.ejgos.com.</li>
           <li><strong>At home.</strong> On your home network, the app talks to the hub directly.</li>
         </ul>
       </section>
@@ -438,8 +441,8 @@
       <section>
         <h2><span class="kicker">Cameras and face recognition</span>Recorded in the house, viewed by you.</h2>
         <ul>
-          <li><strong>Recordings.</strong> Camera video is recorded on equipment inside your home: a network video recorder (NVR), and where configured, the hub. We turn off the recorder's cloud features. Nobody at EJG monitors your cameras. The recorder overwrites the oldest footage when its drive is full. On the hub, motion recordings are deleted after 30 days and flagged events after 90 days by default.</li>
-          <li><strong>Viewing from away.</strong> Live video reaches your phone through your remote-access connection (see &ldquo;Remote access&rdquo;).</li>
+          <li><strong>Recordings.</strong> Camera video is recorded on equipment inside your home: a network video recorder (NVR). We turn off the recorder's cloud features. Nobody at EJG monitors your cameras. The recorder overwrites the oldest footage when its drive is full. The hub also keeps motion recordings (30 days by default; flagged events 90 days) when it can reach your cameras.</li>
+          <li><strong>Viewing from away.</strong> Video you watch from away reaches your phone through your remote-access connection (see &ldquo;Remote access&rdquo;).</li>
           <li><strong>Face recognition.</strong> Optional. If you turn it on, faces are analysed by software running on your hub, and the face data for people you enrol (a reference photo, their name, and when they were last recognised) is stored on the hub. Events with faces nobody has named are deleted after 30 days by default. Enrol only people who have agreed to it, and delete their face data when they ask.</li>
           <li><strong>Your responsibilities.</strong> You decide where cameras point. Let household members, guests and anyone who works in your home know that cameras record, avoid pointing cameras at neighbours' property or public areas, and follow the laws that apply to recording in your home.</li>
         </ul>
@@ -448,24 +451,43 @@
       <section>
         <h2><span class="kicker">Other services</span>Used only when the feature is in use.</h2>
         <ul>
-          <li><strong>Weather.</strong> Your hub sends your home's approximate location to a weather service (Environment Canada, Open-Meteo or MET Norway) to get local weather.</li>
-          <li><strong>Tuya devices.</strong> Some plug-in devices made by Tuya can fall back to Tuya's cloud if your hub can't reach them locally. That fallback is off unless it is switched on; when on, device status and commands pass through Tuya.</li>
-          <li><strong>Software updates and health.</strong> Software updates are digitally signed and delivered to your hub by your installer. Your hub reports basic health (status codes and counts, not device names) to your installer over EJG Secure Link so they can support it.</li>
+          <li><strong>Weather.</strong> Your hub sends your home's location to a weather service (Environment Canada, Open-Meteo or MET Norway) to get local weather, and may use Open-Meteo's geocoding service to turn a place name into coordinates.</li>
+          <li><strong>Tuya and other makers' devices.</strong> Tuya devices are linked through Tuya's cloud once, at setup. After that, a fallback to Tuya's cloud (if your hub can't reach a device locally) is off unless it is switched on; when on, device status and commands pass through Tuya. Some third-party devices also contact their own makers' servers on their own.</li>
+          <li><strong>Z-Wave and Zigbee software.</strong> Where enabled, the Z-Wave software on your hub sends anonymous usage statistics (a list of device makes, models and firmware versions) to the Z-Wave JS project (zwave-js.io). Where a Zigbee stick is installed, its software (deCONZ) uses Phoscon's discovery service (phoscon.de).</li>
+          <li><strong>Home Assistant.</strong> Homes where we set up Home Assistant (for some plug-in devices) use its default online services: weather from MET Norway using your home's location, its alerts feed, Google Translate for its spoken voice, radio-browser for internet radio, and downloads of its software packages.</li>
+          <li><strong>App updates.</strong> The EJG Home apps check Expo's update service for app updates, sending an install ID with the check.</li>
+          <li><strong>Software, time and updates coming in.</strong> When your hub fetches system software or the time from the internet, those services see only your hub's internet address. EJG-OS software updates are digitally signed and delivered to your hub by your installer.</li>
+          <li><strong>Health report.</strong> Your hub reports basic health (status codes and counts, not device names) to your installer over EJG Secure Link so they can support it. You can switch this off.</li>
         </ul>
       </section>
 
       <section>
-        <h2><span class="kicker">Installer access</span>Only with your approval.</h2>
+        <h2><span class="kicker">Installer access</span>What your installer can reach, and what needs your approval.</h2>
         <p>
-          Your installer (EJG, or a partner installer we authorise) can reach
-          your hub remotely only after you approve the request in the app. You
-          choose how long access lasts, within the limits of your hub's
+          Using the installer tools on your home — seeing and changing devices,
+          rooms, scenes and settings — needs your approval in the app. You
+          choose how long that access lasts, within the limits of your hub's
           security setting, and you can cancel it at any time. While access is
-          on, the installer can see and change what the installer tools show:
-          devices, rooms, scenes, automations, system health and logs, and
-          settings. We also keep the records needed to run your account: your
-          name and contact details, address, the equipment installed, quotes,
-          invoices and support history.
+          on, the installer tools also show system health and logs. Your
+          installer (EJG, or a partner installer we authorise) also holds a
+          maintenance key and your hub's secret, used to deliver signed
+          software updates, receive your hub's health report, and service the
+          hub on site.
+        </p>
+        <p>
+          <strong>Your home's record in the installer's account.</strong> Your
+          installer's account is kept in sync across their computers through
+          an account service we run (acct.ejgos.com). Each home's record there
+          includes your address and location, your hub's network addresses,
+          your hub's secret and your Z-Wave network keys. The record is
+          encrypted, but with a key derived from the installer's password,
+          which the account server receives today when the installer signs in.
+        </p>
+        <p>
+          We also keep the records needed to run your account: your name and
+          contact details, address, the equipment installed, quotes, invoices
+          and support history. Quotes and invoices are emailed through Resend,
+          which receives your name and email address.
         </p>
       </section>
 
@@ -490,8 +512,10 @@
           Some of the service providers named in this policy store or process
           information outside Canada, mainly in the United States: Anthropic,
           OpenAI, Expo, Apple, Google, Cloudflare, Netlify, DigitalOcean,
-          FormSubmit, Grasshopper and Spotify (and Tuya, Open-Meteo and MET
-          Norway, which may process it in other countries). While it is outside
+          FormSubmit, Grasshopper, Resend and Spotify (and Tuya, Open-Meteo,
+          MET Norway, TheMealDB, Open Trivia DB, uselessfacts, Z-Wave JS,
+          Phoscon and the Home Assistant services listed above, which may
+          process it in other countries). While it is outside
           Canada, your information is subject to the laws of those countries
           and may be accessed by their courts, law enforcement and national
           security authorities. You can ask our privacy officer, Ethan
@@ -507,9 +531,9 @@
           We collect, use and disclose personal information only for the
           purposes in this policy: installing, running and supporting your
           smart home, answering your enquiries, and meeting legal and tax
-          obligations. Optional features that send information outside your
-          home — Skip, remote access, Spotify and the Tuya cloud fallback —
-          are used only when you or your household use them. You can withdraw
+          obligations. Features that send information outside your home are
+          described above; Skip is on by default on the wall tablet, and
+          Spotify and the Tuya cloud fallback are used only if you turn them on. You can withdraw
           consent by turning a feature off or by contacting us; some features
           stop working without it.
         </p>
