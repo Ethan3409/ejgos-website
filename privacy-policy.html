@@ -4,19 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy — EJG-OS</title>
-  <meta name="description" content="How EJG Technologies Inc. handles personal information across ejgos.com, your EJG-OS hub, the EJG Home apps, Skip, remote access, backups and text messages. Version 2.1, effective October 6, 2026.">
+  <meta name="description" content="How EJG Technologies Inc. handles personal information across ejgos.com, your EJG-OS hub, the EJG Home apps, Skip, remote access, backups and text messages. Version 2.2, effective October 6, 2026.">
   <link rel="canonical" href="https://ejgos.com/privacy-policy">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Privacy Policy — EJG-OS">
-  <meta property="og:description" content="How EJG Technologies Inc. handles personal information across ejgos.com, your EJG-OS hub, the EJG Home apps, Skip, remote access, backups and text messages. Version 2.1, effective October 6, 2026.">
+  <meta property="og:description" content="How EJG Technologies Inc. handles personal information across ejgos.com, your EJG-OS hub, the EJG Home apps, Skip, remote access, backups and text messages. Version 2.2, effective October 6, 2026.">
   <meta property="og:url" content="https://ejgos.com/privacy-policy">
   <meta property="og:site_name" content="EJG-OS">
   <meta property="og:locale" content="en_CA">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Privacy Policy — EJG-OS">
-  <meta name="twitter:description" content="How EJG Technologies Inc. handles personal information across ejgos.com, your EJG-OS hub, the EJG Home apps, Skip, remote access, backups and text messages. Version 2.1, effective October 6, 2026.">
+  <meta name="twitter:description" content="How EJG Technologies Inc. handles personal information across ejgos.com, your EJG-OS hub, the EJG Home apps, Skip, remote access, backups and text messages. Version 2.2, effective October 6, 2026.">
   <style>
     :root {
       --purple-900: #1a0533;
@@ -312,7 +312,7 @@
         <div class="doc-meta">
           <span>Effective October 6, 2026</span>
           <span class="sep" aria-hidden="true"></span>
-          <span>Version 2.1</span>
+          <span>Version 2.2</span>
           <span class="sep" aria-hidden="true"></span>
           <span>Includes our <a href="#messaging-terms">Messaging Terms and Conditions</a></span>
         </div>
@@ -336,7 +336,8 @@
         <h2><span class="kicker">The short version</span>What stays home, and what doesn't.</h2>
         <ul>
           <li><strong>Stays on your hub:</strong> your devices and their history, rooms, scenes, automations, household user accounts, lock codes, Skip's household profiles and memories, camera events and any recordings the hub makes, and face data if you use face recognition. Lights, locks, thermostats, scenes and automations work with the internet unplugged.</li>
-          <li><strong>Leaves your home:</strong> the Skip voice assistant (on by default on the wall tablet: speech recognition by Google or Apple; requests the hub can't handle itself go to Anthropic through a relay we run on Cloudflare; spoken replies can be produced by OpenAI), phone notifications (Expo, Apple, Google), remote access (EJG Secure Link or Cloudflare Tunnel), weather, Spotify if you link it, encrypted backup copies sent to your installer's computer, and your home's record in your installer's account (see &ldquo;Installer access&rdquo;). Each is described below.</li>
+          <li><strong>Stays in your home too:</strong> Skip, the voice assistant. It runs on your hub, and nothing you say to Skip is sent to EJG or to any AI service.</li>
+          <li><strong>Leaves your home:</strong> phone notifications (a plain notice through Expo, Apple, Google), remote access (EJG Secure Link or Cloudflare Tunnel), the optional weather and Spotify extras if you turn them on, encrypted backup copies sent to your installer's computer, and your home's record in your installer's account (see &ldquo;Installer access&rdquo;). Each is described below.</li>
           <li><strong>Never:</strong> we do not sell your personal information, show you ads, or put analytics, advertising or tracking code in our apps or on this website.</li>
         </ul>
       </section>
@@ -394,7 +395,7 @@
         <ul>
           <li><strong>Network access</strong> — to reach your EJG-OS hub.</li>
           <li><strong>Local network</strong> (iPhone) — to talk to your hub directly on your home network.</li>
-          <li><strong>Microphone and speech recognition</strong> — for Skip. On iPhone, only after you enable Skip; while Skip is on, the iPhone may keep listening in the background. On the wall tablet, Skip is on when we install it (see below). You can revoke these permissions at any time in your device's settings.</li>
+          <li><strong>Microphone and speech recognition</strong> — for Skip. On iPhone, only after you enable Skip; speech is recognised on the phone itself, and while Skip is on the iPhone may keep listening in the background. On the wall tablet, Skip is on when we install it, and the tablet sends sound to your hub over your home network (see below). You can revoke these permissions at any time in your device's settings.</li>
           <li><strong>Camera</strong> — on iPhone, to scan setup codes (a Secure Link invitation or a Z-Wave device code); on the wall tablet, to take a face-recognition enrolment photo if you use that feature.</li>
           <li><strong>Notifications</strong> — only if you turn them on. The iPhone app doesn't contact Apple or Expo for alerts until you tap Enable notifications.</li>
           <li><strong>Wake lock</strong> (tablet only) — to keep the wall panel display on.</li>
@@ -402,16 +403,14 @@
       </section>
 
       <section>
-        <h2><span class="kicker">Skip, the voice assistant</span>On by default on the wall tablet; it needs the internet today.</h2>
+        <h2><span class="kicker">Skip, the voice assistant</span>It runs on your hub.</h2>
         <ul>
-          <li><strong>Speech recognition.</strong> Turning your speech into text is done by your device's built-in speech service: Google's on the Android wall tablet, and Apple's on iPhone. Your audio may be processed on Apple's or Google's servers under their privacy policies.</li>
-          <li><strong>The wall tablet listens continuously.</strong> On the wall tablet, Skip is on when we install it. While it listens, the tablet sends sound from the room to Google's speech service continuously — not only after &ldquo;Hey Skip&rdquo; — and the text that comes back is written to your hub's log, which your installer can see during approved access. Mute the tablet or turn Skip off in Settings to stop this.</li>
-          <li><strong>Everyday commands.</strong> Simple commands — lights, locks, the thermostat, scenes — are understood and carried out by your hub where it can.</li>
-          <li><strong>Other requests.</strong> Requests your hub can't handle itself are sent to our AI provider, Anthropic (Claude), through a relay we operate on Cloudflare. A request can include what was said; the speaker's first name, age, pronouns and profile notes; memories Skip keeps, including other household members' memories and family messages; your city or region and time zone; the state of your home's devices, recent activity and camera event summaries; and your home's ID. Anthropic may run a web search to answer. Our relay keeps basic logs (your home's ID and the type of request), not the content; Anthropic processes requests under its commercial terms and privacy policy.</li>
-          <li><strong>AI scene and automation builders.</strong> When an AI builder is used to draft a scene or automation, the request and your devices' names, rooms and types are sent to Anthropic the same way.</li>
-          <li><strong>Fun answers.</strong> For recipes, trivia and fun facts Skip may ask TheMealDB, Open Trivia DB or uselessfacts; these requests carry the question topic, not your personal details.</li>
-          <li><strong>Skip's voice.</strong> Skip's spoken replies are produced either by a voice that runs on your hub (Piper) or by OpenAI. When OpenAI is used, the text of Skip's reply is sent to OpenAI to produce the audio, under OpenAI's privacy policy.</li>
-          <li><strong>Spotify.</strong> If you link Spotify, your hub stores the link and sends playback commands to Spotify under its privacy policy.</li>
+          <li><strong>What Skip does.</strong> Skip runs on the EJG hub in your home. It understands a set of home commands — lights, locks, the thermostat, scenes, timers, reminders, lists, notes, family messages, countdowns, showing cameras on screen, TV basics, jokes and facts — and answers with preset replies spoken by a voice generated on the hub (Piper). Nothing you say to Skip is sent to EJG or to any AI service, and no outside speech or AI service is used.</li>
+          <li><strong>On the wall tablet.</strong> Skip is on when we install it. While it listens, the tablet streams sound from the room over your home network to your hub, where the wake word (&ldquo;Hey Skip&rdquo;) and speech-to-text run. The sound and the words stay in your home and are not written to the hub's logs. Mute the tablet or turn Skip off in Settings to stop listening.</li>
+          <li><strong>On iPhone.</strong> Your speech is turned into text on the phone itself, using its on-device speech recognition, and the text is sent to your hub. Skip voice works only where the phone can recognise English on the device; otherwise you can type to Skip. Skip never falls back to an online speech service.</li>
+          <li><strong>Safety.</strong> Unlocking doors or switching door hardware by voice is off unless the homeowner turns it on, and Skip always asks you to confirm. The alarm is disarmed in the app, with your PIN, and sirens are controlled from the app. Owners can mark devices as lights, door hardware or sirens: &ldquo;all the lights&rdquo; includes only lights, and door hardware and sirens are never switched by group commands or an automation's &ldquo;all off&rdquo;.</li>
+          <li><strong>Internet extras.</strong> Weather and Spotify are optional extras that use the internet. On new installs they are off until the homeowner turns them on. Weather needs your home's location (there is no default city), and the city search uses a list built into the hub, with no online lookup. If you link Spotify, your hub stores the link and sends playback commands to Spotify under its privacy policy.</li>
+          <li><strong>Homes on the older Skip.</strong> Homes installed before October 2026 that have not yet received this update may still use the older Skip, which sent requests to Anthropic (through a relay we ran on Cloudflare) and OpenAI, used Google's and Apple's speech services, and asked a few recipe and trivia services. We are updating those homes.</li>
         </ul>
       </section>
 
@@ -461,7 +460,7 @@
       <section>
         <h2><span class="kicker">Other services</span>Used only when the feature is in use.</h2>
         <ul>
-          <li><strong>Weather.</strong> Your hub stores your home's location rounded to about 1 km (two decimal places), and sends only that approximate location to a weather service (Environment Canada, Open-Meteo or MET Norway) to get local weather. When you search for your city in the hub's location settings, the name you type is sent to Open-Meteo's geocoding service.</li>
+          <li><strong>Weather.</strong> Your hub stores your home's location rounded to about 1 km (two decimal places), and sends only that approximate location to a weather service (Environment Canada, Open-Meteo or MET Norway) to get local weather, only while the weather extra is on. Searching for your city in the hub's location settings uses a list built into the hub, with no online lookup.</li>
           <li><strong>Email reports.</strong> Daily reports and storage warnings by email go through an internet mail provider only if you turn on &ldquo;Email reports (uses the internet)&rdquo; in the app. Otherwise they are sent only to a mail server on your home network or EJG Secure Link, or not at all.</li>
           <li><strong>Tuya and other makers' devices.</strong> Tuya devices are linked through Tuya's cloud once, at setup. After that, a fallback to Tuya's cloud (if your hub can't reach a device locally) is off unless it is switched on; when on, device status and commands pass through Tuya. Some third-party devices also contact their own makers' servers on their own.</li>
           <li><strong>Z-Wave and Zigbee software.</strong> On new installs, the Z-Wave software's usage statistics and automatic firmware-update checks are off, and the Zigbee software (deCONZ) has its internet discovery service off. On homes installed earlier, these are switched off by hand: until then, the Z-Wave software may send anonymous usage statistics (a list of device makes, models and firmware versions) to the Z-Wave JS project (zwave-js.io) and check for firmware updates, and deCONZ may use Phoscon's discovery service (phoscon.de). Either way, the Z-Wave software checks for updated device definition files, which sends only the hub's internet address and software version.</li>
@@ -522,10 +521,10 @@
         <h2><span class="kicker">Service providers outside Canada</span>Where your information may be processed.</h2>
         <p>
           Some of the service providers named in this policy store or process
-          information outside Canada, mainly in the United States: Anthropic,
-          OpenAI, Expo, Apple, Google, Cloudflare, Netlify, DigitalOcean,
-          FormSubmit, Grasshopper, Resend and Spotify (and Tuya, Open-Meteo,
-          MET Norway, TheMealDB, Open Trivia DB, uselessfacts, Z-Wave JS,
+          information outside Canada, mainly in the United States: Expo,
+          Apple, Google, Cloudflare, Netlify, DigitalOcean, FormSubmit,
+          Grasshopper, Resend and Spotify, plus Anthropic and OpenAI for homes
+          still on the older Skip (and Tuya, Open-Meteo, MET Norway, Z-Wave JS,
           Phoscon and the Home Assistant services listed above, which may
           process it in other countries). While it is outside
           Canada, your information is subject to the laws of those countries
@@ -544,8 +543,8 @@
           purposes in this policy: installing, running and supporting your
           smart home, answering your enquiries, and meeting legal and tax
           obligations. Features that send information outside your home are
-          described above; Skip is on by default on the wall tablet, and
-          Spotify and the Tuya cloud fallback are used only if you turn them on. You can withdraw
+          described above; the weather and Spotify extras and the Tuya cloud
+          fallback are used only if you turn them on. You can withdraw
           consent by turning a feature off or by contacting us; some features
           stop working without it.
         </p>
@@ -605,8 +604,8 @@
           and our apps and website are not directed at children under 13. A
           parent or guardian may create a Skip profile for a child (for
           example, a name and age so Skip answers appropriately); it is stored
-          on the hub. When a child talks to Skip, their request is handled the
-          same way as anyone else's (see &ldquo;Skip, the voice assistant&rdquo;).
+          on the hub. When a child talks to Skip, their request is handled on the
+          hub like anyone else's (see &ldquo;Skip, the voice assistant&rdquo;).
           A parent or guardian can review, change or delete a child's profile
           at any time.
         </p>
