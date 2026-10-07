@@ -426,6 +426,7 @@
     }
     .form-field input:focus, .form-field textarea:focus, .form-field select:focus {
       border-color: var(--blue);
+      box-shadow: 0 0 0 2px var(--blue);
     }
     .form-field textarea { resize: vertical; min-height: 90px; }
     .form-field select option { background: #1a0533; }
@@ -626,6 +627,9 @@
         font-size: 26px;
       }
     }
+  
+    .skip-link { position: absolute; left: -9999px; top: 0; z-index: 1000; padding: 10px 16px; border-radius: 8px; background: #6b21a8; color: #fff; font-weight: 700; text-decoration: none; }
+    .skip-link:focus { left: 16px; top: 12px; }
   </style>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -636,6 +640,7 @@
   <meta name="twitter:image" content="https://ejgos.com/og-image.png">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <nav>
     <a href="/" class="nav-logo">EJG-OS</a>
     <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false" style="display:block"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -650,7 +655,7 @@
     </ul>
   </nav>
 
-  <main>
+  <main id="main">
     <section class="installer-hero">
       <div class="hero-inner">
         <div class="hero-eyebrow"><svg class="ico" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.2 2.2 4.6 13.6h6.3l-.1 8.2 8.6-11.4h-6.3z"/></svg>Installer Program — Now Opening</div>

@@ -263,6 +263,7 @@
       outline: none;
       border-color: var(--purple-400);
       background: rgba(168,85,247,0.1);
+      box-shadow: 0 0 0 2px var(--purple-400);
     }
 
     /* Style the native <option> dropdown so options aren't the OS default
@@ -650,7 +651,10 @@
     .form-promise {
     font-size: 13px; color: var(--purple-300); margin: -8px 0 20px;
   }
-</style>
+
+    .skip-link { position: absolute; left: -9999px; top: 0; z-index: 1000; padding: 10px 16px; border-radius: 8px; background: #6b21a8; color: #fff; font-weight: 700; text-decoration: none; }
+    .skip-link:focus { left: 16px; top: 12px; }
+  </style>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <meta property="og:image" content="https://ejgos.com/og-image.png">
@@ -660,6 +664,7 @@
   <meta name="twitter:image" content="https://ejgos.com/og-image.png">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <nav>
     <a href="/" class="nav-logo">EJG-OS</a>
     <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false" style="display:block"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -674,7 +679,7 @@
     </ul>
   </nav>
 
-  <main>
+  <main id="main">
     <section class="page-hero">
       <div class="page-hero-content">
         <h1>Let's Build Your Smart Home.</h1>

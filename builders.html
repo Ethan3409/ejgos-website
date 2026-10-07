@@ -342,6 +342,7 @@
     }
     .form-field input:focus, .form-field textarea:focus, .form-field select:focus {
       border-color: var(--gold);
+      box-shadow: 0 0 0 2px var(--gold);
     }
     .form-field textarea { resize: vertical; min-height: 100px; }
     .form-field select option { background: #1a0533; }
@@ -492,6 +493,9 @@
         grid-template-columns: 1fr;
       }
     }
+  
+    .skip-link { position: absolute; left: -9999px; top: 0; z-index: 1000; padding: 10px 16px; border-radius: 8px; background: #6b21a8; color: #fff; font-weight: 700; text-decoration: none; }
+    .skip-link:focus { left: 16px; top: 12px; }
   </style>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -502,6 +506,7 @@
   <meta name="twitter:image" content="https://ejgos.com/og-image.png">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <nav>
     <a href="/" class="nav-logo">EJG-OS</a>
     <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false" style="display:block"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -516,7 +521,7 @@
     </ul>
   </nav>
 
-  <main>
+  <main id="main">
     <section class="builder-hero">
       <div class="hero-inner">
         <div class="hero-eyebrow"><svg class="ico" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.2 17.4v-3a7.8 7.8 0 0 1 15.6 0v3"/><path d="M1.9 17.4h20.2a1.15 1.15 0 0 1 0 2.3H1.9a1.15 1.15 0 0 1 0-2.3z"/><path d="M9.4 7.6v9.8M14.6 7.6v9.8"/></svg>Home Builder Program</div>

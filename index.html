@@ -588,6 +588,9 @@
       background: rgba(255,255,255,0.02);
     }
     .container { max-width: 1200px; margin: 0 auto; }
+  
+    .skip-link { position: absolute; left: -9999px; top: 0; z-index: 1000; padding: 10px 16px; border-radius: 8px; background: #6b21a8; color: #fff; font-weight: 700; text-decoration: none; }
+    .skip-link:focus { left: 16px; top: 12px; }
   </style>
 <script type="application/ld+json">
 {
@@ -630,6 +633,7 @@
   <meta name="twitter:image" content="https://ejgos.com/og-image.png">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
@@ -647,6 +651,8 @@
       <li><a href="/contact" class="nav-cta">Get Started</a></li>
     </ul>
 </nav>
+
+<main id="main">
 
 <div class="hero">
   <div class="hero-bg"></div>
@@ -1795,6 +1801,8 @@
     </div>
   </div>
 </div>
+
+</main>
 
 <footer>
     <div class="footer-content">
