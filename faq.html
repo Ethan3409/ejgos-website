@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions — EJG-OS</title>
+  <meta name="description" content="Answers about EJG-OS: getting started, the Skip voice assistant, privacy and internet, pricing and warranty, and cameras.">
+  <link rel="canonical" href="https://ejgos.com/faq">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Frequently Asked Questions — EJG-OS">
+  <meta property="og:description" content="Answers about EJG-OS: getting started, the Skip voice assistant, privacy and internet, pricing and warranty, and cameras.">
+  <meta property="og:url" content="https://ejgos.com/faq">
+  <meta property="og:site_name" content="EJG-OS">
+  <meta property="og:locale" content="en_CA">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Frequently Asked Questions — EJG-OS">
+  <meta name="twitter:description" content="Answers about EJG-OS: getting started, the Skip voice assistant, privacy and internet, pricing and warranty, and cameras.">
+  <style>
+    :root {
+      --purple-900: #1a0533;
+      --purple-800: #2d0a52;
+      --purple-700: #4a0e82;
+      --purple-600: #6b21a8;
+      --purple-500: #9333ea;
+      --purple-400: #a855f7;
+      --purple-300: #c084fc;
+      --bg: #060010;
+      --surface: rgba(255,255,255,0.04);
+      --text: #f3e8ff;
+      --text-muted: rgba(196,150,255,0.7);
+      --border: rgba(168,85,247,0.2);
+      --green: #22c55e;
+      --blue: #60a5fa;
+      --gold: #fbbf24;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: rgba(6,0,16,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--purple-300);
+      text-decoration: none;
+      letter-spacing: 2px;
+      transition: color 0.3s;
+    }
+
+    .nav-logo:hover {
+      color: var(--purple-400);
+    }
+
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400)) !important;
+      color: white !important;
+      padding: 8px 20px !important;
+      border-radius: 6px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(168,85,247,0.3);
+    }
+
+    @media (max-width: 768px) {
+      .nav-hamburger {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: rgba(6,0,16,0.98);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px 24px;
+        display: none;
+      }
+
+      .nav-links.nav-open {
+        display: flex;
+      }
+    }
+
+    main {
+      margin-top: 64px;
+    }
+
+    /* Page Hero */
+    .page-hero {
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+      background: linear-gradient(135deg, rgba(107,33,168,0.2), rgba(168,85,247,0.1));
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .page-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--purple-300), var(--purple-400));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-hero p {
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    /* Process Timeline */
+    .process-section {
+      padding: 80px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .process-section h2 {
+      font-size: 28px;
+      margin-bottom: 60px;
+      text-align: center;
+      color: var(--text);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      margin-bottom: 80px;
+    }
+
+    .timeline-step {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 40px;
+      border-radius: 12px;
+      transition: all 0.3s;
+    }
+
+    .timeline-step:hover {
+      background: rgba(168,85,247,0.08);
+      border-color: var(--purple-400);
+      transform: translateY(-4px);
+    }
+
+    .timeline-number {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .timeline-step h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .timeline-step p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Architecture Section */
+    .architecture-section {
+      padding: 80px 24px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .architecture-section h2 {
+      font-size: 28px;
+      margin-bottom: 60px;
+      text-align: center;
+      color: var(--text);
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .architecture-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+    }
+
+    .arch-layer {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--border);
+      padding: 40px;
+      border-radius: 12px;
+      transition: all 0.3s;
+    }
+
+    .arch-layer:hover {
+      background: rgba(168,85,247,0.1);
+      border-color: var(--purple-400);
+    }
+
+    .ico { vertical-align: -0.16em; flex-shrink: 0; }
+
+    .arch-layer-icon {
+      line-height: 0;
+      color: var(--purple-300);
+      margin-bottom: 18px;
+    }
+
+    .arch-layer h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: var(--purple-300);
+    }
+
+    .arch-layer p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .arch-details {
+      font-size: 12px;
+      color: var(--text-muted);
+      background: rgba(168,85,247,0.05);
+      padding: 12px;
+      border-radius: 6px;
+      border-left: 2px solid var(--purple-400);
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      padding: 80px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .faq-section h2 {
+      font-size: 28px;
+      margin-bottom: 60px;
+      text-align: center;
+      color: var(--text);
+    }
+
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .faq-item:hover {
+      border-color: var(--purple-400);
+      background: rgba(168,85,247,0.05);
+    }
+
+    .faq-question {
+      padding: 20px 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+      color: var(--text);
+      transition: color 0.3s;
+    }
+
+    .faq-question:hover {
+      color: var(--purple-400);
+    }
+
+    .faq-toggle {
+      font-size: 20px;
+      transition: transform 0.3s;
+      color: var(--purple-400);
+    }
+
+    .faq-toggle.open {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding: 0 24px;
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .faq-answer.open {
+      max-height: 500px;
+      padding: 0 24px 20px 24px;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 80px 24px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(168,85,247,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .cta-section-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--purple-300), var(--purple-400));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cta-section p {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(168,85,247,0.3);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 60px 24px 40px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-column h3 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      color: var(--purple-400);
+    }
+
+    .footer-column a,
+    .footer-column p {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 8px;
+      transition: color 0.3s;
+    }
+
+    .footer-column a:hover {
+      color: var(--text);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ===== MOBILE PHONE OPTIMIZATIONS ===== */
+    @media (max-width: 480px) {
+      nav {
+        padding: 0 16px;
+        height: 56px;
+      }
+
+      .nav-logo {
+        font-size: 18px;
+      }
+
+      .nav-links {
+        top: 56px;
+      }
+
+      main {
+        margin-top: 56px;
+      }
+
+      .page-hero {
+        padding: 48px 16px;
+      }
+
+      .page-hero h1 {
+        font-size: 28px;
+      }
+
+      .page-hero p {
+        font-size: 14px;
+      }
+
+      .section-header h2 {
+        font-size: 24px;
+      }
+
+      .section-header p {
+        font-size: 14px;
+      }
+
+      section {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+      }
+
+      .process-grid,
+      .architecture-grid,
+      .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .process-card,
+      .arch-card,
+      .step-card {
+        padding: 20px;
+      }
+
+      .faq-question {
+        font-size: 14px;
+        padding: 16px;
+      }
+
+      .faq-answer {
+        padding: 0 16px 16px;
+        font-size: 13px;
+      }
+
+      footer {
+        padding: 40px 16px 24px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .page-hero h1 {
+        font-size: 24px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do I need to be technical to use it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Everything is set up and configured for you during the install, and tuned on the first day so it works the way your household actually lives. Day to day you use the wall tablet or the EJG Home app: tap a scene, open a lock, check the thermostat. You can run scenes, switch automations on or off and manage lock codes in the app; new devices, rooms, scenes and automations are set up by your installer, so nothing asks you to learn a configuration file."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What devices are compatible?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "EJG-OS supports Z-Wave devices (switches, dimmers, locks, sensors, plugs, thermostats) plus PoE cameras and the indoor camera. We install devices we've tested with EJG-OS, and we confirm compatibility for anything else before you buy. Your installer will recommend specific hardware during the consultation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I add devices after installation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Your installer adds new devices whenever you want them; they pair directly to your local hub, and the work is quoted as service (or covered by the Priority Support plan). In the app you can run scenes, switch automations on or off and manage lock codes; new rooms, scenes and automations are set up by your installer too. EJG-OS software updates are free. There's no contract locking you into anything."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is EJG-OS good for renters?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "EJG-OS is primarily designed for homeowners. That said, many Z-Wave devices can be installed without permanent modification (especially smart plugs and some light switches). If you're renting, speak to your installer — there may be options that work for your situation. Homeowners with rental properties can also deploy EJG-OS in units they manage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if my installer leaves the business?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You own all your hardware outright, and your EJG-OS system runs locally on the hub in your house. If we stop being the ones who service it, your lights, locks, scenes and automations keep working exactly as configured. Services we operate — remote access and software updates — would stop until another provider took them over. Your devices are standard Z-Wave, so they can be moved to another system if you ever want to."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work with voice assistants like Alexa or Google?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "EJG-OS includes our own “Hey Skip” voice assistant instead. Skip runs on your hub. It understands a set of home commands — lights, locks, the thermostat, scenes, timers, reminders, lists, family messages and more — and answers with a voice generated on the hub. On the wall tablet, the hub hears the wake word and turns speech into text; on a phone, speech is turned into text on the phone itself. Nothing you say to Skip is sent to EJG or to any AI service, and Skip on the wall tablet keeps working with the internet unplugged. Skip can be turned off. We don't connect Alexa or Google Home."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does EJG-OS work if my internet goes down?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. EJG-OS runs on a Raspberry Pi server inside your home. Your lights, locks, thermostats, scenes, and automations all continue working without any internet connection, from the wall tablet or the app on your home network, and cameras keep recording to the recorder in your home. Skip, the voice assistant, keeps working too. Features that need internet: remote access from your phone when you're away, phone notifications, the optional weather and music extras, and remote diagnostics if you subscribe to Priority Support."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my data private?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We never sell your data. Your device history, scenes and automations live on the Raspberry Pi server inside your home, not on our servers. Skip, the voice assistant, runs on the hub, and nothing you say to it is sent to us or to any AI service. A few features use outside services: phone alerts pass through Apple and Google as a plain “you have a new alert” notice, with the details opened from your hub in the app; remote access runs through Cloudflare or EJG Secure Link; and the optional weather and music extras, off until you turn them on, use outside services. Every service is named in our privacy policy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to pay a monthly fee?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The base EJG-OS platform is a one-time installation cost. There are no mandatory platform fees, no subscription required to use your smart home, and no features locked behind a paywall. Every install comes with a 12-month hardware warranty and a 12-month workmanship warranty — a Priority Support plan is available at $30/month if you want faster response, remote diagnostics, and hands-on configuration help. Cancel any time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are there any hidden fees?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Prices on this site are installed prices in Canadian dollars, before GST, and GST is added to your invoice. Installation, hardware, configuration and training are included in the quoted price. The only optional recurring add-on is the Priority Support plan at $30/month — no contract, cancel anytime."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's included in the installation fee?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Installation includes: hardware purchase, professional setup, Z-Wave hub configuration, device pairing, dashboard customization, scene setup, training, and full handoff. Everything needed to go from zero to fully operational."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What about device costs beyond the quoted hardware?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The quoted price includes hardware. If you want to expand beyond the base package, your installer will quote additional devices. You control what gets installed and when."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the support plan really optional?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, completely optional. Every install comes with a 12-month hardware warranty and a 12-month workmanship warranty. The Priority Support plan is a $30/month add-on for homeowners who want priority response and hands-on help configuring new devices or automations later. Add it anytime, cancel anytime."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What do cameras need beyond the cameras themselves?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A dedicated network video recorder (NVR) with its own storage drive. The NVR is required for every camera install: cameras record to it around the clock, and the recordings stay on it, inside your home. PoE cameras plug directly into the NVR's built-in PoE ports, which powers them and keeps them on their own isolated camera network with no direct path to your home network or the internet, and we turn off the recorder's cloud features. The indoor pan/tilt camera records to the same NVR. A $300 network switch is offered with any camera build: it keeps the hub, tablet and indoor camera off the same network as the rest of the house, and powers PoE cameras over the same cables. Past 8 cameras it is required rather than optional, because the recorder runs out of ports, and the builder adds it automatically. You choose the drive size by how many days of footage you want to keep (see the storage table on the pricing page)."
+      }
+    }
+  ]
+}
+</script>
+  <meta property="og:image" content="https://ejgos.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="EJG-OS — the smart home that runs in your home. Calgary &amp; surrounding communities.">
+  <meta name="twitter:image" content="https://ejgos.com/og-image.png">
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-logo">EJG-OS</a>
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false" style="display:block"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/features">Features</a></li>
+      <li><a href="/how-it-works">How It Works</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/custom">Custom Build</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact" class="nav-cta">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="page-hero-content">
+        <h1>Frequently Asked Questions</h1>
+        <p>Getting started, Skip, privacy and internet, pricing and warranty, and cameras — in one place.</p>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <h2>Getting started</h2>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Do I need to be technical to use it?</span>
+          <span class="faq-toggle open">▼</span>
+        </div>
+        <div class="faq-answer open">No. Everything is set up and configured for you during the install, and tuned on the first day so it works the way your household actually lives. Day to day you use the wall tablet or the EJG Home app: tap a scene, open a lock, check the thermostat. You can run scenes, switch automations on or off and manage lock codes in the app; new devices, rooms, scenes and automations are set up by your installer, so nothing asks you to learn a configuration file.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>What devices are compatible?</span>
+          <span class="faq-toggle open">▼</span>
+        </div>
+        <div class="faq-answer open">EJG-OS supports Z-Wave devices (switches, dimmers, locks, sensors, plugs, thermostats) plus PoE cameras and the indoor camera. We install devices we've tested with EJG-OS, and we confirm compatibility for anything else before you buy. Your installer will recommend specific hardware during the consultation.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Can I add devices after installation?</span>
+          <span class="faq-toggle open">▼</span>
+        </div>
+        <div class="faq-answer open">Yes. Your installer adds new devices whenever you want them; they pair directly to your local hub, and the work is quoted as service (or covered by the Priority Support plan). In the app you can run scenes, switch automations on or off and manage lock codes; new rooms, scenes and automations are set up by your installer too. EJG-OS software updates are free. There's no contract locking you into anything.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Is EJG-OS good for renters?</span>
+          <span class="faq-toggle open">▼</span>
+        </div>
+        <div class="faq-answer open">EJG-OS is primarily designed for homeowners. That said, many Z-Wave devices can be installed without permanent modification (especially smart plugs and some light switches). If you're renting, speak to your installer — there may be options that work for your situation. Homeowners with rental properties can also deploy EJG-OS in units they manage.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>What happens if my installer leaves the business?</span>
+          <span class="faq-toggle open">▼</span>
+        </div>
+        <div class="faq-answer open">You own all your hardware outright, and your EJG-OS system runs locally on the hub in your house. If we stop being the ones who service it, your lights, locks, scenes and automations keep working exactly as configured. Services we operate — remote access and software updates — would stop until another provider took them over. Your devices are standard Z-Wave, so they can be moved to another system if you ever want to.</div>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <h2>Skip, the voice assistant</h2>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Does it work with voice assistants like Alexa or Google?</span>
+          <span class="faq-toggle open">▼</span>
+        </div>
+        <div class="faq-answer open">EJG-OS includes our own &ldquo;Hey Skip&rdquo; voice assistant instead. Skip runs on your hub. It understands a set of home commands — lights, locks, the thermostat, scenes, timers, reminders, lists, family messages and more — and answers with a voice generated on the hub. On the wall tablet, the hub hears the wake word and turns speech into text; on a phone, speech is turned into text on the phone itself. Nothing you say to Skip is sent to EJG or to any AI service, and Skip on the wall tablet keeps working with the internet unplugged. Skip can be turned off. We don't connect Alexa or Google Home.</div>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <h2>Privacy &amp; internet</h2>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Does EJG-OS work if my internet goes down?</span>
+          <span class="faq-toggle open">▼</span>
+        </div>
+        <div class="faq-answer open">Yes. EJG-OS runs on a Raspberry Pi server inside your home. Your lights, locks, thermostats, scenes, and automations all continue working without any internet connection, from the wall tablet or the app on your home network, and cameras keep recording to the recorder in your home. Skip, the voice assistant, keeps working too. Features that need internet: remote access from your phone when you're away, phone notifications, the optional weather and music extras, and remote diagnostics if you subscribe to Priority Support.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Is my data private?</span>
+          <span class="faq-toggle open">▼</span>
+        </div>
+        <div class="faq-answer open">We never sell your data. Your device history, scenes and automations live on the Raspberry Pi server inside your home, not on our servers. Skip, the voice assistant, runs on the hub, and nothing you say to it is sent to us or to any AI service. A few features use outside services: phone alerts pass through Apple and Google as a plain &ldquo;you have a new alert&rdquo; notice, with the details opened from your hub in the app; remote access runs through Cloudflare or EJG Secure Link; and the optional weather and music extras, off until you turn them on, use outside services. Every service is named in our <a href="/privacy-policy">privacy policy</a>.</div>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <h2>Pricing &amp; warranty</h2>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Do I need to pay a monthly fee?</span>
+          <span class="faq-toggle open">▼</span>
+        </div>
+        <div class="faq-answer open">No. The base EJG-OS platform is a one-time installation cost. There are no mandatory platform fees, no subscription required to use your smart home, and no features locked behind a paywall. Every install comes with a 12-month hardware warranty and a 12-month workmanship warranty — a Priority Support plan is available at $30/month if you want faster response, remote diagnostics, and hands-on configuration help. Cancel any time.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Are there any hidden fees?</span>
+          <span class="faq-toggle open">▼</span>
+        </div>
+        <div class="faq-answer open">Prices on this site are installed prices in Canadian dollars, before GST, and GST is added to your invoice. Installation, hardware, configuration and training are included in the quoted price. The only optional recurring add-on is the Priority Support plan at $30/month — no contract, cancel anytime.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>What's included in the installation fee?</span>
+          <span class="faq-toggle open">▼</span>
+        </div>
+        <div class="faq-answer open">Installation includes: hardware purchase, professional setup, Z-Wave hub configuration, device pairing, dashboard customization, scene setup, training, and full handoff. Everything needed to go from zero to fully operational.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>What about device costs beyond the quoted hardware?</span>
+          <span class="faq-toggle open">▼</span>
+        </div>
+        <div class="faq-answer open">The quoted price includes hardware. If you want to expand beyond the base package, your installer will quote additional devices. You control what gets installed and when.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Is the support plan really optional?</span>
+          <span class="faq-toggle open">▼</span>
+        </div>
+        <div class="faq-answer open">Yes, completely optional. Every install comes with a 12-month hardware warranty and a 12-month workmanship warranty. The Priority Support plan is a $30/month add-on for homeowners who want priority response and hands-on help configuring new devices or automations later. Add it anytime, cancel anytime.</div>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <h2>Cameras</h2>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>What do cameras need beyond the cameras themselves?</span>
+          <span class="faq-toggle open">▼</span>
+        </div>
+        <div class="faq-answer open">A dedicated network video recorder (NVR) with its own storage drive. The NVR is required for every camera install: cameras record to it around the clock, and the recordings stay on it, inside your home. PoE cameras plug directly into the NVR's built-in PoE ports, which powers them and keeps them on their own isolated camera network with no direct path to your home network or the internet, and we turn off the recorder's cloud features. The indoor pan/tilt camera records to the same NVR. A $300 network switch is offered with any camera build: it keeps the hub, tablet and indoor camera off the same network as the rest of the house, and powers PoE cameras over the same cables. Past 8 cameras it is required rather than optional, because the recorder runs out of ports, and the builder adds it automatically. You choose the drive size by how many days of footage you want to keep (see the <a href="/pricing#camera-storage">storage table</a> on the pricing page).</div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="cta-section-content">
+        <h2>Still have a question?</h2>
+        <p>Ask us directly — you'll be talking to the person who does the install. Every enquiry is answered within one business day.</p>
+        <a href="/contact" class="btn btn-primary">Contact Us</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Product</h3>
+        <a href="/features">Features</a>
+        <a href="/how-it-works">How It Works</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/custom">Custom Build</a>
+      </div>
+      <div class="footer-column">
+        <h3>Programs</h3>
+        <a href="/installers">Installer Program</a>
+        <a href="/builders">Builder Program</a>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <a href="/about">About</a>
+        <a href="/faq">FAQ</a>
+        <a href="/contact">Contact</a>
+        <a href="mailto:info@ejgos.com">info@ejgos.com</a>
+        <a href="tel:+15872093608">(587) 209-3608</a>
+      </div>
+      <div class="footer-column">
+        <h3>Legal</h3>
+        <a href="/warranty">Warranty &amp; Support</a>
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/privacy-policy#messaging-terms">Messaging Terms</a>
+      </div>
+      <div class="footer-column">
+        <h3>Location</h3>
+        <p>Calgary, AB</p>
+        <p>&amp; surrounding communities</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 EJG Technologies Inc. All rights reserved. EJG-OS &middot; Built local. Runs local.</p>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.querySelector('.nav-hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    if (hamburger && navLinks) {
+      const setOpen = (open) => {
+        navLinks.classList.toggle('nav-open', open);
+        hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      };
+      hamburger.addEventListener('click', () => setOpen(!navLinks.classList.contains('nav-open')));
+      navLinks.addEventListener('click', (e) => { if (e.target.tagName === 'A') setOpen(false); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('nav-open');
+      });
+    });
+
+    const currentPage = '/faq';
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('active');
+      }
+    });
+
+    // FAQ Toggle
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      const answer = item.querySelector('.faq-answer');
+      const toggle = item.querySelector('.faq-toggle');
+
+      question.addEventListener('click', () => {
+        answer.classList.toggle('open');
+        toggle.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>
