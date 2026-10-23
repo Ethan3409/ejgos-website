@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- DRAFT: not reviewed. Remove noindex and the draft banner when approved. Search for {{ before publishing: every {{PLACEHOLDER}} must be filled. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Sale — EJG-OS</title>
+  <meta name="description" content="Terms of sale for EJG-OS systems, installation, warranty and the optional Priority Support plan from EJG Technologies Inc., Calgary, Alberta.">
+  <link rel="canonical" href="https://ejgos.com/terms">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Terms of Sale — EJG-OS">
+  <meta property="og:description" content="Terms of sale for EJG-OS systems, installation, warranty and the optional Priority Support plan from EJG Technologies Inc., Calgary, Alberta.">
+  <meta property="og:url" content="https://ejgos.com/terms">
+  <meta property="og:site_name" content="EJG-OS">
+  <meta property="og:locale" content="en_CA">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Terms of Sale — EJG-OS">
+  <meta name="twitter:description" content="Terms of sale for EJG-OS systems, installation, warranty and the optional Priority Support plan from EJG Technologies Inc., Calgary, Alberta.">
+  <style>
+    :root {
+      --purple-900: #1a0533;
+      --purple-800: #2d0a52;
+      --purple-700: #4a0e82;
+      --purple-600: #6b21a8;
+      --purple-500: #9333ea;
+      --purple-400: #a855f7;
+      --purple-300: #c084fc;
+      --bg: #060010;
+      --surface: rgba(255,255,255,0.04);
+      --text: #f3e8ff;
+      --text-muted: rgba(196,150,255,0.7);
+      --border: rgba(168,85,247,0.2);
+      --green: #22c55e;
+      --blue: #60a5fa;
+      --gold: #fbbf24;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: rgba(6,0,16,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--purple-300);
+      text-decoration: none;
+      letter-spacing: 2px;
+      transition: color 0.3s;
+    }
+
+    .nav-logo:hover {
+      color: var(--purple-400);
+    }
+
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400)) !important;
+      color: white !important;
+      padding: 8px 20px !important;
+      border-radius: 6px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(168,85,247,0.3);
+    }
+
+    @media (max-width: 768px) {
+      .nav-hamburger {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: rgba(6,0,16,0.98);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px 24px;
+        display: none;
+      }
+
+      .nav-links.nav-open {
+        display: flex;
+      }
+    }
+
+    main {
+      margin-top: 64px;
+    }
+
+    /* Page Hero */
+    .page-hero {
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+      background: linear-gradient(135deg, rgba(107,33,168,0.2), rgba(168,85,247,0.1));
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .page-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--purple-300), var(--purple-400));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-hero p {
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    /* Pricing Cards */
+    .pricing-section {
+      padding: 80px 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .pricing-section h2 {
+      font-size: 28px;
+      margin-bottom: 60px;
+      text-align: center;
+      color: var(--text);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+
+    .pricing-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .pricing-card.featured {
+      border: 2px solid var(--purple-400);
+      background: rgba(168,85,247,0.1);
+      transform: scale(1.05);
+      box-shadow: 0 20px 60px rgba(168,85,247,0.2);
+    }
+
+    .pricing-card:hover {
+      border-color: var(--purple-400);
+      background: rgba(168,85,247,0.08);
+    }
+
+    .featured-badge {
+      position: absolute;
+      top: -12px;
+      right: 20px;
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400));
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .pricing-card h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+      color: var(--text);
+      margin-top: 12px;
+    }
+
+    .pricing-tag {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .price {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--purple-400);
+      margin-bottom: 8px;
+    }
+
+    .price-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .price-features {
+      flex: 1;
+      margin-bottom: 24px;
+    }
+
+    .price-feature {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .price-feature::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400));
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(168,85,247,0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface);
+      border-color: var(--purple-400);
+    }
+
+    /* Camera recording + storage */
+    .storage-section {
+      max-width: 900px;
+      margin: 0 auto 80px;
+    }
+
+    .storage-section h2 {
+      margin-bottom: 16px;
+    }
+
+    .storage-section .lede {
+      text-align: center;
+      color: #cbd5e1;
+      font-size: 15px;
+      line-height: 1.7;
+      max-width: 720px;
+      margin: 0 auto 32px;
+    }
+
+    .storage-table-wrap {
+      overflow-x: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .storage-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .storage-table th,
+    .storage-table td {
+      padding: 14px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .storage-table th {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--purple-400);
+      background: rgba(168,85,247,0.06);
+    }
+
+    .storage-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .storage-table td:first-child {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .storage-table td {
+      color: var(--text-muted);
+    }
+
+    .storage-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-top: 16px;
+    }
+
+    .storage-badge {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: white;
+      background: linear-gradient(135deg, var(--purple-600), var(--purple-400));
+      vertical-align: middle;
+    }
+
+    /* Monitoring Add-on */
+    .monitoring-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 40px;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .monitoring-section h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .monitoring-section p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    /* Quote Builder */
+    .quote-builder-section {
+      padding: 80px 24px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .quote-builder-section h2 {
+      font-size: 28px;
+      margin-bottom: 60px;
+      text-align: center;
+      color: var(--text);
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .quote-builder {
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      padding: 40px;
+      border-radius: 12px;
+    }
+
+    .quote-field {
+      margin-bottom: 32px;
+    }
+
+    .quote-field label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .counter-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+    }
+
+    .counter {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 16px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .counter-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .counter-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .counter-btn {
+      background: var(--border);
+      border: none;
+      color: var(--text);
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+
+    .counter-btn:hover {
+      background: var(--purple-400);
+      color: white;
+    }
+
+    .counter-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--purple-400);
+      min-width: 30px;
+    }
+
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .checkbox-item input {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .checkbox-item label {
+      margin: 0;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .estimate-box {
+      background: rgba(168,85,247,0.1);
+      border: 1px solid var(--purple-400);
+      padding: 24px;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .estimate-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .estimate-price {
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--purple-400);
+      margin-bottom: 8px;
+    }
+
+    .estimate-note {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Pricing FAQ */
+    .pricing-faq {
+      padding: 80px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-faq h2 {
+      font-size: 28px;
+      margin-bottom: 60px;
+      text-align: center;
+      color: var(--text);
+    }
+
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 20px 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+      color: var(--text);
+      transition: color 0.3s;
+    }
+
+    .faq-question:hover {
+      color: var(--purple-400);
+    }
+
+    .faq-toggle {
+      font-size: 20px;
+      transition: transform 0.3s;
+      color: var(--purple-400);
+    }
+
+    .faq-toggle.open {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding: 0 24px;
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .faq-answer.open {
+      max-height: 300px;
+      padding: 0 24px 20px 24px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 60px 24px 40px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-column h3 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      color: var(--purple-400);
+    }
+
+    .footer-column a,
+    .footer-column p {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 8px;
+      transition: color 0.3s;
+    }
+
+    .footer-column a:hover {
+      color: var(--text);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .pricing-card.featured {
+        transform: scale(1);
+      }
+    }
+
+    /* ===== MOBILE PHONE OPTIMIZATIONS ===== */
+    @media (max-width: 480px) {
+      nav {
+        padding: 0 16px;
+        height: 56px;
+      }
+
+      .nav-logo {
+        font-size: 18px;
+      }
+
+      .nav-links {
+        top: 56px;
+      }
+
+      main {
+        margin-top: 56px;
+      }
+
+      .page-hero {
+        padding: 48px 16px;
+      }
+
+      .page-hero h1 {
+        font-size: 28px;
+      }
+
+      .page-hero p {
+        font-size: 14px;
+      }
+
+      .pricing-section,
+      .quote-section,
+      .included-section {
+        padding: 48px 16px;
+      }
+
+      .section-header h2 {
+        font-size: 24px;
+      }
+
+      .section-header p {
+        font-size: 14px;
+      }
+
+      /* Mobile: force single column even when an inline style set 3 columns */
+      .pricing-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px;
+      }
+
+      .pricing-card {
+        padding: 24px;
+      }
+
+      .pricing-card .price {
+        font-size: 36px;
+      }
+
+      .pricing-card h3 {
+        font-size: 20px;
+      }
+
+      .pricing-card p,
+      .pricing-card li {
+        font-size: 13px;
+      }
+
+      .pricing-card.featured {
+        transform: none;
+      }
+
+      .quote-builder {
+        padding: 24px 16px;
+      }
+
+      .checkbox-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .counter-controls {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .included-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      footer {
+        padding: 40px 16px 24px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .page-hero h1 {
+        font-size: 24px;
+      }
+
+      .pricing-card .price {
+        font-size: 30px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+    }
+    .tier-note {
+    font-size: 11.5px; line-height: 1.5; color: #94a3b8;
+    margin: 12px 0 18px; text-align: left;
+  }
+  .warranty-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px; max-width: 1100px; margin: 0 auto;
+  }
+  .warranty-card {
+    background: rgba(0,0,0,0.25); border: 1px solid rgba(139,92,246,0.25);
+    border-radius: 14px; padding: 26px 28px; text-align: left;
+  }
+  .warranty-card h3 { font-size: 17px; color: #f8fafc; margin: 0 0 12px; }
+  .warranty-card p { font-size: 13.5px; line-height: 1.7; color: #94a3b8; margin: 0 0 12px; }
+  .warranty-card p:last-child { margin-bottom: 0; }
+  .warranty-note {
+    max-width: 1100px; margin: 24px auto 0; text-align: center;
+    font-size: 12.5px; line-height: 1.6; color: #94a3b8;
+  }
+  .warranty-callout {
+    max-width: 1100px; margin: 28px auto 0; padding: 26px 30px;
+    background: rgba(0,0,0,0.25); border: 1px solid rgba(139,92,246,0.3);
+    border-left: 4px solid var(--purple-400);
+    border-radius: 14px; text-align: left;
+  }
+  .warranty-callout h3 { font-size: 18px; color: #f8fafc; margin: 0 0 14px; }
+  .warranty-callout p { font-size: 13.5px; line-height: 1.75; color: #94a3b8; margin: 0 0 12px; }
+  .warranty-callout p:last-child { margin-bottom: 0; }
+  .warranty-callout strong { color: #e9d5ff; }
+
+    .skip-link { position: absolute; left: -9999px; top: 0; z-index: 1000; padding: 10px 16px; border-radius: 8px; background: #6b21a8; color: #fff; font-weight: 700; text-decoration: none; }
+    .skip-link:focus { left: 16px; top: 12px; }
+
+  .legal { max-width: 820px; margin: 0 auto; padding: 56px 24px 80px; }
+  .legal h2 { font-size: 22px; color: var(--text); margin: 44px 0 12px; text-align: left; scroll-margin-top: 80px; }
+  .legal h3 { font-size: 17px; color: #e9d5ff; margin: 24px 0 8px; }
+  .legal p, .legal li { font-size: 15px; line-height: 1.75; color: #b6a6d3; margin: 0 0 12px; }
+  .legal ul, .legal ol { padding-left: 22px; margin: 0 0 14px; }
+  .legal a { color: #a78bfa; }
+  .legal strong { color: #e9d5ff; }
+  .legal .toc { background: rgba(0,0,0,0.25); border: 1px solid rgba(139,92,246,0.25); border-radius: 14px; padding: 18px 24px; margin-bottom: 8px; }
+  .legal .toc ol { margin: 0; columns: 2; column-gap: 32px; }
+  .legal .toc li { margin: 0 0 6px; font-size: 14px; }
+  .draft-banner { max-width: 820px; margin: 28px auto 0; padding: 14px 18px; border: 1px dashed #fbbf24; border-radius: 12px; background: rgba(251,191,36,0.08); color: #fde68a; font-size: 14px; line-height: 1.6; }
+  .legal-hero { min-height: 240px; padding: 64px 24px 40px; }
+  mark.ph { background: #fbbf24; color: #1a0533; padding: 0 4px; border-radius: 3px; font-weight: 700; }
+  .legal .meta { font-size: 13px; color: var(--text-muted); }
+  @media (max-width: 640px) { .legal { padding: 36px 16px 60px; } .legal .toc ol { columns: 1; } .draft-banner { margin: 20px 16px 0; } }
+  </style>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta property="og:image" content="https://ejgos.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="EJG-OS — the smart home that runs in your home. Calgary &amp; surrounding communities.">
+  <meta name="twitter:image" content="https://ejgos.com/og-image.png">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav>
+    <a href="/" class="nav-logo">EJG-OS</a>
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false" style="display:block"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/features">Features</a></li>
+      <li><a href="/how-it-works">How It Works</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/custom">Custom Build</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact" class="nav-cta">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <main id="main">
+    <section class="page-hero legal-hero">
+      <div class="page-hero-content">
+        <h1>Terms of Sale</h1>
+        <p>What you are buying, what it costs, what is covered, and how to cancel.</p>
+      </div>
+    </section>
+
+    <div class="draft-banner"><strong>DRAFT for review. Not published.</strong> Highlighted items are decisions or facts only EJG can supply. The limitation of liability, cancellation and Priority Support sections should be reviewed by an Alberta lawyer before this page goes live.</div>
+    <article class="legal">
+      <p class="meta">EJG Technologies Inc. &middot; Calgary, Alberta &middot; Draft dated October 22, 2026</p>
+      <p>These terms apply when you buy an EJG-OS system, installation or Priority Support from EJG Technologies Inc. (&ldquo;EJG&rdquo;, &ldquo;we&rdquo;). They sit alongside your signed quote, which lists exactly what you are buying. If your quote says something different from this page, your quote wins for that item.</p>
+
+      <div class="toc"><ol>
+        <li><a href="#scope">What you are buying</a></li>
+        <li><a href="#price">Price, GST, deposit and payment</a></li>
+        <li><a href="#install">Installation and what we need from you</a></li>
+        <li><a href="#ownership">Ownership, software and your data</a></li>
+        <li><a href="#warranty">Warranty</a></li>
+        <li><a href="#updates">Software updates and support period</a></li>
+        <li><a href="#support-plan">Priority Support plan</a></li>
+        <li><a href="#access">Installer access</a></li>
+        <li><a href="#privacy">Privacy, cameras and recording</a></li>
+        <li><a href="#cancel">Cancellation, returns and refunds</a></li>
+        <li><a href="#liability">Limits on our liability</a></li>
+        <li><a href="#law">Governing law and contact</a></li>
+      </ol></div>
+
+      <h2 id="scope">1. What you are buying</h2>
+      <p>Your quote lists the EJG-OS hub, the wall tablet and mount, the Z-Wave devices and any cameras, recorder and storage you chose, plus installation, configuration, first-day tuning and a walkthrough of the system. Anything not on the quote is not included. Additions later are quoted separately.</p>
+      <p>EJG-OS is a convenience and lifestyle product. It is self-monitored: it tells <em>you</em> when something happens. There is no monitoring centre, no one is dispatched on your behalf, and it cannot guarantee that anything is prevented. In an emergency call 911.</p>
+
+      <h2 id="price">2. Price, GST, deposit and payment</h2>
+      <ul>
+        <li>Prices are in Canadian dollars and are shown before GST. GST is added on your quote and invoice.</li>
+        <li>EJG Technologies Inc. GST/HST registration number: <mark class="ph">{{GST_HST_NUMBER}}</mark>.</li>
+        <li><strong>Deposit.</strong> <mark class="ph">{{DEPOSIT_TERMS}}</mark> (for example, a percentage of the quote due when you accept it).</li>
+        <li><strong>Balance.</strong> <mark class="ph">{{PAYMENT_DUE}}</mark> (for example, due on completion of the installation). Accepted payment methods: <mark class="ph">{{PAYMENT_METHODS}}</mark>.</li>
+        <li>The quote price is firm for the work described on it for <mark class="ph">{{QUOTE_VALID_DAYS}}</mark> days from the date on the quote.</li>
+        <li>If you ask for changes after you accept the quote (extra devices, different locations, a different recorder), we give you the change and its price in writing before we do it.</li>
+      </ul>
+
+      <h2 id="install">3. Installation and what we need from you</h2>
+      <p>We agree an installation date with you. Most lighting-and-lock installs are done in one day; homes with cameras take longer, and we give you a schedule at the consultation. Dates are our best estimate, not a guarantee, and we tell you promptly if one changes.</p>
+      <p>You provide safe access to the home and the work areas, working mains power at the locations that need it, and a wired internet connection for the hub (EJG-OS connects by Ethernet). Where an existing wall box, wiring or panel is not suitable for the device you chose, we tell you before we proceed and quote what is needed.</p>
+
+      <h2 id="ownership">4. Ownership, software and your data</h2>
+      <ul>
+        <li><strong>Hardware.</strong> The hardware on your quote becomes yours when you have paid for it in full.</li>
+        <li><strong>Software.</strong> The EJG-OS software is licensed to your home, not sold. You may use it on the hub we install, for your household, for as long as you keep that hub. You may not copy, resell or redistribute it.</li>
+        <li><strong>Your data.</strong> The information about your home that lives on your hub (devices, history, scenes, automations, recordings) is yours. We do not sell it. See the <a href="/privacy-policy">Privacy Policy</a> for what leaves your home and why.</li>
+      </ul>
+
+      <h2 id="warranty">5. Warranty</h2>
+      <ul>
+        <li><strong>Hardware, 12 months.</strong> From the installation date the hardware is warranted against manufacturing defects. If a device fails because of a defect in how it was made, we repair or replace it.</li>
+        <li><strong>Workmanship, 12 months.</strong> If something was mounted, wired or configured incorrectly by us, we return and correct it at no charge.</li>
+        <li><strong>Not covered:</strong> damage from improper operation or use, damage caused by moving a product after installation, damage from power surges, flooding, fire or other events outside our control, wear and tear on batteries and consumables, and faults in equipment we did not supply or install.</li>
+        <li><strong>Manufacturer warranties.</strong> Third-party devices (for example locks, thermostats, cameras and drives) also carry their manufacturers&rsquo; warranties. Where a manufacturer&rsquo;s warranty lasts longer than ours, we help you make a claim under it.</li>
+        <li><strong>Your legal rights.</strong> Nothing in this warranty removes or limits any right you have under Alberta or Canadian consumer law.</li>
+        <li><strong>How to claim.</strong> Email info@ejgos.com or call (587) 209-3608 with your name, address and a description of the problem. See <a href="/support">Support</a>.</li>
+      </ul>
+
+      <h2 id="updates">6. Software updates and support period</h2>
+      <p>EJG-OS software updates are free while your hub runs a current EJG-OS release. We tell you in writing if a version stops being supported, and we give you time to update before it does. Updates are digitally signed and delivered to your hub by your installer. Changes to your own system&rsquo;s setup (new devices, rooms, scenes or automations built by your installer) are quoted as service, or covered by the Priority Support plan.</p>
+      <p>Services we operate, such as remote access through EJG Secure Link, depend on EJG continuing to run them. If we ever stop, the lights, locks, scenes and automations on your hub keep working at home; remote access and updates would stop until another provider took them over.</p>
+
+      <h2 id="support-plan">7. Priority Support plan</h2>
+      <p>Priority Support is optional. You do not need it to use EJG-OS or to claim under the warranty.</p>
+      <ul>
+        <li><strong>What it includes:</strong> priority response to questions, remote diagnostics into your hub with your permission, and hands-on help configuring new devices, scenes and automations. Response targets are on the <a href="/support">Support</a> page.</li>
+        <li><strong>Price:</strong> $30 per month plus GST.</li>
+        <li><strong>Billing and renewal:</strong> it is month to month. Billing starts on the date you sign up and renews automatically each month, charged by <mark class="ph">{{BILLING_METHOD}}</mark>, until you cancel.</li>
+        <li><strong>Cancelling:</strong> cancel any time by emailing info@ejgos.com or writing to us at the mailing address below. <mark class="ph">{{CANCEL_EFFECT}}</mark> (for example: cancellation takes effect at the end of the month already paid).</li>
+        <li><strong>Refunds:</strong> <mark class="ph">{{SUPPORT_REFUND_POLICY}}</mark> (for example: we do not refund a month that has started; we refund any month charged after your cancellation took effect).</li>
+        <li><strong>Price changes:</strong> we give you at least <mark class="ph">{{PRICE_NOTICE_DAYS}}</mark> days&rsquo; written notice before the price changes, and you may cancel before the new price applies.</li>
+      </ul>
+
+      <h2 id="access">8. Installer access to your hub</h2>
+      <p>Using the installer tools on your home (seeing and changing devices, rooms, scenes and settings) needs your approval in the app. You choose how long that access lasts and you can cancel it at any time. Your installer also holds a maintenance key and your hub&rsquo;s secret, used to deliver signed software updates, receive your hub&rsquo;s health report and service the hub on site. You can switch the health report off in the app. Details are in the <a href="/privacy-policy#installer-access">Privacy Policy</a>.</p>
+
+      <h2 id="privacy">9. Privacy, cameras and recording</h2>
+      <p>Our <a href="/privacy-policy">Privacy Policy</a> forms part of these terms. You decide where cameras point and whether to turn face recognition on. You are responsible for telling household members, guests and anyone who works in your home that cameras record, for enrolling only people who agree to it, and for following the laws that apply to recording in and around your home. Nobody at EJG watches your cameras.</p>
+
+      <h2 id="cancel">10. Cancellation, returns and refunds</h2>
+      <ul>
+        <li><strong>Your legal right to cancel.</strong> Alberta consumer law gives you the right to cancel certain contracts, including some signed at your home, within a set time. Where the law gives you that right we honour it, and nothing in these terms limits it. <mark class="ph">{{COOLING_OFF_WORDING}}</mark></li>
+        <li><strong>Cancelling before work starts.</strong> <mark class="ph">{{CANCEL_BEFORE_INSTALL}}</mark> (for example: we refund your deposit less any non-returnable items we have already ordered for you).</li>
+        <li><strong>Returns of unused hardware.</strong> <mark class="ph">{{RETURNS_POLICY}}</mark></li>
+        <li><strong>Defective items.</strong> Handled under the warranty in section 5.</li>
+        <li>Refunds are paid by the method you used to pay, within <mark class="ph">{{REFUND_DAYS}}</mark> days of the refund being agreed.</li>
+      </ul>
+
+      <h2 id="liability">11. Limits on our liability</h2>
+      <p><strong>[Lawyer to review this section.]</strong> To the extent the law allows, our total liability to you for any claim connected with your purchase, installation or use of EJG-OS is limited to the amount you paid us for the item or service that the claim is about. We are not liable for indirect or consequential loss, such as lost income, lost data, or loss resulting from an internet, power or third-party service outage. EJG-OS is not a monitored security or life-safety system, and we are not responsible for loss that a monitored system or an emergency service would be expected to prevent. Nothing in these terms excludes or limits liability that cannot be excluded or limited by law, including liability for death or personal injury caused by our negligence, for fraud, or your rights under consumer protection law.</p>
+
+      <h2 id="law">12. Governing law and contact</h2>
+      <p>These terms are governed by the laws of Alberta and the federal laws of Canada that apply there. Disputes are to be decided by the courts of Alberta, without limiting any right you have by law to bring a claim elsewhere. We may update these terms; changes do not alter a quote you have already accepted, and the date at the top shows the current version.</p>
+      <p><strong>EJG Technologies Inc.</strong><br>
+      Email: <a href="mailto:info@ejgos.com">info@ejgos.com</a><br>
+      Phone: <a href="tel:+15872093608">(587) 209-3608</a><br>
+      Mailing address: <mark class="ph">{{MAILING_ADDRESS}}</mark></p>
+    </article>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Product</h3>
+        <a href="/features">Features</a>
+        <a href="/how-it-works">How It Works</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/custom">Custom Build</a>
+      </div>
+      <div class="footer-column">
+        <h3>Programs</h3>
+        <a href="/installers">Installer Program</a>
+        <a href="/builders">Builder Program</a>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <a href="/about">About</a>
+        <a href="/faq">FAQ</a>
+        <a href="/contact">Contact</a>
+        <a href="mailto:info@ejgos.com">info@ejgos.com</a>
+        <a href="tel:+15872093608">(587) 209-3608</a>
+      </div>
+      <div class="footer-column">
+        <h3>Legal</h3>
+        <a href="/warranty">Warranty &amp; Support</a>
+        <a href="/support">Support</a>
+        <a href="/terms">Terms of Sale</a>
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/privacy-policy#messaging-terms">Messaging Terms</a>
+      </div>
+      <div class="footer-column">
+        <h3>Location</h3>
+        <p>Calgary, AB</p>
+        <p>&amp; surrounding communities</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 EJG Technologies Inc. All rights reserved. EJG-OS &middot; Runs in your home.</p>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.querySelector('.nav-hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    if (hamburger && navLinks) {
+      const setOpen = (open) => {
+        navLinks.classList.toggle('nav-open', open);
+        hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      };
+      hamburger.addEventListener('click', () => setOpen(!navLinks.classList.contains('nav-open')));
+      navLinks.addEventListener('click', (e) => { if (e.target.tagName === 'A') setOpen(false); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('nav-open');
+      });
+    });
+
+    const currentPage = '/terms';
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('active');
+      }
+    });
+
+    // FAQ Toggle
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      const answer = item.querySelector('.faq-answer');
+      const toggle = item.querySelector('.faq-toggle');
+
+      question.addEventListener('click', () => {
+        answer.classList.toggle('open');
+        toggle.classList.toggle('open');
+      });
+    });
+
+    // Quote builder removed — now at custom.html
+  </script>
+</body>
+</html>

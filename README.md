@@ -7,7 +7,10 @@ Marketing / customer-facing website for EJG Technologies Inc.
 - `index.html` — main landing
 - `about.html`, `features.html`, `how-it-works.html`, `pricing.html`, `contact.html` — navigation
 - `builders.html`, `installers.html`, `custom.html` — role-specific landing pages
-- `privacy-policy.html`
+- `privacy-policy.html`, `warranty.html`, `faq.html`
+- `terms.html`, `support.html` — DRAFT pages (noindex, placeholders in `{{BRACES}}`); finish and remove the draft banner before publishing
+- `docs/WORDING-RULES.md` — allowed and forbidden claims for any public copy
+- `docs/store-listing.md` — App Store / Google Play listing drafts
 
 ## Local preview
 

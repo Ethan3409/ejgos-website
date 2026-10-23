@@ -233,6 +233,7 @@
       margin-bottom: 10px;
     }
     .contact-card p { margin-top: 8px; }
+    mark.ph { background: #fbbf24; color: #1a0533; padding: 0 4px; border-radius: 3px; font-weight: 700; }
     .contact-card .company {
       color: var(--text-muted);
       font-size: 13px;
@@ -319,9 +320,9 @@
         <div class="doc-eyebrow">Legal</div>
         <h1>Privacy Policy</h1>
         <div class="doc-meta">
-          <span>Effective October 6, 2026</span>
+          <span>Effective October 22, 2026</span>
           <span class="sep" aria-hidden="true"></span>
-          <span>Version 2.2</span>
+          <span>Version 2.3</span>
           <span class="sep" aria-hidden="true"></span>
           <span>Includes our <a href="#messaging-terms">Messaging Terms and Conditions</a></span>
         </div>
@@ -346,9 +347,25 @@
         <ul>
           <li><strong>Stays on your hub:</strong> your devices and their history, rooms, scenes, automations, household user accounts, lock codes, Skip's household profiles and memories, camera events and any recordings the hub makes, and face data if you use face recognition. Lights, locks, thermostats, scenes and automations work with the internet unplugged.</li>
           <li><strong>Stays in your home too:</strong> Skip, the voice assistant. It runs on your hub, and nothing you say to Skip is sent to EJG or to any AI service.</li>
-          <li><strong>Leaves your home:</strong> phone notifications (a plain notice through Expo, Apple, Google), remote access (EJG Secure Link or Cloudflare Tunnel), the optional weather and Spotify extras if you turn them on, encrypted backup copies sent to your installer's computer, and your home's record in your installer's account (see &ldquo;Installer access&rdquo;). Each is described below.</li>
+          <li><strong>Leaves your home:</strong> phone notifications (a plain notice through Expo, Apple, Google), remote access (EJG Secure Link, through a coordination server and relay we run), the optional weather and Spotify extras if you turn them on, encrypted backup copies sent to your installer's computer, and your home's record in your installer's account (see &ldquo;Installer access&rdquo;). Each is described below.</li>
           <li><strong>Never:</strong> we do not sell your personal information, show you ads, or put analytics, advertising or tracking code in our apps or on this website.</li>
         </ul>
+      </section>
+
+      <section id="what-leaves">
+        <h2><span class="kicker">What leaves your home</span>Every outside service, in one list.</h2>
+        <ul>
+          <li><strong>Phone and tablet alerts.</strong> Expo, Apple and Google receive your device's push token and a plain notice with a random reference, and can see that an alert was sent and when. Alert details stay on your hub unless you choose detailed notifications.</li>
+          <li><strong>Remote access (EJG Secure Link).</strong> A coordination server we run on DigitalOcean helps your phone and hub find each other. It holds device names, network keys and connection details. When the two cannot connect directly, an EJG relay on the same server forwards their traffic. That traffic is encrypted end to end between your phone and your hub, so the relay forwards sealed data it cannot read.</li>
+          <li><strong>App updates.</strong> The EJG Home apps ask Expo's update service for new app versions, sending your internet address, platform and an install ID.</li>
+          <li><strong>Hub software updates.</strong> Update packages are digitally signed and published on a public software feed hosted on Cloudflare. Your installer downloads them and delivers them to your hub; the feed sees the installer's internet address, not your hub's.</li>
+          <li><strong>Optional extras.</strong> Weather (your home's location rounded to about 1 km) and Spotify (the link and playback commands), only if you turn them on.</li>
+          <li><strong>Backups.</strong> Encrypted copies go to your installer's computer if your installer sets that up. The installer cannot open them.</li>
+          <li><strong>Installers' account service.</strong> Each installer's account is kept in sync through a server we run (acct.ejgos.com, on DigitalOcean). It holds an encrypted record of each home the installer looks after. Your hub does not send data to it; it is the installer's own computers that sync.</li>
+          <li><strong>Quotes and invoices.</strong> Emailed through Resend, which receives your name and email address.</li>
+          <li><strong>This website.</strong> Netlify and Cloudflare (hosting), FormSubmit (contact forms) and Grasshopper (phone and text messages).</li>
+        </ul>
+        <p>Nothing else leaves your home by default: not your camera video, not what you say to Skip, not your device history. Homes installed before October 2026 that have not yet had the update may still use older services; those are described in the sections below.</p>
       </section>
 
       <section>
@@ -450,8 +467,8 @@
       <section>
         <h2><span class="kicker">Remote access</span>Using your home from away.</h2>
         <ul>
-          <li><strong>EJG Secure Link.</strong> On homes using Secure Link, your phone and hub connect over a tunnel that is end-to-end encrypted between them. A coordination server we run on DigitalOcean (mesh.ejgos.com) helps devices find each other. It holds device names, network keys and connection details, not the contents of your traffic.</li>
-          <li><strong>Cloudflare Tunnel.</strong> On homes that use a Cloudflare Tunnel, traffic is encrypted between your phone and Cloudflare and between Cloudflare and your hub, but it is decrypted at Cloudflare's servers in between. This includes camera video you watch from away. Cloudflare Tunnel is the default for homes not on Secure Link, and those homes have a public address of the form <em>name</em>.ejgos.com.</li>
+          <li><strong>EJG Secure Link.</strong> On homes using Secure Link, your phone and hub connect over a tunnel that is end-to-end encrypted between them. A coordination server we run on DigitalOcean (mesh.ejgos.com) helps devices find each other. It holds device names, network keys and connection details, not the contents of your traffic. When your phone and hub cannot connect directly, traffic passes through an EJG relay on the same server. It forwards encrypted data it cannot read.</li>
+          <li><strong>Cloudflare Tunnel (older homes).</strong> Homes installed before October 2026 that have not yet been moved to Secure Link may use a Cloudflare Tunnel. On those homes, traffic is encrypted between your phone and Cloudflare and between Cloudflare and your hub, but it is decrypted at Cloudflare's servers in between. This includes camera video you watch from away. Those homes have a public address of the form <em>name</em>.ejgos.com.</li>
           <li><strong>At home.</strong> On your home network, the app talks to the hub directly.</li>
         </ul>
       </section>
@@ -459,7 +476,7 @@
       <section>
         <h2><span class="kicker">Cameras and face recognition</span>Recorded in the house, viewed by you.</h2>
         <ul>
-          <li><strong>Recordings.</strong> Camera video is recorded on equipment inside your home: a network video recorder (NVR). We turn off the recorder's cloud features. Nobody at EJG monitors your cameras. The recorder overwrites the oldest footage when its drive is full. The hub also keeps motion recordings (30 days by default; flagged events 90 days) when it can reach your cameras.</li>
+          <li><strong>Recordings.</strong> Camera video is recorded on equipment inside your home: a network video recorder (NVR). We set up your recorder to record locally and switch off its vendor remote-viewing service. Nobody at EJG monitors your cameras. The recorder overwrites the oldest footage when its drive is full. The hub also keeps motion recordings (30 days by default; flagged events 90 days) when it can reach your cameras.</li>
           <li><strong>Viewing from away.</strong> Video you watch from away reaches your phone through your remote-access connection (see &ldquo;Remote access&rdquo;).</li>
           <li><strong>Face recognition.</strong> Optional. If you turn it on, faces are analysed by software running on your hub, and the face data for people you enrol (a reference photo, their name, and when they were last recognised) is stored on the hub. Events with faces nobody has named are deleted after 30 days by default. Enrol only people who have agreed to it, and delete their face data when they ask.</li>
           <li><strong>Your responsibilities.</strong> You decide where cameras point. Let household members, guests and anyone who works in your home know that cameras record, avoid pointing cameras at neighbours' property or public areas, and follow the laws that apply to recording in your home.</li>
@@ -477,11 +494,11 @@
           <li><strong>Voice software on the hub.</strong> On new installs, the hub's wake-word software works offline and does not contact Hugging Face, and no online text-to-speech client is installed.</li>
           <li><strong>App updates.</strong> The EJG Home apps check Expo's update service for app updates, sending an install ID with the check.</li>
           <li><strong>Software, time and updates coming in.</strong> When your hub fetches system software or the time from the internet, those services see only your hub's internet address. EJG-OS software updates are digitally signed and delivered to your hub by your installer.</li>
-          <li><strong>Health report.</strong> Your hub reports basic health (status codes and counts, not device names) to your installer over EJG Secure Link so they can support it. Ask us and we will switch it off.</li>
+          <li><strong>Health report.</strong> Your hub reports basic health (status codes and counts, not device names) to your installer over EJG Secure Link so they can support it. You can switch it off in the app.</li>
         </ul>
       </section>
 
-      <section>
+      <section id="installer-access">
         <h2><span class="kicker">Installer access</span>What your installer can reach, and what needs your approval.</h2>
         <p>
           Using the installer tools on your home — seeing and changing devices,
@@ -497,7 +514,7 @@
         <p>
           <strong>Your home's record in the installer's account.</strong> Your
           installer's account is kept in sync across their computers through
-          an account service we run (acct.ejgos.com). Each home's record there
+          an account service we run on DigitalOcean (acct.ejgos.com). Each home's record there
           includes your address and location, your hub's network addresses,
           your hub's secret and your Z-Wave network keys. The record is
           encrypted, but with a key derived from the installer's password,
@@ -507,7 +524,7 @@
           We also keep the records needed to run your account: your name and
           contact details, address, the equipment installed, quotes, invoices
           and support history. Quotes and invoices are emailed through Resend,
-          which receives your name and email address.
+          which receives your name and email address. Our <a href="/terms">Terms of Sale</a> set out what we sell and how it is supported.
         </p>
       </section>
 
@@ -647,8 +664,13 @@
         <h2><span class="kicker">Security and breaches</span>How we protect it, and what we do if something goes wrong.</h2>
         <p>
           Your hub uses role-based sign-in, a firewall, encrypted backups and
-          digitally signed software updates, and remote access is encrypted in
-          transit. If a loss of, unauthorised access to, or disclosure of
+          digitally signed software updates, and remote access is encrypted end
+          to end. Sign-in on your phone and tablet lasts a long time so you are
+          not asked every day; two-step verification (2FA) is available and,
+          depending on the security setting you choose, required for sensitive
+          actions. The owner can see every trusted phone and tablet and remove
+          any of them at any time, and the hub does not serve a web page, so it
+          cannot be opened in a browser. If a loss of, unauthorised access to, or disclosure of
           personal information under our control creates a real risk of
           significant harm, we will notify the Office of the Information and
           Privacy Commissioner of Alberta without unreasonable delay, notify
@@ -675,7 +697,8 @@
           <a href="tel:+15872093608">(587) 209-3608</a>.
         </p>
         <p class="company">
-          EJG Technologies Inc. — Calgary, Alberta, Canada
+          EJG Technologies Inc. — Calgary, Alberta, Canada<br>
+          Mailing address: <mark class="ph">{{MAILING_ADDRESS}}</mark>
         </p>
       </div>
     </div>
@@ -707,6 +730,8 @@
       <div class="footer-column">
         <h3>Legal</h3>
         <a href="/warranty">Warranty &amp; Support</a>
+        <a href="/support">Support</a>
+        <a href="/terms">Terms of Sale</a>
         <a href="/privacy-policy">Privacy Policy</a>
         <a href="/privacy-policy#messaging-terms">Messaging Terms</a>
       </div>
@@ -717,7 +742,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 EJG Technologies Inc. All rights reserved. EJG-OS &middot; Built local. Runs local.</p>
+      <p>&copy; 2026 EJG Technologies Inc. All rights reserved. EJG-OS &middot; Runs in your home.</p>
     </div>
   </footer>
 

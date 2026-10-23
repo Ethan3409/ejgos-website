@@ -637,7 +637,7 @@
       "name": "Can I add devices after installation?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Your installer adds new devices whenever you want them; they pair directly to your local hub, and the work is quoted as service (or covered by the Priority Support plan). In the app you can run scenes, switch automations on or off and manage lock codes; new rooms, scenes and automations are set up by your installer too. EJG-OS software updates are free. There's no contract locking you into anything."
+        "text": "Yes. Your installer adds new devices whenever you want them; they pair directly to your local hub, and the work is quoted as service (or covered by the Priority Support plan). In the app you can run scenes, switch automations on or off and manage lock codes; new rooms, scenes and automations are set up by your installer too. EJG-OS software updates are free while your hub is under a current EJG-OS release; we tell you in writing if a version stops being supported. There's no contract locking you into anything."
       }
     },
     {
@@ -661,7 +661,7 @@
       "name": "Does it work with voice assistants like Alexa or Google?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "EJG-OS includes our own “Hey Skip” voice assistant instead. Skip runs on your hub. It understands a set of home commands — lights, locks, the thermostat, scenes, timers, reminders, lists, family messages and more — and answers with a voice generated on the hub. On the wall tablet, the hub hears the wake word and turns speech into text; on a phone, speech is turned into text on the phone itself. Nothing you say to Skip is sent to EJG or to any AI service, and Skip on the wall tablet keeps working with the internet unplugged. Skip can be turned off. We don't connect Alexa or Google Home."
+        "text": "EJG-OS includes our own “Hey Skip” voice assistant instead. Skip runs on your hub. It understands a defined set of home commands — lights, locks, the thermostat, scenes, timers, reminders, lists, family messages and more — and answers with a voice generated on the hub. It is not a general chatbot, and it is still being tuned. On the wall tablet, the hub hears the wake word and turns speech into text; on iPhone, speech is turned into text on the phone itself, in English, on phones that have the on-device speech model installed. Nothing you say to Skip is sent to EJG or to any AI service, and Skip on the wall tablet keeps working with the internet unplugged. Skip can be turned off. We don't connect Alexa or Google Home."
       }
     },
     {
@@ -677,7 +677,7 @@
       "name": "Is my data private?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We never sell your data. Your device history, scenes and automations live on the Raspberry Pi server inside your home, not on our servers. Skip, the voice assistant, runs on the hub, and nothing you say to it is sent to us or to any AI service. A few features use outside services: phone alerts pass through Apple and Google as a plain “you have a new alert” notice, with the details opened from your hub in the app; remote access runs through Cloudflare or EJG Secure Link; and the optional weather and music extras, off until you turn them on, use outside services. Every service is named in our privacy policy."
+        "text": "We never sell your data. Your device history, scenes and automations live on the Raspberry Pi server inside your home, not on our servers. Skip, the voice assistant, runs on the hub, and nothing you say to it is sent to us or to any AI service. A few features use outside services: phone alerts pass through Apple and Google as a plain “you have a new alert” notice, with the details opened from your hub in the app; remote access runs through EJG Secure Link, where a small EJG-run service and relay pass encrypted data they cannot read; and the optional weather and music extras, off until you turn them on, use outside services. Every service is named in our privacy policy."
       }
     },
     {
@@ -685,7 +685,7 @@
       "name": "Do I need to pay a monthly fee?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. The base EJG-OS platform is a one-time installation cost. There are no mandatory platform fees, no subscription required to use your smart home, and no features locked behind a paywall. Every install comes with a 12-month hardware warranty and a 12-month workmanship warranty — a Priority Support plan is available at $30/month if you want faster response, remote diagnostics, and hands-on configuration help. Cancel any time."
+        "text": "No. The base EJG-OS platform is a one-time installation cost. There are no mandatory platform fees, no subscription required to use your smart home, and no features locked behind a paywall. Every install comes with a 12-month hardware warranty and a 12-month workmanship warranty — a Priority Support plan is available at $30/month plus GST if you want faster response, remote diagnostics, and hands-on configuration help. Cancel any time."
       }
     },
     {
@@ -693,7 +693,7 @@
       "name": "Are there any hidden fees?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Prices on this site are installed prices in Canadian dollars, before GST, and GST is added to your invoice. Installation, hardware, configuration and training are included in the quoted price. The only optional recurring add-on is the Priority Support plan at $30/month — no contract, cancel anytime."
+        "text": "Prices on this site are installed prices in Canadian dollars, before GST, and GST is added to your invoice. Installation, hardware, configuration and training are included in the quoted price. The only optional recurring add-on is the Priority Support plan at $30/month plus GST — no contract, cancel anytime."
       }
     },
     {
@@ -717,7 +717,7 @@
       "name": "Is the support plan really optional?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely optional. Every install comes with a 12-month hardware warranty and a 12-month workmanship warranty. The Priority Support plan is a $30/month add-on for homeowners who want priority response and hands-on help configuring new devices or automations later. Add it anytime, cancel anytime."
+        "text": "Yes, completely optional. Every install comes with a 12-month hardware warranty and a 12-month workmanship warranty. The Priority Support plan is a $30/month plus GST add-on for homeowners who want priority response and hands-on help configuring new devices or automations later. Add it anytime, cancel anytime."
       }
     },
     {
@@ -725,7 +725,7 @@
       "name": "What do cameras need beyond the cameras themselves?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A dedicated network video recorder (NVR) with its own storage drive. The NVR is required for every camera install: cameras record to it around the clock, and the recordings stay on it, inside your home. PoE cameras plug directly into the NVR's built-in PoE ports, which powers them and keeps them on their own isolated camera network with no direct path to your home network or the internet, and we turn off the recorder's cloud features. The indoor pan/tilt camera records to the same NVR. A $300 network switch is offered with any camera build: it keeps the hub, tablet and indoor camera off the same network as the rest of the house, and powers PoE cameras over the same cables. Past 8 cameras it is required rather than optional, because the recorder runs out of ports, and the builder adds it automatically. You choose the drive size by how many days of footage you want to keep (see the storage table on the pricing page)."
+        "text": "A dedicated network video recorder (NVR) with its own storage drive. The NVR is required for every camera install: cameras record to it around the clock, and the recordings stay on it, inside your home. PoE cameras connect to the recorder's built-in PoE ports, which also power them. We set the recorder up to record locally and switch off its vendor remote-viewing service. The indoor pan/tilt camera records to the same NVR. A $300 network switch is offered with any camera build; it powers PoE cameras over the same cables. Past 8 cameras it is required rather than optional, because the recorder runs out of ports, and the builder adds it automatically. You choose the drive size by how many days of footage you want to keep (see the storage table on the pricing page)."
       }
     }
   ]
@@ -785,7 +785,7 @@
           <span>Can I add devices after installation?</span>
           <span class="faq-toggle open"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
         </div>
-        <div class="faq-answer open">Yes. Your installer adds new devices whenever you want them; they pair directly to your local hub, and the work is quoted as service (or covered by the Priority Support plan). In the app you can run scenes, switch automations on or off and manage lock codes; new rooms, scenes and automations are set up by your installer too. EJG-OS software updates are free. There's no contract locking you into anything.</div>
+        <div class="faq-answer open">Yes. Your installer adds new devices whenever you want them; they pair directly to your local hub, and the work is quoted as service (or covered by the Priority Support plan). In the app you can run scenes, switch automations on or off and manage lock codes; new rooms, scenes and automations are set up by your installer too. EJG-OS software updates are free while your hub is under a current EJG-OS release; we tell you in writing if a version stops being supported. There's no contract locking you into anything.</div>
       </div>
 
       <div class="faq-item">
@@ -813,7 +813,7 @@
           <span>Does it work with voice assistants like Alexa or Google?</span>
           <span class="faq-toggle open"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
         </div>
-        <div class="faq-answer open">EJG-OS includes our own &ldquo;Hey Skip&rdquo; voice assistant instead. Skip runs on your hub. It understands a set of home commands — lights, locks, the thermostat, scenes, timers, reminders, lists, family messages and more — and answers with a voice generated on the hub. On the wall tablet, the hub hears the wake word and turns speech into text; on a phone, speech is turned into text on the phone itself. Nothing you say to Skip is sent to EJG or to any AI service, and Skip on the wall tablet keeps working with the internet unplugged. Skip can be turned off. We don't connect Alexa or Google Home.</div>
+        <div class="faq-answer open">EJG-OS includes our own &ldquo;Hey Skip&rdquo; voice assistant instead. Skip runs on your hub. It understands a defined set of home commands — lights, locks, the thermostat, scenes, timers, reminders, lists, family messages and more — and answers with a voice generated on the hub. It is not a general chatbot, and it is still being tuned. On the wall tablet, the hub hears the wake word and turns speech into text; on iPhone, speech is turned into text on the phone itself, in English, on phones that have the on-device speech model installed. Nothing you say to Skip is sent to EJG or to any AI service, and Skip on the wall tablet keeps working with the internet unplugged. Skip can be turned off. We don't connect Alexa or Google Home.</div>
       </div>
     </section>
 
@@ -833,7 +833,7 @@
           <span>Is my data private?</span>
           <span class="faq-toggle open"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
         </div>
-        <div class="faq-answer open">We never sell your data. Your device history, scenes and automations live on the Raspberry Pi server inside your home, not on our servers. Skip, the voice assistant, runs on the hub, and nothing you say to it is sent to us or to any AI service. A few features use outside services: phone alerts pass through Apple and Google as a plain &ldquo;you have a new alert&rdquo; notice, with the details opened from your hub in the app; remote access runs through Cloudflare or EJG Secure Link; and the optional weather and music extras, off until you turn them on, use outside services. Every service is named in our <a href="/privacy-policy">privacy policy</a>.</div>
+        <div class="faq-answer open">We never sell your data. Your device history, scenes and automations live on the Raspberry Pi server inside your home, not on our servers. Skip, the voice assistant, runs on the hub, and nothing you say to it is sent to us or to any AI service. A few features use outside services: phone alerts pass through Apple and Google as a plain &ldquo;you have a new alert&rdquo; notice, with the details opened from your hub in the app; remote access runs through EJG Secure Link, where a small EJG-run service and relay pass encrypted data they cannot read; and the optional weather and music extras, off until you turn them on, use outside services. Every service is named in our <a href="/privacy-policy">privacy policy</a>.</div>
       </div>
     </section>
 
@@ -845,7 +845,7 @@
           <span>Do I need to pay a monthly fee?</span>
           <span class="faq-toggle open"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
         </div>
-        <div class="faq-answer open">No. The base EJG-OS platform is a one-time installation cost. There are no mandatory platform fees, no subscription required to use your smart home, and no features locked behind a paywall. Every install comes with a 12-month hardware warranty and a 12-month workmanship warranty — a Priority Support plan is available at $30/month if you want faster response, remote diagnostics, and hands-on configuration help. Cancel any time.</div>
+        <div class="faq-answer open">No. The base EJG-OS platform is a one-time installation cost. There are no mandatory platform fees, no subscription required to use your smart home, and no features locked behind a paywall. Every install comes with a 12-month hardware warranty and a 12-month workmanship warranty — a Priority Support plan is available at $30/month plus GST if you want faster response, remote diagnostics, and hands-on configuration help. Cancel any time.</div>
       </div>
 
       <div class="faq-item">
@@ -853,7 +853,7 @@
           <span>Are there any hidden fees?</span>
           <span class="faq-toggle open"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
         </div>
-        <div class="faq-answer open">Prices on this site are installed prices in Canadian dollars, before GST, and GST is added to your invoice. Installation, hardware, configuration and training are included in the quoted price. The only optional recurring add-on is the Priority Support plan at $30/month — no contract, cancel anytime.</div>
+        <div class="faq-answer open">Prices on this site are installed prices in Canadian dollars, before GST, and GST is added to your invoice. Installation, hardware, configuration and training are included in the quoted price. The only optional recurring add-on is the Priority Support plan at $30/month plus GST — no contract, cancel anytime.</div>
       </div>
 
       <div class="faq-item">
@@ -877,7 +877,7 @@
           <span>Is the support plan really optional?</span>
           <span class="faq-toggle open"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
         </div>
-        <div class="faq-answer open">Yes, completely optional. Every install comes with a 12-month hardware warranty and a 12-month workmanship warranty. The Priority Support plan is a $30/month add-on for homeowners who want priority response and hands-on help configuring new devices or automations later. Add it anytime, cancel anytime.</div>
+        <div class="faq-answer open">Yes, completely optional. Every install comes with a 12-month hardware warranty and a 12-month workmanship warranty. The Priority Support plan is a $30/month plus GST add-on for homeowners who want priority response and hands-on help configuring new devices or automations later. Add it anytime, cancel anytime.</div>
       </div>
     </section>
 
@@ -889,7 +889,7 @@
           <span>What do cameras need beyond the cameras themselves?</span>
           <span class="faq-toggle open"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
         </div>
-        <div class="faq-answer open">A dedicated network video recorder (NVR) with its own storage drive. The NVR is required for every camera install: cameras record to it around the clock, and the recordings stay on it, inside your home. PoE cameras plug directly into the NVR's built-in PoE ports, which powers them and keeps them on their own isolated camera network with no direct path to your home network or the internet, and we turn off the recorder's cloud features. The indoor pan/tilt camera records to the same NVR. A $300 network switch is offered with any camera build: it keeps the hub, tablet and indoor camera off the same network as the rest of the house, and powers PoE cameras over the same cables. Past 8 cameras it is required rather than optional, because the recorder runs out of ports, and the builder adds it automatically. You choose the drive size by how many days of footage you want to keep (see the <a href="/pricing#camera-storage">storage table</a> on the pricing page).</div>
+        <div class="faq-answer open">A dedicated network video recorder (NVR) with its own storage drive. The NVR is required for every camera install: cameras record to it around the clock, and the recordings stay on it, inside your home. PoE cameras connect to the recorder's built-in PoE ports, which also power them. We set the recorder up to record locally and switch off its vendor remote-viewing service. The indoor pan/tilt camera records to the same NVR. A $300 network switch is offered with any camera build; it powers PoE cameras over the same cables. Past 8 cameras it is required rather than optional, because the recorder runs out of ports, and the builder adds it automatically. You choose the drive size by how many days of footage you want to keep (see the <a href="/pricing#camera-storage">storage table</a> on the pricing page).</div>
       </div>
     </section>
 
@@ -927,6 +927,8 @@
       <div class="footer-column">
         <h3>Legal</h3>
         <a href="/warranty">Warranty &amp; Support</a>
+        <a href="/support">Support</a>
+        <a href="/terms">Terms of Sale</a>
         <a href="/privacy-policy">Privacy Policy</a>
         <a href="/privacy-policy#messaging-terms">Messaging Terms</a>
       </div>
@@ -937,7 +939,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 EJG Technologies Inc. All rights reserved. EJG-OS &middot; Built local. Runs local.</p>
+      <p>&copy; 2026 EJG Technologies Inc. All rights reserved. EJG-OS &middot; Runs in your home.</p>
     </div>
   </footer>
 
