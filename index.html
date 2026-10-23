@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EJG-OS — The Smart Home Operating System</title>
+  <title>Smart Home Calgary: EJG-OS Installed in Your Home</title>
 
-  <meta name="description" content="EJG-OS is the local-first smart home operating system. One-time install, no required subscription, and a home that runs without the cloud. Serving Calgary and surrounding communities." />
+  <meta name="description" content="Smart home installation in Calgary, Airdrie, Cochrane, Okotoks and Chestermere. A hub in your home runs lights, locks and heating, even with the internet unplugged." />
   <meta name="keywords" content="smart home, home automation, Z-Wave, local control, works offline, EJG-OS, Calgary, Alberta, Canadian smart home installer" />
   <meta name="author" content="EJG Technologies Inc." />
   <link rel="canonical" href="https://ejgos.com/" />
   <meta name="theme-color" content="#0d0620" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="EJG-OS — The Smart Home Operating System" />
+  <meta property="og:title" content="Smart Home Calgary: EJG-OS Installed in Your Home" />
   <meta property="og:description" content="One-time install. No required subscription. A smart home that keeps working with the internet unplugged." />
   <meta property="og:url" content="https://ejgos.com/" />
   <meta property="og:site_name" content="EJG-OS" />
   <meta property="og:locale" content="en_CA" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="EJG-OS — The Smart Home Operating System" />
+  <meta name="twitter:title" content="Smart Home Calgary: EJG-OS Installed in Your Home" />
   <meta name="twitter:description" content="One-time install. No required subscription." />
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -592,38 +592,89 @@
     .skip-link { position: absolute; left: -9999px; top: 0; z-index: 1000; padding: 10px 16px; border-radius: 8px; background: #6b21a8; color: #fff; font-weight: 700; text-decoration: none; }
     .skip-link:focus { left: 16px; top: 12px; }
   </style>
+<!-- {{STREET_ADDRESS}} / {{POSTAL_CODE}}: add streetAddress and postalCode to the LocalBusiness address once Ethan confirms what may be public. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "HomeAndConstructionBusiness",
-  "@id": "https://ejgos.com/#business",
-  "name": "EJG Technologies Inc.",
-  "legalName": "EJG Technologies Inc.",
-  "url": "https://ejgos.com/",
-  "logo": "https://ejgos.com/logo-512.png",
-  "image": "https://ejgos.com/logo-512.png",
-  "description": "Owner-operated smart home installer in Calgary. Local-first EJG-OS hub, Z-Wave devices, professional installation, no required subscription.",
-  "email": "info@ejgos.com",
-  "telephone": "+1-587-209-3608",
-  "priceRange": "$$",
-  "currenciesAccepted": "CAD",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Calgary",
-    "addressRegion": "AB",
-    "addressCountry": "CA"
-  },
-  "areaServed": [
+  "@graph": [
     {
-      "@type": "City",
-      "name": "Calgary"
+      "@type": "Organization",
+      "@id": "https://ejgos.com/#org",
+      "name": "EJG Technologies Inc.",
+      "legalName": "EJG Technologies Inc.",
+      "url": "https://ejgos.com/",
+      "logo": "https://ejgos.com/logo-512.png",
+      "email": "info@ejgos.com",
+      "telephone": "+1-587-209-3608",
+      "brand": {
+        "@type": "Brand",
+        "name": "EJG-OS"
+      }
     },
     {
-      "@type": "AdministrativeArea",
-      "name": "Calgary and surrounding area, Alberta"
+      "@type": [
+        "HomeAndConstructionBusiness",
+        "LocalBusiness"
+      ],
+      "@id": "https://ejgos.com/#business",
+      "name": "EJG Technologies Inc.",
+      "legalName": "EJG Technologies Inc.",
+      "url": "https://ejgos.com/",
+      "logo": "https://ejgos.com/logo-512.png",
+      "image": "https://ejgos.com/logo-512.png",
+      "description": "Owner-operated smart home installer in Calgary. Local-first EJG-OS hub, Z-Wave devices, professional installation, no required subscription.",
+      "email": "info@ejgos.com",
+      "telephone": "+1-587-209-3608",
+      "priceRange": "$$",
+      "currenciesAccepted": "CAD",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Calgary",
+        "addressRegion": "AB",
+        "addressCountry": "CA"
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Calgary"
+        },
+        {
+          "@type": "City",
+          "name": "Airdrie"
+        },
+        {
+          "@type": "City",
+          "name": "Cochrane"
+        },
+        {
+          "@type": "City",
+          "name": "Okotoks"
+        },
+        {
+          "@type": "City",
+          "name": "Chestermere"
+        },
+        {
+          "@type": "City",
+          "name": "Springbank"
+        }
+      ],
+      "sameAs": [],
+      "parentOrganization": {
+        "@id": "https://ejgos.com/#org"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ejgos.com/#website",
+      "url": "https://ejgos.com/",
+      "name": "EJG-OS",
+      "publisher": {
+        "@id": "https://ejgos.com/#org"
+      },
+      "inLanguage": "en-CA"
     }
-  ],
-  "sameAs": []
+  ]
 }
 </script>
   <meta property="og:image" content="https://ejgos.com/og-image.png">
@@ -667,7 +718,7 @@
       that runs in <span class="highlight">your home.</span>
     </h1>
     <p class="hero-sub">
-      EJG-OS runs on a hub we install in your house. Lights, locks, heating and automations are controlled right there, and keep working with the internet unplugged. No required subscription. No cloud account. Skip, the built-in voice assistant, runs on the hub too. A few extras, such as remote access from away, phone alerts and optional weather and music, use outside services, and our <a href="/privacy-policy" style="color:inherit;text-decoration:underline;">privacy policy</a> names every one.
+      EJG-OS is a professionally installed smart home for Calgary-area houses: a hub in your home runs your lights, locks, heating and automations, and they keep working with the internet unplugged. Your cameras, recordings, device history and settings are stored on the hub in your home, not in the cloud. We don&rsquo;t keep copies on our servers. No required subscription. No cloud account. Skip, the built-in voice assistant, runs on the hub too. A few extras, such as remote access from away, phone alerts and optional weather and music, use outside services, and our <a href="/privacy-policy" style="color:inherit;text-decoration:underline;">privacy policy</a> names every one.
     </p>
     <div class="hero-actions">
       <a href="/contact" class="btn-primary">Book a Calgary Consultation →</a>
@@ -818,7 +869,7 @@
       <div class="feature-card">
         <div class="feature-icon"><svg class="ico" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9a2.2 2.2 0 0 1 2.2-2.2h1.9l1.4-2.3h7l1.4 2.3h1.9A2.2 2.2 0 0 1 21 9v8.6a2.2 2.2 0 0 1-2.2 2.2H5.2A2.2 2.2 0 0 1 3 17.6z"/><circle cx="12" cy="13" r="3.7"/></svg></div>
         <h3>Cameras</h3>
-        <p>Cameras record to a network video recorder in your home, required for every camera install. PoE cameras connect to the recorder's PoE ports. There is no cloud video subscription and nobody at EJG watches your cameras. We set up your recorder to record locally and switch off its vendor remote-viewing service. Your hub can also keep motion clips on its own drive, and you can view your cameras in the EJG-OS app.</p>
+        <p>Cameras record to a network video recorder in your home, required for every camera install. PoE cameras connect to the recorder's PoE ports. There is no cloud video subscription and nobody at EJG watches your cameras. We set up your recorder to record locally and switch off its vendor remote-viewing service. Your hub can also keep motion clips on its own drive, and you can view your cameras in the EJG-OS app. <!-- PUBLISH-GATE: customer app builds --></p>
       </div>
 
       <div class="feature-card">
@@ -1833,9 +1884,16 @@
         <a href="/privacy-policy#messaging-terms">Messaging Terms</a>
       </div>
       <div class="footer-column">
+        <h3>Learn</h3>
+        <a href="/compare">Compare EJG-OS</a>
+        <a href="/service-area">Service area</a>
+        <a href="/llms.txt">Site summary (llms.txt)</a>
+      </div>
+      <div class="footer-column">
         <h3>Location</h3>
         <p>Calgary, AB</p>
         <p>&amp; surrounding communities</p>
+        <a href="/service-area">Where we install</a>
       </div>
     </div>
     <div class="footer-bottom">

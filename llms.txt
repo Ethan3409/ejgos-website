@@ -1,0 +1,29 @@
+# EJG-OS (EJG Technologies Inc.)
+
+> EJG-OS is a professionally installed smart home system for Calgary-area houses. A hub in your home runs your lights, locks, heating and automations, and they keep working with the internet unplugged. No required subscription. Installed in Calgary, Airdrie, Cochrane, Okotoks, Chestermere and Springbank. Prices are in Canadian dollars, before GST. As of October 2026.
+
+EJG-OS is a home automation system. It is not an alarm or monitoring service and does not replace one.
+
+## Key facts
+- Company: EJG Technologies Inc., Calgary, Alberta. Phone (587) 209-3608, info@ejgos.com. Every enquiry is answered within one business day.
+- Price: $1,000 Base Package (hub, 10-inch wall-mounted tablet with frame and mount, three Zooz Z-Wave switches, installation, first-day tuning), plus devices at flat installed prices. Sample packages: Essentials $1,512 (10 devices), Standard Home $3,483 (31 devices), Premium $6,021 (60 devices).
+- Fees: no required subscription. Optional Priority Support is $30/month plus GST, month to month.
+- Hardware you own once paid in full; the software is licensed.
+- Your cameras, recordings, device history and settings are stored on the hub in your home, not in the cloud. We don't keep copies on our servers. Phone alerts pass through Apple, Google and Expo; optional services you turn on use their own providers.
+- Remote access: EJG Secure Link, encrypted end to end; EJG runs a coordination service and a relay that cannot read the traffic.
+- Skip is the built-in voice assistant ("Hey Skip"). It runs on the hub and understands a defined set of home commands. It is still being tuned.
+- Devices: Z-Wave. We don't connect Alexa or Google Home.
+- Warranty: 12 months hardware, 12 months workmanship.
+
+## Pages
+- [FAQ](https://ejgos.com/faq): short answers on price, install time, internet, privacy, Skip, devices
+- [Pricing](https://ejgos.com/pricing)
+- [Custom builder](https://ejgos.com/custom)
+- [How it works](https://ejgos.com/how-it-works)
+- [Features](https://ejgos.com/features)
+- [Service area](https://ejgos.com/service-area)
+- [Builder program](https://ejgos.com/builders)
+- [Compare EJG-OS](https://ejgos.com/compare): vs Telus and ADT, Control4, Home Assistant, Alexa and Google Home (sourced, dated)
+- [Warranty and support](https://ejgos.com/warranty)
+- [Privacy policy](https://ejgos.com/privacy-policy)
+- [Contact](https://ejgos.com/contact)
